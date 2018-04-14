@@ -33,56 +33,6 @@ var LevelProgression = {
     20: 190000
 };
 
-var Heros = [{
-    id: 1,
-    class: 'Rogue',
-    race: 'Dwarf',
-    name: 'Ravan',
-    created: new Date('2018-03-15'),
-    STR: 10,
-    DEX: 17,
-    CON: 14,
-    INT: 15,
-    WIS: 9,
-    CHA: 14,
-    title: 'Shadow Dancer',
-    age: 65,
-    level: 3,
-    XP: 200
-}, {
-    id: 2,
-    class: 'Barbarian',
-    race: 'Half-Orc',
-    name: 'Tov',
-    created: new Date('2018-03-10'),
-    STR: 16,
-    DEX: 15,
-    CON: 17,
-    INT: 18,
-    WIS: 11,
-    CHA: 13,
-    title: 'Stone Jaw',
-    age: 32,
-    level: 3,
-    XP: 1000
-}, {
-    id: 3,
-    class: 'Wizard',
-    race: 'Human',
-    name: 'Thain',
-    created: new Date('2018-03-10'),
-    STR: 12,
-    DEX: 12,
-    CON: 15,
-    INT: 19,
-    WIS: 15,
-    CHA: 17,
-    title: 'The Red Flame',
-    age: 53,
-    level: 3,
-    XP: 0
-}];
-
 var HeroList = function (_React$Component) {
     _inherits(HeroList, _React$Component);
 
@@ -91,7 +41,7 @@ var HeroList = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (HeroList.__proto__ || Object.getPrototypeOf(HeroList)).call(this));
 
-        _this.state = { Heros: [] };
+        _this.state = { heros: [] };
         _this.createHero = _this.createHero.bind(_this);
         return _this;
     }
@@ -106,17 +56,42 @@ var HeroList = function (_React$Component) {
         value: function loadData() {
             var _this2 = this;
 
-            setTimeout(function () {
-                _this2.setState({ Heros: Heros });
-            }, 500);
+            fetch('api/heros').then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log("Total count of heros:", data._metadata.total_count);
+                data.heros.forEach(function (hero) {
+                    hero.created = new Date(hero.created);
+                });
+                _this2.setState({ heros: data.heros });
+            }).catch(function (err) {
+                console.log(err);
+            });
         }
     }, {
         key: 'createHero',
         value: function createHero(newHero) {
-            var newHeros = this.state.Heros.slice();
-            newHero.id = this.state.Heros.length + 1;
-            newHeros.push(newHero);
-            this.setState({ Heros: newHeros });
+            var _this3 = this;
+
+            fetch('/api/heros', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newHero)
+            }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (updatedHero) {
+                        updatedHero.created = new Date(updatedHero.created);
+                        var newHeros = _this3.state.heros.concat(updatedHero);
+                        _this3.setState({ heros: newHeros });
+                    });
+                } else {
+                    response.json().then(function (error) {
+                        alert("Failed to create hero: " + error.message);
+                    });
+                }
+            }).catch(function (err) {
+                alert("Error in sending data to server: " + err.message);
+            });
         }
     }, {
         key: 'render',
@@ -127,11 +102,11 @@ var HeroList = function (_React$Component) {
                 React.createElement(
                     'h1',
                     null,
-                    'DnD Arena'
+                    'Adventurer Arena'
                 ),
                 React.createElement(HeroFilter, null),
                 React.createElement('hr', null),
-                React.createElement(HeroTable, { heros: this.state.Heros }),
+                React.createElement(HeroTable, { heros: this.state.heros }),
                 React.createElement('hr', null),
                 React.createElement(HeroAdd, { createHero: this.createHero }),
                 React.createElement('hr', null)
@@ -343,12 +318,12 @@ var HeroAdd = function (_React$Component3) {
         _classCallCheck(this, HeroAdd);
 
         // STR, DEX, CON, INT, WIS, CHA
-        var _this4 = _possibleConstructorReturn(this, (HeroAdd.__proto__ || Object.getPrototypeOf(HeroAdd)).call(this));
+        var _this5 = _possibleConstructorReturn(this, (HeroAdd.__proto__ || Object.getPrototypeOf(HeroAdd)).call(this));
 
-        _this4.generateStats = _this4.generateStats.bind(_this4);
-        _this4.state = { heroStats: [15, 14, 13, 12, 10, 8] };
-        _this4.handleSubmit = _this4.handleSubmit.bind(_this4);
-        return _this4;
+        _this5.generateStats = _this5.generateStats.bind(_this5);
+        _this5.state = { heroStats: { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 } };
+        _this5.handleSubmit = _this5.handleSubmit.bind(_this5);
+        return _this5;
     }
 
     _createClass(HeroAdd, [{
@@ -370,7 +345,8 @@ var HeroAdd = function (_React$Component3) {
                 currentStat = statRolls[1] + statRolls[2] + statRolls[3];
                 newStats.push(currentStat);
             }
-            this.setState({ heroStats: newStats });
+            this.setState({ heroStats: { STR: newStats[0], DEX: newStats[1], CON: newStats[2],
+                    INT: newStats[3], WIS: newStats[4], CHA: newStats[5] } });
         }
     }, {
         key: 'handleSubmit',
@@ -383,19 +359,18 @@ var HeroAdd = function (_React$Component3) {
                 race: form.race.value,
                 title: form.title.value,
                 age: form.age.value,
-                level: 3,
+                level: 11,
                 XP: 0,
-                STR: this.state.heroStats[0],
-                DEX: this.state.heroStats[1],
-                CON: this.state.heroStats[2],
-                INT: this.state.heroStats[3],
-                WIS: this.state.heroStats[4],
-                CHA: this.state.heroStats[5]
+                STR: this.state.heroStats.STR,
+                DEX: this.state.heroStats.DEX,
+                CON: this.state.heroStats.CON,
+                INT: this.state.heroStats.INT,
+                WIS: this.state.heroStats.WIS,
+                CHA: this.state.heroStats.CHA
             });
 
-            form.name.value = "";form.title.value = "";
-            form.class.value = "";form.race.value = "";
-            form.age.value = "";
+            form.reset();
+            this.setState({ heroStats: { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 } });
         }
     }, {
         key: 'render',
@@ -442,31 +417,6 @@ var HeroAdd = function (_React$Component3) {
                             'option',
                             { value: 'gnome' },
                             'Gnome'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'dragonBorn' },
-                            'DragonBorn'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'tiefling' },
-                            'Tiefling'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'halfElf' },
-                            'Half-Elf'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'halfOrc' },
-                            'Half-Orc'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'halfling' },
-                            'Halfling'
                         )
                     ),
                     React.createElement(
@@ -474,110 +424,38 @@ var HeroAdd = function (_React$Component3) {
                         { name: 'class' },
                         React.createElement(
                             'option',
-                            { value: 'wizard' },
+                            { value: 'Wizard' },
                             'Wizard'
                         ),
                         React.createElement(
                             'option',
-                            { value: 'druid' },
+                            { value: 'Druid' },
                             'Druid'
                         ),
                         React.createElement(
                             'option',
-                            { value: 'fighter' },
+                            { value: 'Fighter' },
                             'Fighter'
                         ),
                         React.createElement(
                             'option',
-                            { value: 'monk' },
-                            'Monk'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'bard' },
-                            'Bard'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'barbarian' },
-                            'Barbarian'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'paladin' },
+                            { value: 'Paladin' },
                             'Paladin'
                         ),
                         React.createElement(
                             'option',
-                            { value: 'rogue' },
+                            { value: 'Rogue' },
                             'Rogue'
                         ),
                         React.createElement(
                             'option',
-                            { value: 'warlock' },
-                            'Warlock'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'cleric' },
+                            { value: 'Cleric' },
                             'Cleric'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'sorcerer' },
-                            'Sorcerer'
                         )
                     ),
                     React.createElement('input', { type: 'text', name: 'title', placeholder: 'Title' }),
                     React.createElement('input', { type: 'text', name: 'age', placeholder: 'Age' }),
-                    React.createElement(
-                        'table',
-                        null,
-                        React.createElement(
-                            'tbody',
-                            null,
-                            React.createElement(
-                                'tr',
-                                null,
-                                React.createElement(
-                                    'td',
-                                    null,
-                                    'STR: ',
-                                    this.state.heroStats[0]
-                                ),
-                                React.createElement(
-                                    'td',
-                                    null,
-                                    'DEX: ',
-                                    this.state.heroStats[1]
-                                ),
-                                React.createElement(
-                                    'td',
-                                    null,
-                                    'CON: ',
-                                    this.state.heroStats[2]
-                                ),
-                                React.createElement(
-                                    'td',
-                                    null,
-                                    'INT: ',
-                                    this.state.heroStats[3]
-                                ),
-                                React.createElement(
-                                    'td',
-                                    null,
-                                    'WIS: ',
-                                    this.state.heroStats[4]
-                                ),
-                                React.createElement(
-                                    'td',
-                                    null,
-                                    'CHA: ',
-                                    this.state.heroStats[5]
-                                )
-                            )
-                        )
-                    ),
+                    React.createElement(StatsTable, { stats: this.state.heroStats }),
                     React.createElement(
                         'button',
                         { style: styles.buttonStyle },
@@ -590,5 +468,57 @@ var HeroAdd = function (_React$Component3) {
 
     return HeroAdd;
 }(React.Component);
+
+function StatsTable(props) {
+    var borderedStyle = { border: "1px solid silver", padding: 4 };
+    return React.createElement(
+        'table',
+        { className: borderedStyle },
+        React.createElement(
+            'tbody',
+            null,
+            React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                    'td',
+                    null,
+                    'STR: ',
+                    props.stats.STR
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'DEX: ',
+                    props.stats.DEX
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'CON: ',
+                    props.stats.CON
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'INT: ',
+                    props.stats.INT
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'WIS: ',
+                    props.stats.WIS
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    'CHA: ',
+                    props.stats.CHA
+                )
+            )
+        )
+    );
+}
 
 ReactDOM.render(React.createElement(HeroList, null), contentNode);

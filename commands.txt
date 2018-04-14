@@ -1,3 +1,23 @@
 npm run compile
 npm start
 npm run watch
+
+testPost Hero
+
+{
+    "id": "3",
+    "class": "Cleric",
+    "race": "Human",
+    "name": "Eleni",
+    "STR": "12",
+    "DEX": "12",
+    "created": "new Date('2018-03-10')",
+    "CON": "15",
+    "INT": "19",
+    "WIS": "15",
+    "CHA": "17",
+    "title": "The Shining Star",
+    "age": "35",
+    "level": "3",
+    "XP": "0"
+}

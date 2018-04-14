@@ -1,16 +1,16 @@
 {
-  "name": "DnDArena",
+  "name": "ArenaBattle",
   "version": "1.0.0",
-  "description": "A DnD arena webapp",
-  "main": "index.js",
+  "description": "A fantasy arena battle app",
   "scripts": {
-    "start": "node static/server.js",
+    "start": "nodemon -w /home/nan/Dropbox/webAppMern/static/server.js /home/nan/Dropbox/webAppMern/static/server.js",
     "compile": "babel src --presets react,es2015 --out-dir static",
     "watch": "babel src --presets react,es2015 --out-dir static --watch"
   },
   "author": "Hernan Rossi",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "react": "^16.3.1",
     "react-bootstrap": "^0.32.1",

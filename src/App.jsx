@@ -23,64 +23,10 @@ const LevelProgression = {
     20: 190000,
 };
 
-const Heros = [
-    {
-        id: 1,
-        class: 'Rogue',
-        race: 'Dwarf',
-        name: 'Ravan',
-        created: new Date('2018-03-15'),
-        STR: 10,
-        DEX: 17,
-        CON: 14,
-        INT: 15,
-        WIS: 9,
-        CHA: 14,
-        title: 'Shadow Dancer',
-        age: 65,
-        level: 3,
-        XP: 200,
-    },
-    {
-        id: 2,
-        class: 'Barbarian',
-        race: 'Half-Orc',
-        name: 'Tov',
-        created: new Date('2018-03-10'),
-        STR: 16,
-        DEX: 15,
-        CON: 17,
-        INT: 18,
-        WIS: 11,
-        CHA: 13,
-        title: 'Stone Jaw',
-        age: 32,
-        level: 3,
-        XP: 1000,
-    },
-    {
-        id: 3,
-        class: 'Wizard',
-        race: 'Human',
-        name: 'Thain',
-        created: new Date('2018-03-10'),
-        STR: 12,
-        DEX: 12,
-        CON: 15,
-        INT: 19,
-        WIS: 15,
-        CHA: 17,
-        title: 'The Red Flame',
-        age: 53,
-        level: 3,
-        XP: 0,
-    },
-];
-
 class HeroList extends React.Component {
     constructor() {
         super();
-        this.state = {Heros: []};
+        this.state = {heros: []};
         this.createHero = this.createHero.bind(this);
     }
 
@@ -89,25 +35,49 @@ class HeroList extends React.Component {
     }
 
     loadData() {
-        setTimeout(() => {
-            this.setState({Heros: Heros});
-        }, 500);
+       fetch('api/heros').then(response =>
+       response.json()
+       ).then(data => {
+           console.log("Total count of heros:", data._metadata.total_count);
+           data.heros.forEach(hero => {
+               hero.created = new Date(hero.created);
+
+           });
+           this.setState({ heros: data.heros});
+       }).catch(err => {
+           console.log(err);
+       });
     }
 
     createHero(newHero) {
-        const newHeros = this.state.Heros.slice();
-        newHero.id = this.state.Heros.length + 1;
-        newHeros.push(newHero);
-        this.setState({ Heros: newHeros });
+        fetch('/api/heros', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(newHero),
+        }).then(response => {
+                if (response.ok) {
+                    response.json().then(updatedHero => {
+                        updatedHero.created = new Date(updatedHero.created);
+                        const newHeros = this.state.heros.concat(updatedHero);
+                        this.setState({ heros: newHeros});
+                    });
+                } else {
+                    response.json().then(error => {
+                        alert("Failed to create hero: " + error.message);
+                    });
+                }
+            }).catch(err => {
+            alert("Error in sending data to server: " + err.message);
+        });
     }
 
     render() {
         return (
             <div>
-                <h1>DnD Arena</h1>
+                <h1>Adventurer Arena</h1>
                 <HeroFilter />
                 <hr />
-                <HeroTable heros={this.state.Heros} />
+                <HeroTable heros={this.state.heros} />
                 <hr />
                 <HeroAdd createHero={this.createHero}/>
                 <hr />
@@ -178,9 +148,11 @@ class HeroAdd extends React.Component {
         super();
         // STR, DEX, CON, INT, WIS, CHA
         this.generateStats = this.generateStats.bind(this);
-        this.state = {heroStats: [15,14,13,12,10,8]};
+        this.state = { heroStats: { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 }};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+
 
     generateStats() {
         const newStats = [];
@@ -198,7 +170,8 @@ class HeroAdd extends React.Component {
             currentStat = statRolls[1] + statRolls[2] + statRolls[3];
             newStats.push(currentStat);
         }
-        this.setState({ heroStats: newStats });
+        this.setState({ heroStats: { STR: newStats[0], DEX: newStats[1], CON: newStats[2],
+                INT: newStats[3], WIS: newStats[4], CHA: newStats[5] } });
     }
 
     handleSubmit(e) {
@@ -210,19 +183,19 @@ class HeroAdd extends React.Component {
             race: form.race.value,
             title: form.title.value,
             age: form.age.value,
-            level: 3,
+            level: 11,
             XP: 0,
-            STR: this.state.heroStats[0],
-            DEX: this.state.heroStats[1],
-            CON: this.state.heroStats[2],
-            INT: this.state.heroStats[3],
-            WIS: this.state.heroStats[4],
-            CHA: this.state.heroStats[5],
+            STR: this.state.heroStats.STR,
+            DEX: this.state.heroStats.DEX,
+            CON: this.state.heroStats.CON,
+            INT: this.state.heroStats.INT,
+            WIS: this.state.heroStats.WIS,
+            CHA: this.state.heroStats.CHA,
         });
 
-        form.name.value = ""; form.title.value ="";
-        form.class.value = ""; form.race.value ="";
-        form.age.value = "";
+        form.reset();
+        this.setState({ heroStats: { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 }});
+
     }
 
     render() {
@@ -240,41 +213,18 @@ class HeroAdd extends React.Component {
                         <option value="orc">Orc</option>
                         <option value="elf">Elf</option>
                         <option value="gnome">Gnome</option>
-                        <option value="dragonBorn">DragonBorn</option>
-                        <option value="tiefling">Tiefling</option>
-                        <option value="halfElf">Half-Elf</option>
-                        <option value="halfOrc">Half-Orc</option>
-                        <option value="halfling">Halfling</option>
                     </select>
                     <select name="class">
-                        <option value="wizard">Wizard</option>
-                        <option value="druid">Druid</option>
-                        <option value="fighter">Fighter</option>
-                        <option value="monk">Monk</option>
-                        <option value="bard">Bard</option>
-                        <option value="barbarian">Barbarian</option>
-                        <option value="paladin">Paladin</option>
-                        <option value="rogue">Rogue</option>
-                        <option value="warlock">Warlock</option>
-                        <option value="cleric">Cleric</option>
-                        <option value="sorcerer">Sorcerer</option>
+                        <option value="Wizard">Wizard</option>
+                        <option value="Druid">Druid</option>
+                        <option value="Fighter">Fighter</option>
+                        <option value="Paladin">Paladin</option>
+                        <option value="Rogue">Rogue</option>
+                        <option value="Cleric">Cleric</option>
                     </select>
                     <input type="text" name="title" placeholder="Title" />
                     <input type="text" name="age" placeholder="Age" />
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>STR: {this.state.heroStats[0]}</td>
-                            <td>DEX: {this.state.heroStats[1]}</td>
-                            <td>CON: {this.state.heroStats[2]}</td>
-                            <td>INT: {this.state.heroStats[3]}</td>
-                            <td>WIS: {this.state.heroStats[4]}</td>
-                            <td>CHA: {this.state.heroStats[5]}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-
+                    <StatsTable stats={this.state.heroStats} />
                     <button style={styles.buttonStyle}>Create New Hero</button>
                 </form>
 
@@ -283,6 +233,22 @@ class HeroAdd extends React.Component {
     }
 }
 
-
+function StatsTable (props){
+    const borderedStyle = {border: "1px solid silver", padding: 4};
+    return (
+        <table className={borderedStyle} >
+            <tbody>
+            <tr>
+                <td>STR: {props.stats.STR}</td>
+                <td>DEX: {props.stats.DEX}</td>
+                <td>CON: {props.stats.CON}</td>
+                <td>INT: {props.stats.INT}</td>
+                <td>WIS: {props.stats.WIS}</td>
+                <td>CHA: {props.stats.CHA}</td>
+            </tr>
+            </tbody>
+        </table>
+    );
+}
 
 ReactDOM.render(<HeroList/>, contentNode);
