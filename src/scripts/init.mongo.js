@@ -1,13 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+db = new Mongo().getDB('Pathfinder');
 
-const app = express();
-app.use(express.static('static'));
-app.use(bodyParser.json());
+db.heros.remove({});
 
-const Heros = [
+db.heros.insert([
     {
-        id: 1,
         class: 'Rogue',
         race: 'Dwarf',
         name: 'Ravan',
@@ -24,7 +20,6 @@ const Heros = [
         XP: 200
     },
     {
-        id: 2,
         class: 'Barbarian',
         race: 'Half-Orc',
         name: 'Tov',
@@ -41,7 +36,6 @@ const Heros = [
         XP: 1000
     },
     {
-        id: 3,
         class: 'Wizard',
         race: 'Human',
         name: 'Thain',
@@ -57,29 +51,8 @@ const Heros = [
         level: 11,
         XP: 0
     }
-];
+]);
 
-app.get('/api/heros', (req, res) => {
-    const metadata = {total_count: Heros.length};
-    res.json({ _metadata: metadata, heros: Heros});
-});
-
-app.post('/api/heros', (req, res) => {
-   const newHero = req.body;
-   newHero.id = Heros.length + 1;
-   if (!newHero.age) {
-       newHero.age = 34;
-   }
-   if (!newHero.name) {
-       res.status(422).json({ message: "New hero must have a name."});
-       return;
-   }
-   newHero.created = new Date();
-   Heros.push(newHero);
-   res.json(newHero);
-
-});
-
-app.listen(3000, () => {
-    console.log('App started on port 3000.');
-});
+db.heros.createIndex({ name: 1 });
+db.heros.createIndex({ class: 1 });
+db.heros.createIndex({ race: 1 });

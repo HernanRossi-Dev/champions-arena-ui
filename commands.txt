@@ -1,23 +1,38 @@
-npm run compile
-npm start
-npm run watch
+SERVER:
+    Current Progress: Starting chapter 6 page 101
 
-testPost Hero
 
-{
-    "id": "3",
-    "class": "Cleric",
-    "race": "Human",
-    "name": "Eleni",
-    "STR": "12",
-    "DEX": "12",
-    "created": "new Date('2018-03-10')",
-    "CON": "15",
-    "INT": "19",
-    "WIS": "15",
-    "CHA": "17",
-    "title": "The Shining Star",
-    "age": "35",
-    "level": "3",
-    "XP": "0"
-}
+    npm run compile
+    npm start
+    npm run watch
+
+    testPost Hero
+
+    {
+        "id": "3",
+        "class": "Cleric",
+        "race": "Human",
+        "name": "Eleni",
+        "STR": "12",
+        "DEX": "12",
+        "created": "new Date('2018-03-10')",
+        "CON": "15",
+        "INT": "19",
+        "WIS": "15",
+        "CHA": "17",
+        "title": "The Shining Star",
+        "age": "35",
+        "level": "3",
+        "XP": "0"
+    }
+
+Mongo:
+    sudo service mongod start
+    mongo
+    load("init.mongo.js");  //run script
+    db.dropDatabase();  //delete the database currently in use
+
+
+   Issues with modules can be resolved by deleting them and reinstalling:
+   $ rm -rf node_modules
+   $ npm install
