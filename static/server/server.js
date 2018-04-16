@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { MongoClient } from "mongodb";
 import SourceMapSupport from "source-map-support";
+import path from 'path';
 import "babel-polyfill";
 
 SourceMapSupport.install();
@@ -22,13 +23,19 @@ MongoClient.connect("mongodb://localhost/")
   });
 
 app.get("/api/heros", (req, res) => {
+  const filter = {};
+
+  if (req.query.class) {
+    filter.class = req.query.class;
+  }
   db
     .collection("heros")
-    .find()
+    .find(filter)
     .toArray()
     .then(heros => {
       console.log(heros);
       console.log("Fetching database entries");
+	    console.log(`Testing fetch filter ${req.query.class}`);
       const metadata = { total_count: heros.length };
       res.json({ _metadata: metadata, heros: heros });
     })
@@ -65,4 +72,8 @@ app.post("/api/heros", (req, res) => {
       console.log(error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('static/index.html'));
 });

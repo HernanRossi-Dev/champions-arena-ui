@@ -1,6 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-export default class HeroAdd extends React.Component {
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
+export default class HeroCreate extends React.Component {
   constructor() {
     super();
     // STR, DEX, CON, INT, WIS, CHA
@@ -116,6 +118,7 @@ export default class HeroAdd extends React.Component {
           <StatsTable stats={this.state.heroStats} />
           <button style={styles.buttonStyle}>Create New Hero</button>
         </form>
+        <Link to="/">Back to hero list</Link>
       </div>
     );
   }

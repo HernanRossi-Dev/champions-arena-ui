@@ -1,23 +1,58 @@
 import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
-import HeroAdd from "./HeroAdd.jsx";
+import HeroCreate from "./HeroCreate.jsx";
 import HeroFilter from "./HeroFilter.jsx";
+import { Link, withRouter } from 'react-router-dom';
 
 
-export default class HeroList extends React.Component {
+
+class HeroList extends React.Component {
   constructor() {
     super();
     this.state = { heros: [] };
     this.createHero = this.createHero.bind(this);
+    this.setFilter = this.setFilter.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
   }
 
+	setFilter(query) {
+		let fectchURL = '';
+		for (var key in query) {
+			fectchURL += '?' + key + '=' + query[key];
+		}
+		this.props.history.push({pathname: this.props.location.pathname, search: fectchURL});
+		console.log(this.props);
+	}
+
+  componentWillReceiveProps(prevProps) {
+    const oldQuery = prevProps;
+    const newQuery = this.props;
+	  console.log(this.props);
+    if (oldQuery.location.search === newQuery.location.search) {
+        return;
+    } else if (oldQuery.location.query && newQuery.location.query) {
+      if (oldQuery.location.query.class === newQuery.location.query.class) {
+       return;
+      }
+    }else {
+	    this.loadData();
+    }
+  }
+
   loadData() {
-    fetch("api/heros")
+	  let fectchURL = 'api/heros';
+    if(this.props.location.query !== undefined) {
+      for (var key in this.props.location.query) {
+	      fectchURL += '?' + key + '=' + this.props.location.query[key];
+      }
+    } else {
+	    fectchURL += this.props.location.search
+    }
+    fetch(fectchURL)
       .then(response => {
         if (response.ok) {
           response.json().then(data => {
@@ -37,6 +72,8 @@ export default class HeroList extends React.Component {
         console.log(err);
       });
   }
+
+
 
   createHero(newHero) {
     fetch("/api/heros", {
@@ -63,19 +100,25 @@ export default class HeroList extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <h1>Pathfinder Adventurer Creator</h1>
-        <HeroFilter />
+    return <div>
+        <HeroFilter setFilter={this.setFilter} />
         <hr />
         <HeroTable heros={this.state.heros} />
         <hr />
-        <HeroAdd createHero={this.createHero} />
+        {/*<button>*/}
+        {/*<Link to={`/heros/create`}> Create a new Hero </Link>*/}
+        {/*</button>*/}
+        <HeroCreate createHero={this.createHero} />
         <hr />
-      </div>
-    );
+      </div>;
   }
 }
+
+const { shape, string, number, object } = PropTypes;
+HeroList.prototypes = {
+  location: object.isRequired,
+  router: object,
+};
 
 function HeroTable(props) {
   const borderedStyle = { border: "1px solid silver", padding: 4 };
@@ -106,7 +149,6 @@ function HeroTable(props) {
   );
 }
 
-const { shape, string, number } = PropTypes;
 HeroTable.propTypes = {
   heros: shape({
 	  name: string.isRequired,
@@ -127,7 +169,11 @@ HeroTable.propTypes = {
 
 const HeroRow = props => (
   <tr>
-    <td>{props.hero.name}</td>
+    <td>
+      <Link to={`/heros/${props.hero._id}`}>
+        {props.hero.name}
+      </Link>
+    </td>
     <td>{props.hero.class}</td>
     <td>{props.hero.level}</td>
     <td>{props.hero.XP}</td>
@@ -143,7 +189,6 @@ const HeroRow = props => (
   </tr>
 );
 
-const { number, shape, string } = PropTypes;
 HeroRow.propTypes = {
   hero: shape({
     name: string.isRequired,
@@ -161,3 +206,5 @@ HeroRow.propTypes = {
     CHA: number.isRequired
   })
 };
+
+export default withRouter(HeroList)
