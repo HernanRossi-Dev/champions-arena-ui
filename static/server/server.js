@@ -4,6 +4,7 @@ import { MongoClient } from "mongodb";
 import SourceMapSupport from "source-map-support";
 import path from 'path';
 import "babel-polyfill";
+var ObjectID = require('mongodb').ObjectID;
 
 SourceMapSupport.install();
 const app = express();
@@ -33,7 +34,7 @@ app.get("/api/heros", (req, res) => {
     .find(filter)
     .toArray()
     .then(heros => {
-      console.log(heros);
+      //console.log(heros);
       console.log("Fetching database entries");
 	    console.log(`Testing fetch filter ${req.query.class}`);
       const metadata = { total_count: heros.length };
@@ -72,6 +73,26 @@ app.post("/api/heros", (req, res) => {
       console.log(error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
+});
+
+app.delete('/api/heros/:id', (req, res) => {
+  let heroID;
+  try {
+    heroID = new ObjectID(req.params.id);
+	  console.log(heroID);
+	  console.log("hero id");
+  } catch (error) {
+    res.status(422).json({ message: `Invalid hero ID format: ${error}`});
+    return;
+  }
+
+	db.collection('heros').deleteOne({ _id: heroID }).then((deleteResult) => {
+		console.log(deleteResult.result);
+			if (deleteResult.result.n === 1) res.json({ status: 'OK' });
+			else {res.json({ status: 'Warning: object not found' });  console.log("ERROR4"); }
+		}).catch(error => {
+			res.status(500).json({ message: `Internal Server Error: ${error}` });
+		});
 });
 
 app.get('*', (req, res) => {

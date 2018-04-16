@@ -7,12 +7,15 @@ function resolve(dir) {
 
 module.exports = {
   entry: {
-    app: [resolve("webAppMern/src/App.jsx")]
+    app: [resolve("webAppMern/src/js/index.jsx")]
   },
   output: {
     path: resolve("webAppMern/static/"),
     filename: "[name].bundle.js"
   },
+	resolve: {
+		extensions: ['.js', '.jsx', '.json', '*']
+	},
   optimization: {
     splitChunks: {
       cacheGroups: {
