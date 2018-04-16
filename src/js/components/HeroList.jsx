@@ -3,9 +3,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import HeroCreate from "./HeroCreate.jsx";
 import HeroFilter from "./HeroFilter.jsx";
-import { Link, withRouter } from 'react-router-dom';
-
-
+import { Link, withRouter } from "react-router-dom";
+// import { connect } from "react-redux";
+// import { createHero, fetchHeros } from "../js/actions";
+//
+// const mapStateToProps = state => {
+//   return { heros: state.heros };
+// };
+//
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     loadData() {
+//       dispatch(fetchHeros());
+//     }
+//   };
+// };
 
 class HeroList extends React.Component {
   constructor() {
@@ -13,44 +25,49 @@ class HeroList extends React.Component {
     this.state = { heros: [] };
     this.createHero = this.createHero.bind(this);
     this.setFilter = this.setFilter.bind(this);
+    this.deleteHero = this.deleteHero.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
+    // this.props.loadData();
   }
 
-	setFilter(query) {
-		let fectchURL = '';
-		for (var key in query) {
-			fectchURL += '?' + key + '=' + query[key];
-		}
-		this.props.history.push({pathname: this.props.location.pathname, search: fectchURL});
-		console.log(this.props);
-	}
 
-  componentWillReceiveProps(prevProps) {
+
+  setFilter(query) {
+    let fectchURL = "";
+    for (let key in query) {
+      fectchURL += "?" + key + "=" + query[key];
+    }
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: fectchURL
+    });
+  }
+
+  componentDidUpdate(prevProps) {
     const oldQuery = prevProps;
     const newQuery = this.props;
-	  console.log(this.props);
     if (oldQuery.location.search === newQuery.location.search) {
-        return;
-    } else if (oldQuery.location.query && newQuery.location.query) {
+    }
+    else if (oldQuery.location.query && newQuery.location.query) {
       if (oldQuery.location.query.class === newQuery.location.query.class) {
-       return;
       }
-    }else {
-	    this.loadData();
+    }
+    else {
+      this.loadData();
     }
   }
 
   loadData() {
 	  let fectchURL = 'api/heros';
     if(this.props.location.query !== undefined) {
-      for (var key in this.props.location.query) {
-	      fectchURL += '?' + key + '=' + this.props.location.query[key];
+      for (let key in this.props.location.query) {
+       fectchURL += '?' + key + '=' + this.props.location.query[key];
       }
     } else {
-	    fectchURL += this.props.location.search
+     fectchURL += this.props.location.search
     }
     fetch(fectchURL)
       .then(response => {
@@ -73,7 +90,16 @@ class HeroList extends React.Component {
       });
   }
 
-
+	deleteHero(id) {
+    console.log(`/api/heros/${id}`);
+		fetch(`/api/heros/${id}`, {method: 'DELETE'}).then(response => {
+			if(!response.ok) {
+				alert("Failed to delete issue");
+			} else {
+				this.loadData();
+			}
+		});
+	}
 
   createHero(newHero) {
     fetch("/api/heros", {
@@ -100,31 +126,37 @@ class HeroList extends React.Component {
   }
 
   render() {
-    return <div>
+    return (
+      <div>
         <HeroFilter setFilter={this.setFilter} />
         <hr />
-        <HeroTable heros={this.state.heros} />
+        <HeroTable heros={this.state.heros} deleteHero={this.deleteHero}/>
         <hr />
         {/*<button>*/}
         {/*<Link to={`/heros/create`}> Create a new Hero </Link>*/}
         {/*</button>*/}
         <HeroCreate createHero={this.createHero} />
         <hr />
-      </div>;
+      </div>
+    );
   }
 }
 
-const { shape, string, number, object } = PropTypes;
+const { object } = PropTypes;
 HeroList.prototypes = {
   location: object.isRequired,
-  router: object,
 };
 
 function HeroTable(props) {
   const borderedStyle = { border: "1px solid silver", padding: 4 };
-  const heroRows = props.heros.map(hero => (
-    <HeroRow key={hero._id} hero={hero} />
-  ));
+	let heroRows;
+  // if(props.heros) {
+	  heroRows = props.heros.map(hero => (
+		  <HeroRow key={hero._id} hero={hero} deleteHero={props.deleteHero}/>));
+	 //  ));
+  // } else{
+	 //  heroRows = <HeroRow key={new Object()} hero={ {name: "default" }} deleteHero={props.deleteHero}/>
+  // }
   return (
     <table className={borderedStyle}>
       <thead>
@@ -150,61 +182,40 @@ function HeroTable(props) {
 }
 
 HeroTable.propTypes = {
-  heros: shape({
-	  name: string.isRequired,
-	  class: string.isRequired,
-	  level: string.isRequired,
-	  XP: number.isRequired,
-	  race: string.isRequired,
-	  age: number,
-	  title: string,
-	  STR: number.isRequired,
-	  DEX: number.isRequired,
-	  CON: number.isRequired,
-	  INT: number.isRequired,
-	  WIS: number.isRequired,
-	  CHA: number.isRequired
-  })
+  heros: object.isRequired,
 };
 
-const HeroRow = props => (
-  <tr>
-    <td>
-      <Link to={`/heros/${props.hero._id}`}>
-        {props.hero.name}
-      </Link>
-    </td>
-    <td>{props.hero.class}</td>
-    <td>{props.hero.level}</td>
-    <td>{props.hero.XP}</td>
-    <td>{props.hero.race}</td>
-    <td>{props.hero.age}</td>
-    <td>{props.hero.title}</td>
-    <td>{props.hero.STR}</td>
-    <td>{props.hero.DEX}</td>
-    <td>{props.hero.CON}</td>
-    <td>{props.hero.INT}</td>
-    <td>{props.hero.WIS}</td>
-    <td>{props.hero.CHA}</td>
-  </tr>
-);
+const HeroRow = props => {
+
+  function deleteHero() {
+    props.deleteHero(props.hero._id);
+  }
+	return (
+		<tr>
+			<td>
+				<Link to={`/heros/${props.hero._id}`}>{props.hero.name}</Link>
+			</td>
+			<td>{props.hero.class}</td>
+			<td>{props.hero.level}</td>
+			<td>{props.hero.XP}</td>
+			<td>{props.hero.race}</td>
+			<td>{props.hero.age}</td>
+			<td>{props.hero.title}</td>
+			<td>{props.hero.STR}</td>
+			<td>{props.hero.DEX}</td>
+			<td>{props.hero.CON}</td>
+			<td>{props.hero.INT}</td>
+			<td>{props.hero.WIS}</td>
+			<td>{props.hero.CHA}</td>
+			<button onClick={deleteHero}>x</button>
+		</tr>
+	);
+};
 
 HeroRow.propTypes = {
-  hero: shape({
-    name: string.isRequired,
-    class: string.isRequired,
-    level: string.isRequired,
-    XP: number.isRequired,
-    race: string.isRequired,
-    age: number,
-    title: string,
-    STR: number.isRequired,
-    DEX: number.isRequired,
-    CON: number.isRequired,
-    INT: number.isRequired,
-    WIS: number.isRequired,
-    CHA: number.isRequired
-  })
+  hero: object.isRequired,
+  deleteHero: PropTypes.func.isRequired,
 };
 
-export default withRouter(HeroList)
+//export default connect(mapStateToProps, mapDispatchToProps)(HeroList);
+export default withRouter(HeroList);
