@@ -7,15 +7,15 @@ function resolve(dir) {
 
 module.exports = {
   entry: {
-    app: [resolve("webAppMern/src/js/index.jsx")]
+    app: [resolve("webAppMern/src/js/components/App.jsx")]
   },
   output: {
     path: resolve("webAppMern/static/"),
     filename: "[name].bundle.js"
   },
-	resolve: {
-		extensions: ['.js', '.jsx', '.json', '*']
-	},
+  resolve: {
+    extensions: [".js", ".jsx", ".json", "*"]
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -46,7 +46,7 @@ module.exports = {
         target: "http://localhost:3000"
       }
     },
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   devtool: "source-map"
 };

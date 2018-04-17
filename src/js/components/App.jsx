@@ -4,8 +4,11 @@ import HeroCreate from "./HeroCreate.jsx";
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
-import { fetchHeros } from '../actions/index.js';
+import { Provider } from "react-redux";
+import store from "../store/index.js";
+import { PersistGate } from "redux-persist/integration/react";
+import persistor from '../store/index.js';
+
 import {
   Route,
   BrowserRouter,
@@ -14,7 +17,6 @@ import {
   withRouter
 } from "react-router-dom";
 
-const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Page Not Found</p>;
 
 const App = match => (
@@ -42,19 +44,17 @@ App.propTypes = {
   children: PropTypes.object.isRequired
 };
 
-const RoutedApp = () => (
-  <BrowserRouter>
-    <Route path="/" component={App} />
-  </BrowserRouter>
-);
+ReactDOM.render(
+  <Provider store={store}>
 
-ReactDOM.render(<RoutedApp />, contentNode);
+      <BrowserRouter>
+        <Route path="/" component={App} />
+      </BrowserRouter>
+
+  </Provider>,
+  document.getElementById("contents")
+);
 
 if (module.hot) {
   module.hot.accept();
 }
-
-const mapState = ({ heros }) => ({ heros });
-const mapDispatch = {fetchHeros};
-
-export default connect(mapState, mapDispatch)(RoutedApp);

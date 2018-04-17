@@ -52,20 +52,24 @@ export default class HeroCreate extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const form = document.forms.heroForm;
-    this.props.createHero({
+    this.props.createNewHero({
       name: form.name.value,
       class: form.class.value,
       race: form.race.value,
       title: form.title.value,
       age: form.age.value,
-      level: 11,
+      level: 5,
       XP: 0,
       STR: this.state.heroStats.STR,
       DEX: this.state.heroStats.DEX,
       CON: this.state.heroStats.CON,
       INT: this.state.heroStats.INT,
       WIS: this.state.heroStats.WIS,
-      CHA: this.state.heroStats.CHA
+      CHA: this.state.heroStats.CHA,
+      attributePointsToSpend: 0,
+      items: {},
+      abilities: {},
+      traits: {}
     });
     form.reset();
     this.setState({
@@ -95,23 +99,17 @@ export default class HeroCreate extends React.Component {
             <option value="Human">Human</option>
             <option value="Dwarf">Dwarf</option>
             <option value="Orc">Orc</option>
-            <option value="Half-Orc">Half-Orc</option>
             <option value="Elf">Elf</option>
-            <option value="Half-Elf">Half-Elf</option>
             <option value="Gnome">Gnome</option>
-            <option value="Halfling">Halfling</option>
           </select>
           <select name="class">
             <option value="Wizard">Wizard</option>
-            <option value="Barbarian">Barbarian</option>
-            <option value="Bard">Bard</option>
             <option value="Druid">Druid</option>
             <option value="Fighter">Fighter</option>
-            <option value="Monk">Monk</option>
             <option value="Paladin">Paladin</option>
             <option value="Rogue">Rogue</option>
-            <option value="Sorcerer">Sorcerer</option>
             <option value="Cleric">Cleric</option>
+            <option value="Warlock">Warlock</option>
           </select>
           <input type="text" name="title" placeholder="Title" />
           <input type="text" name="age" placeholder="Age" />
