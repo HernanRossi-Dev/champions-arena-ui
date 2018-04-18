@@ -98,15 +98,20 @@ export default class HeroCreate extends React.Component {
           <select name="race">
             <option value="Human">Human</option>
             <option value="Dwarf">Dwarf</option>
-            <option value="Orc">Orc</option>
+            <option value="Half-Orc">Half-Orc</option>
             <option value="Elf">Elf</option>
             <option value="Gnome">Gnome</option>
+            <option value="Half-Elf">Half-Elf</option>
+            <option value="Halfling">Halfling</option>
           </select>
           <select name="class">
+            <option value="Monk">Monk</option>
+            <option value="Ranger">Ranger</option>
             <option value="Wizard">Wizard</option>
             <option value="Druid">Druid</option>
             <option value="Fighter">Fighter</option>
             <option value="Paladin">Paladin</option>
+            <option value="Sorcerer">Sorcerer</option>
             <option value="Rogue">Rogue</option>
             <option value="Cleric">Cleric</option>
             <option value="Warlock">Warlock</option>
