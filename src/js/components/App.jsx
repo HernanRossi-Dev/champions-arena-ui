@@ -21,9 +21,10 @@ const NoMatch = () => <p>Page Not Found</p>;
 
 const App = match => (
   <div>
-    <div className="header">
-      <h1>Pathfinder Character Arena</h1>
-    </div>
+	  <div className="card">
+	  <div className="card-header">
+		  Pathfinder Character Creator
+	  </div>
     <div className="contents">
       <Switch>
         <Route exact path={`/heros`} component={withRouter(HeroList)} />
@@ -33,10 +34,12 @@ const App = match => (
         <Route path="*" component={NoMatch} />
       </Switch>
     </div>
-    <div className="footer">
-      copyright Hernan Rossi 2018 <br /> Pathfinder content used under open
-      gaming license
-    </div>
+		  <div className="card-footer">
+			  copyright Hernan Rossi 2018 <br /> Pathfinder content used under open
+			  gaming license
+		  </div>
+
+  </div>
   </div>
 );
 

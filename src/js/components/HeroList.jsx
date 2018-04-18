@@ -9,6 +9,7 @@ import * as HeroActionCreators from "../actions/index.js";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import HeroTable from "./HeroTable";
+import { Button, Glyphicon } from 'react-bootstrap';
 
 class HeroList extends React.Component {
   constructor(props) {

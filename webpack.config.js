@@ -14,7 +14,7 @@ module.exports = {
     filename: "[name].bundle.js"
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json", "*"]
+    extensions: [".js", ".jsx", ".json", "*",".html"]
   },
   optimization: {
     splitChunks: {
