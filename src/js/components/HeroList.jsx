@@ -9,7 +9,7 @@ import * as HeroActionCreators from "../actions/index.js";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import HeroTable from "./HeroTable";
-import { Button, Glyphicon } from 'react-bootstrap';
+import { Panel} from 'react-bootstrap';
 
 class HeroList extends React.Component {
   constructor(props) {
@@ -42,8 +42,6 @@ class HeroList extends React.Component {
     const newQuery = this.props;
     if (oldQuery.location.search === newQuery.location.search) {
     } else if (oldQuery.location.query && newQuery.location.query) {
-      //   if (oldQuery.location.query.class === newQuery.location.query.class) {
-      // }
     } else {
       let { dispatch } = this.props;
       this.loadData(dispatch);
@@ -78,10 +76,12 @@ class HeroList extends React.Component {
   render() {
     return (
       <div>
+
         <HeroFilter
           setFilter={this.setFilter}
           initFilter={this.props.location.search}
         />
+
         <hr />
         <HeroTable
           heros={store.getState().heros}

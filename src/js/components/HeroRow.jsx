@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import { Button, Glyphicon } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 
 const HeroRow = props => {
   function deleteHero() {
@@ -30,9 +30,9 @@ const HeroRow = props => {
       <td>{props.hero.INT}</td>
       <td>{props.hero.WIS}</td>
       <td>{props.hero.CHA}</td>
-      <button type="button" class="btn btn-light btn-sm">
+      <Button type="button" class="btn btn-light btn-sm">
         <i className="fas fa-times-circle fa-lg" />
-      </button>
+      </Button>
     </tr>
   );
 };

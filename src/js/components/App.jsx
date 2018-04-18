@@ -1,16 +1,20 @@
 import HeroList from "./HeroList.jsx";
 import HeroEdit from "./HeroEdit.jsx";
 import HeroCreate from "./HeroCreate.jsx";
+import Beasts from "./BeastComponent.jsx";
+import Ability from "./AbilityComponent.jsx";
+import ItemsComponent from "./ItemsComponent.jsx";
+import HomeComponent from "./HomeComponent.jsx";
+
+import PathfinderOGL from "./PathfinderOGL.jsx";
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import store from "../store/index.js";
 import { Navbar, Nav, NavDropdown, NavItem, MenuItem } from "react-bootstrap";
-import * as cssStyles from "../../styles/navStyles.css";
-
+import * as cssStyles from "../../styles/Styles.css";
 import { LinkContainer } from "react-router-bootstrap";
-
 import {
   Route,
   BrowserRouter,
@@ -19,11 +23,6 @@ import {
   withRouter
 } from "react-router-dom";
 
-const styleNav = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
 
 class Header extends React.Component {
   constructor(props) {
@@ -72,8 +71,8 @@ class Header extends React.Component {
               noCaret
             >
               <MenuItem eventKey={3.1}>Logged in as Guest</MenuItem>
-              <MenuItem eventKey={3.2}>Logout</MenuItem>
-              <MenuItem eventKey={3.3}>Profile</MenuItem>
+              {/*<MenuItem eventKey={3.2}>Logout</MenuItem>*/}
+              {/*<MenuItem eventKey={3.3}>Profile</MenuItem>*/}
             </NavDropdown>
           </Nav>
         </Navbar>
@@ -122,27 +121,22 @@ class App extends React.Component {
         <div className={["container-fluid", cssStyles.SiteContent].join(" ")}>
           <Switch>
             <Route exact path={`/heros`} component={withRouter(HeroList)} />
-            <Route path={`/home`} component={HeroList} />
+            <Route path={`/home`} component={HomeComponent} />
             <Route path={`/createHero`} component={HeroCreate} />
-            <Route path={`/Beasts`} component={HeroEdit} />
-            <Route path={`/Abilities`} component={HeroEdit} />
-            <Route path={`/Items`} component={HeroEdit} />
+            <Route path={`/Beasts`} component={Beasts} />
+            <Route path={`/Abilities`} component={Ability} />
+            <Route path={`/Items`} component={ItemsComponent} />
             <Route path={`/heros/:id`} component={HeroEdit} />
-            <Redirect from="/" to="/heros" />
+            <Route path={`/legal`} component={PathfinderOGL} />
+            <Redirect from="/" to="/home" />
             <Route path="*" component={NoMatch} />
           </Switch>
         </div>
         <div className="card-footer" style={styleFooter}>
-          <div>&#169; Hernan Rossi 2018</div>
-          <div>Pathfinder content used under open gaming license</div>
-          <div>
-            {/*<img*/}
-              {/*src={require("../../assets/Paizo.png")}*/}
-              {/*width="48"*/}
-              {/*height="62"*/}
-              {/*alt=""*/}
-            {/*/>*/}
-          </div>
+          <div> Hernan Rossi &#169; 2018</div>
+	        <LinkContainer to="/legal">
+		        <NavItem>Pathfinder content used under open gaming license</NavItem>
+	        </LinkContainer>
         </div>
       </div>
     );

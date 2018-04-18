@@ -29,3 +29,20 @@ body {
     width: 100%;
     height: 100%;
 }
+
+.Legaldiv {
+    text-align: center;
+    padding: 100px 25px;
+}
+.LegalSpan {
+
+    vertical-align: middle;
+    line-height: normal;font-family: 'Merriweather', serif;
+    font-size: 17px;
+    text-align: center;
+
+}
+
+.LegalImgDiv {
+    padding-top: 30px;
+}

@@ -3,9 +3,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import HeroRow from "./HeroRow.jsx";
 import { withRouter } from "react-router-dom";
+import { Table, Panel } from 'react-bootstrap';
 
 const HeroTable = props => {
-  const borderedStyle = { border: "1px solid silver", padding: 4 };
   let heroRows;
   if (store.isFetching) {
     heroRows = (
@@ -26,7 +26,7 @@ const HeroTable = props => {
   }
 
   return (
-    <table className={borderedStyle}>
+    <Table bordered condensed hover responsive>
       <thead>
         <tr>
           <th>Name</th>
@@ -45,7 +45,7 @@ const HeroTable = props => {
         </tr>
       </thead>
       <tbody>{heroRows}</tbody>
-    </table>
+    </Table>
   );
 };
 
