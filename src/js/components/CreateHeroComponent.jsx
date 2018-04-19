@@ -1,12 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import store from "../store/index.js";
+import * as HeroActionCreators from "../actions/index.js";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-export default class HeroCreate extends React.Component {
-  constructor() {
-    super();
+class CreateHeroComponent extends React.Component {
+  constructor(props) {
+    super(props);
     // STR, DEX, CON, INT, WIS, CHA
     this.generateStats = this.generateStats.bind(this);
+	  this.createNewHero = this.createNewHero.bind(this);
     this.state = {
       heroStats: {
         STR: 15,
@@ -18,6 +24,8 @@ export default class HeroCreate extends React.Component {
       }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+	  const { dispatch } = props;
+	  this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
   }
 
   generateStats() {
@@ -49,10 +57,16 @@ export default class HeroCreate extends React.Component {
     });
   }
 
+	createNewHero(newHero) {
+		let { dispatch } = this.props;
+		let action = HeroActionCreators.createHero(newHero);
+		dispatch(action);
+	}
+
   handleSubmit(e) {
     e.preventDefault();
     const form = document.forms.heroForm;
-    this.props.createNewHero({
+    this.createNewHero({
       name: form.name.value,
       class: form.class.value,
       race: form.race.value,
@@ -116,12 +130,12 @@ export default class HeroCreate extends React.Component {
             <option value="Cleric">Cleric</option>
             <option value="Warlock">Warlock</option>
           </select>
-          <input type="text" name="title" placeholder="Title" />
+          {/*<input type="text" name="title" placeholder="Title" />*/}
           <input type="text" name="age" placeholder="Age" />
           <StatsTable stats={this.state.heroStats} />
           <button style={styles.buttonStyle}>Create New Hero</button>
         </form>
-        <Link to="/">Back to hero list</Link>
+        <Link to="/heros">Back to hero list</Link>
       </div>
     );
   }
@@ -156,3 +170,5 @@ StatsTable.propTypes = {
     CHA: number.isRequired
   }).isRequired
 };
+
+export default withRouter(connect()(CreateHeroComponent));

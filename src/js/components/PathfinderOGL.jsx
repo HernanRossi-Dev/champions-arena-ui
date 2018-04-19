@@ -6,7 +6,7 @@ export default class PathfinderOGL extends React.Component {
     return (
       <div className={Styles.Legaldiv}>
         <span className={Styles.LegalSpan}>
-          {" "}
+
           This website uses trademarks and/or copyrights owned by Paizo Inc.,<br />
           which are used under Paizo's Community Use Policy. We are expressly
           prohibited from charging you to use or access this content.<br />

@@ -1,10 +1,12 @@
 import HeroList from "./HeroList.jsx";
 import HeroEdit from "./HeroEdit.jsx";
-import HeroCreate from "./HeroCreate.jsx";
+import CreateHeroComponent from "./CreateHeroComponent.jsx";
 import Beasts from "./BeastComponent.jsx";
 import Ability from "./AbilityComponent.jsx";
 import ItemsComponent from "./ItemsComponent.jsx";
 import HomeComponent from "./HomeComponent.jsx";
+import AboutSiteComponent from "./AboutSiteComponent.jsx";
+import ArenaStartComponent from "./ArenaStartComponent.jsx";
 
 import PathfinderOGL from "./PathfinderOGL.jsx";
 import React from "react";
@@ -42,7 +44,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="faded" light toggleable={false} fluid>
+        <Navbar color="faded" light toggleable={false} fluid >
           <Nav bsStyle="tabs" justified>
             <LinkContainer to="/home">
               <NavItem>Home</NavItem>
@@ -55,15 +57,29 @@ class Header extends React.Component {
                 Create Character <i className="fas fa-plus" />
               </NavItem>
             </LinkContainer>
-            <LinkContainer to="/Beasts">
-              <NavItem>Beasts</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/Abilities">
-              <NavItem>Abilities</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/Items">
-              <NavItem>Items</NavItem>
-            </LinkContainer>
+
+	          <LinkContainer to="/Arena">
+		          <NavItem>
+			          Arena
+		          </NavItem>
+	          </LinkContainer>
+	          <NavDropdown
+		          eventKey={3}
+		          title={"World Info"}
+		          id="basic-nav-dropdown"
+
+	          >
+		          <LinkContainer to="/Beasts">
+			          <MenuItem eventKey={3.1}>Beasts</MenuItem>
+		          </LinkContainer>
+		          <LinkContainer to="/Abilities">
+			          <MenuItem eventKey={3.2}>Skills</MenuItem>
+		          </LinkContainer>
+		          <LinkContainer to="/Items">
+			          <MenuItem eventKey={3.3}>Items</MenuItem>
+		          </LinkContainer>
+	          </NavDropdown>
+
             <NavDropdown
               eventKey={3}
               title={<i className="fas fa-bars" />}
@@ -71,7 +87,9 @@ class Header extends React.Component {
               noCaret
             >
               <MenuItem eventKey={3.1}>Logged in as Guest</MenuItem>
-              {/*<MenuItem eventKey={3.2}>Logout</MenuItem>*/}
+              <LinkContainer to="/about">
+	              <MenuItem eventKey={3.2}>About Site</MenuItem>
+              </LinkContainer>
               {/*<MenuItem eventKey={3.3}>Profile</MenuItem>*/}
             </NavDropdown>
           </Nav>
@@ -122,12 +140,14 @@ class App extends React.Component {
           <Switch>
             <Route exact path={`/heros`} component={withRouter(HeroList)} />
             <Route path={`/home`} component={HomeComponent} />
-            <Route path={`/createHero`} component={HeroCreate} />
+            <Route path={`/createHero`} component={CreateHeroComponent} />
             <Route path={`/Beasts`} component={Beasts} />
             <Route path={`/Abilities`} component={Ability} />
             <Route path={`/Items`} component={ItemsComponent} />
             <Route path={`/heros/:id`} component={HeroEdit} />
             <Route path={`/legal`} component={PathfinderOGL} />
+            <Route path={`/about`} component={AboutSiteComponent} />
+            <Route path={`/arena`} component={ArenaStartComponent} />
             <Redirect from="/" to="/home" />
             <Route path="*" component={NoMatch} />
           </Switch>
@@ -135,7 +155,7 @@ class App extends React.Component {
         <div className="card-footer" style={styleFooter}>
           <div> Hernan Rossi &#169; 2018</div>
 	        <LinkContainer to="/legal">
-		        <NavItem>Pathfinder content used under open gaming license</NavItem>
+		        <NavItem>Pathfinder content used under Open Gaming License, and Community Use Policy</NavItem>
 	        </LinkContainer>
         </div>
       </div>

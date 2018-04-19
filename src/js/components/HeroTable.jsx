@@ -35,7 +35,7 @@ const HeroTable = props => {
           <th>XP</th>
           <th>Race</th>
           <th>Age</th>
-          <th>Title</th>
+          {/*<th>Title</th>*/}
           <th>STR</th>
           <th>DEX</th>
           <th>CON</th>

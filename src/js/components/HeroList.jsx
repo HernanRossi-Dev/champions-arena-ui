@@ -1,7 +1,7 @@
 import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
-import HeroCreate from "./HeroCreate.jsx";
+import CreateHeroComponent from "./CreateHeroComponent.jsx";
 import HeroFilter from "./HeroFilter.jsx";
 import { withRouter } from "react-router-dom";
 import store from "../store/index.js";
@@ -14,7 +14,7 @@ import { Panel} from 'react-bootstrap';
 class HeroList extends React.Component {
   constructor(props) {
     super(props);
-    this.createNewHero = this.createNewHero.bind(this);
+
     this.setFilter = this.setFilter.bind(this);
     this.deleteHero = this.deleteHero.bind(this);
     const { dispatch } = props;
@@ -87,12 +87,6 @@ class HeroList extends React.Component {
           heros={store.getState().heros}
           deleteHero={this.deleteHero}
         />
-        <hr />
-        {/*<button>*/}
-        {/*<Link to={`/heros/create`}> Create a new Hero </Link>*/}
-        {/*</button>*/}
-        <HeroCreate createNewHero={this.createNewHero} />
-        <hr />
       </div>
     );
   }

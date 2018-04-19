@@ -5,6 +5,36 @@
     text-shadow: 2px 2px 0px black;
 }
 
+.homeBodyText {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 30px;
+    color: #E3BC7F;
+    text-shadow: 2px 2px 0 black;
+    padding-top: 50px;
+
+    text-align: center;
+}
+
+.homeImageDiv {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.deleteButton {
+    color: dimgray;
+    outline: none;
+    background-color: white;
+    border: none;
+}
+
+.aboutSiteText {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    color:  black;
+    padding-top: 200px;
+}
+
+
 .splash_img {
     background-image:url("../assets/GolarionMap.png");
     object-fit: cover;

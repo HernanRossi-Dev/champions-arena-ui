@@ -1,7 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import { Panel } from "react-bootstrap";
+import {
+  Panel,
+  Col,
+  Row,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  InputGroup,
+  ButtonToolbar,
+  Button
+} from "react-bootstrap";
 
 class HeroFilter extends React.Component {
   constructor(props, context) {
@@ -109,58 +119,83 @@ class HeroFilter extends React.Component {
 
   render() {
     return (
-	    <Panel id="collapsible-panel-example-2" defaultCollapsed>
-
+      <Panel id="collapsible-panel-example-2" defaultExpanded >
         <Panel.Heading>
-          <Panel.Title toggle>
-            Filter Characters
-          </Panel.Title>
+          <Panel.Title toggle>Filter Characters</Panel.Title>
         </Panel.Heading>
-	      <Panel.Collapse>
-        <Panel.Body>
-          Class:
-          <select value={this.state.class} onChange={this.onChangeClass}>
-            <option value={""}>Any</option>
-            <option value={"Fighter"}>Fighter</option>
-            <option value={"Wizard"}>Wizard</option>
-            <option value={"Druid"}>Druid</option>
-            <option value={"Paladin"}>Paladin</option>
-            <option value={"Cleric"}>Cleric</option>
-            <option value={"Warlock"}>Cleric</option>
-            <option value={"Rogue"}>Cleric</option>
-          </select>
-          Race:
-          <select value={this.state.race} onChange={this.onChangeRace}>
-            <option value={""}>Any</option>
-            <option value={"Human"}>Human</option>
-            <option value={"Dwarf"}>Dwarf</option>
-            <option value={"Orc"}>Orc</option>
-            <option value={"Elf"}>Elf</option>
-            <option value={"Gnome"}>Gnome</option>
-          </select>
-          &nbsp;Level between:
-          <input
-            size="2"
-            maxLength={"2"}
-            value={this.state.level_gte}
-            onChange={this.onChangeLevelGte.bind(this)}
-          />
-          &nbsp;-&nbsp;
-          <input
-            maxLength={"2"}
-            value={this.state.level_lte}
-            size="2"
-            onChange={this.onChangeLevelLte.bind(this)}
-          />
-          <button onClick={this.applyFilter.bind(this)}>Apply</button>
-          <button
-            onClick={this.resetFilter.bind(this)}
-            disabled={!this.state.changed}
-          >
-            Reset
-          </button>
-          <button onClick={this.clearFilter.bind(this)}>Clear</button>
-        </Panel.Body>
+        <Panel.Collapse>
+          <Panel.Body>
+            <Row >
+              <Col xs={6} sm={4} md={3} lg={3}>
+                <FormGroup>
+                  <ControlLabel>Class</ControlLabel>
+                  <FormControl
+                    componentClass={"select"}
+                    value={this.state.class}
+                    onChange={this.onChangeClass}
+                  >
+                    <option value={""}>Any</option>
+                    <option value="Monk">Monk</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Wizard">Wizard</option>
+                    <option value="Druid">Druid</option>
+                    <option value="Fighter">Fighter</option>
+                    <option value="Paladin">Paladin</option>
+                    <option value="Sorcerer">Sorcerer</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Cleric">Cleric</option>
+                    <option value="Warlock">Warlock</option>
+                  </FormControl>
+                </FormGroup>
+              </Col>
+              <Col xs={6} sm={4} md={3} lg={3}>
+                <FormGroup>
+                  <ControlLabel>Race</ControlLabel>
+                  <FormControl
+                    componentClass={"select"}
+                    value={this.state.race}
+                    onChange={this.onChangeRace}
+                  >
+                    <option value={""}>Any</option>
+                    <option value={"Human"}>Human</option>
+                    <option value={"Dwarf"}>Dwarf</option>
+                    <option value={"Orc"}>Orc</option>
+                    <option value={"Elf"}>Elf</option>
+                    <option value={"Gnome"}>Gnome</option>
+                    <option value={"Half-Elf"}>Half-Elf</option>
+                    <option value={"Half-Orc"}>Half-Orc</option>
+                    <option value="Halfling">Halfling</option>
+                  </FormControl>
+                </FormGroup>
+              </Col>
+              <Col xs={6} sm={4} md={3} lg={3}>
+                <FormGroup>
+                  <ControlLabel>Level</ControlLabel>
+                  <InputGroup>
+                    <FormControl
+                      value={this.state.level_gte}
+                      onChange={this.onChangeLevelGte.bind(this)}
+                    />
+                    <InputGroup.Addon>-</InputGroup.Addon>
+                    <FormControl
+                      value={this.state.level_lte}
+                      onChange={this.onChangeLevelLte.bind(this)}
+                    />
+                  </InputGroup>
+                </FormGroup>
+              </Col>
+	            <Col >
+		            <FormGroup>
+			            <ControlLabel>&nbsp;</ControlLabel>
+			            <ButtonToolbar>
+                    <Button bsStyle={"Primary"}  onClick={this.applyFilter.bind(this)} >Apply</Button>
+                    <Button onClick={this.resetFilter.bind(this)} disabled={!this.state.changed}>Reset</Button>
+                    <Button onClick={this.clearFilter.bind(this)}>Clear</Button>
+                  </ButtonToolbar>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Panel.Body>
         </Panel.Collapse>
       </Panel>
     );
