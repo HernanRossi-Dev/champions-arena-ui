@@ -17,7 +17,7 @@
 }
 .createHeroPanelParent {
     padding-bottom: 10px;
-    width: 850px;
+    width: 1050px;
 }
 .createHeroFormPadding {
     padding-top: 20px;
@@ -27,6 +27,20 @@
     font-size: 20px;
     font-family: 'Crimson Text', serif;
     margin-right: 10px;
+}
+
+.alignmentButtonGroup{
+    font-size: 20px !important;
+    font-family: 'Crimson Text', serif;
+    text-align: left !important;
+
+    width:30%;
+}
+.alignmentButtonGroupParent{
+    font-size: 20px !important;
+    font-family: 'Crimson Text', serif;
+    text-align: left !important;
+    width: 100%;
 }
 .createColStyle {
     font-size: 18px;
@@ -191,14 +205,15 @@ body {
     padding: 0;
     margin: 8px auto;
     height: 0;
-    width: 83%;
+    width: 80%;
     max-height: 0;
     font-size: 1px;
     line-height: 0;
     clear: both;
     border: none;
-    border-top: 1px solid #aaaaaa;
-    border-bottom: 1px solid #ffffff;
+    border-top: 1px solid #485563;
+    border-bottom: 1px solid #697785;
     margin-bottom: 25px;
     margin-top: 25px;
+
 }
