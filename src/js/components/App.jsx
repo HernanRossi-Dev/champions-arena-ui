@@ -7,7 +7,8 @@ import ItemsComponent from "./ItemsComponent.jsx";
 import HomeComponent from "./HomeComponent.jsx";
 import AboutSiteComponent from "./AboutSiteComponent.jsx";
 import ArenaStartComponent from "./ArenaStartComponent.jsx";
-
+import CreateNPCComponent from "./CreateNPCComponent.jsx";
+import CreateMonster from "./CreateMonster.jsx";
 import PathfinderOGL from "./PathfinderOGL.jsx";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -16,6 +17,7 @@ import { Provider } from "react-redux";
 import store from "../store/index.js";
 import { Navbar, Nav, NavDropdown, NavItem, MenuItem } from "react-bootstrap";
 import * as cssStyles from "../../styles/Styles.css";
+import"../../styles/Styles.css";
 import { LinkContainer } from "react-router-bootstrap";
 import {
   Route,
@@ -25,15 +27,47 @@ import {
   withRouter
 } from "react-router-dom";
 
-
 class Header extends React.Component {
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.handleOpenWorld = this.handleOpenWorld.bind(this);
+    this.handleOpenCreate = this.handleOpenCreate.bind(this);
+    this.handleCloseWorld = this.handleCloseWorld.bind(this);
+    this.handleOpenOptions = this.handleOpenOptions.bind(this);
+    this.handleCloseOptions = this.handleCloseOptions.bind(this);
+    this.handleCloseCreate = this.handleCloseCreate.bind(this);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
+      isOpenWorld: false,
+      isOpenCreate: false,
+      isOpenOptions: false
     };
+  }
+
+  handleOpenWorld() {
+    this.setState({ isOpenWorld: true });
+  }
+
+  handleCloseWorld() {
+    this.setState({ isOpenWorld: false });
+  }
+
+  handleOpenCreate() {
+    this.setState({ isOpenCreate: true });
+  }
+
+  handleCloseCreate() {
+    this.setState({ isOpenCreate: false });
+  }
+
+  handleOpenOptions() {
+    this.setState({ isOpenOptions: true });
+  }
+
+  handleCloseOptions() {
+    this.setState({ isOpenOptions: false });
   }
 
   toggle() {
@@ -41,54 +75,75 @@ class Header extends React.Component {
       dropdownOpen: !this.state.dropdownOpen
     });
   }
+
   render() {
     return (
       <div>
-        <Navbar color="faded" light toggleable={false} fluid >
-          <Nav bsStyle="tabs" justified>
+        <Navbar toggleable={false} fluid >
+          <Nav bsStyle="tabs" justified className={cssStyles.navBarFont}>
             <LinkContainer to="/home">
               <NavItem>Home</NavItem>
             </LinkContainer>
             <LinkContainer to="/heros">
               <NavItem>Characters</NavItem>
             </LinkContainer>
-            <LinkContainer to="/createHero">
-              <NavItem>
-                Create Character <i className="fas fa-plus" />
-              </NavItem>
+            <NavDropdown
+              eventKey={3}
+              onMouseEnter={this.handleOpenCreate}
+              onMouseLeave={this.handleCloseCreate}
+              open={this.state.isOpenCreate}
+              title="Create New Character"
+              id="basic-nav-dropdown"
+
+            >
+              <LinkContainer to="/createHero" >
+
+                <MenuItem  eventKey={3.1} >New Player Character</MenuItem>
+
+              </LinkContainer>
+              <LinkContainer to="/createNPC">
+                <MenuItem eventKey={3.2}>New Non-Player Character</MenuItem>
+
+              </LinkContainer>
+              <LinkContainer to="/createMonster">
+                <MenuItem eventKey={3.3} >New Monster</MenuItem>
+              </LinkContainer>
+            </NavDropdown>
+
+            <LinkContainer to="/Arena">
+              <NavItem>Arena</NavItem>
             </LinkContainer>
-
-	          <LinkContainer to="/Arena">
-		          <NavItem>
-			          Arena
-		          </NavItem>
-	          </LinkContainer>
-	          <NavDropdown
-		          eventKey={3}
-		          title={"World Info"}
-		          id="basic-nav-dropdown"
-
-	          >
-		          <LinkContainer to="/Beasts">
-			          <MenuItem eventKey={3.1}>Beasts</MenuItem>
-		          </LinkContainer>
-		          <LinkContainer to="/Abilities">
-			          <MenuItem eventKey={3.2}>Skills</MenuItem>
-		          </LinkContainer>
-		          <LinkContainer to="/Items">
-			          <MenuItem eventKey={3.3}>Items</MenuItem>
-		          </LinkContainer>
-	          </NavDropdown>
+            <NavDropdown
+              eventKey={3}
+              onMouseEnter={this.handleOpenWorld}
+              onMouseLeave={this.handleCloseWorld}
+              open={this.state.isOpenWorld}
+              title="World Info"
+              id="basic-nav-dropdown"
+            >
+              <LinkContainer to="/Beasts">
+                <MenuItem eventKey={3.1}>Beasts</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/Abilities">
+                <MenuItem eventKey={3.2}>Skills</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/Items">
+                <MenuItem eventKey={3.3}>Items</MenuItem>
+              </LinkContainer>
+            </NavDropdown>
 
             <NavDropdown
               eventKey={3}
+              onMouseEnter={this.handleOpenOptions}
+              onMouseLeave={this.handleCloseOptions}
+              open={this.state.isOpenOptions}
               title={<i className="fas fa-bars" />}
               id="basic-nav-dropdown"
               noCaret
             >
               <MenuItem eventKey={3.1}>Logged in as Guest</MenuItem>
               <LinkContainer to="/about">
-	              <MenuItem eventKey={3.2}>About Site</MenuItem>
+                <MenuItem eventKey={3.2}>About Site</MenuItem>
               </LinkContainer>
               {/*<MenuItem eventKey={3.3}>Profile</MenuItem>*/}
             </NavDropdown>
@@ -106,25 +161,18 @@ const style = {
   alignItems: "center"
 };
 
-const styleFooter = {
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  alignItems: "center",
-	padding: "12px",
-width: "100%",
-background: "#D8D8D8",
-};
+
 const NoMatch = () => <p>Page Not Found</p>;
 
 class App extends React.Component {
   render() {
     return (
       <div className={["card", cssStyles.Site].join(" ")}>
-        <div className={cssStyles.splash_img}>
+        <Header />
 
+        <div className={cssStyles.splash_img}>
           <div className="card-header" style={style}>
-            <img
+            <img className={cssStyles.titleImage}
               src={require("../../assets/PathfinderRpg.png")}
               width="371"
               height="95"
@@ -133,14 +181,14 @@ class App extends React.Component {
             <p className={cssStyles.headingText}>Character Arena</p>
           </div>
         </div>
-        <div>
-          <Header />
-        </div>
+
         <div className={["container-fluid", cssStyles.SiteContent].join(" ")}>
           <Switch>
             <Route exact path={`/heros`} component={withRouter(HeroList)} />
             <Route path={`/home`} component={HomeComponent} />
             <Route path={`/createHero`} component={CreateHeroComponent} />
+            <Route path={`/createNPC`} component={CreateNPCComponent} />
+            <Route path={`/createMonster`} component={CreateMonster} />
             <Route path={`/Beasts`} component={Beasts} />
             <Route path={`/Abilities`} component={Ability} />
             <Route path={`/Items`} component={ItemsComponent} />
@@ -152,11 +200,14 @@ class App extends React.Component {
             <Route path="*" component={NoMatch} />
           </Switch>
         </div>
-        <div className="card-footer" style={styleFooter}>
+        <div  className={cssStyles.styleFooter}>
           <div> Hernan Rossi &#169; 2018</div>
-	        <LinkContainer to="/legal">
-		        <NavItem>Pathfinder content used under Open Gaming License, and Community Use Policy</NavItem>
-	        </LinkContainer>
+          <LinkContainer to="/legal">
+            <NavItem>
+              Pathfinder content used under Open Gaming License, and Community
+              Use Policy
+            </NavItem>
+          </LinkContainer>
         </div>
       </div>
     );

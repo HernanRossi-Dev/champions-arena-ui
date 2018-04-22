@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import HeroRow from "./HeroRow.jsx";
 import { withRouter } from "react-router-dom";
 import { Table, Panel } from 'react-bootstrap';
+import * as cssStyles from "../../styles/Styles.css";
+
 
 const HeroTable = props => {
   let heroRows;
@@ -26,25 +28,24 @@ const HeroTable = props => {
   }
 
   return (
-    <Table bordered condensed hover responsive>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Class</th>
-          <th>Level</th>
-          <th>XP</th>
-          <th>Race</th>
-          <th>Age</th>
-          {/*<th>Title</th>*/}
-          <th>STR</th>
-          <th>DEX</th>
-          <th>CON</th>
-          <th>INT</th>
-          <th>WIS</th>
-          <th>CHA</th>
+    <Table bordered condensed hover responsive className={cssStyles.heroTableParent}>
+      <thead className={cssStyles.heroTableHeader}>
+        <tr  >
+            <th className={cssStyles.HTRtextAt}>Type</th>
+          <th className={cssStyles.HTRtextAt}>Name</th>
+          <th className={cssStyles.HTRtextAt}>Class</th>
+          <th className={cssStyles.HTRtextAt}>Level</th>
+          <th className={cssStyles.HTRtextAt}>XP</th>
+          <th className={cssStyles.HTRtextAt}>Race</th>
+          <th className={cssStyles.HTRtextAt}>STR</th>
+          <th className={cssStyles.HTRtextAt}>DEX</th>
+          <th className={cssStyles.HTRtextAt}>CON</th>
+          <th className={cssStyles.HTRtextAt}>INT</th>
+          <th className={cssStyles.HTRtextAt}>WIS</th>
+          <th className={cssStyles.HTRtextAt}>CHA</th>
         </tr>
       </thead>
-      <tbody>{heroRows}</tbody>
+      <tbody className={cssStyles.heroTableRow}>{heroRows}</tbody>
     </Table>
   );
 };

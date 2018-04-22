@@ -8,9 +8,9 @@ export default class HomeComponent extends React.Component {
         Welcome to Pathfinder Character Arena<br />
         <div className={cssStyles.homeImageDiv}>
           <img
-            src={require("../../assets/HunterAdowyn.png")}
-            width="530"
-            height="606"
+            src={require("../../assets/OccultYoon.png")}
+            width="375"
+            height="432"
             alt=""
           />
         </div>

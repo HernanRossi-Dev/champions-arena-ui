@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 import express from "express";
 import bodyParser from "body-parser";
 import { MongoClient } from "mongodb";
@@ -87,6 +88,10 @@ app.post("/api/heros", (req, res) => {
     res.status(422).json({ message: "New hero must have a name." });
     return;
   }
+
+
+
+
   newHero.created = new Date();
   db
     .collection("heros")

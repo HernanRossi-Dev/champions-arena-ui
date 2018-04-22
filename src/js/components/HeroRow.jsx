@@ -8,8 +8,9 @@ const HeroRow = props => {
     props.deleteHero(props.hero._id);
   }
   return (
-    <tr>
-      <td>
+    <tr  >
+        <td>{props.hero.type}</td>
+      <td >
         <Link
           to={`/heros/${props.hero._id}`}
           params={{ hero: props.hero.name }}
@@ -22,17 +23,17 @@ const HeroRow = props => {
       <td>{props.hero.level}</td>
       <td>{props.hero.XP}</td>
       <td>{props.hero.race}</td>
-      <td>{props.hero.age}</td>
-      {/*<td>{props.hero.title}</td>*/}
       <td>{props.hero.STR}</td>
       <td>{props.hero.DEX}</td>
       <td>{props.hero.CON}</td>
       <td>{props.hero.INT}</td>
       <td>{props.hero.WIS}</td>
       <td>{props.hero.CHA}</td>
-      <Button type="button" bsClass={cssStyles.deleteButton}>
+        <td>
+      <Button type="button" bsClass={cssStyles.deleteButton} onClick={deleteHero}>
         <i className="fas fa-times-circle fa-lg" />
       </Button>
+        </td>
     </tr>
   );
 };

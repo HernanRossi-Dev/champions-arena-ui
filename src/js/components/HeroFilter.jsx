@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import * as cssStyles from "../../styles/Styles.css";
 import {
   Panel,
   Col,
@@ -119,9 +120,9 @@ class HeroFilter extends React.Component {
 
   render() {
     return (
-      <Panel id="collapsible-panel-example-2" defaultExpanded >
-        <Panel.Heading>
-          <Panel.Title toggle>Filter Characters</Panel.Title>
+      <Panel  defaultExpanded >
+        <Panel.Heading  className={cssStyles.panelHeader}>
+          <Panel.Title toggle className={cssStyles.panelHeaderText}>Filter Characters</Panel.Title>
         </Panel.Heading>
         <Panel.Collapse>
           <Panel.Body>
@@ -188,7 +189,7 @@ class HeroFilter extends React.Component {
 		            <FormGroup>
 			            <ControlLabel>&nbsp;</ControlLabel>
 			            <ButtonToolbar>
-                    <Button bsStyle={"Primary"}  onClick={this.applyFilter.bind(this)} >Apply</Button>
+                    <Button bsStyle={"primary"}  onClick={this.applyFilter.bind(this)} >Apply</Button>
                     <Button onClick={this.resetFilter.bind(this)} disabled={!this.state.changed}>Reset</Button>
                     <Button onClick={this.clearFilter.bind(this)}>Clear</Button>
                   </ButtonToolbar>

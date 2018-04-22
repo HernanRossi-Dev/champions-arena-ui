@@ -7,7 +7,7 @@ function resolve(dir) {
 
 module.exports = {
   entry: {
-    app: [resolve("webAppMern/src/js/components/App.jsx")]
+    app: [resolve("ArenaBattleApp/src/js/components/App.jsx")]
   },
   output: {
     path: resolve("webAppMern/static/"),
