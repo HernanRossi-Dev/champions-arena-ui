@@ -40,11 +40,14 @@ class CreateHeroComponent extends React.Component {
         CHA: 8,
         gender: "",
         alignment: "",
-        alignmentInfo: ""
+        alignmentInfo: "",
+        showAlignment: false,
+        prevButtonPressed: ""
       }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     // this.changeGender = this.changeGender.bind(this);
+    //   this.AlignmentTextToggle = this.AlignmentTextToggle.bind(this);
     this.GenderFormGroup = this.GenderFormGroup.bind(this);
     this.RaceFormGroup = this.RaceFormGroup.bind(this);
     this.ClassFormGroup = this.ClassFormGroup.bind(this);
@@ -57,35 +60,6 @@ class CreateHeroComponent extends React.Component {
     this.changeAlignmentInfo = this.changeAlignmentInfo.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
-  }
-
-  generateStats() {
-    const newStats = [];
-    // Use 4d6 lowest drop method
-    let i;
-    let j;
-    let currentStat = 0;
-    let statRolls = [];
-    for (i = 0; i < 6; i += 1) {
-      statRolls = [];
-      currentStat = 0;
-      for (j = 0; j < 4; j += 1) {
-        statRolls.push(Math.floor(Math.random() * 6) + 1);
-      }
-      statRolls.sort();
-      currentStat = statRolls[1] + statRolls[2] + statRolls[3];
-      newStats.push(currentStat);
-    }
-    this.setState({
-      heroStats: {
-        STR: newStats[0],
-        DEX: newStats[1],
-        CON: newStats[2],
-        INT: newStats[3],
-        WIS: newStats[4],
-        CHA: newStats[5]
-      }
-    });
   }
 
   createNewHero(newHero) {
@@ -129,11 +103,19 @@ class CreateHeroComponent extends React.Component {
   }
 
   render() {
-    const alignmentDivStyle = {
-      fontSize: "15px !important",
-      fontFamily: "'Crimson Text', serif",
-      textAlign: "center"
+    const AlignmentTextToggle = () => {
+      const alignmentDivStyle = {
+        fontSize: "17px !important",
+        fontFamily: "'Josefin Sans', sans-serif",
+        textAlign: "left"
+      };
+      if (this.state.showAlignment) {
+        return <div style={alignmentDivStyle}> {this.state.alignmentInfo}</div>;
+      } else {
+        return <div />;
+      }
     };
+
     return (
       <Panel className={cssStyles.createHeroPanelParent}>
         <Panel.Heading>
@@ -142,27 +124,29 @@ class CreateHeroComponent extends React.Component {
         <Form horizontal>
           {this.NameFormGroup()}
           <hr className={cssStyles.hr} />
-
           {this.GenerateStatsFormGroup()}
-
           {this.StatsHeaderFormGroup()}
           {this.StatsDisplayFormGroup()}
-
           <hr className={cssStyles.hr} />
 
-          {this.ClassFormGroup()}
-          <hr className={cssStyles.hr} />
           {this.RaceFormGroup()}
           <hr className={cssStyles.hr} />
+            {this.ClassFormGroup()}
+            <hr className={cssStyles.hr} />
           {this.GenderFormGroup()}
           <hr className={cssStyles.hr} />
           {this.AlignmentFormGroup()}
-          <div id="demo" className="collapse" style={alignmentDivStyle}>
-            {this.state.alignmentInfo}
-            this has been clicked
-          </div>
           <FormGroup>
-            <Col smOffset={3} sm={6}>
+            <Col sm={1} />
+            <Col sm={8}>
+              <AlignmentTextToggle />
+            </Col>
+            <Col sm={2} />
+          </FormGroup>
+          <hr className={cssStyles.hr} />
+          <FormGroup className={cssStyles.createColStyle}>
+            <Col sm={3} />
+            <Col sm={3}>
               <ButtonToolbar>
                 <Button bsStyle="primary" onClick={this.handleSubmit}>
                   Create
@@ -172,12 +156,18 @@ class CreateHeroComponent extends React.Component {
                 </LinkContainer>
               </ButtonToolbar>
             </Col>
+            <Col sm={3} />
           </FormGroup>
         </Form>
       </Panel>
     );
   }
 
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
   NameFormGroup() {
     return (
       <FormGroup className={cssStyles.createHeroFormPadding}>
@@ -202,6 +192,45 @@ class CreateHeroComponent extends React.Component {
     );
   }
 
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
+  generateStats() {
+    const newStats = [];
+    // Use 4d6 lowest drop method
+    let i;
+    let j;
+    let currentStat = 0;
+    let statRolls = [];
+    for (i = 0; i < 6; i += 1) {
+      statRolls = [];
+      currentStat = 0;
+      for (j = 0; j < 4; j += 1) {
+        statRolls.push(Math.floor(Math.random() * 6) + 1);
+      }
+      statRolls.sort();
+      currentStat = statRolls[1] + statRolls[2] + statRolls[3];
+      newStats.push(currentStat);
+    }
+    this.setState({
+      heroStats: {
+        STR: newStats[0],
+        DEX: newStats[1],
+        CON: newStats[2],
+        INT: newStats[3],
+        WIS: newStats[4],
+        CHA: newStats[5]
+      }
+    });
+  }
+
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
   GenerateStatsFormGroup() {
     const tooltip = <Tooltip id="tooltip">Roll 4d6 keep best 3 dice</Tooltip>;
     return (
@@ -220,6 +249,11 @@ class CreateHeroComponent extends React.Component {
     );
   }
 
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
   StatsHeaderFormGroup() {
     return (
       <FormGroup>
@@ -269,6 +303,11 @@ class CreateHeroComponent extends React.Component {
     );
   }
 
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
   StatsDisplayFormGroup() {
     return (
       <FormGroup>
@@ -312,40 +351,107 @@ class CreateHeroComponent extends React.Component {
     );
   }
 
-  ClassFormGroup() {
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
+  RaceFormGroup() {
+    const changeRace = e => {
+      const targetText = e.target.textContent.toString();
+      // if (!this.state.race) {
+      //   this.setState({ showAlignment: true });
+      // }
+      // if (targetText === this.state.prevButtonPressed) {
+      //   if (this.state.showAlignment) {
+      //     this.setState({ showAlignment: !this.state.showAlignment });
+      //   } else {
+      //   }
+      // } else {
+      //   this.setState({ showAlignment: true });
+      // }
+      //   this.changeAlignmentInfo(e.target.textContent.toString());
+      //   this.setState({ prevButtonPressed: targetText });
+      this.setState({ race: targetText });
+    };
     return (
       <FormGroup>
         <Col sm={1} />
-
         <Col
           componentClass={ControlLabel}
           sm={2}
           className={cssStyles.createColLabelStyle}
         >
           Race:
+
         </Col>
-        <Col sm={5}>
-          <FormControl
-            componentClass="select"
-            name={"race"}
-            inputRef={ref => {
-              this.heroRace = ref;
-            }}
-          >
-            <option value="Human">Human</option>
-            <option value="Dwarf">Dwarf</option>
-            <option value="Elf">Elf</option>
-            <option value="Halfling">Halfling</option>
-            <option value="Half-Elf">Half-Elf</option>
-            <option value="Gnome">Gnome</option>
-            <option value="Half-Orc">Half-Orc</option>
-          </FormControl>
+        <Col sm={7}>
+          <ButtonToolbar>
+            <ToggleButtonGroup
+              type="radio"
+              name="raceValue"
+              onClick={changeRace}
+              className={cssStyles.alignmentButtonGroupParent}
+            >
+              <ToggleButton
+                value={"Human"}
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Human
+              </ToggleButton>
+              <ToggleButton
+                value={"Dwarf"}
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Dwarf
+              </ToggleButton>
+              <ToggleButton
+                value={"Elf"}
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Elf
+              </ToggleButton>
+              <ToggleButton
+                value={"Halfling"}
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Halfling
+              </ToggleButton>
+              <ToggleButton
+                value={"Gnome"}
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Gnome
+              </ToggleButton>
+
+              <ToggleButton
+                value={"Half-Orc"}
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Half-Orc
+              </ToggleButton>
+                <ToggleButton
+                value={"Half-Elf"}
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Half-Elf
+              </ToggleButton>
+
+            </ToggleButtonGroup>
+          </ButtonToolbar>
         </Col>
+
+        <Col sm={2} />
       </FormGroup>
     );
   }
 
-  RaceFormGroup() {
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
+  ClassFormGroup() {
     return (
       <FormGroup>
         <Col sm={1} />
@@ -355,6 +461,7 @@ class CreateHeroComponent extends React.Component {
           className={cssStyles.createColLabelStyle}
         >
           Class:
+
         </Col>
         <Col sm={5}>
           <FormControl
@@ -376,17 +483,57 @@ class CreateHeroComponent extends React.Component {
             <option value="Fighter">Fighter</option>
           </FormControl>
         </Col>
+        <Col sm={1}/>
+          <Col ><img
+              src={require("../../assets/Fighter.png")}
+              width="75"
+              height="75"
+              alt=""
+
+          /></Col>
       </FormGroup>
     );
   }
 
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
   GenderFormGroup() {
     const changeGender = e => {
-        console.log("e gender");
-
-        console.log(e.target.textContent);
-
       this.setState({ gender: e.target.textContent.toString() });
+    };
+
+    const ShowGenderImage =(props) => {
+      if(this.state.gender === "Male"){
+        return (
+            <img
+                src={require("../../assets/maleGender.png")}
+                width="50"
+                height="50"
+                alt=""
+            />
+        );
+      } else if (this.state.gender === "Female"){
+        return (
+            <img
+                src={require("../../assets/femaleGender.png")}
+                width="50"
+                height="50"
+                alt=""
+            />
+        );
+      } else {
+        return (
+            <img
+                src={require("../../assets/otherSexSymbol.png")}
+                width="33"
+                height="50"
+                alt=""
+            />
+        );
+      }
     };
     return (
       <FormGroup>
@@ -398,18 +545,16 @@ class CreateHeroComponent extends React.Component {
         >
           Gender:
         </Col>
-        <Col sm={4}>
+        <Col sm={5}>
           <ToggleButtonGroup
             type="radio"
             name="gender"
-
             className={cssStyles.genderButtonGroup}
           >
             <ToggleButton
               value={"Male"}
               className={cssStyles.genderButtonGroup}
               onClick={changeGender}
-
             >
               Male
             </ToggleButton>
@@ -417,24 +562,50 @@ class CreateHeroComponent extends React.Component {
               value={"Female"}
               className={cssStyles.genderButtonGroup}
               onClick={changeGender}
-
             >
               Female
             </ToggleButton>
+              <ToggleButton
+                  value={"Unknown"}
+                  className={cssStyles.genderButtonGroup}
+                  onClick={changeGender}
+              >
+                  Unknown
+              </ToggleButton>
+
           </ToggleButtonGroup>
         </Col>
+        <Col sm={1}/>
+        <Col sm={1}>
+               <ShowGenderImage />
+            </Col>
+
       </FormGroup>
     );
   }
 
+  /**
+   *
+   * @returns {*}
+   * @constructor
+   */
   AlignmentFormGroup() {
     const changeAlignment = e => {
-      console.log("e value");
-
-      console.log(e.target.textContent);
-
+      const targetText = e.target.textContent.toString();
+      if (!this.state.showAlignment) {
+        this.setState({ showAlignment: true });
+      }
+      if (targetText === this.state.prevButtonPressed) {
+        if (this.state.showAlignment) {
+          this.setState({ showAlignment: !this.state.showAlignment });
+        } else {
+        }
+      } else {
+        this.setState({ showAlignment: true });
+      }
       this.setState({ alignment: e.target.textContent.toString() });
       this.changeAlignmentInfo(e.target.textContent.toString());
+      this.setState({ prevButtonPressed: targetText });
     };
     return (
       <FormGroup controlId="alignmentValue">
@@ -451,94 +622,65 @@ class CreateHeroComponent extends React.Component {
             <ToggleButtonGroup
               type="radio"
               name="alignmentValue"
-              // onChange={changeAlignment}
-              // onClick={changeAlignment}
-              //  handleChange={changeAlignment}
               ref="alignmentValue"
+              onClick={changeAlignment}
               className={cssStyles.alignmentButtonGroupParent}
             >
               <ToggleButton
                 value={"Lawful Good"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Lawful Good
               </ToggleButton>
               <ToggleButton
-                value={2}
+                value={"Neutral Good"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Neutral Good
               </ToggleButton>
               <ToggleButton
-                value={3}
+                value={"Chaotic Good"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Chaotic Good
               </ToggleButton>
               <ToggleButton
-                value={4}
+                value={"Lawful Neutral"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Lawful Neutral
               </ToggleButton>
               <ToggleButton
-                value={5}
+                value={"Neutral"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Neutral
               </ToggleButton>
 
               <ToggleButton
-                value={6}
+                value={"Chaotic Neutral"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Chaotic Neutral
               </ToggleButton>
 
               <ToggleButton
-                value={7}
+                value={"Lawful Evil"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Lawful Evil
               </ToggleButton>
 
               <ToggleButton
-                value={8}
+                value={"Neutral Evil"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Neutral Evil
               </ToggleButton>
 
               <ToggleButton
-                value={9}
+                value={"Chaotic Evil"}
                 className={cssStyles.alignmentButtonGroup}
-                data-toggle="collapse"
-                data-target="#demo"
-                onClick={changeAlignment}
               >
                 Chaotic Evil
               </ToggleButton>
@@ -551,97 +693,172 @@ class CreateHeroComponent extends React.Component {
     );
   }
 
+  /**
+   *
+   * @param e
+   */
   changeAlignmentInfo(e) {
-    console.log("alignemnt info e");
-    console.log(e);
     switch (e) {
       case "Lawful Good":
         this.setState({
-          alignmentInfo:
-            "Lawful Good: A lawful good character acts as a good person is expected or required to act. " +
-            "She combines a commitment to oppose evil with the discipline to fight relentlessly. " +
-            "She tells the truth, keeps her word, helps those in need, and speaks out against injustice. " +
-            "A lawful good character hates to see the guilty go unpunished.\n\nLawful good combines honor with compassion.\n"
+          alignmentInfo: (
+            <p>
+              <strong>Lawful Good:</strong>
+              <br /> A lawful good character acts as a good person is expected
+              or required to act. She combines a commitment to oppose evil with
+              the discipline to fight relentlessly. She tells the truth, keeps
+              her word, helps those in need, and speaks out against injustice.<br />
+              <br />
+              A lawful good character hates to see the guilty go unpunished.
+              Lawful good combines honor with compassion.
+            </p>
+          )
         });
         break;
       case "Neutral Good":
         this.setState({
-          alignmentInfo:
-            "Neutral Good: A neutral good character does the best that a good person can do. " +
-            "He is devoted to helping others. He works with kings and magistrates but does not feel beholden to them.\n" +
-            "\n" +
-            "Neutral good means doing what is good and right without bias for or against order."
+          alignmentInfo: (
+            <p>
+              <strong>Neutral Good:</strong>
+              <br />A neutral good character does the best that a good person
+              can do. He is devoted to helping others. He works with kings and
+              magistrates but does not feel beholden to them.
+              <br />
+              <br />Neutral good means doing what is good and right without bias
+              for or against order.
+            </p>
+          )
         });
         break;
       case "Chaotic Good":
         this.setState({
-          alignmentInfo:
-            "Chaotic Good: A chaotic good character acts as his conscience directs him with little regard for what others expect of him. He makes his own way, but he's kind and benevolent. He believes in goodness and right but has little use for laws and regulations. He hates it when people try to intimidate others and tell them what to do. He follows his own moral compass, which, although good, may not agree with that of society.\n" +
-            "\n" +
-            "Chaotic good combines a good heart with a free spirit."
+          alignmentInfo: (
+            <p>
+              <strong>Chaotic Good:</strong>
+              <br />A chaotic good character acts as his conscience directs him
+              with little regard for what others expect of him. He makes his own
+              way, but he's kind and benevolent. He believes in goodness and
+              right but has little use for laws and regulations.
+              <br />
+              <br />
+              Chaotic good combines a good heart with a free spirit.
+            </p>
+          )
         });
         break;
-      case " Lawful Neutral":
+      case "Lawful Neutral":
         this.setState({
-          alignmentInfo:
-            "Lawful Neutral: A lawful neutral character acts as law, tradition, or a personal code directs her. Order and organization are paramount. She may believe in personal order and live by a code or standard, or she may believe in order for all and favor a strong, organized government.\n" +
-            "\n" +
-            "Lawful neutral means you are reliable and honorable without being a zealot."
+          alignmentInfo: (
+            <p>
+              <strong>Chaotic Good:</strong>
+              <br />A lawful neutral character acts as law, tradition, or a
+              personal code directs her. Order and organization are paramount.
+              She may believe in personal order and live by a code or standard,
+              or she may believe in order for all and favor a strong, organized
+              government.
+              <br />
+              <br />
+              Lawful neutral means you are reliable and honorable without being
+              a zealot.
+            </p>
+          )
         });
         break;
       case "Neutral":
         this.setState({
-          alignmentInfo:
-            "Neutral: A neutral character does what seems to be a good idea. She doesn't feel strongly one way or the other when it comes to good vs. evil or law vs. chaos (and thus neutral is sometimes called \"true neutral\"). Most neutral characters exhibit a lack of conviction or bias rather than a commitment to neutrality. Such a character probably thinks of good as better than evil—after all, she would rather have good neighbors and rulers than evil ones. Still, she's not personally committed to upholding good in any abstract or universal way.\n" +
-            "\n" +
-            "Some neutral characters, on the other hand, commit themselves philosophically to neutrality. They see good, evil, law, and chaos as prejudices and dangerous extremes. They advocate the middle way of neutrality as the best, most balanced road in the long run.\n" +
-            "\n" +
-            "Neutral means you act naturally in any situation, without prejudice or compulsion."
+          alignmentInfo: (
+            <p>
+              <strong>Neutral:</strong>
+              <br />A neutral character does what seems to be a good idea. She
+              doesn't feel strongly one way or the other when it comes to good
+              vs. evil or law vs. chaos (and thus neutral is sometimes called
+              "true neutral"). Most neutral characters exhibit a lack of
+              conviction or bias rather than a commitment to neutrality.
+              <br />
+              <br />
+              Neutral means you act naturally in any situation, without
+              prejudice or compulsion.
+            </p>
+          )
         });
         break;
       case "Chaotic Neutral":
         this.setState({
-          alignmentInfo:
-            "Chaotic Neutral: A chaotic neutral character follows his whims. He is an individualist first and last. He values his own liberty but doesn't strive to protect others' freedom. He avoids authority, resents restrictions, and challenges traditions. A chaotic neutral character does not intentionally disrupt organizations as part of a campaign of anarchy. To do so, he would have to be motivated either by good (and a desire to liberate others) or evil (and a desire to make those others suffer). A chaotic neutral character may be unpredictable, but his behavior is not totally random. He is not as likely to jump off a bridge as he is to cross it.\n" +
-            "\n" +
-            "Chaotic neutral represents freedom from both society's restrictions and a do-gooder's zeal."
+          alignmentInfo: (
+            <p>
+              <strong>Chaotic Neutral:</strong>
+              <br />A chaotic neutral character follows his whims. He is an
+              individualist first and last. He values his own liberty but
+              doesn't strive to protect others' freedom. He avoids authority,
+              resents restrictions, and challenges traditions. <br />
+              <br />
+              Chaotic neutral represents freedom from both society's
+              restrictions and a do-gooder's zeal.{" "}
+            </p>
+          )
         });
         break;
       case "Lawful Evil":
         this.setState({
-          alignmentInfo:
-            "Lawful Evil: A lawful evil villain methodically takes what he wants within the limits of his code of conduct without regard for whom it hurts. He cares about tradition, loyalty, and order, but not about freedom, dignity, or life. He plays by the rules but without mercy or compassion. He is comfortable in a hierarchy and would like to rule, but is willing to serve. He condemns others not according to their actions but according to race, religion, homeland, or social rank. He is loath to break laws or promises.\n" +
-            "\n" +
-            "This reluctance comes partly from his nature and partly because he depends on order to protect himself from those who oppose him on moral grounds. Some lawful evil villains have particular taboos, such as not killing in cold blood (but having underlings do it) or not letting children come to harm (if it can be helped). They imagine that these compunctions put them above unprincipled villains.\n" +
-            "\n" +
-            "Some lawful evil people and creatures commit themselves to evil with a zeal like that of a crusader committed to good. Beyond being willing to hurt others for their own ends, they take pleasure in spreading evil as an end unto itself. They may also see doing evil as part of a duty to an evil deity or master.\n" +
-            "\n" +
-            "Lawful evil represents methodical, intentional, and organized evil."
+          alignmentInfo: (
+            <p>
+              <strong>Lawful Evil:</strong>
+              <br />A lawful evil villain methodically takes what he wants
+              within the limits of his code of conduct without regard for whom
+              it hurts. He cares about tradition, loyalty, and order, but not
+              about freedom, dignity, or life. He plays by the rules but without
+              mercy or compassion. <br />
+              <br />
+              Lawful evil represents methodical, intentional, and organized
+              evil.
+            </p>
+          )
         });
         break;
       case "Neutral Evil":
         this.setState({
-          alignmentInfo:
-            "Neutral Evil: A neutral evil villain does whatever she can get away with. She is out for herself, pure and simple. She sheds no tears for those she kills, whether for profit, sport, or convenience. She has no love of order and holds no illusions that following laws, traditions, or codes would make her any better or more noble. On the other hand, she doesn't have the restless nature or love of conflict that a chaotic evil villain has.\n" +
-            "\n" +
-            "Some neutral evil villains hold up evil as an ideal, committing evil for its own sake. Most often, such villains are devoted to evil deities or secret societies.\n" +
-            "\n" +
-            "Neutral evil represents pure evil without honor and without variation."
+          alignmentInfo: (
+            <p>
+              <strong>Neutral Evil:</strong>
+              <br />A neutral evil villain does whatever she can get away with.
+              She is out for herself, pure and simple. She sheds no tears for
+              those she kills, whether for profit, sport, or convenience. Some
+              neutral evil villains hold up evil as an ideal, committing evil
+              for its own sake. <br />
+              <br />
+              Neutral evil represents pure evil without honor and without
+              variation.
+            </p>
+          )
         });
         break;
       case "Chaotic Evil":
         this.setState({
-          alignmentInfo:
-            "Chaotic Evil: A chaotic evil character does what his greed, hatred, and lust for destruction drive him to do. He is vicious, arbitrarily violent, and unpredictable. If he is simply out for whatever he can get, he is ruthless and brutal. If he is committed to the spread of evil and chaos, he is even worse. Thankfully, his plans are haphazard, and any groups he joins or forms are likely to be poorly organized. Typically, chaotic evil people can be made to work together only by force, and their leader lasts only as long as he can thwart attempts to topple or assassinate him.\n" +
-            "\n" +
-            "Chaotic evil represents the destruction not only of beauty and life, but also of the order on which beauty and life depend.\n" +
-            "\n"
+          alignmentInfo: (
+            <p>
+              <strong>Chaotic Evil:</strong>
+              <br />A chaotic evil character does what his greed, hatred, and
+              lust for destruction drive him to do. He is vicious, arbitrarily
+              violent, and unpredictable. If he is simply out for whatever he
+              can get, he is ruthless and brutal.
+              <br />
+              <br />
+              Chaotic evil represents the destruction not only of beauty and
+              life, but also of the order on which beauty and life depend.
+            </p>
+          )
         });
         break;
     }
   }
 }
 
+/**
+ *
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function StatsTable(props) {
   const borderedStyle = { border: "1px solid silver", padding: 4 };
   return (

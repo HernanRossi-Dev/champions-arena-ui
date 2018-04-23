@@ -138,6 +138,15 @@
 
 }
 
+.homeTextParagraph {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
+    color: white;
+    padding-top: 30px;
+    text-shadow: none;
+
+    text-align: left;
+}
 
 
 .aboutSiteText {
