@@ -1,7 +1,7 @@
 import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
-import CreateHeroComponent from "./CreateHeroComponent.jsx";
+import CreateHeroComponent from "./CreateHeroComponents/CreateHeroComponent.jsx";
 import HeroFilter from "./HeroFilter.jsx";
 import { withRouter } from "react-router-dom";
 import store from "../store/index.js";

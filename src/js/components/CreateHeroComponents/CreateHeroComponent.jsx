@@ -1,12 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import store from "../store/index.js";
-import * as HeroActionCreators from "../actions/index.js";
+import * as HeroActionCreators from "../../actions/index.js";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as cssStyles from "../../styles/Styles.css";
+import * as cssStyles from "../../../styles/Styles.css";
 import {
   FormGroup,
   FormControl,
@@ -22,7 +20,7 @@ import {
   OverlayTrigger
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import * as ReactDOM from "react-dom";
+import CreateHeroRaceComponent from "./CreateHeroRaceComponent";
 
 class CreateHeroComponent extends React.Component {
   constructor(props, context) {
@@ -46,10 +44,9 @@ class CreateHeroComponent extends React.Component {
       }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.changeGender = this.changeGender.bind(this);
     //   this.AlignmentTextToggle = this.AlignmentTextToggle.bind(this);
     this.GenderFormGroup = this.GenderFormGroup.bind(this);
-    this.RaceFormGroup = this.RaceFormGroup.bind(this);
+    this.setRace = this.setRace.bind(this);
     this.ClassFormGroup = this.ClassFormGroup.bind(this);
     this.StatsDisplayFormGroup = this.StatsDisplayFormGroup.bind(this);
     this.StatsHeaderFormGroup = this.StatsHeaderFormGroup.bind(this);
@@ -73,7 +70,7 @@ class CreateHeroComponent extends React.Component {
     this.createNewHero({
       name: this.heroName.value,
       class: this.heroClass.value,
-      race: this.heroRace.value,
+      race: this.state.heroRace,
       level: 5,
       XP: 0,
       STR: this.state.heroStats.STR,
@@ -102,6 +99,10 @@ class CreateHeroComponent extends React.Component {
     });
   }
 
+  setRace(selectedRace){
+    this.setState({heroRace: selectedRace});
+  }
+
   render() {
     const AlignmentTextToggle = () => {
       const alignmentDivStyle = {
@@ -128,8 +129,7 @@ class CreateHeroComponent extends React.Component {
           {this.StatsHeaderFormGroup()}
           {this.StatsDisplayFormGroup()}
           <hr className={cssStyles.hr} />
-
-          {this.RaceFormGroup()}
+          <CreateHeroRaceComponent setRace={this.setRace.bind(this)}/>
           <hr className={cssStyles.hr} />
             {this.ClassFormGroup()}
             <hr className={cssStyles.hr} />
@@ -356,95 +356,7 @@ class CreateHeroComponent extends React.Component {
    * @returns {*}
    * @constructor
    */
-  RaceFormGroup() {
-    const changeRace = e => {
-      const targetText = e.target.textContent.toString();
-      // if (!this.state.race) {
-      //   this.setState({ showAlignment: true });
-      // }
-      // if (targetText === this.state.prevButtonPressed) {
-      //   if (this.state.showAlignment) {
-      //     this.setState({ showAlignment: !this.state.showAlignment });
-      //   } else {
-      //   }
-      // } else {
-      //   this.setState({ showAlignment: true });
-      // }
-      //   this.changeAlignmentInfo(e.target.textContent.toString());
-      //   this.setState({ prevButtonPressed: targetText });
-      this.setState({ race: targetText });
-    };
-    return (
-      <FormGroup>
-        <Col sm={1} />
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColLabelStyle}
-        >
-          Race:
 
-        </Col>
-        <Col sm={7}>
-          <ButtonToolbar>
-            <ToggleButtonGroup
-              type="radio"
-              name="raceValue"
-              onClick={changeRace}
-              className={cssStyles.alignmentButtonGroupParent}
-            >
-              <ToggleButton
-                value={"Human"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Human
-              </ToggleButton>
-              <ToggleButton
-                value={"Dwarf"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Dwarf
-              </ToggleButton>
-              <ToggleButton
-                value={"Elf"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Elf
-              </ToggleButton>
-              <ToggleButton
-                value={"Halfling"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Halfling
-              </ToggleButton>
-              <ToggleButton
-                value={"Gnome"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Gnome
-              </ToggleButton>
-
-              <ToggleButton
-                value={"Half-Orc"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Half-Orc
-              </ToggleButton>
-                <ToggleButton
-                value={"Half-Elf"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Half-Elf
-              </ToggleButton>
-
-            </ToggleButtonGroup>
-          </ButtonToolbar>
-        </Col>
-
-        <Col sm={2} />
-      </FormGroup>
-    );
-  }
 
   /**
    *
@@ -485,7 +397,7 @@ class CreateHeroComponent extends React.Component {
         </Col>
         <Col sm={1}/>
           <Col ><img
-              src={require("../../assets/Fighter.png")}
+              src={require("../../../assets/Fighter.png")}
               width="75"
               height="75"
               alt=""
@@ -509,7 +421,7 @@ class CreateHeroComponent extends React.Component {
       if(this.state.gender === "Male"){
         return (
             <img
-                src={require("../../assets/maleGender.png")}
+                src={require("../../../assets/maleGender.png")}
                 width="50"
                 height="50"
                 alt=""
@@ -518,7 +430,7 @@ class CreateHeroComponent extends React.Component {
       } else if (this.state.gender === "Female"){
         return (
             <img
-                src={require("../../assets/femaleGender.png")}
+                src={require("../../../assets/femaleGender.png")}
                 width="50"
                 height="50"
                 alt=""
@@ -527,7 +439,7 @@ class CreateHeroComponent extends React.Component {
       } else {
         return (
             <img
-                src={require("../../assets/otherSexSymbol.png")}
+                src={require("../../../assets/otherSexSymbol.png")}
                 width="33"
                 height="50"
                 alt=""
@@ -566,11 +478,11 @@ class CreateHeroComponent extends React.Component {
               Female
             </ToggleButton>
               <ToggleButton
-                  value={"Unknown"}
+                  value={"Other"}
                   className={cssStyles.genderButtonGroup}
                   onClick={changeGender}
               >
-                  Unknown
+                  Other
               </ToggleButton>
 
           </ToggleButtonGroup>

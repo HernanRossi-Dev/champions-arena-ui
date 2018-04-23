@@ -1,6 +1,6 @@
 import HeroList from "./HeroList.jsx";
 import HeroEdit from "./HeroEdit.jsx";
-import CreateHeroComponent from "./CreateHeroComponent.jsx";
+import CreateHeroComponent from "./CreateHeroComponents/CreateHeroComponent.jsx";
 import Beasts from "./BeastComponent.jsx";
 import Ability from "./AbilityComponent.jsx";
 import ItemsComponent from "./ItemsComponent.jsx";
