@@ -1,33 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import * as HeroActionCreators from "../../actions/index.js";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 import * as cssStyles from "../../../styles/Styles.css";
 import {
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  ButtonToolbar,
-  Button,
-  Panel,
-  Form,
-  Col,
-  ToggleButton,
-  ToggleButtonGroup,
-  Tooltip,
-  OverlayTrigger
+    Button,
+    ButtonToolbar,
+    Col,
+    ControlLabel,
+    Form,
+    FormControl,
+    FormGroup,
+    OverlayTrigger,
+    Panel,
+    ToggleButton,
+    ToggleButtonGroup,
+    Tooltip
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import CreateHeroRaceComponent from "./CreateHeroRaceComponent";
+import {LinkContainer} from "react-router-bootstrap";
+import CreateHeroRaceComponent from "./CreateHeroRaceComponent.jsx";
+import CreateHeroNameComponent from "./CreateHeroNameComponent.jsx";
+import CreateHeroGenStatsComponent from "./CreateHeroGenStatsComponent.jsx";
+import CreateHeroClassComponent from "./CreateHeroClassComponent.jsx";
+import CreateHeroGenderComponent from "./CreateHeroGenderComponent.jsx";
+
 
 class CreateHeroComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
-    // STR, DEX, CON, INT, WIS, CHA
-    this.generateStats = this.generateStats.bind(this);
-    // this.createNewHero = this.createNewHero.bind(this);
+    this.createNewHero = this.createNewHero.bind(this);
     this.state = {
       heroStats: {
         STR: 15,
@@ -40,21 +43,20 @@ class CreateHeroComponent extends React.Component {
         alignment: "",
         alignmentInfo: "",
         showAlignment: false,
-        prevButtonPressed: ""
+        prevButtonPressed: "",
+        name: "",
+        class: "",
       }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    //   this.AlignmentTextToggle = this.AlignmentTextToggle.bind(this);
-    this.GenderFormGroup = this.GenderFormGroup.bind(this);
+    // this.GenderFormGroup = this.GenderFormGroup.bind(this);
     this.setRace = this.setRace.bind(this);
-    this.ClassFormGroup = this.ClassFormGroup.bind(this);
-    this.StatsDisplayFormGroup = this.StatsDisplayFormGroup.bind(this);
-    this.StatsHeaderFormGroup = this.StatsHeaderFormGroup.bind(this);
-    this.GenerateStatsFormGroup = this.GenerateStatsFormGroup.bind(this);
-    this.NameFormGroup = this.NameFormGroup.bind(this);
-    // this.changeAlignment = this.changeAlignment.bind(this);
     this.AlignmentFormGroup = this.AlignmentFormGroup.bind(this);
     this.changeAlignmentInfo = this.changeAlignmentInfo.bind(this);
+    this.setName = this.setName.bind(this);
+    this.setStateStats = this.setStateStats.bind(this);
+    this.setClass = this.setClass.bind(this);
+    this.setGender = this.setGender.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
   }
@@ -68,8 +70,8 @@ class CreateHeroComponent extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.createNewHero({
-      name: this.heroName.value,
-      class: this.heroClass.value,
+      name: this.state.name,
+      class: this.state.class,
       race: this.state.heroRace,
       level: 5,
       XP: 0,
@@ -103,6 +105,23 @@ class CreateHeroComponent extends React.Component {
     this.setState({heroRace: selectedRace});
   }
 
+  setName(newName){
+    this.setState({name: newName});
+  }
+
+	setStateStats(newStatsObject){
+		this.setState({heroStats: newStatsObject})
+	}
+
+	setClass(newClass) {
+    console.log(newClass);console.log("newClass");
+    this.setState({class: newClass});
+  }
+
+	setGender(newGender) {
+		this.setState({gender: newGender});
+	}
+
   render() {
     const AlignmentTextToggle = () => {
       const alignmentDivStyle = {
@@ -123,17 +142,15 @@ class CreateHeroComponent extends React.Component {
           <Panel.Title toggle>Create Character</Panel.Title>
         </Panel.Heading>
         <Form horizontal>
-          {this.NameFormGroup()}
+          <CreateHeroNameComponent updateName={this.setName} />
           <hr className={cssStyles.hr} />
-          {this.GenerateStatsFormGroup()}
-          {this.StatsHeaderFormGroup()}
-          {this.StatsDisplayFormGroup()}
+          <CreateHeroGenStatsComponent saveStats={this.setStateStats}/>
           <hr className={cssStyles.hr} />
           <CreateHeroRaceComponent setRace={this.setRace.bind(this)}/>
           <hr className={cssStyles.hr} />
-            {this.ClassFormGroup()}
+          <CreateHeroClassComponent updateClass={this.setClass}/>
             <hr className={cssStyles.hr} />
-          {this.GenderFormGroup()}
+          <CreateHeroGenderComponent updateGender={this.setGender}/>
           <hr className={cssStyles.hr} />
           {this.AlignmentFormGroup()}
           <FormGroup>
@@ -163,338 +180,7 @@ class CreateHeroComponent extends React.Component {
     );
   }
 
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-  NameFormGroup() {
-    return (
-      <FormGroup className={cssStyles.createHeroFormPadding}>
-        <Col sm={1} />
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColLabelStyle}
-        >
-          Name:
-        </Col>
-        <Col sm={5}>
-          <FormControl
-            name={"name"}
-            inputRef={ref => {
-              this.heroName = ref;
-            }}
-            placeholder="Enter Name"
-          />
-        </Col>
-      </FormGroup>
-    );
-  }
 
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-  generateStats() {
-    const newStats = [];
-    // Use 4d6 lowest drop method
-    let i;
-    let j;
-    let currentStat = 0;
-    let statRolls = [];
-    for (i = 0; i < 6; i += 1) {
-      statRolls = [];
-      currentStat = 0;
-      for (j = 0; j < 4; j += 1) {
-        statRolls.push(Math.floor(Math.random() * 6) + 1);
-      }
-      statRolls.sort();
-      currentStat = statRolls[1] + statRolls[2] + statRolls[3];
-      newStats.push(currentStat);
-    }
-    this.setState({
-      heroStats: {
-        STR: newStats[0],
-        DEX: newStats[1],
-        CON: newStats[2],
-        INT: newStats[3],
-        WIS: newStats[4],
-        CHA: newStats[5]
-      }
-    });
-  }
-
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-  GenerateStatsFormGroup() {
-    const tooltip = <Tooltip id="tooltip">Roll 4d6 keep best 3 dice</Tooltip>;
-    return (
-      <FormGroup>
-        <Col sm={1} />
-        <Col sm={2} className={cssStyles.createColLabelStyle}>
-          <ButtonToolbar>
-            <OverlayTrigger placement="right" overlay={tooltip}>
-              <Button bsStyle="primary" onClick={this.generateStats}>
-                Roll For Stats
-              </Button>
-            </OverlayTrigger>
-          </ButtonToolbar>
-        </Col>
-      </FormGroup>
-    );
-  }
-
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-  StatsHeaderFormGroup() {
-    return (
-      <FormGroup>
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColStyle}
-        >
-          STR
-        </Col>
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColStyle}
-        >
-          DEX
-        </Col>
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColStyle}
-        >
-          CON
-        </Col>
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColStyle}
-        >
-          INT
-        </Col>
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColStyle}
-        >
-          WIS
-        </Col>
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColStyle}
-        >
-          CHA
-        </Col>
-      </FormGroup>
-    );
-  }
-
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-  StatsDisplayFormGroup() {
-    return (
-      <FormGroup>
-        <Col sm={2}>
-          <FormControl.Static className={cssStyles.createColStyle}>
-            {" "}
-            {this.state.heroStats.STR}{" "}
-          </FormControl.Static>
-        </Col>
-        <Col sm={2}>
-          <FormControl.Static className={cssStyles.createColStyle}>
-            {" "}
-            {this.state.heroStats.DEX}{" "}
-          </FormControl.Static>
-        </Col>
-        <Col sm={2}>
-          <FormControl.Static className={cssStyles.createColStyle}>
-            {" "}
-            {this.state.heroStats.CON}{" "}
-          </FormControl.Static>
-        </Col>
-        <Col sm={2}>
-          <FormControl.Static className={cssStyles.createColStyle}>
-            {" "}
-            {this.state.heroStats.INT}{" "}
-          </FormControl.Static>
-        </Col>
-        <Col sm={2}>
-          <FormControl.Static className={cssStyles.createColStyle}>
-            {" "}
-            {this.state.heroStats.WIS}{" "}
-          </FormControl.Static>
-        </Col>
-        <Col sm={2}>
-          <FormControl.Static className={cssStyles.createColStyle}>
-            {" "}
-            {this.state.heroStats.CHA}
-          </FormControl.Static>
-        </Col>
-      </FormGroup>
-    );
-  }
-
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-
-
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-  ClassFormGroup() {
-    return (
-      <FormGroup>
-        <Col sm={1} />
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColLabelStyle}
-        >
-          Class:
-
-        </Col>
-        <Col sm={5}>
-          <FormControl
-            componentClass="select"
-            name={"class"}
-            inputRef={ref => {
-              this.heroClass = ref;
-            }}
-          >
-            <option value="Warlock">Warlock</option>
-            <option value="Monk">Monk</option>
-            <option value="Wizard">Wizard</option>
-            <option value="Ranger">Ranger</option>
-            <option value="Druid">Druid</option>
-            <option value="Paladin">Paladin</option>
-            <option value="Sorcerer">Sorcerer</option>
-            <option value="Rogue">Rogue</option>
-            <option value="Cleric">Cleric</option>
-            <option value="Fighter">Fighter</option>
-          </FormControl>
-        </Col>
-        <Col sm={1}/>
-          <Col ><img
-              src={require("../../../assets/Fighter.png")}
-              width="75"
-              height="75"
-              alt=""
-
-          /></Col>
-      </FormGroup>
-    );
-  }
-
-  /**
-   *
-   * @returns {*}
-   * @constructor
-   */
-  GenderFormGroup() {
-    const changeGender = e => {
-      this.setState({ gender: e.target.textContent.toString() });
-    };
-
-    const ShowGenderImage =(props) => {
-      if(this.state.gender === "Male"){
-        return (
-            <img
-                src={require("../../../assets/maleGender.png")}
-                width="50"
-                height="50"
-                alt=""
-            />
-        );
-      } else if (this.state.gender === "Female"){
-        return (
-            <img
-                src={require("../../../assets/femaleGender.png")}
-                width="50"
-                height="50"
-                alt=""
-            />
-        );
-      } else {
-        return (
-            <img
-                src={require("../../../assets/otherSexSymbol.png")}
-                width="33"
-                height="50"
-                alt=""
-            />
-        );
-      }
-    };
-    return (
-      <FormGroup>
-        <Col sm={1} />
-        <Col
-          componentClass={ControlLabel}
-          sm={2}
-          className={cssStyles.createColLabelStyle}
-        >
-          Gender:
-        </Col>
-        <Col sm={5}>
-          <ToggleButtonGroup
-            type="radio"
-            name="gender"
-            className={cssStyles.genderButtonGroup}
-          >
-            <ToggleButton
-              value={"Male"}
-              className={cssStyles.genderButtonGroup}
-              onClick={changeGender}
-            >
-              Male
-            </ToggleButton>
-            <ToggleButton
-              value={"Female"}
-              className={cssStyles.genderButtonGroup}
-              onClick={changeGender}
-            >
-              Female
-            </ToggleButton>
-              <ToggleButton
-                  value={"Other"}
-                  className={cssStyles.genderButtonGroup}
-                  onClick={changeGender}
-              >
-                  Other
-              </ToggleButton>
-
-          </ToggleButtonGroup>
-        </Col>
-        <Col sm={1}/>
-        <Col sm={1}>
-               <ShowGenderImage />
-            </Col>
-
-      </FormGroup>
-    );
-  }
 
   /**
    *
@@ -765,40 +451,40 @@ class CreateHeroComponent extends React.Component {
   }
 }
 
-/**
- *
- * @param props
- * @returns {*}
- * @constructor
- */
-function StatsTable(props) {
-  const borderedStyle = { border: "1px solid silver", padding: 4 };
-  return (
-    <table className={borderedStyle}>
-      <tbody>
-        <tr>
-          <td>STR: {props.stats.STR}</td>
-          <td>DEX: {props.stats.DEX}</td>
-          <td>CON: {props.stats.CON}</td>
-          <td>INT: {props.stats.INT}</td>
-          <td>WIS: {props.stats.WIS}</td>
-          <td>CHA: {props.stats.CHA}</td>
-        </tr>
-      </tbody>
-    </table>
-  );
-}
-
-const { number, shape } = PropTypes;
-StatsTable.propTypes = {
-  stats: shape({
-    STR: number.isRequired,
-    DEX: number.isRequired,
-    CON: number.isRequired,
-    INT: number.isRequired,
-    WIS: number.isRequired,
-    CHA: number.isRequired
-  }).isRequired
-};
+// /**
+//  *
+//  * @param props
+//  * @returns {*}
+//  * @constructor
+//  */
+// function StatsTable(props) {
+//   const borderedStyle = { border: "1px solid silver", padding: 4 };
+//   return (
+//     <table className={borderedStyle}>
+//       <tbody>
+//         <tr>
+//           <td>STR: {props.stats.STR}</td>
+//           <td>DEX: {props.stats.DEX}</td>
+//           <td>CON: {props.stats.CON}</td>
+//           <td>INT: {props.stats.INT}</td>
+//           <td>WIS: {props.stats.WIS}</td>
+//           <td>CHA: {props.stats.CHA}</td>
+//         </tr>
+//       </tbody>
+//     </table>
+//   );
+// }
+//
+// const { number, shape } = PropTypes;
+// StatsTable.propTypes = {
+//   stats: shape({
+//     STR: number.isRequired,
+//     DEX: number.isRequired,
+//     CON: number.isRequired,
+//     INT: number.isRequired,
+//     WIS: number.isRequired,
+//     CHA: number.isRequired
+//   }).isRequired
+// };
 
 export default withRouter(connect()(CreateHeroComponent));

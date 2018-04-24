@@ -10,7 +10,7 @@ module.exports = {
     app: [resolve("ArenaBattleApp/src/js/components/App.jsx")]
   },
   output: {
-    path: resolve("webAppMern/static/"),
+    path: resolve("ArenaBattleApp/static/"),
     filename: "[name].bundle.js"
   },
   resolve: {

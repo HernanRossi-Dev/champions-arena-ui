@@ -1,12 +1,11 @@
 import "whatwg-fetch";
 import React from "react";
-import { Link } from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import PropTypes from "prop-types";
 import store from "../store/index.js";
-import { withRouter } from "react-router-dom";
 import * as HeroActionCreators from "../actions/index.js";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 class HeroEdit extends React.Component {
 

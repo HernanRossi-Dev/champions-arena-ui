@@ -2,8 +2,8 @@ import store from "../store";
 import React from "react";
 import PropTypes from "prop-types";
 import HeroRow from "./HeroRow.jsx";
-import { withRouter } from "react-router-dom";
-import { Table, Panel } from 'react-bootstrap';
+import {withRouter} from "react-router-dom";
+import {Table} from 'react-bootstrap';
 import * as cssStyles from "../../styles/Styles.css";
 
 

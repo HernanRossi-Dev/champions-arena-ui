@@ -57,6 +57,14 @@
 
 }
 
+.genStatsNumberStyle {
+    font-size: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center !important;
+    align-content: center !important;
+    align-items: center !important;
+
+}
 
 .createColLabelStyle {
     font-size: 18px;

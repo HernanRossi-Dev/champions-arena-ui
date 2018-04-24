@@ -2,7 +2,7 @@ import HeroList from "./HeroList.jsx";
 import HeroEdit from "./HeroEdit.jsx";
 import CreateHeroComponent from "./CreateHeroComponents/CreateHeroComponent.jsx";
 import Beasts from "./BeastComponent.jsx";
-import Ability from "./AbilityComponent.jsx";
+import Skills from "./SkillsComponent.jsx";
 import ItemsComponent from "./ItemsComponent.jsx";
 import HomeComponent from "./HomeComponent.jsx";
 import AboutSiteComponent from "./AboutSiteComponent.jsx";
@@ -13,19 +13,13 @@ import PathfinderOGL from "./PathfinderOGL.jsx";
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import store from "../store/index.js";
-import { Navbar, Nav, NavDropdown, NavItem, MenuItem } from "react-bootstrap";
+import {MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
 import * as cssStyles from "../../styles/Styles.css";
-import"../../styles/Styles.css";
-import { LinkContainer } from "react-router-bootstrap";
-import {
-  Route,
-  BrowserRouter,
-  Redirect,
-  Switch,
-  withRouter
-} from "react-router-dom";
+import "../../styles/Styles.css";
+import {LinkContainer} from "react-router-bootstrap";
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 
 class Header extends React.Component {
   constructor(props) {
@@ -124,7 +118,7 @@ class Header extends React.Component {
               <LinkContainer to="/Beasts">
                 <MenuItem eventKey={3.1}>Beasts</MenuItem>
               </LinkContainer>
-              <LinkContainer to="/Abilities">
+              <LinkContainer to="/Skills">
                 <MenuItem eventKey={3.2}>Skills</MenuItem>
               </LinkContainer>
               <LinkContainer to="/Items">
@@ -190,7 +184,7 @@ class App extends React.Component {
             <Route path={`/createNPC`} component={CreateNPCComponent} />
             <Route path={`/createMonster`} component={CreateMonster} />
             <Route path={`/Beasts`} component={Beasts} />
-            <Route path={`/Abilities`} component={Ability} />
+            <Route path={`/Skills`} component={Skills} />
             <Route path={`/Items`} component={ItemsComponent} />
             <Route path={`/heros/:id`} component={HeroEdit} />
             <Route path={`/legal`} component={PathfinderOGL} />

@@ -1,26 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
-import store from "../../store/index.js";
-import * as HeroActionCreators from "../../actions/index.js";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import * as cssStyles from "../../../styles/Styles.css";
-import {
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  ButtonToolbar,
-  Button,
-  Panel,
-  Form,
-  Col,
-  ToggleButton,
-  ToggleButtonGroup,
-  Tooltip,
-  OverlayTrigger
-} from "react-bootstrap";
+import {ButtonToolbar, Col, ControlLabel, FormGroup, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 
 export default class CreateHeroRaceComponent extends React.Component {
   constructor(props, context) {

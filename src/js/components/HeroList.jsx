@@ -1,15 +1,13 @@
 import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
-import CreateHeroComponent from "./CreateHeroComponents/CreateHeroComponent.jsx";
 import HeroFilter from "./HeroFilter.jsx";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import store from "../store/index.js";
 import * as HeroActionCreators from "../actions/index.js";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 import HeroTable from "./HeroTable";
-import { Panel} from 'react-bootstrap';
 
 class HeroList extends React.Component {
   constructor(props) {

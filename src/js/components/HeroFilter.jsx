@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import * as cssStyles from "../../styles/Styles.css";
 import {
-  Panel,
-  Col,
-  Row,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  InputGroup,
-  ButtonToolbar,
-  Button
+    Button,
+    ButtonToolbar,
+    Col,
+    ControlLabel,
+    FormControl,
+    FormGroup,
+    InputGroup,
+    Panel,
+    Row
 } from "react-bootstrap";
 
 class HeroFilter extends React.Component {
