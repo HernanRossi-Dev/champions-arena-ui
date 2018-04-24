@@ -1,242 +1,246 @@
 @import url("https://stackpath.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css");
 
+.aboutSiteText {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 20px;
+  color: white;
+  padding-top: 200px;
+}
+
+.alignmentButtonGroup {
+  font-size: 20px !important;
+  font-family: "Crimson Text", serif;
+  text-align: left !important;
+
+  width: 30%;
+}
+.alignmentInfoDiv {
+  font-size: 15px !important;
+  font-family: "Crimson Text", serif;
+  text-align: center !important;
+}
+
+.alignmentButtonGroupParent {
+  font-size: 20px !important;
+  font-family: "Crimson Text", serif;
+  text-align: left !important;
+  width: 100%;
+}
+.createColStyle {
+  font-size: 18px;
+  font-family: "Crimson Text", serif;
+  text-align: center !important;
+  align-content: center !important;
+  align-items: center !important;
+}
+.createHeroPanelParent {
+  padding-bottom: 10px;
+  width: 1050px;
+}
+.createHeroFormPadding {
+  padding-top: 20px;
+}
+.createColLabelStyle {
+  font-size: 18px;
+  font-family: "Crimson Text", serif;
+  text-align: left !important;
+  align-content: left !important;
+  align-items: left !important;
+}
+.classModalImageDiv {
+    margin-left: 20%;
+    background-color: transparent;
+  margin-bottom: 25px;
+}
+
+.dropdown-menu li {
+  font-family: "Crimson Text", serif !important;
+  font-size: 16px;
+}
+
+.deleteButton {
+  color: #fa621f;
+  outline: none;
+  border: none;
+  background-color: transparent !important;
+}
+
 .headingText {
-    font-family: 'Black Han Sans', sans-serif;
+    font-family: 'Kaushan Script', cursive;
+
     font-size: 35px;
-    color: white;
-    text-shadow: 2px 2px 0px #FA621F;
+  color: white;
+  text-shadow: 2px 2px 0px #fa621f;
 }
 
 .homeBodyText {
-    font-family: 'Black Han Sans', sans-serif;
+    font-family: 'Kaushan Script', cursive;
+
     font-size: 30px;
-    color: white;
-    text-shadow: 2px 2px 0 #FA621F;
-    padding-top: 50px;
-    text-align: center;
-}
-.createHeroPanelParent {
-    padding-bottom: 10px;
-    width: 1050px;
-}
-.createHeroFormPadding {
-    padding-top: 20px;
+  color: white;
+  text-shadow: 2px 2px 0 #fa621f;
+  padding-top: 50px;
+  text-align: center;
 }
 
-.genderButtonGroup{
-    font-size: 20px;
-    font-family: 'Crimson Text', serif;
-    margin-right: 10px;
-}
+.genderButtonGroup {
+  font-size: 20px;
+  font-family: "Crimson Text", serif;
+  margin-right: 20px;
 
-.alignmentButtonGroup{
-    font-size: 20px !important;
-    font-family: 'Crimson Text', serif;
-    text-align: left !important;
-
-    width:30%;
 }
-.alignmentInfoDiv {
-    font-size: 15px !important;
-    font-family: 'Crimson Text', serif;
-    text-align: center !important;
-}
-
-.alignmentButtonGroupParent{
-    font-size: 20px !important;
-    font-family: 'Crimson Text', serif;
-    text-align: left !important;
+.genderImageStyle {
+    background-color: SlateGray;
+    position:relative;
     width: 100%;
+    height: 100%;
+    opacity: 0.20;
+    -moz-opacity: 20%;
+    -webkit-opacity: 20%;
+    z-index: 2;
 }
-.createColStyle {
-    font-size: 18px;
-    font-family: 'Crimson Text', serif;
-    text-align: center !important;
-    align-content: center !important;
-    align-items: center !important;
 
-}
 
 .genStatsNumberStyle {
-    font-size: 20px;
-    font-family: 'Josefin Sans', sans-serif;
-    text-align: center !important;
-    align-content: center !important;
-    align-items: center !important;
-
-}
-
-.createColLabelStyle {
-    font-size: 18px;
-    font-family: 'Crimson Text', serif;
-    text-align: left !important;
-    align-content: left !important;
-    align-items: left !important;
-
+  font-size: 20px;
+  font-family: "Josefin Sans", sans-serif;
+  text-align: center !important;
+  align-content: center !important;
+  align-items: center !important;
 }
 
 .heroTableParent {
-    text-align: center;
-    width: 850px;
-
+  text-align: center;
+  width: 850px;
 }
 
 .heroTableHeader {
-    font-size: 24px;
-    font-family: 'Crimson Text', serif;
+  font-size: 24px;
+  font-family: "Crimson Text", serif;
 
-    /*background-color: #FA621F;*/
-    background-color: #df691a;
+  /*background-color: #FA621F;*/
+  background-color: #df691a;
 }
 .HTRtextAt {
-    text-align: center;
-
+  text-align: center;
 }
 
-.heroTableRow{
-    text-align: center;
-    font-size: 18px;
-    line-height: normal;font-family: 'Merriweather', serif;
-
+.heroTableRow {
+  text-align: center;
+  font-size: 18px;
+  line-height: normal;
+  font-family: "Merriweather", serif;
 }
 
-.panelHeader {
-    /*background-color: #df691a !important;*/
-
-
-}
-.panelHeaderText {
-    font-size: 22px !important;
-    font-family: 'Crimson Text', serif !important;
-}
 .homeImageDiv {
-    padding-top: 20px;
-    padding-bottom: 40px;
-}
-.dropdown-menu li{
-    font-family: 'Crimson Text', serif !important;
-    font-size:16px
-}
-
-
-
-.deleteButton {
-    color: #FA621F;
-    outline: none;
-    border: none;
-    background-color: transparent !important;
-
-}
-
-.navBarFont {
-    font-size: 18px !important;
-    font-family: 'Crimson Text', serif !important;
-    color: white !important;
-}
-
-
-
-.navbarDefault {
-    background-color:teal;
-    background-image: none;
-    position: relative;
-    min-height: 50px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 
 .homeTextParagraph {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 18px;
-    color: white;
-    padding-top: 30px;
-    text-shadow: none;
-
-    text-align: left;
-}
-
-
-.aboutSiteText {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 20px;
-    color: white;
-    padding-top: 200px;
-}
-
-.titleImage {
-    margin-top: 10px;
-}
-.splash_img {
-    background-image:url("../assets/GolarionMap.png");
-    object-fit: cover;
-    background-size: cover;
-    background-position: center;
-    -ms-background-position-x: center;
-    -ms-background-position-y: bottom;
-    margin-top: -19px;
-    margin-bottom: 30px;
-}
-
-.Site {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-.SiteContent {
-    flex: 1;
-}
-
-body {
-    display: table;
-    width: 100%;
-    height: 100%;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 18px;
+  color: white;
+  padding-top: 30px;
+  text-shadow: none;
+  text-align: left;
 }
 
 .Legaldiv {
-    text-align: center;
-    padding: 100px 25px;
+  text-align: center;
+  padding: 100px 25px;
 }
 .LegalSpan {
-
-    vertical-align: middle;
-    line-height: normal;font-family: 'Merriweather', serif;
-    font-size: 18px;
-    text-align: center;
-    color: white;
-
+  vertical-align: middle;
+  line-height: normal;
+  font-family: "Merriweather", serif;
+  font-size: 18px;
+  text-align: center;
+  color: white;
 }
 
 .LegalImgDiv {
-    padding-top: 30px;
+  padding-top: 30px;
+}
+
+.panelHeader {
+  /*background-color: #df691a !important;*/
+}
+.panelHeaderText {
+  font-size: 22px !important;
+  font-family: "Crimson Text", serif !important;
+}
+
+.navBarFont {
+  font-size: 18px !important;
+  font-family: "Crimson Text", serif !important;
+  color: white !important;
+}
+
+.navbarDefault {
+  background-color: teal;
+  background-image: none;
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+.titleImage {
+  margin-top: 10px;
+}
+.splash_img {
+  /*background-image: url("../assets/GolarionMap.png");*/
+  background-image: url("../assets/BlogBannerOne.jpg");
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  -ms-background-position-x: center;
+  -ms-background-position-y: bottom;
+  margin-top: -19px;
+  margin-bottom: 30px;
+}
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.SiteContent {
+  flex: 1;
+}
+
+body {
+  display: table;
+  width: 100%;
+  height: 100%;
 }
 
 .styleFooter {
-    background-color: #2b3e50;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px;
-    width: 100%;
+  background-color: #2b3e50;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  width: 100%;
 }
 
 .hr {
-    display: block;
-    position: relative;
-    padding: 0;
-    margin: 8px auto;
-    height: 0;
-    width: 80%;
-    max-height: 0;
-    font-size: 1px;
-    line-height: 0;
-    clear: both;
-    border: none;
-    border-top: 1px solid #485563;
-    border-bottom: 1px solid #697785;
-    margin-bottom: 25px;
-    margin-top: 25px;
-
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 8px auto;
+  height: 0;
+  width: 80%;
+  max-height: 0;
+  font-size: 1px;
+  line-height: 0;
+  clear: both;
+  border: none;
+  border-top: 1px solid #485563;
+  border-bottom: 1px solid #697785;
+  margin-bottom: 25px;
+  margin-top: 25px;
 }

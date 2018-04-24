@@ -23,17 +23,19 @@ export default class CreateHeroGenderComponent extends React.Component {
 			if(gender === "Male"){
 				return (
 					<img
-						src={require("../../../assets/maleGender.png")}
+						src={require("../../../assets/mymalesymbol.png")}
 						width="50"
 						height="50"
 						alt=""
+
 					/>
+
 				);
 			} else if (gender === "Female"){
 				return (
 					<img
-						src={require("../../../assets/femaleGender.png")}
-						width="50"
+						src={require("../../../assets/myfemalesymbol.png")}
+						width="40"
 						height="50"
 						alt=""
 					/>
@@ -41,7 +43,7 @@ export default class CreateHeroGenderComponent extends React.Component {
 			} else {
 				return (
 					<img
-						src={require("../../../assets/otherSexSymbol.png")}
+						src={require("../../../assets/myotherymbol.png")}
 						width="33"
 						height="50"
 						alt=""
@@ -65,6 +67,7 @@ export default class CreateHeroGenderComponent extends React.Component {
 						name="gender"
 						className={cssStyles.genderButtonGroup}
 					>
+
 						<ToggleButton
 							value={"Male"}
 							className={cssStyles.genderButtonGroup}
@@ -72,6 +75,8 @@ export default class CreateHeroGenderComponent extends React.Component {
 						>
 							Male
 						</ToggleButton>
+
+
 						<ToggleButton
 							value={"Female"}
 							className={cssStyles.genderButtonGroup}
@@ -79,6 +84,9 @@ export default class CreateHeroGenderComponent extends React.Component {
 						>
 							Female
 						</ToggleButton>
+
+
+
 						<ToggleButton
 							value={"Other"}
 							className={cssStyles.genderButtonGroup}
@@ -89,8 +97,8 @@ export default class CreateHeroGenderComponent extends React.Component {
 
 					</ToggleButtonGroup>
 				</Col>
-				<Col sm={1}/>
-				<Col sm={1}>
+
+				<Col  sm={1}>
 					<ShowGenderImage />
 				</Col>
 
