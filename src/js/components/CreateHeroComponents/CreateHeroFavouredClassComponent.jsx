@@ -92,12 +92,6 @@ export default class CreateHeroFavouredClassComponent extends React.Component {
 							Wizard
 						</ToggleButton>
 						<ToggleButton
-							value={"Warlock"}
-							className={cssStyles.favouredClassButtonGroup}
-						>
-							Warlock
-						</ToggleButton>
-						<ToggleButton
 							value={"Ranger"}
 							className={cssStyles.favouredClassButtonGroup}
 						>

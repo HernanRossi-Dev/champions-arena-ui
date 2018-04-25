@@ -51,6 +51,20 @@ module.exports = {
 			    modules: true,
 			    localIdentName: '[name]__[local]___[hash:base64:5]'
 		    }
+	    },
+	    {
+		    test: /\.svg$/,
+		    use: [
+			    {
+				    loader: "babel-loader"
+			    },
+			    {
+				    loader: "react-svg-loader",
+				    options: {
+					    jsx: true // true outputs JSX tags
+				    }
+			    }
+		    ]
 	    }
     ]
   },

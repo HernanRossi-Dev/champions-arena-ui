@@ -105,9 +105,9 @@ class Header extends React.Component {
               </LinkContainer>
             </NavDropdown>
 
-            <LinkContainer to="/Arena">
-              <NavItem>Arena</NavItem>
-            </LinkContainer>
+            {/*<LinkContainer to="/Arena">*/}
+              {/*<NavItem>Arena</NavItem>*/}
+            {/*</LinkContainer>*/}
             <NavDropdown
               eventKey={3}
               onMouseEnter={this.handleOpenWorld}
@@ -139,6 +139,8 @@ class Header extends React.Component {
               <MenuItem eventKey={3.1}>Logged in as Guest</MenuItem>
               <LinkContainer to="/about">
                 <MenuItem eventKey={3.2}>About Site</MenuItem>
+              </LinkContainer><LinkContainer to="/about">
+                <MenuItem eventKey={3.3}>Open Gaming License</MenuItem>
               </LinkContainer>
               {/*<MenuItem eventKey={3.3}>Profile</MenuItem>*/}
             </NavDropdown>

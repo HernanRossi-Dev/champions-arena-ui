@@ -15,6 +15,7 @@ export default class CreateHeroRaceComponent extends React.Component {
     this.changeRaceInfo = this.changeRaceInfo.bind(this);
     this.state = {
       race: "",
+	    racialBonus:{},
       raceInfo: "",
       showRaceInfo: false,
       prevButtonPressed: ""
@@ -36,8 +37,6 @@ export default class CreateHeroRaceComponent extends React.Component {
     };
     const changeRace = e => {
       const targetText = e.target.textContent.toString();
-      console.log(targetText);
-      console.log("targetText");
       if (!this.state.showRaceInfo) {
         this.setState({ showRaceInfo: true });
       }
@@ -49,10 +48,10 @@ export default class CreateHeroRaceComponent extends React.Component {
       } else {
         this.setState({ showRaceInfo: true });
       }
-      this.changeRaceInfo(targetText);
+      let racialBonus = this.changeRaceInfo(targetText);
       this.setState({ prevButtonPressed: targetText });
-      this.props.setRace(targetText);
-      this.setState({ race: targetText });
+      this.props.setRace(targetText, racialBonus.racialBonus);
+      this.setState({ race: targetText, racialBonus: racialBonus.racialBonus });
     };
     return (
       <div>
@@ -153,8 +152,9 @@ export default class CreateHeroRaceComponent extends React.Component {
               intelligence can choose any languages excluding hidden languages.
             </p>
 
-        )});
-       break;
+         ),
+       });
+	      return {racialBonus: { abilityBonus: 2}};
       case "Dwarf":
 	      this.setState({
 		      raceInfo: (
@@ -183,11 +183,12 @@ export default class CreateHeroRaceComponent extends React.Component {
             word "dwarven" in its name as a martial weapon.<br/>
 	          <strong>Languages:</strong> Dwarves begin play speaking Common and Dwarven. Dwarves with high Intelligence scores can choose from the following:
             Giant, Gnome, Goblin, Orc, Terran, and Undercommon.<br/>
-
           </p>
-
-          )});
-	      break;
+		      ),
+	      });
+	      return {racialBonus: { statsBonus: {
+	      CON: 2, WIS: 2, CHA:-2
+      }}}
 	    case "Elf":
 		    this.setState({
 			    raceInfo: (
@@ -209,8 +210,11 @@ export default class CreateHeroRaceComponent extends React.Component {
               following: Celestial, Draconic, Gnoll, Gnome, Goblin, Orc, and Sylvan.
 					    <br/>
 				    </p>
-			    )});
-		    break;
+			    ),
+		    });
+		    return {racialBonus: { statsBonus: {
+					    DEX: 2, INT: 2, CON:-2
+				    }}}
 	    case "Gnome":
 		    this.setState({
 			    raceInfo: (
@@ -235,8 +239,11 @@ export default class CreateHeroRaceComponent extends React.Component {
 					    <strong>Languages: </strong> Gnomes begin play speaking Common, Gnome, and Sylvan. Gnomes with high Intelligence scores can
               choose from the following: Draconic, Dwarven, Elven, Giant, Goblin, and Orc.<br/>
 				    </p>
-			    )});
-		    break;
+			    ),
+		    });
+		    return {racialBonus: { statsBonus: {
+					    CON: 2, CHA: 2, STR:-2
+				    }}}
 		    case "Half-Elf":
 		    this.setState({
 			    raceInfo: (
@@ -257,8 +264,9 @@ export default class CreateHeroRaceComponent extends React.Component {
 					    <strong>Languages: </strong> Half-elves begin play speaking Common and Elven. Half-elves with high Intelligence
               scores can choose any languages they want (except secret languages, such as Druidic).<br/>
 				    </p>
-			    )});
-		    break;
+			    ),
+		    });
+			    return {racialBonus: { abilityBonus: 2}};
 		    case "Half-Orc":
 		    this.setState({
 			    raceInfo: (
@@ -280,8 +288,9 @@ export default class CreateHeroRaceComponent extends React.Component {
 					    <strong>Languages: </strong> Half-orcs begin play speaking Common and Orc. Half-orcs with high Intelligence scores can
               choose from the following: Abyssal, Draconic, Giant, Gnoll, and Goblin.<br/>
 				    </p>
-			    )});
-		    break;
+			    ),
+		    });
+			    return {racialBonus: { abilityBonus: 2}};
 		    case "Halfling":
 		    this.setState({
 			    raceInfo: (
@@ -305,8 +314,11 @@ export default class CreateHeroRaceComponent extends React.Component {
 					    <strong>Languages: </strong> Halflings begin play speaking Common and Halfling. Halflings with high Intelligence
               scores can choose from the following: Dwarven, Elven, Gnome, and Goblin.<br/>
 				    </p>
-			    )});
-		    break;
+			    ),
+		    });
+			    return {racialBonus: { statsBonus: {
+						    DEX: 2, CHA: 2, STR:-2
+					    }}}
       default:
 	      this.setState({raceInfo: ''});
     }

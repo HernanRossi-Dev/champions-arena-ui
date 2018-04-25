@@ -20,7 +20,7 @@ import CreateHeroGenStatsComponent from "./CreateHeroGenStatsComponent.jsx";
 import CreateHeroClassComponent from "./CreateHeroClassComponent.jsx";
 import CreateHeroGenderComponent from "./CreateHeroGenderComponent.jsx";
 import CreateHeroAlignmentComponent from "./CreateHeroAlignmentComponent.jsx";
-import CreateHeroFavouredClassComponent from './CreateHeroFavouredClassComponent'
+import CreateHeroFavouredClassComponent from "./CreateHeroFavouredClassComponent";
 
 class CreateHeroComponent extends React.Component {
   constructor(props, context) {
@@ -33,16 +33,24 @@ class CreateHeroComponent extends React.Component {
         CON: 13,
         INT: 12,
         WIS: 10,
-        CHA: 8,
-        gender: "",
-        alignment: "",
-        alignmentInfo: "",
-        showAlignment: false,
-        prevButtonPressed: "",
-        name: "",
-        class: "",
-	      favouredClass: "",
-      }
+        CHA: 8
+      },
+      baseHeroStats: {
+        STR: 15,
+        DEX: 14,
+        CON: 13,
+        INT: 12,
+        WIS: 10,
+        CHA: 8
+      },
+      gender: "",
+      alignment: "",
+      name: "",
+      class: "",
+      favouredClass: "",
+      racialBonus: {},
+      allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
+	    alignRenderKey: Math.random(),
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setRace = this.setRace.bind(this);
@@ -52,6 +60,7 @@ class CreateHeroComponent extends React.Component {
     this.setGender = this.setGender.bind(this);
     this.setAlignment = this.setAlignment.bind(this);
     this.setFavouredClass = this.setFavouredClass.bind(this);
+    this.restrictAlignments = this.restrictAlignments.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
   }
@@ -68,7 +77,7 @@ class CreateHeroComponent extends React.Component {
       name: this.state.name,
       class: this.state.class,
       race: this.state.heroRace,
-      level: 5,
+      level: 1,
       XP: 0,
       STR: this.state.heroStats.STR,
       DEX: this.state.heroStats.DEX,
@@ -83,22 +92,24 @@ class CreateHeroComponent extends React.Component {
       type: "Player",
       gender: this.state.gender,
       alignment: this.state.alignment,
-	    favouredClass: this.state.favouredClass
+      favouredClass: this.state.favouredClass,
+      racialBonus: this.state.racialBonus
     });
-    // this.setState({
-    //   heroStats: {
-    //     STR: 15,
-    //     DEX: 14,
-    //     CON: 13,
-    //     INT: 12,
-    //     WIS: 10,
-    //     CHA: 8
-    //   }
-    // });
   }
 
-  setRace(selectedRace) {
-    this.setState({ heroRace: selectedRace });
+  setRace(selectedRace, racialBonus) {
+    if (racialBonus.statsBonus) {
+      const rBon = racialBonus.statsBonus;
+      let key;
+      let newStats = Object.assign({}, this.state.baseHeroStats);
+      for (key in rBon) {
+        newStats[key] = newStats[key] + rBon[key];
+      }
+      this.setState({ heroStats: newStats });
+    } else {
+      this.setState({ heroStats: this.state.baseHeroStats });
+    }
+    this.setState({ heroRace: selectedRace, racialBonus: racialBonus });
   }
 
   setName(newName) {
@@ -106,15 +117,16 @@ class CreateHeroComponent extends React.Component {
   }
 
   setStateStats(newStatsObject) {
-    this.setState({ heroStats: newStatsObject });
+    this.setState({ heroStats: newStatsObject, baseHeroStats: newStatsObject });
   }
 
   setClass(newClass) {
-    this.setState({ class: newClass });
+    this.restrictAlignments(newClass);
+    this.setState({ class: newClass, alignment: "", alignRenderKey: Math.random() });
   }
 
   setFavouredClass(newFavClass) {
-    this.setState({favouredClass: newFavClass});
+    this.setState({ favouredClass: newFavClass });
   }
   setGender(newGender) {
     this.setState({ gender: newGender });
@@ -125,32 +137,45 @@ class CreateHeroComponent extends React.Component {
   }
 
   render() {
-
-
-	  return (
+    return (
       <Panel className={cssStyles.createHeroPanelParent}>
         <Panel.Heading className={cssStyles.createHeroPanelHeaderStyle}>
-          <Panel.Title toggle className={cssStyles.createHeroPanelHeaderStyleText}>Create Character</Panel.Title>
+          <Panel.Title
+            toggle
+            className={cssStyles.createHeroPanelHeaderStyleText}
+          >
+            Create Character
+          </Panel.Title>
         </Panel.Heading>
         <Form horizontal>
           <CreateHeroNameComponent updateName={this.setName} />
           <hr className={cssStyles.hr} />
-          <CreateHeroGenStatsComponent saveStats={this.setStateStats} />
+          <CreateHeroGenStatsComponent
+            saveStats={this.setStateStats}
+            heroStatsUpdate={this.state.heroStats}
+            racialBonus={this.state.racialBonus}
+          />
           <hr className={cssStyles.hr} />
           <CreateHeroRaceComponent setRace={this.setRace.bind(this)} />
           <hr className={cssStyles.hr} />
           <CreateHeroClassComponent updateClass={this.setClass} />
           <hr className={cssStyles.hr} />
-	        <CreateHeroFavouredClassComponent updateFavClass={this.setFavouredClass}/>
-	        <hr className={cssStyles.hr} />
+          <CreateHeroFavouredClassComponent
+            updateFavClass={this.setFavouredClass}
+          />
+          <hr className={cssStyles.hr} />
           <CreateHeroGenderComponent updateGender={this.setGender} />
           <hr className={cssStyles.hr} />
-          <CreateHeroAlignmentComponent updateAlignment={this.setAlignment} />
+          <CreateHeroAlignmentComponent
+            updateAlignment={this.setAlignment}
+            allowedAlignments={this.state.allowedAlignments}
+            renderKey={this.state.alignRenderKey}
+          />
           <hr className={cssStyles.hr} />
           <hr className={cssStyles.hr} />
           <FormGroup className={cssStyles.createColStyle}>
-            <Col sm={7} />
-            <Col sm={5}>
+            <Col sm={8} />
+            <Col sm={4}>
               <ButtonToolbar>
                 <Button bsStyle="primary" onClick={this.handleSubmit}>
                   Create
@@ -159,16 +184,122 @@ class CreateHeroComponent extends React.Component {
                 <LinkContainer to={"/home"}>
                   <Button bsStyle={"link"}>Discard</Button>
                 </LinkContainer>
-	              <LinkContainer to={"/createHero/skills"}>
-                  <Button bsStyle={"link"}>Proceed to Skills</Button>
-                </LinkContainer>
               </ButtonToolbar>
             </Col>
-
+          </FormGroup>
+          <FormGroup>
+            <Col sm={7}/>
+            <Col sm={4}>
+	            <ButtonToolbar>
+		            <LinkContainer to={"/createHero/skills"}>
+			            <Button bsStyle={"link"}>Proceed to Skills (Under Construction will discard current)</Button>
+		            </LinkContainer>
+	            </ButtonToolbar>
+            </Col>
           </FormGroup>
         </Form>
       </Panel>
     );
+  }
+
+  restrictAlignments(newClass) {
+    switch (newClass) {
+      case "Monk":
+        this.setState({ allowedAlignments: ["LG", "LN", "LE"] });
+        break;
+      case "Wizard":
+        this.setState({
+          allowedAlignments:[
+	          "LG",
+	          "NG",
+	          "CG",
+	          "LN",
+	          "N",
+	          "CN",
+	          "LE",
+	          "NE",
+	          "CE"
+          ]
+        });
+        break;
+      case "Fighter":
+        this.setState({
+          allowedAlignments: [
+            "LG",
+            "NG",
+            "CG",
+            "LN",
+            "N",
+            "CN",
+            "LE",
+            "NE",
+            "CE"
+          ]
+        });
+        break;
+      case "Druid":
+        this.setState({ allowedAlignments: ["NG", "LN", "N", "CN", "NE"] });
+        break;
+      case "Ranger":
+        this.setState({
+          allowedAlignments: [
+            "LG",
+            "NG",
+            "CG",
+            "LN",
+            "N",
+            "CN",
+            "LE",
+            "NE",
+            "CE"
+          ]
+        });
+        break;
+      case "Cleric":
+        this.setState({
+          allowedAlignments: [
+          ]
+        });
+        break;
+      case "Rogue":
+        this.setState({
+          allowedAlignments: [
+            "LG",
+            "NG",
+            "CG",
+            "LN",
+            "N",
+            "CN",
+            "LE",
+            "NE",
+            "CE"
+          ]
+        });
+        break;
+      case "Sorcerer":
+        this.setState({
+          allowedAlignments: [
+            "LG",
+            "NG",
+            "CG",
+            "LN",
+            "N",
+            "CN",
+            "LE",
+            "NE",
+            "CE"
+          ]
+        });
+        break;
+      case "Paladin":
+        this.setState({ allowedAlignments: ["LG"] });
+        break;
+      case "Barbarian":
+        this.setState({
+          allowedAlignments: ["NG", "CG", "N", "CN", "NE", "CE"]
+        });
+        break;
+    }
   }
 }
 
