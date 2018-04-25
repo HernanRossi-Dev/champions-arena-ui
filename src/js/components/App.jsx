@@ -10,6 +10,7 @@ import ArenaStartComponent from "./ArenaStartComponent.jsx";
 import CreateNPCComponent from "./CreateNPCComponent.jsx";
 import CreateMonster from "./CreateMonster.jsx";
 import PathfinderOGL from "./PathfinderOGL.jsx";
+import CreateHeroSkillsAndFeatsComponent from "./CreateHeroComponents/SkillsAndFeats/CreateHeroSkillsAndFeatsComponent.jsx";
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
@@ -180,6 +181,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path={`/heros`} component={withRouter(HeroList)} />
             <Route path={`/home`} component={HomeComponent} />
+            <Route path={`/createHero/skills`} component={CreateHeroSkillsAndFeatsComponent} />
             <Route path={`/createHero`} component={CreateHeroComponent} />
             <Route path={`/createNPC`} component={CreateNPCComponent} />
             <Route path={`/createMonster`} component={CreateMonster} />

@@ -14,6 +14,10 @@
 
   width: 30%;
 }
+.favouredClassButtonGroup {
+  font-size: 20px;
+  font-family: "Crimson Text", serif;
+}
 .alignmentInfoDiv {
   font-size: 15px !important;
   font-family: "Crimson Text", serif;
@@ -37,6 +41,24 @@
   padding-bottom: 10px;
   width: 1050px;
 }
+
+.createHeroPanelHeaderStyle  {
+  text-align: left;
+  /*background-image: url("../assets/vector-grunge-background.jpg");*/
+
+}
+.createHeroPanelHeaderStyleText  {
+  font-size: 23px;
+  font-family: 'Cinzel Decorative', cursive;
+  text-align: left;
+  /*color: saddlebrown;*/
+  /*text-shadow: 2px 2px 0px white;*/
+  color: white;
+  /*text-shadow: 2px 2px 0px #fa621f;*/
+  margin-left: 70px;
+
+}
+
 .createHeroFormPadding {
   padding-top: 20px;
 }
@@ -66,7 +88,7 @@
 }
 
 .headingText {
-    font-family: 'Kaushan Script', cursive;
+  font-family: 'Cinzel Decorative', cursive;
 
     font-size: 35px;
   color: white;
@@ -74,7 +96,7 @@
 }
 
 .homeBodyText {
-    font-family: 'Kaushan Script', cursive;
+  font-family: 'Cinzel Decorative', cursive;
 
     font-size: 30px;
   color: white;

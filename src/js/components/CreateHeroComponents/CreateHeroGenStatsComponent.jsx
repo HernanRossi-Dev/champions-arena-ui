@@ -108,8 +108,8 @@ export default class CreateHeroGenStatsComponent extends React.Component {
 
 const GenerateStatsFormGroup=(props)=> (
     <FormGroup >
-      <Col sm={0} />
-      <Col sm={3} className={cssStyles.createColLabelStyle}>
+      <Col sm={1} />
+      <Col sm={2} className={cssStyles.createColLabelStyle}>
         <ButtonToolbar >
           <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">Roll 4d6 keep best 3 dice</Tooltip>}>
             <Button bsStyle="primary" onClick={props.genStats} >

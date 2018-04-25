@@ -139,7 +139,7 @@ export default class CreateHeroRaceComponent extends React.Component {
          raceInfo: (
             <p>
               {" "}
-              <strong>Humans get +2 to One Ability Score </strong>
+              <strong>+2 to One Ability Score </strong>
               <br />
               <strong>Medium:</strong> Humans are medium sized creatures,
               receiving no bonuses or penalties for their size.<br />
@@ -161,7 +161,7 @@ export default class CreateHeroRaceComponent extends React.Component {
 
           <p>
             <strong>
-              Dwarves receive +2 Constitution, +2 Wisdom, -2 Charisma:
+              +2 Constitution, +2 Wisdom, -2 Charisma:
             </strong>
             Dwarves are tough and wise, but can be blunt.<br />
 	          <strong>Medium:</strong> Dwarves are medium sized creatures,

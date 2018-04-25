@@ -41,8 +41,6 @@ export default class CreateHeroClassComponent extends React.Component {
 
   setClass(e) {
     const targetText = e.target.textContent.toString();
-    console.log(targetText);
-    console.log("targetText");
     this.props.updateClass(targetText);
     this.handleShow();
     this.setState({ selectedClass: targetText });
@@ -63,7 +61,7 @@ export default class CreateHeroClassComponent extends React.Component {
           sm={2}
           className={cssStyles.createColLabelStyle}
         >
-          Race:
+          Class:
         </Col>
         <Col sm={7}>
           <ButtonToolbar>
@@ -297,8 +295,8 @@ const SelectedClassModalBody = props => {
 	          <h4>Hit Die: </h4>
 	          d8.
 
-	          <h4>Any lawful.</h4>
-	          Any lawful.
+	          <h4>Any lawful</h4>
+	          Any lawful
         </div>
       );
     default:

@@ -20,6 +20,7 @@ import CreateHeroGenStatsComponent from "./CreateHeroGenStatsComponent.jsx";
 import CreateHeroClassComponent from "./CreateHeroClassComponent.jsx";
 import CreateHeroGenderComponent from "./CreateHeroGenderComponent.jsx";
 import CreateHeroAlignmentComponent from "./CreateHeroAlignmentComponent.jsx";
+import CreateHeroFavouredClassComponent from './CreateHeroFavouredClassComponent'
 
 class CreateHeroComponent extends React.Component {
   constructor(props, context) {
@@ -39,7 +40,8 @@ class CreateHeroComponent extends React.Component {
         showAlignment: false,
         prevButtonPressed: "",
         name: "",
-        class: ""
+        class: "",
+	      favouredClass: "",
       }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,6 +51,7 @@ class CreateHeroComponent extends React.Component {
     this.setClass = this.setClass.bind(this);
     this.setGender = this.setGender.bind(this);
     this.setAlignment = this.setAlignment.bind(this);
+    this.setFavouredClass = this.setFavouredClass.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
   }
@@ -79,7 +82,8 @@ class CreateHeroComponent extends React.Component {
       traits: {},
       type: "Player",
       gender: this.state.gender,
-      alignment: this.state.alignment
+      alignment: this.state.alignment,
+	    favouredClass: this.state.favouredClass
     });
     // this.setState({
     //   heroStats: {
@@ -109,6 +113,9 @@ class CreateHeroComponent extends React.Component {
     this.setState({ class: newClass });
   }
 
+  setFavouredClass(newFavClass) {
+    this.setState({favouredClass: newFavClass});
+  }
   setGender(newGender) {
     this.setState({ gender: newGender });
   }
@@ -118,10 +125,12 @@ class CreateHeroComponent extends React.Component {
   }
 
   render() {
-    return (
+
+
+	  return (
       <Panel className={cssStyles.createHeroPanelParent}>
-        <Panel.Heading>
-          <Panel.Title toggle>Create Character</Panel.Title>
+        <Panel.Heading className={cssStyles.createHeroPanelHeaderStyle}>
+          <Panel.Title toggle className={cssStyles.createHeroPanelHeaderStyleText}>Create Character</Panel.Title>
         </Panel.Heading>
         <Form horizontal>
           <CreateHeroNameComponent updateName={this.setName} />
@@ -132,24 +141,30 @@ class CreateHeroComponent extends React.Component {
           <hr className={cssStyles.hr} />
           <CreateHeroClassComponent updateClass={this.setClass} />
           <hr className={cssStyles.hr} />
+	        <CreateHeroFavouredClassComponent updateFavClass={this.setFavouredClass}/>
+	        <hr className={cssStyles.hr} />
           <CreateHeroGenderComponent updateGender={this.setGender} />
           <hr className={cssStyles.hr} />
           <CreateHeroAlignmentComponent updateAlignment={this.setAlignment} />
-
+          <hr className={cssStyles.hr} />
           <hr className={cssStyles.hr} />
           <FormGroup className={cssStyles.createColStyle}>
-            <Col sm={3} />
-            <Col sm={3}>
+            <Col sm={7} />
+            <Col sm={5}>
               <ButtonToolbar>
                 <Button bsStyle="primary" onClick={this.handleSubmit}>
                   Create
                 </Button>
-                <LinkContainer to={"/heros"}>
-                  <Button bsStyle={"link"}>To Character List</Button>
+
+                <LinkContainer to={"/home"}>
+                  <Button bsStyle={"link"}>Discard</Button>
+                </LinkContainer>
+	              <LinkContainer to={"/createHero/skills"}>
+                  <Button bsStyle={"link"}>Proceed to Skills</Button>
                 </LinkContainer>
               </ButtonToolbar>
             </Col>
-            <Col sm={3} />
+
           </FormGroup>
         </Form>
       </Panel>
