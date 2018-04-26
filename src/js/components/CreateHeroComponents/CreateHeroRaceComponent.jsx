@@ -25,12 +25,13 @@ export default class CreateHeroRaceComponent extends React.Component {
   }
 
   render() {
+	  const raceDivStyle = {
+		  fontSize: "17px !important",
+		  fontFamily: "'Josefin Sans', sans-serif",
+		  textAlign: "left"
+	  };
     const RaceTextToggle = () => {
-      const raceDivStyle = {
-        fontSize: "17px !important",
-        fontFamily: "'Josefin Sans', sans-serif",
-        textAlign: "left"
-      };
+
       if (this.state.showRaceInfo) {
         return <div style={raceDivStyle}> {this.state.raceInfo}</div>;
       } else {
@@ -125,7 +126,7 @@ export default class CreateHeroRaceComponent extends React.Component {
         <FormGroup>
           <Col sm={1} />
           <Col sm={8}>
-	          <Collapse in={this.state.showRaceInfo}>
+	          <Collapse in={this.state.showRaceInfo} style={raceDivStyle}>
             {/*<RaceTextToggle />*/}
             <div>
 	            <Well>

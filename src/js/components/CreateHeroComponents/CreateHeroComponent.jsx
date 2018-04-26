@@ -11,7 +11,8 @@ import {
   Col,
   Form,
   FormGroup,
-  Panel
+  Panel,
+  Modal
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import CreateHeroRaceComponent from "./CreateHeroRaceComponent.jsx";
@@ -47,10 +48,14 @@ class CreateHeroComponent extends React.Component {
       alignment: "",
       name: "",
       class: "",
+      heroRace: "",
       favouredClass: "",
       racialBonus: {},
       allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
-	    alignRenderKey: Math.random(),
+      alignRenderKey: Math.random(),
+      numberOfInvalidFields: 0,
+      invalidFields: [""],
+      show: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setRace = this.setRace.bind(this);
@@ -61,6 +66,8 @@ class CreateHeroComponent extends React.Component {
     this.setAlignment = this.setAlignment.bind(this);
     this.setFavouredClass = this.setFavouredClass.bind(this);
     this.restrictAlignments = this.restrictAlignments.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
   }
@@ -71,8 +78,46 @@ class CreateHeroComponent extends React.Component {
     dispatch(action);
   }
 
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
+	  this.setState({
+		  numberOfInvalidFields: 0,
+		  invalidFields: []
+	  });
+    const validationFields = [
+      "name",
+      "class",
+      "heroRace",
+      "alignment",
+      "favouredClass",
+      "gender"
+    ];
+    const invalidFields = [];
+    let numInvalidFields = 0;
+    for ( let i =0; i < validationFields.length; i += 1) {
+      let field = validationFields[i];
+      if (this.state[field].toString() === "") {
+        numInvalidFields += 1;
+        invalidFields.push(field);
+      }
+    }
+    if (numInvalidFields > 0) {
+      this.setState({
+        numberOfInvalidFields: numInvalidFields,
+        invalidFields: invalidFields,
+	      show: true
+      });
+      return;
+    }
+
     this.createNewHero({
       name: this.state.name,
       class: this.state.class,
@@ -122,7 +167,11 @@ class CreateHeroComponent extends React.Component {
 
   setClass(newClass) {
     this.restrictAlignments(newClass);
-    this.setState({ class: newClass, alignment: "", alignRenderKey: Math.random() });
+    this.setState({
+      class: newClass,
+      alignment: "",
+      alignRenderKey: Math.random()
+    });
   }
 
   setFavouredClass(newFavClass) {
@@ -137,6 +186,29 @@ class CreateHeroComponent extends React.Component {
   }
 
   render() {
+    const ValidationModal = () => {
+      return (
+        <div>
+          {this.state.numberOfInvalidFields} errors on submission.<br />
+          Please select character's:
+          <InvalidFields />
+        </div>
+      );
+    };
+    const InvalidFields = () => {
+	    this.state.invalidFields.map(field => {
+		    console.log(field);
+	    })
+      return (
+        <ul>
+          {this.state.invalidFields.map(invalidField =>  {
+            return(
+              <li>{invalidField}</li>
+            )
+          })}
+        </ul>
+      )
+    };
     return (
       <Panel className={cssStyles.createHeroPanelParent}>
         <Panel.Heading className={cssStyles.createHeroPanelHeaderStyle}>
@@ -185,15 +257,32 @@ class CreateHeroComponent extends React.Component {
                 </LinkContainer>
               </ButtonToolbar>
             </Col>
+            <Modal
+              show={this.state.show}
+              onHide={this.handleClose}
+              className={cssStyles.createHeroClassModal}
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Invalid Submission</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <ValidationModal />
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.handleClose}>Close</Button>
+              </Modal.Footer>
+            </Modal>
           </FormGroup>
           <FormGroup>
-            <Col sm={7}/>
+            <Col sm={7} />
             <Col sm={4}>
-	            <ButtonToolbar>
-		            {/*<LinkContainer to={"/createHero/skills"}>*/}
-			            <Button bsStyle={"link"}>Proceed to Skills (Under Construction)</Button>
-		            {/*</LinkContainer>*/}
-	            </ButtonToolbar>
+              <ButtonToolbar>
+                {/*<LinkContainer to={"/createHero/skills"}>*/}
+                <Button bsStyle={"link"}>
+                  Proceed to Skills (Under Construction)
+                </Button>
+                {/*</LinkContainer>*/}
+              </ButtonToolbar>
             </Col>
           </FormGroup>
         </Form>
@@ -208,16 +297,16 @@ class CreateHeroComponent extends React.Component {
         break;
       case "Wizard":
         this.setState({
-          allowedAlignments:[
-	          "LG",
-	          "NG",
-	          "CG",
-	          "LN",
-	          "N",
-	          "CN",
-	          "LE",
-	          "NE",
-	          "CE"
+          allowedAlignments: [
+            "LG",
+            "NG",
+            "CG",
+            "LN",
+            "N",
+            "CN",
+            "LE",
+            "NE",
+            "CE"
           ]
         });
         break;
@@ -256,8 +345,7 @@ class CreateHeroComponent extends React.Component {
         break;
       case "Cleric":
         this.setState({
-          allowedAlignments: [
-          ]
+          allowedAlignments: []
         });
         break;
       case "Rogue":

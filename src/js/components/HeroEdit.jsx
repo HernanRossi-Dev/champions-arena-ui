@@ -64,18 +64,13 @@ class HeroEdit extends React.Component {
 	render() {
 		return (
 			<div>
+				<h3>Character Info Under Construction</h3>
 				<form name="editForm" onSubmit={this.onSubmit}>
 					Name: {store.getState().editHero.name }
 					<br/>
 					Class: {store.getState().editHero.class }
 					<br/>
 					Race: {store.getState().editHero.race }
-					<br/>
-					Title:
-					<input type={"text"} name={"title"} placeholder={store.getState().editHero.title}
-					       />
-					<br/>
-					<button type="submit">Submit</button>
 					<br/>
 					<Link to="/heros">Back to hero list</Link>
 				</form>

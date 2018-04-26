@@ -8,6 +8,7 @@ import * as HeroActionCreators from "../actions/index.js";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import HeroTable from "./HeroTable";
+import * as cssStyles from '../../styles/Styles.css'
 
 class HeroList extends React.Component {
   constructor(props) {
@@ -65,11 +66,11 @@ class HeroList extends React.Component {
     dispatch(action);
   }
 
-  createNewHero(newHero) {
-    let { dispatch } = this.props;
-    let action = HeroActionCreators.createHero(newHero);
-    dispatch(action);
-  }
+  // createNewHero(newHero) {
+  //   let { dispatch } = this.props;
+  //   let action = HeroActionCreators.createHero(newHero);
+  //   dispatch(action);
+  // }
 
   render() {
     return (
@@ -85,6 +86,8 @@ class HeroList extends React.Component {
           heros={store.getState().heros}
           deleteHero={this.deleteHero}
         />
+	      <hr className={cssStyles.hrHeroList} />
+
       </div>
     );
   }

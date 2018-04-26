@@ -61,18 +61,19 @@ export default class CreateHeroAlignmentComponent extends React.Component {
   }
 
   render() {
-    const AlignmentTextToggle = () => {
-      const alignmentDivStyle = {
-        fontSize: "17px !important",
-        fontFamily: "'Josefin Sans', sans-serif",
-        textAlign: "left"
-      };
-      if (this.state.showAlignment) {
-        return <div style={alignmentDivStyle}> {this.state.alignmentInfo}</div>;
-      } else {
-        return <div />;
-      }
-    };
+	  const alignmentDivStyle = {
+		  fontSize: "17px !important",
+		  fontFamily: "'Josefin Sans', sans-serif",
+		  textAlign: "left"
+	  };
+    // const AlignmentTextToggle = () => {
+    //
+    //   if (this.state.showAlignment) {
+    //     return <div style={alignmentDivStyle}> {this.state.alignmentInfo}</div>;
+    //   } else {
+    //     return <div />;
+    //   }
+    // };
     const changeAlignment = e => {
       const targetText = e.target.textContent.toString();
       if (!this.state.showAlignment) {
@@ -240,6 +241,8 @@ export default class CreateHeroAlignmentComponent extends React.Component {
           <Col sm={8}>
             <div className={cssStyles.alignmentInfoDiv}>
               <strong>{this.state.clericAlignmentPrompt}</strong>
+	            {(this.state.allowedAlignments.length < 9) ? <div><strong>Alignments restricted due to class</strong></div> : <div></div>}
+
             </div>
           </Col>
         </FormGroup>
@@ -247,7 +250,7 @@ export default class CreateHeroAlignmentComponent extends React.Component {
           <Col sm={1} />
           <Col sm={8}>
             {/*<AlignmentTextToggle />*/}
-	          <Collapse in={this.state.showAlignment}>
+	          <Collapse in={this.state.showAlignment} style={alignmentDivStyle}>
 
 		          <div>
 			          <Well>

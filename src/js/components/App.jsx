@@ -26,6 +26,8 @@ import {LinkContainer} from "react-router-bootstrap";
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 
 
+
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -187,6 +189,7 @@ const style = {
   flexDirection: "column",
   alignItems: "center"
 };
+
 
 
 const NoMatch = () => <p>Page Not Found</p>;

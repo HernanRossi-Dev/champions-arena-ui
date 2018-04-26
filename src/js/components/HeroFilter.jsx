@@ -146,6 +146,7 @@ class HeroFilter extends React.Component {
                     <option value="Rogue">Rogue</option>
                     <option value="Cleric">Cleric</option>
                     <option value="Warlock">Warlock</option>
+                    <option value="Bard">Bard</option>
                   </FormControl>
                 </FormGroup>
               </Col>

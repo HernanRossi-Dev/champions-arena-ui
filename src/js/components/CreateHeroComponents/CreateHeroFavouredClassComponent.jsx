@@ -139,6 +139,12 @@ export default class CreateHeroFavouredClassComponent extends React.Component {
 						>
 							Barbarian
 						</ToggleButton>
+						<ToggleButton
+							value={"Bard"}
+							className={cssStyles.favouredClassButtonGroup}
+						>
+							Bard
+						</ToggleButton>
 					</ToggleButtonGroup>
 				</ButtonToolbar>
 			</Col>
