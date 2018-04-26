@@ -172,7 +172,6 @@ class CreateHeroComponent extends React.Component {
             renderKey={this.state.alignRenderKey}
           />
           <hr className={cssStyles.hr} />
-          <hr className={cssStyles.hr} />
           <FormGroup className={cssStyles.createColStyle}>
             <Col sm={8} />
             <Col sm={4}>
@@ -191,9 +190,9 @@ class CreateHeroComponent extends React.Component {
             <Col sm={7}/>
             <Col sm={4}>
 	            <ButtonToolbar>
-		            <LinkContainer to={"/createHero/skills"}>
-			            <Button bsStyle={"link"}>Proceed to Skills (Under Construction will discard current)</Button>
-		            </LinkContainer>
+		            {/*<LinkContainer to={"/createHero/skills"}>*/}
+			            <Button bsStyle={"link"}>Proceed to Skills (Under Construction)</Button>
+		            {/*</LinkContainer>*/}
 	            </ButtonToolbar>
             </Col>
           </FormGroup>

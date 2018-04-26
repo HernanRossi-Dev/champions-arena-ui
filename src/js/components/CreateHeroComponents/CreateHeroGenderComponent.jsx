@@ -99,7 +99,7 @@ export default class CreateHeroGenderComponent extends React.Component {
 				</Col>
 
 				<Col  sm={1}>
-					<ShowGenderImage />
+					{/*<ShowGenderImage />*/}
 				</Col>
 
 			</FormGroup>

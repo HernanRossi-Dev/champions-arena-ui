@@ -1,5 +1,14 @@
 @import url("https://stackpath.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css");
 
+
+
+body {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+
 .aboutSiteText {
   font-family: "Josefin Sans", sans-serif;
   font-size: 20px;
@@ -59,7 +68,7 @@
 
 }
 .createHeroClassModal {
-  width: 75vw  !important;
+  margin-top: 35px;
 
 }
 .createHeroFormPadding {
@@ -197,20 +206,31 @@
 }
 
 .navBarFont {
-  font-size: 18px !important;
-  font-family: "Crimson Text", serif !important;
-  color: white !important;
+  font-size: 18px ;
+  font-family: "Crimson Text", serif ;
+  color: white;
+
+}
+.navbarStyle   {
+  border-bottom-style: groove;
+  border-bottom-width: thin;
+  border-color:  #df691a ;
+
+  background: #2b3e50;
+  z-index: 9999;
+  width: 100%;
 }
 
-.navbarDefault {
-  background-color: teal;
-  background-image: none;
-  position: relative;
-  min-height: 50px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-}
+.navDropDown  a {
 
+
+}
+.navBarMenuItem a {
+  border-color:#df691a;
+  border-bottom-style: groove;
+  border-bottom-width: thin;
+  font-size: 14px !important;
+}
 .titleImage {
   margin-top: 10px;
 }
@@ -222,7 +242,7 @@
   background-position: center;
   -ms-background-position-x: center;
   -ms-background-position-y: bottom;
-  margin-top: -19px;
+  margin-top: 42px;
   margin-bottom: 30px;
 }
 
@@ -236,11 +256,6 @@
   flex: 1;
 }
 
-body {
-  display: table;
-  width: 100%;
-  height: 100%;
-}
 
 .styleFooter {
   background-color: #2b3e50;

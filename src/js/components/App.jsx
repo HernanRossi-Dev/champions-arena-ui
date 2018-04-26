@@ -10,6 +10,9 @@ import ArenaStartComponent from "./ArenaStartComponent.jsx";
 import CreateNPCComponent from "./CreateNPCComponent.jsx";
 import CreateMonster from "./CreateMonster.jsx";
 import PathfinderOGL from "./PathfinderOGL.jsx";
+import CreateEncounter from "./Arena/CreateEncounter.jsx";
+import OGL from "./Legal/OGL.jsx";
+import CreateCampaign from "./Arena/CreateCampaign.jsx";
 import CreateHeroSkillsAndFeatsComponent from "./CreateHeroComponents/SkillsAndFeats/CreateHeroSkillsAndFeatsComponent.jsx";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -22,6 +25,7 @@ import "../../styles/Styles.css";
 import {LinkContainer} from "react-router-bootstrap";
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -33,11 +37,14 @@ class Header extends React.Component {
     this.handleOpenOptions = this.handleOpenOptions.bind(this);
     this.handleCloseOptions = this.handleCloseOptions.bind(this);
     this.handleCloseCreate = this.handleCloseCreate.bind(this);
+    this.handleCloseArena = this.handleCloseArena.bind(this);
+    this.handleOpenArena = this.handleOpenArena.bind(this);
     this.state = {
       dropdownOpen: false,
       isOpenWorld: false,
       isOpenCreate: false,
-      isOpenOptions: false
+      isOpenOptions: false,
+      isOpenArena: false,
     };
   }
 
@@ -64,6 +71,13 @@ class Header extends React.Component {
   handleCloseOptions() {
     this.setState({ isOpenOptions: false });
   }
+  handleOpenArena() {
+    this.setState({ isOpenArena: true });
+  }
+
+  handleCloseArena() {
+    this.setState({ isOpenArena: false });
+  }
 
   toggle() {
     this.setState({
@@ -74,7 +88,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <Navbar toggleable={false} fluid >
+        <Navbar toggleable={false} fluid className={cssStyles.navbarStyle} fixedTop={true}>
           <Nav bsStyle="tabs" justified className={cssStyles.navBarFont}>
             <LinkContainer to="/home">
               <NavItem>Home</NavItem>
@@ -89,25 +103,39 @@ class Header extends React.Component {
               open={this.state.isOpenCreate}
               title="Create New Character"
               id="basic-nav-dropdown"
+              className={cssStyles.navDropDown}
 
             >
-              <LinkContainer to="/createHero" >
+              <LinkContainer to="/createHero">
 
-                <MenuItem  eventKey={3.1} >New Player Character</MenuItem>
+                <MenuItem  eventKey={3.1} className={cssStyles.navBarMenuItem}>New Player Character</MenuItem>
 
               </LinkContainer>
               <LinkContainer to="/createNPC">
-                <MenuItem eventKey={3.2}>New Non-Player Character</MenuItem>
+                <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>New Non-Player Character</MenuItem>
 
               </LinkContainer>
-              <LinkContainer to="/createMonster">
-                <MenuItem eventKey={3.3} >New Monster</MenuItem>
-              </LinkContainer>
+              {/*<LinkContainer to="/createMonster">*/}
+                {/*<MenuItem eventKey={3.3} >New Monster</MenuItem>*/}
+              {/*</LinkContainer>*/}
             </NavDropdown>
+	          <NavDropdown
+		          eventKey={3}
+		          onMouseEnter={this.handleOpenArena}
+		          onMouseLeave={this.handleCloseArena}
+		          open={this.state.isOpenArena}
+		          title="Arena"
+		          id="basic-nav-dropdown"
+		          className={cssStyles.navDropDown}
 
-            {/*<LinkContainer to="/Arena">*/}
-              {/*<NavItem>Arena</NavItem>*/}
-            {/*</LinkContainer>*/}
+	          >
+		          <LinkContainer to="/Campaign" >
+			          <MenuItem  eventKey={3.1} className={cssStyles.navBarMenuItem}>Campaign</MenuItem>
+		          </LinkContainer>
+		          <LinkContainer to="/Encounter">
+			          <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>Encounter</MenuItem>
+            </LinkContainer>
+            </NavDropdown>
             <NavDropdown
               eventKey={3}
               onMouseEnter={this.handleOpenWorld}
@@ -115,15 +143,16 @@ class Header extends React.Component {
               open={this.state.isOpenWorld}
               title="World Info"
               id="basic-nav-dropdown"
+              className={cssStyles.navDropDown}
             >
               <LinkContainer to="/Beasts">
-                <MenuItem eventKey={3.1}>Beasts</MenuItem>
+                <MenuItem eventKey={3.1} className={cssStyles.navBarMenuItem}>Beasts</MenuItem>
               </LinkContainer>
               <LinkContainer to="/Skills">
-                <MenuItem eventKey={3.2}>Skills</MenuItem>
+                <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>Skills</MenuItem>
               </LinkContainer>
               <LinkContainer to="/Items">
-                <MenuItem eventKey={3.3}>Items</MenuItem>
+                <MenuItem eventKey={3.3} className={cssStyles.navBarMenuItem}>Items</MenuItem>
               </LinkContainer>
             </NavDropdown>
 
@@ -135,12 +164,13 @@ class Header extends React.Component {
               title={<i className="fas fa-bars" />}
               id="basic-nav-dropdown"
               noCaret
+              className={cssStyles.navDropDown}
             >
-              <MenuItem eventKey={3.1}>Logged in as Guest</MenuItem>
+              <MenuItem eventKey={3.1} className={cssStyles.navBarMenuItem}>Logged in as Guest</MenuItem>
               <LinkContainer to="/about">
-                <MenuItem eventKey={3.2}>About Site</MenuItem>
-              </LinkContainer><LinkContainer to="/about">
-                <MenuItem eventKey={3.3}>Open Gaming License</MenuItem>
+                <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>About Site</MenuItem>
+              </LinkContainer><LinkContainer to="/OGL">
+                <MenuItem eventKey={3.3} className={cssStyles.navBarMenuItem}>About OGL</MenuItem>
               </LinkContainer>
               {/*<MenuItem eventKey={3.3}>Profile</MenuItem>*/}
             </NavDropdown>
@@ -185,6 +215,9 @@ class App extends React.Component {
             <Route path={`/home`} component={HomeComponent} />
             <Route path={`/createHero/skills`} component={CreateHeroSkillsAndFeatsComponent} />
             <Route path={`/createHero`} component={CreateHeroComponent} />
+            <Route path={`/Campaign`} component={CreateCampaign} />
+            <Route path={`/Encounter`} component={CreateEncounter} />
+            <Route path={`/OGL`} component={OGL} />
             <Route path={`/createNPC`} component={CreateNPCComponent} />
             <Route path={`/createMonster`} component={CreateMonster} />
             <Route path={`/Beasts`} component={Beasts} />

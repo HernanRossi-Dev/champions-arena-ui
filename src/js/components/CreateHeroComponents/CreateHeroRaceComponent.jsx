@@ -6,7 +6,9 @@ import {
   ControlLabel,
   FormGroup,
   ToggleButton,
-  ToggleButtonGroup
+  ToggleButtonGroup,
+	Collapse,
+	Well
 } from "react-bootstrap";
 
 export default class CreateHeroRaceComponent extends React.Component {
@@ -123,7 +125,14 @@ export default class CreateHeroRaceComponent extends React.Component {
         <FormGroup>
           <Col sm={1} />
           <Col sm={8}>
-            <RaceTextToggle />
+	          <Collapse in={this.state.showRaceInfo}>
+            {/*<RaceTextToggle />*/}
+            <div>
+	            <Well>
+		          {this.state.raceInfo}
+	            </Well>
+            </div>
+	          </Collapse>
           </Col>
           <Col sm={2} />
         </FormGroup>

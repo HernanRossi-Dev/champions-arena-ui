@@ -6,7 +6,9 @@ import {
   ControlLabel,
   FormGroup,
   ToggleButton,
-  ToggleButtonGroup
+  ToggleButtonGroup,
+  Collapse,
+  Well
 } from "react-bootstrap";
 
 export default class CreateHeroAlignmentComponent extends React.Component {
@@ -244,7 +246,15 @@ export default class CreateHeroAlignmentComponent extends React.Component {
         <FormGroup>
           <Col sm={1} />
           <Col sm={8}>
-            <AlignmentTextToggle />
+            {/*<AlignmentTextToggle />*/}
+	          <Collapse in={this.state.showAlignment}>
+
+		          <div>
+			          <Well>
+				          {this.state.alignmentInfo}
+			          </Well>
+		          </div>
+	          </Collapse>
           </Col>
           <Col sm={2} />
         </FormGroup>

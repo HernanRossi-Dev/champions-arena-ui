@@ -135,7 +135,7 @@ export default class CreateHeroClassComponent extends React.Component {
             </ToggleButtonGroup>
           </ButtonToolbar>
         </Col>
-        <Modal show={this.state.show} onHide={this.handleClose} >
+        <Modal show={this.state.show} onHide={this.handleClose} className={cssStyles.createHeroClassModal}>
           <Modal.Header closeButton>
             <Modal.Title>{this.state.selectedClass}</Modal.Title>
           </Modal.Header>
