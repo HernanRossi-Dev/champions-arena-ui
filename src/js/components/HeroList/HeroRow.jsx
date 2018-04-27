@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link, withRouter} from "react-router-dom";
 import {Button} from "react-bootstrap";
-import * as cssStyles from "../../styles/Styles.css";
+import * as cssStyles from "../../../styles/Styles.css";
 
 const HeroRow = props => {
   function deleteHero() {

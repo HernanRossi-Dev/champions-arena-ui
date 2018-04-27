@@ -1,10 +1,10 @@
-import store from "../store";
+import store from "../../store/index";
 import React from "react";
 import PropTypes from "prop-types";
 import HeroRow from "./HeroRow.jsx";
 import {withRouter} from "react-router-dom";
 import {Table} from 'react-bootstrap';
-import * as cssStyles from "../../styles/Styles.css";
+import * as cssStyles from "../../../styles/Styles.css";
 
 
 const HeroTable = props => {

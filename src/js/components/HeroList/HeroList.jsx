@@ -3,12 +3,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import HeroFilter from "./HeroFilter.jsx";
 import {withRouter} from "react-router-dom";
-import store from "../store/index.js";
-import * as HeroActionCreators from "../actions/index.js";
+import store from "../../store/index.js";
+import * as HeroActionCreators from "../../actions/index.js";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import HeroTable from "./HeroTable";
-import * as cssStyles from '../../styles/Styles.css'
+import * as cssStyles from '../../../styles/Styles.css'
 
 class HeroList extends React.Component {
   constructor(props) {

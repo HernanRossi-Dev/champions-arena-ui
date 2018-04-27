@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
-import * as cssStyles from "../../styles/Styles.css";
+import * as cssStyles from "../../../styles/Styles.css";
 import {
     Button,
     ButtonToolbar,

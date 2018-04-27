@@ -2,8 +2,8 @@ import "whatwg-fetch";
 import React from "react";
 import {Link, withRouter} from 'react-router-dom';
 import PropTypes from "prop-types";
-import store from "../store/index.js";
-import * as HeroActionCreators from "../actions/index.js";
+import store from "../../store/index.js";
+import * as HeroActionCreators from "../../actions/index.js";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as cssStyles from '../../styles/Styles.css';
+import * as cssStyles from '../../../styles/Styles.css';
 
 export default class AboutSiteComponent extends React.Component {
 

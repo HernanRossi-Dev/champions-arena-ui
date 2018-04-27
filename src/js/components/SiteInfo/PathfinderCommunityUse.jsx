@@ -1,7 +1,7 @@
 import React from "react";
-import * as Styles from "../../styles/Styles.css";
+import * as Styles from "../../../styles/Styles.css";
 
-export default class PathfinderOGL extends React.Component {
+export default class PathfinderCommunityUse extends React.Component {
   render() {
     return (
       <div className={Styles.Legaldiv}>
@@ -19,7 +19,7 @@ export default class PathfinderOGL extends React.Component {
 
         </span>
 	      <div className={Styles.LegalImgDiv}> <img
-		      src={require("../../assets/Paizo.png")}
+		      src={require("../../../assets/Paizo.png")}
 		      width="143"
 		      height="186"
 		      alt=""

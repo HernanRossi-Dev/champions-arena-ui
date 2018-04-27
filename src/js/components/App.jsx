@@ -1,17 +1,15 @@
-import HeroList from "./HeroList.jsx";
-import HeroEdit from "./HeroEdit.jsx";
+import HeroList from "./HeroList/HeroList.jsx";
+import HeroEdit from "./HeroEdit/HeroEdit.jsx";
 import CreateHeroComponent from "./CreateHeroComponents/CreateHeroComponent.jsx";
-import Beasts from "./BeastComponent.jsx";
-import Skills from "./SkillsComponent.jsx";
-import ItemsComponent from "./ItemsComponent.jsx";
+import Beasts from "./WorldInfo/BeastComponent.jsx";
+import Skills from "./WorldInfo/SkillsComponent.jsx";
+import ItemsComponent from "./WorldInfo/ItemsComponent.jsx";
 import HomeComponent from "./HomeComponent.jsx";
-import AboutSiteComponent from "./AboutSiteComponent.jsx";
-import ArenaStartComponent from "./ArenaStartComponent.jsx";
-import CreateNPCComponent from "./CreateNPCComponent.jsx";
-import CreateMonster from "./CreateMonster.jsx";
-import PathfinderOGL from "./PathfinderOGL.jsx";
+import AboutSiteComponent from "./SiteInfo/AboutSiteComponent.jsx";
+import CreateNPCComponent from "./CreateNPC/CreateNPCComponent.jsx";
+import PathfinderCommunityUse from "./SiteInfo/PathfinderCommunityUse.jsx";
 import CreateEncounter from "./Arena/CreateEncounter.jsx";
-import OGL from "./Legal/OGL.jsx";
+import OGL from "./SiteInfo/OGL.jsx";
 import CreateCampaign from "./Arena/CreateCampaign.jsx";
 import CreateHeroSkillsAndFeatsComponent from "./CreateHeroComponents/SkillsAndFeats/CreateHeroSkillsAndFeatsComponent.jsx";
 import React from "react";
@@ -222,14 +220,12 @@ class App extends React.Component {
             <Route path={`/Encounter`} component={CreateEncounter} />
             <Route path={`/OGL`} component={OGL} />
             <Route path={`/createNPC`} component={CreateNPCComponent} />
-            <Route path={`/createMonster`} component={CreateMonster} />
             <Route path={`/Beasts`} component={Beasts} />
             <Route path={`/Skills`} component={Skills} />
             <Route path={`/Items`} component={ItemsComponent} />
             <Route path={`/heros/:id`} component={HeroEdit} />
-            <Route path={`/legal`} component={PathfinderOGL} />
+            <Route path={`/legal`} component={PathfinderCommunityUse} />
             <Route path={`/about`} component={AboutSiteComponent} />
-            <Route path={`/arena`} component={ArenaStartComponent} />
             <Redirect from="/" to="/home" />
             <Route path="*" component={NoMatch} />
           </Switch>
