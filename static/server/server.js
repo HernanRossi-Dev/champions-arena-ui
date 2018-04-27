@@ -1,28 +1,69 @@
 /* eslint-disable no-trailing-spaces */
 import express from "express";
 import bodyParser from "body-parser";
-import {MongoClient} from "mongodb";
 import SourceMapSupport from "source-map-support";
 import path from "path";
 import "babel-polyfill";
+import { defaultCharacters } from "./defaultCharacters";
 
+var mongoose = require("mongoose");
+var mongoDB =
+  "mongodb+srv://HernanRossi:!Horseshit1!@pathfinderarena-gmjjh.mongodb.net/test";
+var characters = require("./routes/characters");
 var ObjectID = require("mongodb").ObjectID;
 
 SourceMapSupport.install();
 const app = express();
 app.use(express.static("static"));
 app.use(bodyParser.json());
+// app.use('/api/characters', characters);
 
-let db;
-MongoClient.connect("mongodb://localhost/")
-  .then(client => {
-    db = client.db("Pathfinder");
+let Characters = require("./models/Characters");
+let Users = require("./models/Users");
+mongoose.Promise = require("bluebird");
+mongoose
+  .connect(mongoDB)
+  .then(() => {
     app.listen(3000, () => {
       console.log("App started on port 3000.");
     });
   })
   .catch(error => {
     console.log("Error: ", error);
+  });
+let db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+let devUser = {
+  userName: "hernan",
+  password: "h",
+  email: "hernan_rossi@msn.com"
+};
+
+let testUser = {
+  userName: "bruce",
+  password: "b",
+  email: "bruce_rossi@msn.com"
+};
+
+Users.findOne({ email: devUser.email })
+  .limit(1)
+  .exec(function(err, user) {
+    if (user) {
+	    console.log("found user");
+      console.log(user);
+    } else {
+      console.log("did not find user");
+	    console.log(user);
+
+	    db.collection("users").insert(devUser);
+      let i = 0;
+      for (i; i < defaultCharacters.length; i += 1) {
+        defaultCharacters[i].user = devUser.name;
+      }
+      db.collection("heros").insert(defaultCharacters);
+
+    }
   });
 
 app.get("/api/heros/:id", (req, res) => {
@@ -90,9 +131,6 @@ app.post("/api/heros", (req, res) => {
     return;
   }
 
-
-
-
   newHero.created = new Date();
   db
     .collection("heros")
@@ -147,7 +185,7 @@ app.get("*", (req, res) => {
 app.put("/api/heros/:id", (req, res) => {
   let heroId;
   console.log(req.params);
-  console.log('req.params');
+  console.log("req.params");
   try {
     heroId = new ObjectID(req.params.id);
   } catch (e) {
@@ -158,7 +196,7 @@ app.put("/api/heros/:id", (req, res) => {
   const hero = req.body;
   delete hero._id;
   console.log(hero);
-  console.log('hero');
+  console.log("hero");
   if (hero.created) {
     hero.created = new Date(hero.created);
   }
@@ -180,3 +218,5 @@ app.put("/api/heros/:id", (req, res) => {
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
 });
+
+module.export = app;

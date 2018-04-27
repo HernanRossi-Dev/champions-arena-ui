@@ -138,7 +138,8 @@ class CreateHeroComponent extends React.Component {
       gender: this.state.gender,
       alignment: this.state.alignment,
       favouredClass: this.state.favouredClass,
-      racialBonus: this.state.racialBonus
+      racialBonus: this.state.racialBonus,
+      user: 'dev'
     });
   }
 
