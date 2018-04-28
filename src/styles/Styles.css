@@ -23,6 +23,7 @@ body {
 
   width: 30%;
 }
+
 .favouredClassButtonGroup {
   font-size: 20px;
   font-family: "Crimson Text", serif;
@@ -46,7 +47,7 @@ body {
   align-content: center !important;
   align-items: center !important;
 }
-.createHeroPanelParent {
+.createCharacterPanelParent {
   padding-bottom: 10px;
   width: 1050px;
   border-bottom-style: groove;
@@ -54,13 +55,13 @@ body {
   border-color:  #df691a ;
 }
 
-.createHeroPanelHeaderStyle  {
+.createCharacterPanelHeaderStyle  {
   margin-bottom: 25px;
   text-align: left;
   /*background-image: url("../assets/vector-grunge-background.jpg");*/
 
 }
-.createHeroPanelHeaderStyleText  {
+.createCharacterPanelHeaderStyleText  {
   font-size: 23px;
   font-family: 'Cinzel Decorative', cursive;
   text-align: left;
@@ -75,11 +76,11 @@ body {
   margin-right: 70px;
 
 }
-.createHeroClassModal {
+.createCharacterClassModal {
   margin-top: 35px;
 
 }
-.createHeroFormPadding {
+.createCharacterFormPadding {
   padding-top: 20px;
 }
 .createColLabelStyle {
@@ -152,13 +153,13 @@ body {
   align-items: center !important;
 }
 
-.heroTableParent {
+.characterTableParent {
   text-align: center;
   width: 850px;
 
 }
 
-.heroTableHeader {
+.characterTableHeader {
   font-size: 24px;
   font-family: "Crimson Text", serif;
 
@@ -169,7 +170,7 @@ body {
   text-align: center;
 }
 
-.heroTableRow {
+.characterTableRow {
   text-align: center;
   font-size: 18px;
   line-height: normal;
@@ -193,7 +194,7 @@ body {
   margin-bottom: 25px;
   margin-top: 25px;
 }
-.hrHeroList {
+.hrCharacterList {
   display: block;
   position: relative;
   padding: 0;
@@ -237,8 +238,37 @@ body {
   color: white;
 }
 
+.loginDiv {
+  align-content: space-around;
+  background-color: white;
+}
+.loginPanelParent {
+  width: 25%;
+
+}
+.loginParent {
+  background: #2b3e50;
+  z-index: 9999;
+  width: 100vw !important;
+
+}
+.loginPanelHeading {
+  font-family: "Merriweather", serif;
+  font-size: 18px;
+  text-align: center;
+
+}
+.loginModalStyle{
+  font-family: "Merriweather", serif;
+  font-size: 18px;
+  text-align: center;
+}
 .LegalImgDiv {
   padding-top: 30px;
+}
+
+.loadingIcon {
+  align-content: space-around;
 }
 
 .panelHeader {
@@ -288,6 +318,15 @@ body {
   -ms-background-position-y: bottom;
   margin-top: 42px;
   margin-bottom: 30px;
+}
+.splash_imgLogin {
+  /*background-image: url("../assets/GolarionMap.png");*/
+  background-image: url("../assets/BlogBannerOne.jpg");
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  -ms-background-position-x: center;
+  -ms-background-position-y: bottom;
 }
 
 .Site {

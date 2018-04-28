@@ -2,7 +2,7 @@ import React from "react";
 import * as cssStyles from "../../../styles/Styles.css";
 import { Col, ControlLabel, FormGroup, FormControl} from "react-bootstrap";
 
-export default class CreateHeroNameComponent extends React.Component {
+export default class CreateCharacterNameComponent extends React.Component {
 	constructor (props, context) {
 		super(props, context);
 	}
@@ -11,7 +11,7 @@ export default class CreateHeroNameComponent extends React.Component {
 
 	render () {
 		const changeName = () => {
-			this.props.updateName(this.heroName.value);
+			this.props.updateName(this.characterName.value);
 		};
 		return (
 			<FormGroup className={cssStyles.createHeroFormPadding}>
@@ -28,7 +28,7 @@ export default class CreateHeroNameComponent extends React.Component {
 						name={"name"}
 						onChange={changeName}
 						inputRef={ref => {
-						  this.heroName = ref;
+						  this.characterName = ref;
 						}}
 						placeholder="Enter Name"
 					/>

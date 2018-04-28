@@ -20,7 +20,7 @@ import {
 } from "react-bootstrap";
 import Coverflow  from 'react-coverflow';
 
-export default class CreateHeroFavouredClassComponent extends React.Component {
+export default class CreateCharacterFavouredClassComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.saveFavouredClass = this.saveFavouredClass.bind(this);

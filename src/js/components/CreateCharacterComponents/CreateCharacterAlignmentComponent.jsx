@@ -11,7 +11,7 @@ import {
   Well
 } from "react-bootstrap";
 
-export default class CreateHeroAlignmentComponent extends React.Component {
+export default class CreateCharacterAlignmentComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {

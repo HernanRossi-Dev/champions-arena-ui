@@ -23,7 +23,7 @@ import Panel from 'react-bootstrap/es/Panel'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-class CreateHeroSkillsAndFeatsComponent extends React.Component {
+class CreateCharacterSkillsComponent extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -59,4 +59,4 @@ class CreateHeroSkillsAndFeatsComponent extends React.Component {
 	)}
 }
 
-export default withRouter(CreateHeroSkillsAndFeatsComponent);
+export default withRouter(CreateCharacterSkillsComponent);

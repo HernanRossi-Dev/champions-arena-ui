@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var CharacterSchema = new mongoose.Schema({
+var characterSchema = new mongoose.Schema({
 	user: String,
 	name: String,
 	class: String,
@@ -23,4 +23,4 @@ var CharacterSchema = new mongoose.Schema({
 	age: Number,
 });
 
-module.exports = mongoose.model('Characters', CharacterSchema);
+module.exports = mongoose.model('characters', characterSchema);

@@ -1,8 +1,8 @@
 db = new Mongo().getDB('Pathfinder');
 
-db.heros.remove({});
+db.characters.remove({});
 
-db.heros.insert([
+db.characters.insert([
     {
         class: 'Rogue',
         race: 'Dwarf',
@@ -53,6 +53,6 @@ db.heros.insert([
     }
 ]);
 
-db.heros.createIndex({ name: 1 });
-db.heros.createIndex({ class: 1 });
-db.heros.createIndex({ race: 1 });
+db.characters.createIndex({ name: 1 });
+db.characters.createIndex({ class: 1 });
+db.characters.createIndex({ race: 1 });

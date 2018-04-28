@@ -1,6 +1,6 @@
 import React from "react";
 import * as cssStyles from "../../../styles/Styles.css";
-import { SelectedClassModalBody } from "./CreateHeroClassModalContent.jsx";
+import { SelectedClassModalBody } from "./CreateCharacterClassModalContent.jsx";
 import {
   Col,
   ControlLabel,
@@ -20,7 +20,7 @@ import {
   ButtonToolbar
 } from "react-bootstrap";
 
-export default class CreateHeroClassComponent extends React.Component {
+export default class CreateCharacterClassComponent extends React.Component {
   constructor(props) {
     super(props);
     this.setClass = this.setClass.bind(this);

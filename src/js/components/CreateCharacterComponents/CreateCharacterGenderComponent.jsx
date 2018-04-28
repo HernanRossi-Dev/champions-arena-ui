@@ -2,7 +2,7 @@ import React from "react";
 import * as cssStyles from "../../../styles/Styles.css";
 import { Col, ControlLabel, FormGroup, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 
-export default class CreateHeroGenderComponent extends React.Component {
+export default class CreateCharacterGenderComponent extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {

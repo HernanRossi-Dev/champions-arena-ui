@@ -14,7 +14,7 @@ import {
     Row
 } from "react-bootstrap";
 
-class HeroFilter extends React.Component {
+class CharacterFilter extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.createInitFilter = this.createInitFilter.bind(this);
@@ -37,12 +37,10 @@ class HeroFilter extends React.Component {
   }
 
   createInitFilter(oldInitFilter) {
-    console.log("this.props");
-    console.log(this.props);
     let queryString = oldInitFilter.split("&");
     let newInitFilter = {};
     if (queryString[0].length === 1) {
-      console.log("No query");
+
     } else {
       const queryLength = queryString.length;
       queryString[0] = queryString[0].substr(1);
@@ -61,8 +59,6 @@ class HeroFilter extends React.Component {
 
   componentWillReceiveProps(newProps) {
     newProps.initFilter = this.createInitFilter(newProps.initFilter);
-    console.log("newProps.initFilter");
-    console.log(newProps.initFilter);
     this.setState({
       class: newProps.initFilter.class,
       race: newProps.initFilter.race,
@@ -204,9 +200,9 @@ class HeroFilter extends React.Component {
   }
 }
 
-HeroFilter.propTypes = {
+CharacterFilter.propTypes = {
   setFilter: PropTypes.func.isRequired,
   initFilter: PropTypes.object.isRequired
 };
 
-export default withRouter(HeroFilter);
+export default withRouter(CharacterFilter);

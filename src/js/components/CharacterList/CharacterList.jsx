@@ -1,23 +1,27 @@
 import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
-import HeroFilter from "./HeroFilter.jsx";
+import CharacterFilter from "./CharacterFilter.jsx";
 import {withRouter} from "react-router-dom";
 import store from "../../store/index.js";
-import * as HeroActionCreators from "../../actions/index.js";
+import * as CharacterActionCreators from "../../actions/CharacterActionCreators.js";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import HeroTable from "./HeroTable";
+import CharacterTable from "./CharacterTable";
 import * as cssStyles from '../../../styles/Styles.css'
+import characterReducer from '../../reducers/CharacterReducers'
 
-class HeroList extends React.Component {
+class CharacterList extends React.Component {
   constructor(props) {
     super(props);
 
     this.setFilter = this.setFilter.bind(this);
-    this.deleteHero = this.deleteHero.bind(this);
+    this.deleteCharacter = this.deleteCharacter.bind(this);
     const { dispatch } = props;
-    this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
+    this.boundActionCreators = bindActionCreators(CharacterActionCreators, dispatch);
+    this.state={
+      characters: []
+    }
   }
 
   componentDidMount() {
@@ -56,37 +60,32 @@ class HeroList extends React.Component {
     } else {
       filter += this.props.location.search;
     }
-    let action = HeroActionCreators.fetchHeros(filter);
+    let action = CharacterActionCreators.fetchCharacters(filter);
     dispatch(action);
   }
 
-  deleteHero(id) {
+  deleteCharacter(id) {
     let { dispatch } = this.props;
-    let action = HeroActionCreators.deleteHero(id);
+    let action = CharacterActionCreators.deleteCharacter(id);
     dispatch(action);
   }
-
-  // createNewHero(newHero) {
-  //   let { dispatch } = this.props;
-  //   let action = HeroActionCreators.createHero(newHero);
-  //   dispatch(action);
-  // }
 
   render() {
     return (
       <div>
 
-        <HeroFilter
+        <CharacterFilter
           setFilter={this.setFilter}
           initFilter={this.props.location.search}
         />
 
         <hr />
-        <HeroTable
-          heros={store.getState().heros}
-          deleteHero={this.deleteHero}
+        <CharacterTable
+          characters={store.getState().characterReducer.characters}
+          isFetching={store.getState().characterReducer.isFetching}
+          deleteCharacter={this.deleteCharacter}
         />
-	      <hr className={cssStyles.hrHeroList} />
+	      <hr className={cssStyles.hrCharacterList} />
 
       </div>
     );
@@ -94,13 +93,15 @@ class HeroList extends React.Component {
 }
 
 const { object } = PropTypes;
-HeroList.prototypes = {
+CharacterList.prototypes = {
   location: object.isRequired,
-  fetchHeros: PropTypes.func.isRequired
+  fetchCharacters: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  heros: state.heros
-});
+const mapStateToProps = state => {
+  return{
+	  characters: state.characterReducer.characters
+  }
+};
 
-export default withRouter(connect(mapStateToProps)(HeroList));
+export default connect(mapStateToProps)(CharacterList);

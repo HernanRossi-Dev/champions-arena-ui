@@ -1,35 +1,34 @@
 import store from "../../store/index";
 import React from "react";
 import PropTypes from "prop-types";
-import HeroRow from "./HeroRow.jsx";
+import HeroRow from "./CharacterRow.jsx";
 import {withRouter} from "react-router-dom";
 import {Table} from 'react-bootstrap';
 import * as cssStyles from "../../../styles/Styles.css";
 
 
-const HeroTable = props => {
-  let heroRows;
-  if (store.isFetching) {
-    heroRows = (
+const CharacterTable = props => {
+  let characterRows;
+  if (props.isFetching) {
+    characterRows = (
       <HeroRow
         key={{}}
-        hero={{ name: "Loading" }}
+        character={{ name: "Loading" }}
         deleteHero={props.deleteHero}
       />
     );
   } else {
-    if (store.getState().heros) {
-      heroRows = store
-        .getState()
-        .heros.map(hero => (
-          <HeroRow key={hero._id} hero={hero} deleteHero={props.deleteHero} />
+    if (props.characters) {
+      characterRows = props
+        .characters.map(character => (
+          <HeroRow key={character._id} character={character} deleteHero={props.deleteHero} />
         ));
     }
   }
 
   return (
-    <Table bordered condensed hover responsive className={cssStyles.heroTableParent}>
-      <thead className={cssStyles.heroTableHeader}>
+    <Table bordered condensed hover responsive className={cssStyles.characterTableParent}>
+      <thead className={cssStyles.characterTableHeader}>
         <tr  >
             <th className={cssStyles.HTRtextAt}>Type</th>
           <th className={cssStyles.HTRtextAt}>Name</th>
@@ -45,13 +44,13 @@ const HeroTable = props => {
           <th className={cssStyles.HTRtextAt}>CHA</th>
         </tr>
       </thead>
-      <tbody className={cssStyles.heroTableRow}>{heroRows}</tbody>
+      <tbody className={cssStyles.characterTableRow}>{characterRows}</tbody>
     </Table>
   );
 };
 
-HeroTable.propTypes = {
-  heros: PropTypes.object.isRequired
+CharacterTable.propTypes = {
+  characters: PropTypes.object.isRequired
 };
 
-export default withRouter(HeroTable);
+export default withRouter(CharacterTable);

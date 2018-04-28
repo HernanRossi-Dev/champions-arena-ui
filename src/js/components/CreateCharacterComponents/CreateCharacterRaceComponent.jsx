@@ -11,7 +11,7 @@ import {
 	Well
 } from "react-bootstrap";
 
-export default class CreateHeroRaceComponent extends React.Component {
+export default class CreateCharacterRaceComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.changeRaceInfo = this.changeRaceInfo.bind(this);

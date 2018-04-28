@@ -3,12 +3,12 @@ import * as cssStyles from "../../../styles/Styles.css";
 import { Col, ControlLabel, FormGroup, FormControl, Button, OverlayTrigger, ButtonToolbar, Tooltip} from "react-bootstrap";
 import { Card, CardImg, CardText, CardBody} from 'reactstrap';
 
-export default class CreateHeroGenStatsComponent extends React.Component {
+export default class CreateCharacterGenStatsComponent extends React.Component {
 	constructor (props){
 		super(props);
 		this.generateStats = this.generateStats.bind(this);
 		this.state = {
-			heroStats: {
+			characterStats: {
 				STR: 15,
 				DEX: 14,
 				CON: 13,
@@ -21,7 +21,7 @@ export default class CreateHeroGenStatsComponent extends React.Component {
 	}
 
 	componentWillReceiveProps(props){
-		this.setState({heroStats: props.heroStatsUpdate,
+		this.setState({characterStats: props.characterStatsUpdate,
 		racialBonus: props.racialBonus});
 	}
 
@@ -53,7 +53,7 @@ export default class CreateHeroGenStatsComponent extends React.Component {
 		}
 		this.props.saveStats(newHeroStats);
 		this.setState({
-			heroStats: newHeroStats
+			characterStats: newHeroStats
 		});
 
 
@@ -70,7 +70,7 @@ export default class CreateHeroGenStatsComponent extends React.Component {
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
 							{" "}
 
-								{this.state.heroStats.STR}
+								{this.state.characterStats.STR}
 
 
 						</FormControl.Static>
@@ -78,31 +78,31 @@ export default class CreateHeroGenStatsComponent extends React.Component {
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
 							{" "}
-							{this.state.heroStats.DEX}{" "}
+							{this.state.characterStats.DEX}{" "}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
 							{" "}
-							{this.state.heroStats.CON}{" "}
+							{this.state.characterStats.CON}{" "}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
 							{" "}
-							{this.state.heroStats.INT}{" "}
+							{this.state.characterStats.INT}{" "}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
 							{" "}
-							{this.state.heroStats.WIS}{" "}
+							{this.state.characterStats.WIS}{" "}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
 							{" "}
-							{this.state.heroStats.CHA}
+							{this.state.characterStats.CHA}
 						</FormControl.Static>
 					</Col>
 				</FormGroup>

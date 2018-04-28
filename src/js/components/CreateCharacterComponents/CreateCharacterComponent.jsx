@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import * as HeroActionCreators from "../../actions/index.js";
+import * as CharacterActionCreators from "../../actions/CharacterActionCreators";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as cssStyles from "../../../styles/Styles.css";
@@ -15,20 +15,20 @@ import {
   Modal
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import CreateHeroRaceComponent from "./CreateHeroRaceComponent.jsx";
-import CreateHeroNameComponent from "./CreateHeroNameComponent.jsx";
-import CreateHeroGenStatsComponent from "./CreateHeroGenStatsComponent.jsx";
-import CreateHeroClassComponent from "./CreateHeroClassComponent.jsx";
-import CreateHeroGenderComponent from "./CreateHeroGenderComponent.jsx";
-import CreateHeroAlignmentComponent from "./CreateHeroAlignmentComponent.jsx";
-import CreateHeroFavouredClassComponent from "./CreateHeroFavouredClassComponent";
+import CreateCharacterRaceComponent from "./CreateCharacterRaceComponent.jsx";
+import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
+import CreateCharacterGenStatsComponent from "./CreateCharacterGenStatsComponent.jsx";
+import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
+import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx";
+import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
+import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClassComponent";
 
-class CreateHeroComponent extends React.Component {
+class CreateCharacterComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.createNewHero = this.createNewHero.bind(this);
+    this.createNewCharacter = this.createNewCharacter.bind(this);
     this.state = {
-      heroStats: {
+      characterStats: {
         STR: 15,
         DEX: 14,
         CON: 13,
@@ -36,7 +36,7 @@ class CreateHeroComponent extends React.Component {
         WIS: 10,
         CHA: 8
       },
-      baseHeroStats: {
+      baseCharacterStats: {
         STR: 15,
         DEX: 14,
         CON: 13,
@@ -48,7 +48,7 @@ class CreateHeroComponent extends React.Component {
       alignment: "",
       name: "",
       class: "",
-      heroRace: "",
+      characterRace: "",
       favouredClass: "",
       racialBonus: {},
       allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
@@ -69,12 +69,12 @@ class CreateHeroComponent extends React.Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     const { dispatch } = props;
-    this.boundActionCreators = bindActionCreators(HeroActionCreators, dispatch);
+    this.boundActionCreators = bindActionCreators(CharacterActionCreators, dispatch);
   }
 
-  createNewHero(newHero) {
+  createNewCharacter(newCharacter) {
     let { dispatch } = this.props;
-    let action = HeroActionCreators.createHero(newHero);
+    let action = CharacterActionCreators.createCharacter(newCharacter);
     dispatch(action);
   }
 
@@ -95,7 +95,7 @@ class CreateHeroComponent extends React.Component {
     const validationFields = [
       "name",
       "class",
-      "heroRace",
+      "characterRace",
       "alignment",
       "favouredClass",
       "gender"
@@ -118,18 +118,18 @@ class CreateHeroComponent extends React.Component {
       return;
     }
 
-    this.createNewHero({
+    this.createNewCharacter({
       name: this.state.name,
       class: this.state.class,
-      race: this.state.heroRace,
+      race: this.state.characterRace,
       level: 1,
       XP: 0,
-      STR: this.state.heroStats.STR,
-      DEX: this.state.heroStats.DEX,
-      CON: this.state.heroStats.CON,
-      INT: this.state.heroStats.INT,
-      WIS: this.state.heroStats.WIS,
-      CHA: this.state.heroStats.CHA,
+      STR: this.state.characterStats.STR,
+      DEX: this.state.characterStats.DEX,
+      CON: this.state.characterStats.CON,
+      INT: this.state.characterStats.INT,
+      WIS: this.state.characterStats.WIS,
+      CHA: this.state.characterStats.CHA,
       attributePointsToSpend: 0,
       items: {},
       abilities: {},
@@ -147,15 +147,15 @@ class CreateHeroComponent extends React.Component {
     if (racialBonus.statsBonus) {
       const rBon = racialBonus.statsBonus;
       let key;
-      let newStats = Object.assign({}, this.state.baseHeroStats);
+      let newStats = Object.assign({}, this.state.baseCharacterStats);
       for (key in rBon) {
         newStats[key] = newStats[key] + rBon[key];
       }
-      this.setState({ heroStats: newStats });
+      this.setState({ characterStats: newStats });
     } else {
-      this.setState({ heroStats: this.state.baseHeroStats });
+      this.setState({ characterStats: this.state.baseCharacterStats });
     }
-    this.setState({ heroRace: selectedRace, racialBonus: racialBonus });
+    this.setState({ characterRace: selectedRace, racialBonus: racialBonus });
   }
 
   setName(newName) {
@@ -163,7 +163,7 @@ class CreateHeroComponent extends React.Component {
   }
 
   setStateStats(newStatsObject) {
-    this.setState({ heroStats: newStatsObject, baseHeroStats: newStatsObject });
+    this.setState({ characterStats: newStatsObject, baseCharacterStats: newStatsObject });
   }
 
   setClass(newClass) {
@@ -211,35 +211,35 @@ class CreateHeroComponent extends React.Component {
       )
     };
     return (
-      <Panel className={cssStyles.createHeroPanelParent}>
-        <Panel.Heading className={cssStyles.createHeroPanelHeaderStyle}>
+      <Panel className={cssStyles.createCharacterPanelParent}>
+        <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
           <Panel.Title
-            toggle
-            className={cssStyles.createHeroPanelHeaderStyleText}
+
+            className={cssStyles.createCharacterPanelHeaderStyleText}
           >
             Create Character
           </Panel.Title>
         </Panel.Heading>
         <Form horizontal>
-          <CreateHeroNameComponent updateName={this.setName} />
+          <CreateCharacterNameComponent updateName={this.setName} />
           <hr className={cssStyles.hr} />
-          <CreateHeroGenStatsComponent
+          <CreateCharacterGenStatsComponent
             saveStats={this.setStateStats}
-            heroStatsUpdate={this.state.heroStats}
+            characterStatsUpdate={this.state.characterStats}
             racialBonus={this.state.racialBonus}
           />
           <hr className={cssStyles.hr} />
-          <CreateHeroRaceComponent setRace={this.setRace.bind(this)} />
+          <CreateCharacterRaceComponent setRace={this.setRace.bind(this)} />
           <hr className={cssStyles.hr} />
-          <CreateHeroClassComponent updateClass={this.setClass} />
+          <CreateCharacterClassComponent updateClass={this.setClass} />
           <hr className={cssStyles.hr} />
-          <CreateHeroFavouredClassComponent
+          <CreateCharacterFavouredClassComponent
             updateFavClass={this.setFavouredClass}
           />
           <hr className={cssStyles.hr} />
-          <CreateHeroGenderComponent updateGender={this.setGender} />
+          <CreateCharacterGenderComponent updateGender={this.setGender} />
           <hr className={cssStyles.hr} />
-          <CreateHeroAlignmentComponent
+          <CreateCharacterAlignmentComponent
             updateAlignment={this.setAlignment}
             allowedAlignments={this.state.allowedAlignments}
             renderKey={this.state.alignRenderKey}
@@ -261,7 +261,7 @@ class CreateHeroComponent extends React.Component {
             <Modal
               show={this.state.show}
               onHide={this.handleClose}
-              className={cssStyles.createHeroClassModal}
+              className={cssStyles.createCharacterClassModal}
             >
               <Modal.Header closeButton>
                 <Modal.Title>Invalid Submission</Modal.Title>
@@ -278,7 +278,7 @@ class CreateHeroComponent extends React.Component {
             <Col sm={7} />
             <Col sm={4}>
               <ButtonToolbar>
-                {/*<LinkContainer to={"/createHero/skills"}>*/}
+                {/*<LinkContainer to={"/createCharacter/skills"}>*/}
                 <Button bsStyle={"link"}>
                   Proceed to Skills (Under Construction)
                 </Button>
@@ -391,4 +391,4 @@ class CreateHeroComponent extends React.Component {
   }
 }
 
-export default withRouter(connect()(CreateHeroComponent));
+export default withRouter(connect()(CreateCharacterComponent));

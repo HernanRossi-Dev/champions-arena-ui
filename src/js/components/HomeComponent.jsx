@@ -1,7 +1,10 @@
 import React from "react";
 import * as cssStyles from "../../styles/Styles.css";
+import { withRouter } from 'react-router-dom'
 
-export default class HomeComponent extends React.Component {
+class HomeComponent extends React.Component {
+
+
   render() {
     return (
       <div className={cssStyles.homeBodyText}>
@@ -15,8 +18,8 @@ export default class HomeComponent extends React.Component {
         <div className={cssStyles.homeImageDiv}>
           <img
             src={require("../../assets/OccultYoon.png")}
-            width="375"
-            height="432"
+            width="318.75"
+            height="367.2"
             alt=""
           />
         </div>
@@ -24,3 +27,4 @@ export default class HomeComponent extends React.Component {
     );
   }
 }
+export default withRouter(HomeComponent);

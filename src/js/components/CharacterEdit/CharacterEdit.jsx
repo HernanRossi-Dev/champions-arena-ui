@@ -2,20 +2,20 @@ import "whatwg-fetch";
 import React from "react";
 import {Link, withRouter} from 'react-router-dom';
 import PropTypes from "prop-types";
-import store from "../../store/index.js";
-import * as HeroActionCreators from "../../actions/index.js";
+import {store} from "../../store/index.js";
+import * as CharacterActionCreators from "../../actions/CharacterActionCreators.js";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
-class HeroEdit extends React.Component {
+class CharacterEdit extends React.Component {
 
 	constructor (props) {
 		super(props);
 		const {dispatch } = props;
 		this.onSubmit = this.onSubmit.bind(this);
-		this.boundActionsCreator = bindActionCreators(HeroActionCreators, dispatch);
+		this.boundActionsCreator = bindActionCreators(CharacterActionCreators, dispatch);
 		this.state = {
-			hero: {
+			character: {
 				title: "",
 			},
 			title: ""
@@ -24,41 +24,41 @@ class HeroEdit extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadHero()
+		this.loadCharacter()
 	}
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.match.params.id !== this.props.match.params.id) {
-			this.loadHero();
+			this.loadCharacter();
 		}
 	}
 
-	loadHero() {
+	loadCharacter() {
 		let { dispatch } = this.props;
-		const URL = `/api/heros/${this.props.match.params.id}`
-		let action = HeroActionCreators.fetchHero(URL);
+		const URL = `/api/characters/${this.props.match.params.id}`
+		let action = CharacterActionCreators.fetchCharacter(URL);
 		dispatch(action);
-		this.setState({ hero: store.getState().editHero});
+		this.setState({ character: store.getState().editCharacter});
 	}
 
 
 	onSubmit(event) {
 		event.preventDefault();
 		let { dispatch } = this.props;
-		const updateHero = store.getState().editHero;
+		const updateHero = store.getState().editCharacter;
 		const editableFields = ["title"];
 		const form = document.forms.editForm;
 		for (let i = 0; i < editableFields.length; i+=1) {
 			let key = editableFields[i];
 			updateHero[key] = form[key].value;
 		}
-		let action = HeroActionCreators.updateHero(updateHero);
+		let action = CharacterActionCreators.updateCharacter(updateHero);
 		dispatch(action);
 	}
 
 	componentWillUnmount(){
 		let { dispatch } = this.props;
-		let action = HeroActionCreators.clearHeroEdit();
+		let action = CharacterActionCreators.clearCharacterEdit();
 		dispatch(action);
 	}
 	render() {
@@ -66,13 +66,13 @@ class HeroEdit extends React.Component {
 			<div>
 				<h3>Character Info Under Construction</h3>
 				<form name="editForm" onSubmit={this.onSubmit}>
-					Name: {store.getState().editHero.name }
+					Name: {store.getState().editCharacter.name }
 					<br/>
-					Class: {store.getState().editHero.class }
+					Class: {store.getState().editCharacter.class }
 					<br/>
-					Race: {store.getState().editHero.race }
+					Race: {store.getState().editCharacter.race }
 					<br/>
-					<Link to="/heros">Back to hero list</Link>
+					<Link to="/characters">Back to character list</Link>
 				</form>
 			</div>
 		);
@@ -80,14 +80,14 @@ class HeroEdit extends React.Component {
 }
 
 
-HeroEdit.propTypes = {
+CharacterEdit.propTypes = {
 	params: PropTypes.object.isRequired,
-	updateHero: PropTypes.func.isRequired,
-	fetchHero: PropTypes.func.isRequired
+	updateCharacter: PropTypes.func.isRequired,
+	fetchCharacter: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-	editHero: state.editHero
+	editCharacter: state.editCharacter
 });
 
-export default withRouter(connect(mapStateToProps) (HeroEdit));
+export default withRouter(connect(mapStateToProps) (CharacterEdit));
