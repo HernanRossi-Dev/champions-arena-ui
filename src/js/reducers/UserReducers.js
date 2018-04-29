@@ -2,7 +2,7 @@ import * as types from "../constants/ActionTypes";
 
 const initialState = {
 	currentUser: {},  //Need to have unique user names {firstName: 'John', lastName: 'Smith', userName: 'ladyBoner', email: 'blah@blah.ca'}
-	loggedIn: false,
+	loggedIn: null,
 	authToken: '',
 	currentUserName: ''
 };

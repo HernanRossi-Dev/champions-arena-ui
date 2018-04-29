@@ -34,8 +34,6 @@ import {
   withRouter,
 } from "react-router-dom";
 import SiteHeaderComponent from "./SiteHeaderComponent";
-import LoadingVIew from './LoadingVIew'
-import Link from 'react-router-dom/es/Link'
 
 const NoMatch = () => <p>Page Not Found</p>;
 
@@ -52,8 +50,10 @@ class App extends React.Component {
   }
 
 
+
   render() {
 	  const PrivateRoute = ({ component: Component, ...rest }) => (
+
 		  <Route
 			  {...rest}
 			  render={props =>
@@ -90,7 +90,8 @@ class App extends React.Component {
                   path={`/createCharacter`}
                   component={CreateCharacterComponent}
                 />
-	              <Route path={( store.getState().userReducer.loggedIn)? `/home`  :`/login`} component={Login} />
+	              <Route path={( store.getState().userReducer.loggedIn)? `/home`  :`/login`} component={
+		              ( store.getState().userReducer.loggedIn)? HomeComponent  :Login} />
                 <PrivateRoute path={`/campaign`} component={CreateCampaign} />
                 <PrivateRoute path={`/encounter`} component={CreateEncounter} />
                 <Route path={`/OGL`} component={OGL} />
@@ -126,9 +127,11 @@ App.propTypes = {
 
 ReactDOM.render(
 	<Provider store={store}>
+		<PersistGate persistor={persistor}>
 		<BrowserRouter >
       <App />
 		</BrowserRouter>
+		</PersistGate>
 	</Provider>,
   document.getElementById("contents")
 );
