@@ -30,11 +30,10 @@ class Login extends React.Component {
 	    password: '',
 	    userEmail: '',
 	    authToken: '',
-
+			authenticated: false,
 	    show: false,
 
     };
-
 	  const { dispatch } = props;
 	  this.boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
   }
@@ -62,9 +61,12 @@ class Login extends React.Component {
 			password: '12345',
 			isGuest: true
 		}
-
+	  let thisInst = this;
+		let callbackRedirect = () =>{
+			thisInst.props.history.push('/home')
+		}
 	  let { dispatch } = this.props;
-	  let action = UserActionCreators.createGuestUser(newGuestUser);
+	  let action = UserActionCreators.createGuestUser(newGuestUser,callbackRedirect );
 	  dispatch(action);
   }
 
@@ -101,6 +103,7 @@ class Login extends React.Component {
 			flexDirection: "column",
 			alignItems: "center"
 		};
+
 		return (
 			<div  className={cssStyles.loginParent}>
 				<div style={divContainerStyle}>
@@ -179,8 +182,9 @@ class Login extends React.Component {
 									<LinkContainer to={"/signup"}>
 										<Button bsStyle="primary">Register</Button>
 									</LinkContainer>
-
-									<Button  onClick={this.handleSignInGuest}>Continue as Guest</Button>
+									<LinkContainer to={"/"}>
+										<Button  onClick={this.handleSignInGuest}>Continue as Guest</Button>
+									</LinkContainer>
 								</ButtonToolbar>
 							</Col>
 						</FormGroup>

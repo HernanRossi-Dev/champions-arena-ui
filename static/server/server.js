@@ -116,19 +116,7 @@ app.get("/api/characters", (req, res) => {
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
 });
-app.get("/api/users", (req, res) => {
-	db.collection('users')
-		.find()
-		.toArray()
-		.then(users => {
-			const metadata = { total_count: users.length };
-			res.json({ _metadata: metadata, users: users });
-		})
-		.catch(error => {
-			console.log("Error: ", error);
-			res.status(500).json({ message: `Internal Server Error: ${error}` });
-		});
-});
+
 
 app.post("/api/characters", (req, res) => {
   const newCharacter = req.body;
@@ -225,8 +213,6 @@ app.put("/api/characters/:id", (req, res) => {
 
 app.post("/api/users", (req, res) => {
 	const newUser = req.body;
-	console.log(newUser);console.log('newUser in server');
-	console.log(newUser.isGuest);console.log('newUser guest in server');
 	// let bcrypt = require('bcrypt');
 	// const saltRounds = 10;
 	// const input = Math.random().toString().slice(2,12);
@@ -244,7 +230,7 @@ app.post("/api/users", (req, res) => {
 	// });
 
 	if(newUser.isGuest) {
-		let guestUserName ='guest#';
+		let guestUserName ='guest_';
 		guestUserName += Math.random().toString().slice(2,12);
 	  newUser.name = guestUserName;
   }
@@ -264,6 +250,41 @@ app.post("/api/users", (req, res) => {
 		})
 		.catch(error => {
 			console.log(error);
+			res.status(500).json({ message: `Internal Server Error: ${error}` });
+		});
+});
+
+app.get("/api/users", (req, res) => {
+	db.collection('users')
+		.find()
+		.toArray()
+		.then(users => {
+			const metadata = { total_count: users.length };
+			res.json({ _metadata: metadata, users: users });
+		})
+		.catch(error => {
+			console.log("Error: ", error);
+			res.status(500).json({ message: `Internal Server Error: ${error}` });
+		});
+});
+
+app.delete("/api/users/:name", (req, res) => {
+	const deleteUser = req.params.name;
+	console.log(req.params.name);
+	console.log('deleteUser');
+
+	db
+		.collection("users")
+		.deleteOne({ name: deleteUser })
+		.then(deleteResult => {
+			console.log(deleteResult.result);
+			if (deleteResult.result.n === 1) res.json({ status: "OK" });
+			else {
+				res.json({ status: "Warning: object not found" });
+				console.log("ERROR");
+			}
+		})
+		.catch(error => {
 			res.status(500).json({ message: `Internal Server Error: ${error}` });
 		});
 });

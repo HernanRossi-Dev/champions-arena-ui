@@ -72,8 +72,19 @@ class NavBarComponent extends React.Component {
 	}
 
 	logout(){
+		let thisInst = this;
+		let callbackRedirect = () =>{
+			thisInst.props.history.push('/login')
+		}
 		let { dispatch } = this.props;
-		let action = UserActionCreators.logoutUser();
+		console.log(store.getState().userReducer.currentUserName);
+		let action;
+		if(store.getState().userReducer.currentUser.isGuest) {
+			action = UserActionCreators.logoutGuestUser(store.getState().userReducer.currentUserName, callbackRedirect);
+		} else{
+			// log out non guest user dont delete entries in database
+			alert('This should not be happening in log out yet');
+		}
 		dispatch(action);
 	}
 	render() {

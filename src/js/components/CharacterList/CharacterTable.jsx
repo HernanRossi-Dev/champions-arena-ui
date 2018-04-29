@@ -1,7 +1,7 @@
 import store from "../../store/index";
 import React from "react";
 import PropTypes from "prop-types";
-import HeroRow from "./CharacterRow.jsx";
+import CharacterRow from "./CharacterRow.jsx";
 import {withRouter} from "react-router-dom";
 import {Table} from 'react-bootstrap';
 import * as cssStyles from "../../../styles/Styles.css";
@@ -11,17 +11,17 @@ const CharacterTable = props => {
   let characterRows;
   if (props.isFetching) {
     characterRows = (
-      <HeroRow
+      <CharacterRow
         key={{}}
         character={{ name: "Loading" }}
-        deleteHero={props.deleteHero}
+        deleteCharacter={props.deleteCharacter}
       />
     );
   } else {
     if (props.characters) {
       characterRows = props
         .characters.map(character => (
-          <HeroRow key={character._id} character={character} deleteHero={props.deleteHero} />
+          <CharacterRow key={character._id} character={character} deleteCharacter={props.deleteCharacter} />
         ));
     }
   }

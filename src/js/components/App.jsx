@@ -49,11 +49,12 @@ class App extends React.Component {
     this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
   }
 
-
+	componentWillReceiveProps(nextProps){
+		this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
+	}
 
   render() {
 	  const PrivateRoute = ({ component: Component, ...rest }) => (
-
 		  <Route
 			  {...rest}
 			  render={props =>
