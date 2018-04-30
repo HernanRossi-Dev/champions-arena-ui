@@ -101,8 +101,7 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
             componentClass={ControlLabel}
             sm={2}
             className={cssStyles.createColLabelStyle}
-          >
-            Alignment:
+          ><div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Alignment:</div>
           </Col>
           <Col sm={8}>
             <ButtonToolbar>

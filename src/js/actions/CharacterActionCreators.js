@@ -107,7 +107,7 @@ function creatingCharacter(newCharacter) {
   };
 }
 
-export const createCharacter = newCharacter => {
+export const createCharacter = (newCharacter, callBackRedirect) => {
   return function(dispatch, getState) {
     dispatch(creatingCharacter(newCharacter));
     fetch("/api/characters", {
@@ -116,13 +116,16 @@ export const createCharacter = newCharacter => {
       body: JSON.stringify(newCharacter)
     }).then(response => {
       if (response.ok) {
+
         response.json().then(updatedCharacter => {
           updatedCharacter.created = new Date(updatedCharacter.created);
           dispatch({
             type: types.CREATING_CHARACTER_SUCCESS,
             character: updatedCharacter
           });
+	        callBackRedirect();
         });
+
       } else {
         response.json().then(error => {
           alert(`Failed to create character: ${error.message}`);

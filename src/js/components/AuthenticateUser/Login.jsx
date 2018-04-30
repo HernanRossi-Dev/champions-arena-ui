@@ -72,12 +72,14 @@ class Login extends React.Component {
 
 	render() {
   	const divContainerStyle = {
+
 		  display: "flex",
 			width: '100%',
 		  flexDirection: "column",
 		  alignItems: "center"
 	  }
 	  const divContainerStyleChild = {
+
 			width: '25%',
 		  alignItems: "center"
 	  }
@@ -86,6 +88,7 @@ class Login extends React.Component {
 		  alignItems: "center"
 	  }
 	  const panelParentStyle = {
+		  borderRadius: '5px',
 		  marginTop: "25%",
 		  width: '100%',
 	  }
@@ -93,9 +96,11 @@ class Login extends React.Component {
 			alignItems: "center"
 		}
 	  const panelHeadingStyle = {
+		  borderRadius: '5px 5px 0 0',
 		  textAlign: 'center',
 			fontFamily: '\"Merriweather\", serif',
 		  marginBottom: '20px',
+		  borderBottom: '1px solid #df691a',
 	  }
 		const Headerstyle = {
 			display: "flex",
@@ -112,7 +117,7 @@ class Login extends React.Component {
 					<Panel.Heading  style={panelHeadingStyle} >
 						<Panel.Title
 						>
-							Welcome. Please Log In.
+							Welcome to the <span style={{fontFamily:'\'Cinzel Decorative\', cursive'}}>Arena</span><br/> Please Log In
 						</Panel.Title>
 					</Panel.Heading>
 					<Form horizontal style={panelBody}>
@@ -176,14 +181,14 @@ class Login extends React.Component {
 							<Col sm={4} />
 							<Col sm={6} style={buttonToolbarStyle}>
 								<ButtonToolbar style={buttonToolbarStyle}>
-									<LinkContainer to={"/home"}>
+									<LinkContainer to={"/home"} style={{width:'90px',}}>
 										<Button bsStyle="primary" onClick={this.handleSignIn}>Sign In</Button>
 									</LinkContainer>
-									<LinkContainer to={"/signup"}>
+									<LinkContainer to={"/signup"} style={{margin:'0px 0px 0px 5px',width:'90px',}}>
 										<Button bsStyle="primary">Register</Button>
 									</LinkContainer>
-									<LinkContainer to={"/"}>
-										<Button  onClick={this.handleSignInGuest}>Continue as Guest</Button>
+									<LinkContainer to={"/"} style={{margin:'5px 0px 5px 20px',}}>
+										<Button  onClick={this.handleSignInGuest} >Continue as Guest</Button>
 									</LinkContainer>
 								</ButtonToolbar>
 							</Col>

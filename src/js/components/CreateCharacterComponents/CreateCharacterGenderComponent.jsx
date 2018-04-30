@@ -58,8 +58,8 @@ export default class CreateCharacterGenderComponent extends React.Component {
 					componentClass={ControlLabel}
 					sm={2}
 					className={cssStyles.createColLabelStyle}
-				>
-					Gender:
+				><div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Gender:</div>
+
 				</Col>
 				<Col sm={5}>
 					<ToggleButtonGroup

@@ -5,6 +5,8 @@ import * as CharacterActionCreators from "../../actions/CharacterActionCreators"
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as cssStyles from "../../../styles/Styles.css";
+import store from "../../store/index.js";
+
 import {
   Button,
   ButtonToolbar,
@@ -22,6 +24,7 @@ import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
 import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx";
 import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
 import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClassComponent";
+import CreateHeroPointBuyStatsComponent from "./CreateHeroPointBuyStatsComponent";
 
 class CreateCharacterComponent extends React.Component {
   constructor(props, context) {
@@ -55,7 +58,9 @@ class CreateCharacterComponent extends React.Component {
       alignRenderKey: Math.random(),
       numberOfInvalidFields: 0,
       invalidFields: [""],
-      show: false
+      show: false,
+      numberOfCharacters: store.getState().characterReducer.numberOfCharacters,
+	    choseStatsMethod: 'roll',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setRace = this.setRace.bind(this);
@@ -68,13 +73,25 @@ class CreateCharacterComponent extends React.Component {
     this.restrictAlignments = this.restrictAlignments.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.setStateMethod = this.setStateMethod.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(CharacterActionCreators, dispatch);
   }
 
+  componentDidMount(){
+    let characterCount = store.getState().characterReducer.numberOfCharacters;
+    if(characterCount > 10) {
+      alert('Guest accounts limited to 10 characters. Please register to create more.');
+	    this.props.history.push('/characters')
+    }
+  }
   createNewCharacter(newCharacter) {
+	  let thisInst = this;
+	  let callbackRedirect = () =>{
+		  thisInst.props.history.push('/characters')
+	  }
     let { dispatch } = this.props;
-    let action = CharacterActionCreators.createCharacter(newCharacter);
+    let action = CharacterActionCreators.createCharacter(newCharacter, callbackRedirect);
     dispatch(action);
   }
 
@@ -117,7 +134,10 @@ class CreateCharacterComponent extends React.Component {
       });
       return;
     }
-
+    if(this.state.numberOfCharacters> 10){
+	    alert('Guest accounts limited to 10 characters. Please register to create more.');
+	    this.props.history.push('/characters')
+    }
     this.createNewCharacter({
       name: this.state.name,
       class: this.state.class,
@@ -139,8 +159,9 @@ class CreateCharacterComponent extends React.Component {
       alignment: this.state.alignment,
       favouredClass: this.state.favouredClass,
       racialBonus: this.state.racialBonus,
-      user: 'dev'
+      user: store.getState().userReducer.currentUserName,
     });
+	  this.setState({numberOfCharacters: this.state.numberOfCharacters + 1});
   }
 
   setRace(selectedRace, racialBonus) {
@@ -186,6 +207,10 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ alignment: newAlignment });
   }
 
+  setStateMethod(e){
+  	this.setState({choseStatsMethod: e.target.innerHTML});
+  }
+
   render() {
     const ValidationModal = () => {
       return (
@@ -210,6 +235,26 @@ class CreateCharacterComponent extends React.Component {
         </ul>
       )
     };
+
+    const GenStatsMethod = () =>{
+    	if(this.state.choseStatsMethod === 'Roll'){
+    		return (
+			    <CreateCharacterGenStatsComponent
+				    saveStats={this.setStateStats}
+				    characterStatsUpdate={this.state.characterStats}
+				    racialBonus={this.state.racialBonus}
+			    />
+		    )
+	    } else if(this.state.choseStatsMethod === 'Buy'){
+    		return (
+    			<CreateHeroPointBuyStatsComponent/>
+		    )
+	    } else{
+		    return (
+			    <div>Stat method not defined</div>
+		    )
+	    }
+    }
     return (
       <Panel className={cssStyles.createCharacterPanelParent}>
         <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
@@ -223,11 +268,23 @@ class CreateCharacterComponent extends React.Component {
         <Form horizontal>
           <CreateCharacterNameComponent updateName={this.setName} />
           <hr className={cssStyles.hr} />
-          <CreateCharacterGenStatsComponent
-            saveStats={this.setStateStats}
-            characterStatsUpdate={this.state.characterStats}
-            racialBonus={this.state.racialBonus}
-          />
+	        <FormGroup>
+		        <Col sm={2}/>
+		        <Col sm={6}>
+			        <ButtonToolbar>
+				        {/*<LinkContainer to={"/createCharacter/skills"}>*/}
+				        <Button onClick={this.setStateMethod}>
+					        Roll
+				        </Button>
+				        <Button onClick={this.setStateMethod}>
+					        Buy
+				        </Button>
+				        {/*</LinkContainer>*/}
+			        </ButtonToolbar>
+		        </Col>
+	        </FormGroup>
+	        <GenStatsMethod/>
+
           <hr className={cssStyles.hr} />
           <CreateCharacterRaceComponent setRace={this.setRace.bind(this)} />
           <hr className={cssStyles.hr} />

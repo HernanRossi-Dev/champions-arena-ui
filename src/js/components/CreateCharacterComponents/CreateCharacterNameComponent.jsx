@@ -14,14 +14,15 @@ export default class CreateCharacterNameComponent extends React.Component {
 			this.props.updateName(this.characterName.value);
 		};
 		return (
-			<FormGroup className={cssStyles.createHeroFormPadding}>
+			<FormGroup >
 				<Col sm={1} />
 				<Col
 					componentClass={ControlLabel}
 					sm={2}
 					className={cssStyles.createColLabelStyle}
 				>
-					Name:
+					<div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Name:</div>
+
 				</Col>
 				<Col sm={5}>
 					<FormControl

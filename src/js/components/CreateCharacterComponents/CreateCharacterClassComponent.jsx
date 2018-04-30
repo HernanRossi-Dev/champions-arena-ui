@@ -62,8 +62,7 @@ export default class CreateCharacterClassComponent extends React.Component {
           componentClass={ControlLabel}
           sm={2}
           className={cssStyles.createColLabelStyle}
-        >
-          Class:
+        ><div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Class:</div>
         </Col>
         <Col sm={7}>
           <ButtonToolbar>

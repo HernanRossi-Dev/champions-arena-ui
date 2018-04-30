@@ -1,15 +1,17 @@
 import * as types from "../constants/ActionTypes";
 
 const initialState = {
-	currentUser: {},  //Need to have unique user names {firstName: 'John', lastName: 'Smith', userName: 'ladyBoner', email: 'blah@blah.ca'}
+	currentUser: {},  //Need to have unique user names {name: 'John',email: 'blah@blah.ca', password: 'alsdgqorjgpo'}
 	loggedIn: null,
 	authToken: '',
-	currentUserName: ''
+	currentUserName: '',
 };
 const userReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case types.CREATE_GUEST_USER_START:
 			return Object.assign({}, state, {
+				currentUser:{},
+				currentUserName: '',
 				isFetching: true,
 				didInvalidate: false
 			})
@@ -25,6 +27,45 @@ const userReducer = (state = initialState, action) => {
 			return {
 				...state
 			};
+
+			case types.CREATE_USER_START:
+			return Object.assign({}, state, {
+				currentUser:{},
+				currentUserName: '',
+				isFetching: true,
+				didInvalidate: false
+			})
+		case types.CREATE_USER_SUCCESS:
+			return Object.assign({}, state, {
+				isFetching: false,
+				didInvalidate: false,
+				currentUser: action.newUser,
+				loggedIn: false
+			})
+		case types.CREATE_USER_FAIL:
+			return {
+				...state
+			};
+			case types.FETCH_USER_START:
+			return Object.assign({}, state, {
+				currentUser: {},
+				currentUserName: '',
+				isFetching: true,
+				didInvalidate: false
+			})
+		case types.FETCH_USER_SUCCESS:
+			return Object.assign({}, state, {
+				isFetching: false,
+				didInvalidate: false,
+				currentUser: action.registeredUser,
+				loggedIn: false,
+			})
+		case types.FETCH_USER_FAIL:
+			return {
+				...state
+			};
+
+
 		case types.USER_LOGOUT_START:
 			return Object.assign({}, state, {
 				isFetching: true,

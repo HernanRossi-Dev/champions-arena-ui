@@ -8,7 +8,7 @@ class HomeComponent extends React.Component {
   render() {
     return (
       <div className={cssStyles.homeBodyText}>
-        Welcome to the Pathfinder Character Arena<br />
+        Welcome to the Arena<br />
           <div className={cssStyles.homeTextParagraph}>
               Create Player and Non-Player Pathfinder characters.<br/>Track levels, skills, inventory and campaign info.<br/>
               To get started create a character by clicking <i>Create New Character</i> at the top.<br/>

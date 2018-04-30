@@ -27,7 +27,7 @@ export default class SiteHeaderComponent extends React.Component {
 							height="95"
 							alt=""
 						/>
-						<p className={cssStyles.headingText}>Character Arena</p>
+						<p className={cssStyles.headingText}>Arena</p>
 					</div>
 				</div>
 			</div>

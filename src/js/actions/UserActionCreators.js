@@ -1,7 +1,118 @@
 import * as types from "../constants/ActionTypes";
 import "whatwg-fetch";
 
-function creatingGuestUser(newUser) {
+/**
+ * Registered User Actions Creators
+ */
+function createRegisteredUserStart(newUser) {
+  return {
+    type: types.CREATE_USER_START,
+    payload: newUser
+  };
+}
+
+export const createRegisteredUser = (newRegisteredUser, callbackRedirect) => {
+  return function(dispatch, getState) {
+    dispatch(createRegisteredUserStart(newRegisteredUser));
+    fetch("/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newRegisteredUser)
+    }).then(response => {
+      if (response.ok) {
+        response.json().then(newUser => { console.log(newUser);console.log('newUser');
+          // let authToken = newUser.authToken;
+          newUser.created = new Date(newUser.created);
+          dispatch({
+            type: types.CREATE_USER_SUCCESS,
+            newUser: newUser
+          });
+          callbackRedirect();
+        });
+      } else {
+        response.json().then(error => {
+          alert(`Failed to create registered user: ${error.message}`);
+          dispatch({
+            type: types.CREATE_USER_FAIL,
+            payload: error,
+            error: true
+          });
+        });
+      }
+    });
+  };
+};
+
+function logoutRegisteredUserStart() {
+  return {
+    type: types.USER_LOGOUT_START,
+    payload: null
+  };
+}
+
+export const logoutRegisteredUser = (userName, callbackRedirect) => {
+  return function(dispatch, getState) {
+    dispatch(logoutGuestUserStart());
+    fetch(`/api/users/${userName}`, {
+      method: "DELETE"
+    }).then(response => {
+      if (!response.ok) {
+        alert("Failed to delete User");
+        dispatch({
+          type: types.USER_LOGOUT_FAIL,
+          payload: error,
+          error: true
+        });
+      } else {
+        dispatch({
+          type: types.USER_LOGOUT_SUCCESS,
+          loggedOut: true
+        });
+        callbackRedirect();
+      }
+    });
+  };
+};
+
+function fetchRegisteredUserStart() {
+  return {
+    type: types.FETCH_USER_START,
+    payload: null
+  };
+}
+
+export const fetchRegisteredUser = (filter = "", queryCallBack) => {
+  return function(dispatch, getState) {
+    dispatch(fetchRegisteredUserStart());
+    fetch(`/api/users${filter}`).then(response => {
+      if (response.ok) {
+        response.json().then(data => {console.log(data);console.log('data');
+          dispatch({
+
+            type: types.FETCH_USER_SUCCESS,
+            registeredUser: data.users
+          });
+	        queryCallBack();
+        });
+      } else {
+        response.json().then(error => {
+          alert(`Failed to fetch characters: ${error.message}`);
+          dispatch({
+            type: types.FETCH_USER_FAIL,
+            payload: error,
+            error: true
+          });
+        });
+      }
+
+    });
+  };
+};
+
+/**
+ * Guest User actions creators
+ */
+function createGuestUserStart(newUser) {
   return {
     type: types.CREATE_GUEST_USER_START,
     payload: newUser
@@ -10,7 +121,7 @@ function creatingGuestUser(newUser) {
 
 export const createGuestUser = (newGuestUser, callbackRedirect) => {
   return function(dispatch, getState) {
-    dispatch(creatingGuestUser(newGuestUser));
+    dispatch(createGuestUserStart(newGuestUser));
     fetch("/api/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -38,6 +149,7 @@ export const createGuestUser = (newGuestUser, callbackRedirect) => {
     });
   };
 };
+
 function logoutGuestUserStart() {
   return {
     type: types.USER_LOGOUT_START,
@@ -45,14 +157,14 @@ function logoutGuestUserStart() {
   };
 }
 
-export const logoutGuestUser = (userName,callbackRedirect) => {
+export const logoutGuestUser = (userName, callbackRedirect) => {
   return function(dispatch, getState) {
     dispatch(logoutGuestUserStart());
     fetch(`/api/users/${userName}`, {
       method: "DELETE"
     }).then(response => {
       if (!response.ok) {
-        alert("Failed to delete character");
+        alert("Failed to delete user");
         dispatch({
           type: types.USER_LOGOUT_FAIL,
           payload: error,
@@ -63,7 +175,7 @@ export const logoutGuestUser = (userName,callbackRedirect) => {
           type: types.USER_LOGOUT_SUCCESS,
           loggedOut: true
         });
-	      callbackRedirect();
+        callbackRedirect();
       }
     });
   };

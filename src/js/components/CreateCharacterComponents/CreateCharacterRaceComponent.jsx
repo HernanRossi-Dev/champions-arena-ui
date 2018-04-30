@@ -64,8 +64,8 @@ export default class CreateCharacterRaceComponent extends React.Component {
             componentClass={ControlLabel}
             sm={2}
             className={cssStyles.createColLabelStyle}
-          >
-            Race:
+          ><div style={{fontFamily: "'Josefin Sans', sans-serif", fontSize:'19px'}}>Race:</div>
+
           </Col>
           <Col sm={7}>
             <ButtonToolbar>

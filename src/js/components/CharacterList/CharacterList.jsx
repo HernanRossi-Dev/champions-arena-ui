@@ -49,10 +49,15 @@ class CharacterList extends React.Component {
       let { dispatch } = this.props;
       this.loadData(dispatch);
     }
+    console.log('number of characters');
+    console.log(store.getState().characterReducer.numberOfCharacters);
   }
 
   loadData(dispatch) {
     let filter = "";
+    let currentUser = store.getState().userReducer.currentUserName;
+
+	  filter += "?" + 'user=' + currentUser;
     if (this.props.location.query !== undefined) {
       for (let key in this.props.location.query) {
         filter += "?" + key + "=" + this.props.location.query[key];

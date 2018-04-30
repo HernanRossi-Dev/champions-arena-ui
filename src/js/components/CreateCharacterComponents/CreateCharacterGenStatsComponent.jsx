@@ -37,7 +37,12 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 			statRolls = [];
 			currentStat = 0;
 			for (j = 0; j < 4; j += 1) {
-				statRolls.push(Math.floor(Math.random() * 6) + 1);
+				let roll = Math.random() * 6;
+				while(roll < 1){
+
+					roll = Math.random() * 6;
+				}
+				statRolls.push(Math.floor(roll) + 1);
 			}
 			statRolls.sort();
 			currentStat = statRolls[1] + statRolls[2] + statRolls[3];
@@ -152,7 +157,7 @@ class GenerateStatsFormGroup extends React.Component
 			<Col sm={1}/>
 			<Col sm={2} className={cssStyles.createColLabelStyle}>
 				<ButtonToolbar>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">Roll 4d6 keep best 3 dice</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">Roll 4d6 keep best 3 dice (re-roll all 1's)</Tooltip>}>
 						<Button bsStyle="primary" onClick={this.props.genStats}>
 							Roll For Stats
 						</Button>

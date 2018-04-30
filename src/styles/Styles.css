@@ -49,9 +49,10 @@ body {
 }
 .createCharacterPanelParent {
   padding-bottom: 10px;
+  margin-top: 30px;
   width: 1050px;
-  border-bottom-style: groove;
-  border-bottom-width: thin;
+  border-style: solid;
+  border-width: 1px thin thin thin;
   border-color:  #df691a ;
 }
 
@@ -65,6 +66,7 @@ body {
   font-size: 23px;
   font-family: 'Cinzel Decorative', cursive;
   text-align: left;
+  word-spacing: 10px;
   /*color: saddlebrown;*/
   /*text-shadow: 2px 2px 0px white;*/
   color: white;
@@ -73,7 +75,9 @@ body {
   border-bottom-width: thin;
   border-color:  #df691a ;
   margin-left: 70px;
-  margin-right: 70px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-right: 680px;
 
 }
 .createCharacterClassModal {
@@ -89,6 +93,7 @@ body {
   text-align: left !important;
   align-content: left !important;
   align-items: left !important;
+
 }
 .classModalImageDiv {
     margin-left: 25%;
@@ -113,8 +118,8 @@ body {
   font-family: 'Cinzel Decorative', cursive;
 
     font-size: 35px;
-  color: white;
-  text-shadow: 2px 2px 0px #fa621f;
+  color: ghostwhite;
+  text-shadow: 2px 2px 0px #FE8F3E;
 }
 
 .homeBodyText {
@@ -122,7 +127,7 @@ body {
 
     font-size: 30px;
   color: white;
-  text-shadow: 2px 2px 0 #fa621f;
+  text-shadow: 2px 2px 0 #FF6C00;
   padding-top: 50px;
   text-align: center;
 }

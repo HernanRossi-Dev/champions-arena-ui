@@ -34,13 +34,13 @@ let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 let devUser = {
-  userName: "hernan",
+  name: "hernan",
   password: "h",
   email: "hernan_rossi@msn.com"
 };
 
 let testUser = {
-  userName: "bruce",
+  name: "bruce",
   password: "b",
   email: "bruce_rossi@msn.com"
 };
@@ -97,6 +97,7 @@ app.get("/api/characters/:id", (req, res) => {
 
 app.get("/api/characters", (req, res) => {
   const filter = {};
+	if (req.query.user) filter.user = req.query.user;
   if (req.query.class) filter.class = req.query.class;
   if (req.query.race) filter.race = req.query.race;
   if (req.query.level_lte || req.query.level_gte) filter.level = {};
@@ -175,6 +176,27 @@ app.delete("/api/characters/:id", (req, res) => {
     });
 });
 
+app.delete("/api/characters", (req, res) => {
+	const filter = {};
+	if (req.query.user) filter.user = req.query.user;
+	if (req.query.class) filter.class = req.query.class;
+	if (req.query.race) filter.race = req.query.race;
+	if (req.query.level_lte || req.query.level_gte) filter.level = {};
+	if (req.query.level_lte)
+		filter.level.$lte = parseInt(req.query.level_lte, 10);
+	if (req.query.level_gte)
+		filter.level.$gte = parseInt(req.query.level_gte, 10);
+	db
+		.collection("characters")
+		.deleteMany(filter)
+		.then(deleteResult => {
+			console.log(deleteResult.result);
+			res.json({ status: "OK" });
+		})
+		.catch(error => {
+			res.status(500).json({ message: `Internal Server Error: ${error}` });
+		});
+});
 
 
 app.put("/api/characters/:id", (req, res) => {
@@ -230,9 +252,15 @@ app.post("/api/users", (req, res) => {
 	// });
 
 	if(newUser.isGuest) {
-		let guestUserName ='guest_';
+		let guestUserName ='guest';
 		guestUserName += Math.random().toString().slice(2,12);
 	  newUser.name = guestUserName;
+		let i = 0;
+		for (i; i < defaultCharacters.length; i += 1) {
+			defaultCharacters[i].user = newUser.name;
+		}
+		console.log('populating example characters');
+		db.collection("characters").insert(defaultCharacters);
   }
 	newUser.created = new Date();
 	db
@@ -246,7 +274,9 @@ app.post("/api/users", (req, res) => {
 				.next()
 		)
 		.then(newUser => {
+
 			res.json(newUser);
+
 		})
 		.catch(error => {
 			console.log(error);
@@ -255,12 +285,15 @@ app.post("/api/users", (req, res) => {
 });
 
 app.get("/api/users", (req, res) => {
+	const filter = {};
+	if (req.query.name) filter.name = req.query.name;
+	if (req.query.email) filter.email = req.query.email;
+
 	db.collection('users')
-		.find()
+		.find(filter)
 		.toArray()
 		.then(users => {
-			const metadata = { total_count: users.length };
-			res.json({ _metadata: metadata, users: users });
+			res.json({ users });
 		})
 		.catch(error => {
 			console.log("Error: ", error);
@@ -270,15 +303,24 @@ app.get("/api/users", (req, res) => {
 
 app.delete("/api/users/:name", (req, res) => {
 	const deleteUser = req.params.name;
-	console.log(req.params.name);
-	console.log('deleteUser');
 
 	db
 		.collection("users")
 		.deleteOne({ name: deleteUser })
 		.then(deleteResult => {
 			console.log(deleteResult.result);
-			if (deleteResult.result.n === 1) res.json({ status: "OK" });
+			if (deleteResult.result.n === 1) {
+				db
+					.collection("characters")
+					.deleteMany({ user: deleteUser })
+					.then(deleteResult => {
+						console.log(deleteResult.result);
+						res.json({ status: "OK" });
+					})
+					.catch(error => {
+						res.status(500).json({ message: `Internal Server Error: ${error}` });
+					});
+			}
 			else {
 				res.json({ status: "Warning: object not found" });
 				console.log("ERROR");
@@ -287,6 +329,7 @@ app.delete("/api/users/:name", (req, res) => {
 		.catch(error => {
 			res.status(500).json({ message: `Internal Server Error: ${error}` });
 		});
+
 });
 
 app.get("*", (req, res) => {

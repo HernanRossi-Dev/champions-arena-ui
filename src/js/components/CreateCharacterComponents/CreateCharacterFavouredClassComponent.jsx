@@ -46,7 +46,7 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
 
 	render() {
 		const favouredClassDivStyle = {
-			fontSize: "17px",
+			fontSize: "19px",
 			fontFamily: "'Josefin Sans', sans-serif",
 			textAlign: "left"
 		};

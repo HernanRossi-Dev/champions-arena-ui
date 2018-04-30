@@ -45,13 +45,13 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount(){
-    this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
-  }
-
-	componentWillReceiveProps(nextProps){
-		this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
-	}
+	// componentDidMount(){
+   //  this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
+	// }
+	//
+	// componentWillReceiveProps(nextProps){
+	// 	this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
+	// }
 
   render() {
 	  const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -91,11 +91,13 @@ class App extends React.Component {
                   path={`/createCharacter`}
                   component={CreateCharacterComponent}
                 />
-	              <Route path={( store.getState().userReducer.loggedIn)? `/home`  :`/login`} component={
-		              ( store.getState().userReducer.loggedIn)? HomeComponent  :Login} />
+	              <Route path={!( store.getState().userReducer.loggedIn)? `/login`  :`/home`} component={
+		              ( !store.getState().userReducer.loggedIn)? Login : HomeComponent  } />
                 <PrivateRoute path={`/campaign`} component={CreateCampaign} />
                 <PrivateRoute path={`/encounter`} component={CreateEncounter} />
                 <Route path={`/OGL`} component={OGL} />
+                <Route path={( !store.getState().userReducer.loggedIn)? `/signup`  :`/home`} component={
+	              ( store.getState().userReducer.loggedIn)? HomeComponent  :Signup} />
                 <PrivateRoute path={`/createNPC`} component={CreateNPCComponent} />
                 <PrivateRoute path={`/beasts`} component={Beasts} />
                 <PrivateRoute path={`/skills`} component={Skills} />
