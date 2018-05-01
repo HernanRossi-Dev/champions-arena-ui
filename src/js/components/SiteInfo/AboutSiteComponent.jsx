@@ -6,7 +6,11 @@ export default class AboutSiteComponent extends React.Component {
 
 	render() {
 		return (
+			<div>
 			<div className={cssStyles.aboutSiteText}>This Web Application was built with React, Redux, Express, Node, Mongodb, and Bootstrap.</div>
+			<div className={cssStyles.aboutSiteText}>If you have any questions or need to contact me you can reach me at hrossi.work@gmail.com.<br/>Thanks for visiting!</div>
+			</div>
+
 		);
 	};
 

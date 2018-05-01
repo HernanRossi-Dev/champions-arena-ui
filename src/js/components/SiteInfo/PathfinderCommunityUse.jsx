@@ -1,5 +1,7 @@
 import React from "react";
 import * as Styles from "../../../styles/Styles.css";
+import { LinkContainer } from 'react-router-bootstrap'
+import { NavItem } from 'react-bootstrap'
 
 export default class PathfinderCommunityUse extends React.Component {
   render() {
@@ -24,6 +26,13 @@ export default class PathfinderCommunityUse extends React.Component {
 		      height="186"
 		      alt=""
 	      /></div>
+	      <div>
+		      <LinkContainer to="/OGL">
+			      <NavItem>
+				      Click here for info on Open Gaming License.
+			      </NavItem>
+		      </LinkContainer>
+	      </div>
 
       </div>
     );

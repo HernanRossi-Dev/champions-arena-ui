@@ -259,9 +259,10 @@ app.post("/api/users", (req, res) => {
 		for (i; i < defaultCharacters.length; i += 1) {
 			defaultCharacters[i].user = newUser.name;
 		}
-		console.log('populating example characters');
-		db.collection("characters").insert(defaultCharacters);
+
   }
+	console.log('populating example characters');
+	db.collection("characters").insert(defaultCharacters);
 	newUser.created = new Date();
 	db
 		.collection("users")
@@ -293,6 +294,46 @@ app.get("/api/users", (req, res) => {
 		.find(filter)
 		.toArray()
 		.then(users => {
+			if(req.query.sendEmail) {
+				if(users.length > 0) {
+					users = users[0];
+				}
+				let nodemailer = require('nodemailer');
+				let generator = require('generate-password');
+
+				let password = generator.generate({
+					length: 8,
+					numbers: true
+				});
+				let passwordHash = require('password-hash');
+				let hashedTempPassword = passwordHash.generate('password');
+				let text = `Hello your Arena user name is: ${users.name}\n\n your temporary password is: ${password}`;
+				db.collection('users').update({name: users.name},{password:hashedTempPassword, name: users.name, email: users.email}, {upsert: false});
+				let transporter = nodemailer.createTransport({
+					service: 'Gmail',
+					auth: {
+						user: 'hrossi.work@gmail.com', // Your email id
+						pass: 'Horseshit1' // Your password
+					}
+				});
+				let mailOptions = {
+					from: 'hrossi.work@gmail.com', // sender address
+					to: users.email, // list of receivers
+					subject: 'The Arena Temporary Password', // Subject line
+					text: text //, // plaintext body
+					// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+				};
+
+				transporter.sendMail(mailOptions, function(error, info){
+					if(error){
+						console.log(error);
+						res.json({yo: 'error'});
+					}else{
+						console.log('Message sent: ' + info.response);
+						res.json({yo: info.response});
+					}
+				});
+			}
 			res.json({ users });
 		})
 		.catch(error => {
@@ -308,11 +349,44 @@ app.delete("/api/users/:name", (req, res) => {
 		.collection("users")
 		.deleteOne({ name: deleteUser })
 		.then(deleteResult => {
-			console.log(deleteResult.result);
 			if (deleteResult.result.n === 1) {
 				db
 					.collection("characters")
 					.deleteMany({ user: deleteUser })
+					.then(deleteResult => {
+						res.json({ status: "OK" });
+					})
+					.catch(error => {
+						res.status(500).json({ message: `Internal Server Error: ${error}` });
+					});
+			}
+			else {
+				res.json({ status: "Warning: object not found" });
+				console.log("ERROR");
+			}
+		})
+		.catch(error => {
+			res.status(500).json({ message: `Internal Server Error: ${error}` });
+		});
+
+});
+
+app.delete("/api/users", (req, res) => {
+	const deleteUser = req.query;
+	const filter = {};
+	if(deleteUser.name) filter.name = req.query.name;
+	if(deleteUser.email) filter.email = req.query.email;
+
+	console.log(deleteUser);console.log(filter);
+	db
+		.collection("users")
+		.deleteMany( filter )
+		.then(deleteResult => {
+			console.log(deleteResult.result.n);
+			if (deleteResult.result.n === 1) {
+				db
+					.collection("characters")
+					.deleteMany({ user: deleteUser.name })
 					.then(deleteResult => {
 						console.log(deleteResult.result);
 						res.json({ status: "OK" });

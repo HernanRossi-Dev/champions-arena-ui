@@ -13,6 +13,7 @@ import OGL from "./SiteInfo/OGL.jsx";
 import CreateCampaign from "./Arena/CreateCampaign.jsx";
 import Login from "./AuthenticateUser/Login.jsx";
 import Signup from "./AuthenticateUser/Signup.jsx";
+import ForgotPassword from "./AuthenticateUser/ForgotPassword.jsx";
 import CreateCharacterSkillsAndFeatsComponent from "./CreateCharacterComponents/SkillsAndFeats/CreateCharacterSkillsComponent.jsx";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -44,14 +45,6 @@ class App extends React.Component {
       loggedIn: false
     };
   }
-
-	// componentDidMount(){
-   //  this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
-	// }
-	//
-	// componentWillReceiveProps(nextProps){
-	// 	this.setState({loggedIn: store.getState().userReducer.loggedIn, user: store.getState().userReducer.currentUserName})
-	// }
 
   render() {
 	  const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -104,6 +97,8 @@ class App extends React.Component {
                 <PrivateRoute path={`/items`} component={ItemsComponent} />
                 <PrivateRoute path={`/characters/:id`} component={CharacterEdit} />
                 <Route path={`/legal`} component={PathfinderCommunityUse} />
+	              <Route path={( !store.getState().userReducer.loggedIn)? `/forgotPassword`  :`/home`} component={
+		              ( store.getState().userReducer.loggedIn)? HomeComponent  :ForgotPassword} />
                 <Route path={`/about`} component={AboutSiteComponent} />
                 <Redirect from="/" to="/home" />
                 <Route path="*" component={NoMatch} />

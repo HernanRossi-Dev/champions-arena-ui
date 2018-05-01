@@ -21,6 +21,7 @@ import FormControl from "react-bootstrap/es/FormControl";
 import * as UserActionCreators from "../../actions/UserActionCreators";
 import { bindActionCreators } from "redux";
 import store from "../../store";
+let passwordHash = require('password-hash');
 
 class Signup extends React.Component {
   constructor(props, context) {
@@ -28,13 +29,19 @@ class Signup extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleUserNameChange = this.handleUserNameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handlePasswordConfirmChange = this.handlePasswordConfirmChange.bind(this);
     this.state = {
       userName: "",
       password: "",
       userEmail: "",
       authToken: "",
       authenticated: false,
-      show: false
+      show: false,
+	    modalBody: (<div></div>),
+	    passwordConfirm:'',
     };
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
@@ -55,9 +62,7 @@ class Signup extends React.Component {
     //Process email
 
     let regexEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]/i;
-    let regexTestResult = regexEmail.exec(emailAddress);
-    console.log(regexTestResult);
-    if (regexTestResult) {
+    let regexTestResult = regexEmail.exec(emailAddress);if (regexTestResult) {
     } else {
       alert("Oops. Somethings wrong with your email address");
       return;
@@ -76,6 +81,7 @@ class Signup extends React.Component {
 
     //process Password
     let newUserPassword = this.userPassword.value;
+    let newUserPasswordConfirm = this.userPasswordConfirm.value;
 
     let regexPassword = /[a-zA-Z0-9]*[0-9][a-zA-Z0-9]*/i;
     let regexPasswordResult = regexPassword.exec(newUserPassword);
@@ -84,12 +90,17 @@ class Signup extends React.Component {
       alert("Oops. Somethings wrong your password");
       return;
     }
-
+    if(newUserPassword === newUserPasswordConfirm){
+      console.log('Passwords match');
+    } else {
+	    alert("Oops. Your passwords do not match");
+	    return;
+    }
     //query database usernames and email must be unique
     const newUser = {
       name: newUserName,
       email: emailAddress,
-      password: newUserPassword,
+      password: passwordHash.generate(newUserPassword),
       isGuest: false
     };
     const queryName = `?name=${newUserName}`;
@@ -97,18 +108,14 @@ class Signup extends React.Component {
     let { dispatch } = this.props;
     let action = UserActionCreators.fetchRegisteredUser(queryName, () => {
       let databaseQueryUserResult = store.getState().userReducer.currentUser;
-      console.log(databaseQueryUserResult);
-      console.log("databaseQueryUserResult");
-	      if (databaseQueryUserResult && databaseQueryUserResult.length > 0) {
+	      if (databaseQueryUserResult && databaseQueryUserResult.name === newUserName) {
 		      alert(`User name already exists`);
 		      return;
 	      } else {
 		      const queryUserEmail = `?email=${emailAddress}`;
 		      action = UserActionCreators.fetchRegisteredUser(queryUserEmail, () => {
 			      let databaseQueryUserResult = store.getState().userReducer.currentUser;
-			      console.log(databaseQueryUserResult);
-			      console.log("databaseQueryUserResult");
-			      if (databaseQueryUserResult && databaseQueryUserResult.length > 0) {
+			      if (databaseQueryUserResult && databaseQueryUserResult.email === emailAddress) {
 				      alert(
 					      `Email address already exists`
 				      );
@@ -120,14 +127,30 @@ class Signup extends React.Component {
 				      let {dispatch} = this.props;
 				      let action = UserActionCreators.createRegisteredUser(newUser, callbackRedirect);
 				      dispatch(action);
+              let registerConfirm = <div>Registration successful. <br/>Please log in with new user</div>
+				      this.setState({modalBody: registerConfirm});
+				      this.handleShow();
+				      this.setState({userName: '', userEmail: '', password: '',passwordConfirm:''});
 			      }
 		      });
 		      dispatch(action);
 	      }
     });
-
     dispatch(action);
   }
+  handleEmailChange(e){
+    this.setState({userEmail: e.target.value});
+  }
+
+	handleUserNameChange(e){
+		this.setState({userName: e.target.value});
+	}
+	handlePasswordChange(e){
+		this.setState({password: e.target.value});
+	}
+	handlePasswordConfirmChange(e){
+		this.setState({passwordConfirm: e.target.value});
+	}
 
   render() {
     const divContainerStyle = {
@@ -165,6 +188,11 @@ class Signup extends React.Component {
       alignItems: "center"
     };
 
+    const ModalBodyText = () => {
+      return(
+        <div>{this.state.modalBody}</div>
+      )
+    }
     return (
       <div className={cssStyles.loginParent}>
         <div style={divContainerStyle}>
@@ -194,6 +222,8 @@ class Signup extends React.Component {
                       inputRef={ref => {
                         this.userEmail = ref;
                       }}
+                      onChange={this.handleEmailChange}
+                      value={this.state.userEmail}
                       placeholder="Enter email"
                     />
                   </Col>
@@ -224,6 +254,8 @@ class Signup extends React.Component {
                         inputRef={ref => {
                           this.userName = ref;
                         }}
+                        onChange={this.handleUserNameChange}
+                        value={this.state.userName}
                         placeholder="Enter User Name"
                       />
                     </OverlayTrigger>
@@ -246,7 +278,7 @@ class Signup extends React.Component {
                         <Tooltip id="tooltip">
                           <div style={{ textAlign: "left" }}>
                             Case sensitive, must have at least:<br /> 8
-                            characters <br />1 number
+                            characters <br />1 number<br/>No special characters, including spaces
                           </div>
                         </Tooltip>
                       }
@@ -257,7 +289,42 @@ class Signup extends React.Component {
                         inputRef={ref => {
                           this.userPassword = ref;
                         }}
+                        onChange={this.handlePasswordChange}
+                        value={this.state.password}
                         placeholder="Enter Password"
+                      />
+                    </OverlayTrigger>
+                  </Col>
+                </FormGroup>
+                <FormGroup>
+                  <Col sm={1} />
+                  <Col
+                    componentClass={ControlLabel}
+                    sm={3}
+                    className={cssStyles.createColLabelStyle}
+                  >
+                    Confirm Password
+                  </Col>
+                  <Col sm={6}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={
+                        <Tooltip id="tooltip">
+                          <div style={{ textAlign: "left" }}>
+                            Must match Password above
+                          </div>
+                        </Tooltip>
+                      }
+                    >
+                      <FormControl
+                        name={"userPasswordConfirm"}
+                        type={"password"}
+                        inputRef={ref => {
+                          this.userPasswordConfirm = ref;
+                        }}
+                        onChange={this.handlePasswordConfirmChange}
+                        value={this.state.passwordConfirm}
+                        placeholder="Retype Password"
                       />
                     </OverlayTrigger>
                   </Col>
@@ -265,10 +332,10 @@ class Signup extends React.Component {
                 <FormGroup>
                   <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                      <Modal.Title>Invalid Submission</Modal.Title>
+                      <Modal.Title></Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      <p>This needs to be created</p>
+                      <ModalBodyText />
                     </Modal.Body>
                     <Modal.Footer>
                       <Button onClick={this.handleClose}>Close</Button>
@@ -290,7 +357,7 @@ class Signup extends React.Component {
                         to={"/login"}
                         style={{ margin: "0px 0px 10px 5px", width: "90px" }}
                       >
-                        <Button bsStyle="primary">Cancel</Button>
+                        <Button bsStyle="primary">Back</Button>
                       </LinkContainer>
                     </ButtonToolbar>
                   </Col>

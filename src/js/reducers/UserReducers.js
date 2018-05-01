@@ -1,4 +1,5 @@
 import * as types from "../constants/ActionTypes";
+import store from '../store/index'
 
 const initialState = {
 	currentUser: {},  //Need to have unique user names {name: 'John',email: 'blah@blah.ca', password: 'alsdgqorjgpo'}
@@ -59,10 +60,15 @@ const userReducer = (state = initialState, action) => {
 				didInvalidate: false,
 				currentUser: action.registeredUser,
 				loggedIn: false,
+				currentUserName: action.registeredUser.name
 			})
 		case types.FETCH_USER_FAIL:
 			return {
-				...state
+				isFetching: false,
+				didInvalidate: false,
+				currentUser: {},
+				loggedIn: false,
+				authToken: '',
 			};
 
 
@@ -81,6 +87,23 @@ const userReducer = (state = initialState, action) => {
 			})
 
 		case types.USER_LOGOUT_FAIL:
+			return {
+				...state
+			};
+			case types.USER_LOGIN_START:
+			return Object.assign({}, state, {
+				isFetching: true,
+				didInvalidate: false
+			});
+		case types.USER_LOGIN_SUCCESS:
+			return Object.assign({}, state, {
+				isFetching: false,
+				didInvalidate: false,
+				loggedIn: true,
+
+			});
+
+		case types.USER_LOGIN_FAIL:
 			return {
 				...state
 			};

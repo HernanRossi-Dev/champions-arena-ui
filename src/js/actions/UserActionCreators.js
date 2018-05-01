@@ -20,14 +20,16 @@ export const createRegisteredUser = (newRegisteredUser, callbackRedirect) => {
       body: JSON.stringify(newRegisteredUser)
     }).then(response => {
       if (response.ok) {
-        response.json().then(newUser => { console.log(newUser);console.log('newUser');
+        response.json().then(newUser => {
+          console.log(newUser);
+          console.log("newUser");
           // let authToken = newUser.authToken;
           newUser.created = new Date(newUser.created);
           dispatch({
             type: types.CREATE_USER_SUCCESS,
             newUser: newUser
           });
-          callbackRedirect();
+          // callbackRedirect();
         });
       } else {
         response.json().then(error => {
@@ -50,27 +52,35 @@ function logoutRegisteredUserStart() {
   };
 }
 
-export const logoutRegisteredUser = (userName, callbackRedirect) => {
+export const logoutRegisteredUser = (callbackRedirect) => {
   return function(dispatch, getState) {
-    dispatch(logoutGuestUserStart());
-    fetch(`/api/users/${userName}`, {
-      method: "DELETE"
-    }).then(response => {
-      if (!response.ok) {
-        alert("Failed to delete User");
-        dispatch({
-          type: types.USER_LOGOUT_FAIL,
-          payload: error,
-          error: true
-        });
-      } else {
-        dispatch({
-          type: types.USER_LOGOUT_SUCCESS,
-          loggedOut: true
-        });
-        callbackRedirect();
-      }
+    dispatch(logoutRegisteredUserStart());
+
+    let result = dispatch({
+      type: types.USER_LOGOUT_SUCCESS,
+      payload: null,
     });
+    while (result === null) {
+      console.log("waiting");
+    }
+    callbackRedirect();
+  };
+};
+
+function loginRegisteredUserStart() {
+  return {
+    type: types.USER_LOGIN_START,
+    payload: null
+  };
+}
+
+export const loginRegisteredUser = callbackRedirect => {
+  return function(dispatch, getState) {
+    dispatch(loginRegisteredUserStart());
+    dispatch({
+      type: types.USER_LOGIN_SUCCESS
+    });
+    callbackRedirect();
   };
 };
 
@@ -86,13 +96,18 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
     dispatch(fetchRegisteredUserStart());
     fetch(`/api/users${filter}`).then(response => {
       if (response.ok) {
-        response.json().then(data => {console.log(data);console.log('data');
-          dispatch({
-
+        response.json().then(data => {
+          if (data.users && data.users.length === 1) {
+            data = data.users[0];
+          }
+          let result = dispatch({
             type: types.FETCH_USER_SUCCESS,
-            registeredUser: data.users
+            registeredUser: data
           });
-	        queryCallBack();
+          while (result === null) {
+            console.log("waiting");
+          }
+          queryCallBack();
         });
       } else {
         response.json().then(error => {
@@ -104,7 +119,6 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
           });
         });
       }
-
     });
   };
 };
