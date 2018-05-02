@@ -1,5 +1,6 @@
 import * as types from "../constants/ActionTypes";
 import "whatwg-fetch";
+import store from '../store/index';
 
 export const clearCharacterEdit = () => {
 	return {
@@ -19,7 +20,7 @@ export const updateCharacter = updateCharacter => dispatch => {
   dispatch(updatingCharacter(updateCharacter));
   fetch(URL, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", authorization: store.getState().userReducer.authToken },
     body: JSON.stringify(updateCharacter)
   }).then(response => {
     if (!response.ok) {
@@ -51,7 +52,9 @@ function requestCharacter(URL) {
 
 export const fetchCharacter = URL => dispatch => {
   dispatch(requestCharacter(URL));
-  fetch(URL).then(response => {
+  fetch(URL,{ method: "GET",
+		  headers: { authorization: store.getState().userReducer.authToken },}
+    ).then(response => {
     if (!response.ok) {
       response.json().then(error => {
         alert(`Failed to fetch character: ${error.message}`);
@@ -82,7 +85,8 @@ function deletingCharacter(characterID) {
 export const deleteCharacter = characterID => {
   return function(dispatch, getState) {
     dispatch(deletingCharacter(characterID));
-    fetch(`/api/characters/${characterID}`, { method: "DELETE" }).then(response => {
+    fetch(`/api/characters/${characterID}`, { method: "DELETE",
+	    headers: { authorization: store.getState().userReducer.authToken },}).then(response => {
       if (!response.ok) {
         alert("Failed to delete character");
         dispatch({
@@ -112,7 +116,7 @@ export const createCharacter = (newCharacter, callBackRedirect) => {
     dispatch(creatingCharacter(newCharacter));
     fetch("/api/characters", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",authorization: store.getState().userReducer.authToken },
       body: JSON.stringify(newCharacter)
     }).then(response => {
       if (response.ok) {
@@ -149,7 +153,11 @@ function requestCharacterList(URL) {
 
 export const fetchCharacters = (filter = "") => dispatch => {
   dispatch(requestCharacterList(filter));
-  fetch(`/api/characters${filter}`).then(response => {
+  fetch(`/api/characters${filter}`, {
+		  method: 'GET',
+		  headers: {authorization: store.getState().userReducer.authToken}
+    }
+    ).then(response => {
     if (response.ok) {
       response.json().then(data => {
         dispatch({

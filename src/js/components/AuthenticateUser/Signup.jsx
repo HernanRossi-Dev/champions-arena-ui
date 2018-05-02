@@ -110,7 +110,6 @@ class Signup extends React.Component {
       let databaseQueryUserResult = store.getState().userReducer.currentUser;
 	      if (databaseQueryUserResult && databaseQueryUserResult.name === newUserName) {
 		      alert(`User name already exists`);
-		      return;
 	      } else {
 		      const queryUserEmail = `?email=${emailAddress}`;
 		      action = UserActionCreators.fetchRegisteredUser(queryUserEmail, () => {
@@ -120,12 +119,8 @@ class Signup extends React.Component {
 					      `Email address already exists`
 				      );
 			      } else {
-				      let thisInst = this;
-				      let callbackRedirect = () => {
-					      thisInst.props.history.push('/login')
-				      }
 				      let {dispatch} = this.props;
-				      let action = UserActionCreators.createRegisteredUser(newUser, callbackRedirect);
+				      let action = UserActionCreators.createRegisteredUser(newUser);
 				      dispatch(action);
               let registerConfirm = <div>Registration successful. <br/>Please log in with new user</div>
 				      this.setState({modalBody: registerConfirm});

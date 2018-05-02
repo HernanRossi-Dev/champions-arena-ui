@@ -10,11 +10,28 @@ var mongoose = require("mongoose");
 var mongoDB =
   "mongodb+srv://HernanRossi:!Horseshit1!@pathfinderarena-gmjjh.mongodb.net/test";
 var ObjectID = require("mongodb").ObjectID;
+var jwt = require('express-jwt');
+var jwks = require('jwks-rsa');
+
 
 SourceMapSupport.install();
 const app = express();
 app.use(express.static("static"));
 app.use(bodyParser.json());
+
+var jwtCheck = jwt({
+	secret: jwks.expressJwtSecret({
+		cache: true,
+		rateLimit: true,
+		jwksRequestsPerMinute: 5,
+		jwksUri: "https://thearena.auth0.com/.well-known/jwks.json"
+	}),
+	audience: 'https://thecampaignArena.com',
+	issuer: "https://thearena.auth0.com/",
+	algorithms: ['RS256']
+});
+
+
 
 let characters = require("./models/characters");
 let users = require("./models/users");
@@ -35,26 +52,35 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 let devUser = {
   name: "hernan",
-  password: "h",
+  password: "Horseshit1",
   email: "hernan_rossi@msn.com"
 };
 
-let testUser = {
-  name: "bruce",
-  password: "b",
-  email: "bruce_rossi@msn.com"
-};
+var request = require("request");
+
+app.get('/api/authenticate', (req, res) =>{
+	var options = { method: 'POST',
+		url: 'https://thearena.auth0.com/oauth/token',
+		headers: { 'content-type': 'application/json' },
+		body: '{"client_id":"KuhIFt8Blg4CChqebw13Snf6XSwXz5Cf","client_secret":"QBIZeiYeH_tIMp2GXcGTuVdmMRXfQd_YLmkd947zsFMsEQxlQGw4SGsVQZyBXDIy","audience":"https://thecampaignArena.com","grant_type":"client_credentials"}' };
+
+	request(options, function (error, response, body) {
+		res.json(response);
+	});
+})
+
+app.use(jwtCheck);
+app.use(function (err, req, res, next) {
+	if (err.name === 'UnauthorizedError') {
+		res.status(401).json({message:'Missing or invalid token. Please logout And log back in.'});
+	}
+});
 
 users.findOne({ email: devUser.email })
   .limit(1)
   .exec(function(err, user) {
     if (user) {
-	    console.log("found user");
-      console.log(user);
     } else {
-      console.log("did not find user");
-	    console.log(user);
-
 	    db.collection("users").insert(devUser);
       let i = 0;
       for (i; i < defaultCharacters.length; i += 1) {
@@ -84,8 +110,6 @@ app.get("/api/characters/:id", (req, res) => {
       if (!character) {
         res.status(404).json({ message: `No character found: ${characterID}` });
       } else {
-        console.log("fetching character success");
-        console.log(character);
         res.json(character);
       }
     })
@@ -235,33 +259,16 @@ app.put("/api/characters/:id", (req, res) => {
 
 app.post("/api/users", (req, res) => {
 	const newUser = req.body;
-	// let bcrypt = require('bcrypt');
-	// const saltRounds = 10;
-	// const input = Math.random().toString().slice(2,12);
-	// bcrypt.hash(input, saltRounds, function(err, hash) {
-	// 	console.log('hash');
-	// 	console.log(hash);
-	// });
-	// // const guestUserName = 'guest@' +
-	// bcrypt.compare(input, hash, function(err, res) {
-	// 	if(res === true) {
-	// 		console.log('matching hash');
-	// 	}	 else {
-	// 		console.log('Non matching hash');
-	// 	}
-	// });
 
 	if(newUser.isGuest) {
 		let guestUserName ='guest';
 		guestUserName += Math.random().toString().slice(2,12);
 	  newUser.name = guestUserName;
-		let i = 0;
-		for (i; i < defaultCharacters.length; i += 1) {
-			defaultCharacters[i].user = newUser.name;
-		}
-
   }
-	console.log('populating example characters');
+	let i = 0;
+	for (i; i < defaultCharacters.length; i += 1) {
+		defaultCharacters[i].user = newUser.name;
+	}
 	db.collection("characters").insert(defaultCharacters);
 	newUser.created = new Date();
 	db
@@ -342,6 +349,9 @@ app.get("/api/users", (req, res) => {
 		});
 });
 
+
+
+
 app.delete("/api/users/:name", (req, res) => {
 	const deleteUser = req.params.name;
 
@@ -409,4 +419,10 @@ app.delete("/api/users", (req, res) => {
 app.get("*", (req, res) => {
 	res.sendFile(path.resolve("static/index.html"));
 });
+
+
+
+
 module.export = app;
+
+

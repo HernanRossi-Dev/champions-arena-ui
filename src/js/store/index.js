@@ -21,6 +21,8 @@ const store = createStore(
   applyMiddleware(thunkMiddleWare, loggerMiddleWare)
 );
 
+// const store = compose(applyMiddleware(thunkMiddleWare, loggerMiddleWare))(createStore)(persistedReducer)
+
 // export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);
 

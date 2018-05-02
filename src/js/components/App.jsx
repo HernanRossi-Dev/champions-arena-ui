@@ -21,7 +21,7 @@ import PropTypes from "prop-types";
 import { connect, Provider } from 'react-redux'
 import { PersistGate } from "redux-persist/lib/integration/react";
 import store from "../store/index";
-	import { persistor } from "../store/index";
+import { persistor } from "../store/index";
 import { NavItem } from "react-bootstrap";
 import * as cssStyles from "../../styles/Styles.css";
 import "../../styles/Styles.css";
@@ -44,6 +44,11 @@ class App extends React.Component {
     this.state = {
       loggedIn: false
     };
+  }
+
+  componentDidMount(){
+  	//Create a new session token for the api
+
   }
 
   render() {

@@ -22,7 +22,8 @@ const userReducer = (state = initialState, action) => {
 				didInvalidate: false,
 				currentUser: action.newGuest,
 				currentUserName: action.newGuest.name,
-				loggedIn: true
+				loggedIn: true,
+				authToken: action.auth0Token,
 			})
 		case types.CREATE_GUEST_USER_FAIL:
 			return {
@@ -100,6 +101,7 @@ const userReducer = (state = initialState, action) => {
 				isFetching: false,
 				didInvalidate: false,
 				loggedIn: true,
+				authToken: action.auth0Token,
 
 			});
 

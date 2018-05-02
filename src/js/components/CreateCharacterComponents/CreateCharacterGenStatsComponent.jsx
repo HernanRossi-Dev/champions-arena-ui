@@ -21,10 +21,14 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 	}
 
 	componentWillReceiveProps(props){
-		this.setState({characterStats: props.characterStatsUpdate,
-		racialBonus: props.racialBonus});
+		this.setState({characterStats: props.characterStats, racialBonus: props.racialBonus});
 	}
 
+	componentDidMount(){
+		if(this.props.characterStats){
+			this.setState({characterStats: this.props.characterStats, racialBonus: this.props.racialBonus});
+		}
+	}
 
 	generateStats() {
 		const newStats = [];
@@ -55,13 +59,10 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 			INT: newStats[3],
 			WIS: newStats[4],
 			CHA: newStats[5],
-		}
-		this.props.saveStats(newHeroStats);
-		this.setState({
-			characterStats: newHeroStats
-		});
-
-
+		};
+		console.log(newHeroStats);console.log('newHeroStats');
+		this.props.setStateStats(newHeroStats);
+		this.setState({characterStats: newHeroStats});
 	}
 
 
@@ -73,62 +74,48 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 				<FormGroup>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
-							{" "}
-
 								{this.state.characterStats.STR}
-
-
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
-							{" "}
-							{this.state.characterStats.DEX}{" "}
+							{this.state.characterStats.DEX}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
-							{" "}
-							{this.state.characterStats.CON}{" "}
+							{this.state.characterStats.CON}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
-							{" "}
-							{this.state.characterStats.INT}{" "}
+							{this.state.characterStats.INT}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
-							{" "}
-							{this.state.characterStats.WIS}{" "}
+							{this.state.characterStats.WIS}
 						</FormControl.Static>
 					</Col>
 					<Col sm={2}>
 						<FormControl.Static className={cssStyles.genStatsNumberStyle}>
-							{" "}
 							{this.state.characterStats.CHA}
 						</FormControl.Static>
 					</Col>
 				</FormGroup>
 			</div>
-
 		);
 	};
-
 }
 
 
 
-class GenerateStatsFormGroup extends React.Component
-{
+class GenerateStatsFormGroup extends React.Component {
 	constructor (props){
 		super(props)
-
 	}
 
-	render()
-	{
+	render() {
 		const ShowRacialBonus = () => {
 			if(this.props.racialBonus.statsBonus){
 				let rBon = this.props.racialBonus.statsBonus;
@@ -141,9 +128,7 @@ class GenerateStatsFormGroup extends React.Component
 					} else {
 						infoString += key + ": " + rBon[key];
 					}
-
-				}
-				return(
+				}return(
 					<div>{infoString}</div>
 				)
 			} else {

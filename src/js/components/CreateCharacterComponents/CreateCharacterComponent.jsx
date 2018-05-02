@@ -25,6 +25,7 @@ import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx
 import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
 import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClassComponent";
 import CreateHeroPointBuyStatsComponent from "./CreateHeroPointBuyStatsComponent";
+import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 
 class CreateCharacterComponent extends React.Component {
   constructor(props, context) {
@@ -60,7 +61,7 @@ class CreateCharacterComponent extends React.Component {
       invalidFields: [""],
       show: false,
       numberOfCharacters: store.getState().characterReducer.numberOfCharacters,
-	    choseStatsMethod: 'roll',
+      choseStatsMethod: "roll"
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setRace = this.setRace.bind(this);
@@ -74,24 +75,33 @@ class CreateCharacterComponent extends React.Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.setStateMethod = this.setStateMethod.bind(this);
+    this.GenStatsMethod = this.GenStatsMethod.bind(this);
     const { dispatch } = props;
-    this.boundActionCreators = bindActionCreators(CharacterActionCreators, dispatch);
+    this.boundActionCreators = bindActionCreators(
+      CharacterActionCreators,
+      dispatch
+    );
   }
 
-  componentDidMount(){
+  componentDidMount() {
     let characterCount = store.getState().characterReducer.numberOfCharacters;
-    if(characterCount > 10) {
-      alert('Guest accounts limited to 10 characters. Please register to create more.');
-	    this.props.history.push('/characters')
+    if (characterCount > 10) {
+      alert(
+        "Guest accounts limited to 10 characters. Please register to create more."
+      );
+      this.props.history.push("/characters");
     }
   }
   createNewCharacter(newCharacter) {
-	  let thisInst = this;
-	  let callbackRedirect = () =>{
-		  thisInst.props.history.push('/characters')
-	  }
+    let thisInst = this;
+    let callbackRedirect = () => {
+      thisInst.props.history.push("/characters");
+    };
     let { dispatch } = this.props;
-    let action = CharacterActionCreators.createCharacter(newCharacter, callbackRedirect);
+    let action = CharacterActionCreators.createCharacter(
+      newCharacter,
+      callbackRedirect
+    );
     dispatch(action);
   }
 
@@ -105,10 +115,10 @@ class CreateCharacterComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-	  this.setState({
-		  numberOfInvalidFields: 0,
-		  invalidFields: []
-	  });
+    this.setState({
+      numberOfInvalidFields: 0,
+      invalidFields: []
+    });
     const validationFields = [
       "name",
       "class",
@@ -119,7 +129,7 @@ class CreateCharacterComponent extends React.Component {
     ];
     const invalidFields = [];
     let numInvalidFields = 0;
-    for ( let i =0; i < validationFields.length; i += 1) {
+    for (let i = 0; i < validationFields.length; i += 1) {
       let field = validationFields[i];
       if (this.state[field].toString() === "") {
         numInvalidFields += 1;
@@ -130,13 +140,15 @@ class CreateCharacterComponent extends React.Component {
       this.setState({
         numberOfInvalidFields: numInvalidFields,
         invalidFields: invalidFields,
-	      show: true
+        show: true
       });
       return;
     }
-    if(this.state.numberOfCharacters> 10){
-	    alert('Guest accounts limited to 10 characters. Please register to create more.');
-	    this.props.history.push('/characters')
+    if (this.state.numberOfCharacters > 10) {
+      alert(
+        "Guest accounts limited to 10 characters. Please register to create more."
+      );
+      this.props.history.push("/characters");
     }
     this.createNewCharacter({
       name: this.state.name,
@@ -159,9 +171,9 @@ class CreateCharacterComponent extends React.Component {
       alignment: this.state.alignment,
       favouredClass: this.state.favouredClass,
       racialBonus: this.state.racialBonus,
-      user: store.getState().userReducer.currentUserName,
+      user: store.getState().userReducer.currentUserName
     });
-	  this.setState({numberOfCharacters: this.state.numberOfCharacters + 1});
+    this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
 
   setRace(selectedRace, racialBonus) {
@@ -184,7 +196,11 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setStateStats(newStatsObject) {
-    this.setState({ characterStats: newStatsObject, baseCharacterStats: newStatsObject });
+	  console.log(newStatsObject);console.log('newStatsObject');
+    this.setState({
+      characterStats: newStatsObject,
+      baseCharacterStats: newStatsObject
+    });
   }
 
   setClass(newClass) {
@@ -207,9 +223,33 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ alignment: newAlignment });
   }
 
-  setStateMethod(e){
-  	this.setState({choseStatsMethod: e.target.innerHTML});
+  setStateMethod(e) {
+    this.setState({ choseStatsMethod: e.target.innerHTML });
   }
+
+	GenStatsMethod () {
+		if (this.state.choseStatsMethod === "Roll") {
+			return (
+				<CreateCharacterGenStatsComponent
+					setStateStats={this.setStateStats}
+					characterStats={this.state.characterStats}
+					racialBonus={this.state.racialBonus}
+				/>
+			);
+		} else if (this.state.choseStatsMethod === "Buy") {
+			return <CreateHeroPointBuyStatsComponent />;
+		} else if (this.state.choseStatsMethod === "Custom") {
+			return <CreateCharacterCustomStatsInput />;
+		} else {
+			return (
+				<CreateCharacterGenStatsComponent
+					setStateStats={this.setStateStats}
+					characterStats={this.state.characterStats}
+					racialBonus={this.state.racialBonus}
+				/>
+			);
+		}
+	};
 
   render() {
     const ValidationModal = () => {
@@ -222,44 +262,23 @@ class CreateCharacterComponent extends React.Component {
       );
     };
     const InvalidFields = () => {
-	    this.state.invalidFields.map(field => {
-		    console.log(field);
-	    })
+      this.state.invalidFields.map(field => {
+        console.log(field);
+      });
       return (
         <ul>
-          {this.state.invalidFields.map(invalidField =>  {
-            return(
-              <li>{invalidField}</li>
-            )
+          {this.state.invalidFields.map(invalidField => {
+            return <li>{invalidField}</li>;
           })}
         </ul>
-      )
+      );
     };
 
-    const GenStatsMethod = () =>{
-    	if(this.state.choseStatsMethod === 'Roll'){
-    		return (
-			    <CreateCharacterGenStatsComponent
-				    saveStats={this.setStateStats}
-				    characterStatsUpdate={this.state.characterStats}
-				    racialBonus={this.state.racialBonus}
-			    />
-		    )
-	    } else if(this.state.choseStatsMethod === 'Buy'){
-    		return (
-    			<CreateHeroPointBuyStatsComponent/>
-		    )
-	    } else{
-		    return (
-			    <div>Stat method not defined</div>
-		    )
-	    }
-    }
+
     return (
       <Panel className={cssStyles.createCharacterPanelParent}>
         <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
           <Panel.Title
-
             className={cssStyles.createCharacterPanelHeaderStyleText}
           >
             Create Character
@@ -268,22 +287,20 @@ class CreateCharacterComponent extends React.Component {
         <Form horizontal>
           <CreateCharacterNameComponent updateName={this.setName} />
           <hr className={cssStyles.hr} />
-	        <FormGroup>
-		        <Col sm={2}/>
-		        <Col sm={6}>
-			        <ButtonToolbar>
-				        {/*<LinkContainer to={"/createCharacter/skills"}>*/}
-				        <Button onClick={this.setStateMethod}>
-					        Roll
-				        </Button>
-				        <Button onClick={this.setStateMethod}>
-					        Buy
-				        </Button>
-				        {/*</LinkContainer>*/}
-			        </ButtonToolbar>
-		        </Col>
-	        </FormGroup>
-	        <GenStatsMethod/>
+          <FormGroup>
+            <Col sm={2} />
+            <Col sm={6}>
+              <ButtonToolbar>
+                {/*<LinkContainer to={"/createCharacter/skills"}>*/}
+                <Button onClick={this.setStateMethod}>Roll</Button>
+                <Button onClick={this.setStateMethod}>Buy</Button>
+                <Button onClick={this.setStateMethod}>Custom</Button>
+                {/*</LinkContainer>*/}
+              </ButtonToolbar>
+            </Col>
+          </FormGroup>
+
+          {this.GenStatsMethod()}
 
           <hr className={cssStyles.hr} />
           <CreateCharacterRaceComponent setRace={this.setRace.bind(this)} />

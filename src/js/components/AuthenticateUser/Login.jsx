@@ -1,5 +1,7 @@
 import React from "react";
 import * as cssStyles from "../../../styles/Styles.css";
+import "whatwg-fetch";
+
 import {
   Button,
   ButtonToolbar,
@@ -19,6 +21,8 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
 import { bindActionCreators } from "redux";
 import store from "../../store";
 var passwordHash = require("password-hash");
+import * as HelperConstants from '../../constants/HelperConstants';
+import * as types from '../../constants/ActionTypes'
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -33,7 +37,8 @@ class Login extends React.Component {
       email: "",
       authToken: "",
       authenticated: false,
-      show: false
+      show: false,
+      tempToken: ''
     };
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
@@ -48,6 +53,7 @@ class Login extends React.Component {
   }
 
   handleSignIn() {
+
     let email = this.email.value;
     let password = this.password.value;
 		const hashedPassword = passwordHash.generate(password);
@@ -58,19 +64,37 @@ class Login extends React.Component {
     let callbackRedirect = () => {
       thisInst.props.history.push("/home");
     };
-    let { dispatch } = this.props;
-    let action = UserActionCreators.fetchRegisteredUser(queryUser, () => {
-      let databaseQueryUserResult = store.getState().userReducer.currentUser;
-      if (databaseQueryUserResult && databaseQueryUserResult.email !== email && databaseQueryUserResult.password !== hashedPassword ) {
-        alert(`Password/Email combination does not match any registered user.`);
-        return;
-      } else {
-        let actionLogin = UserActionCreators.loginRegisteredUser(callbackRedirect);
-        dispatch(actionLogin);
-      }
-    });
 
-    dispatch(action);
+	  let { dispatch } = this.props;
+	  function resolveDispatch() {
+		  return new Promise(resolve => {
+			  let action = UserActionCreators.fetchRegisteredUser(queryUser, () => {
+				  let databaseQueryUserResult = store.getState().userReducer.currentUser;
+				  console.log(databaseQueryUserResult);console.log('databaseQueryUserResult');
+				  console.log(email);console.log('email');
+
+				  if (databaseQueryUserResult && databaseQueryUserResult.email !== email ) {
+					  alert(`Password/Email combination does not match any registered user.`);
+				  } else {
+					  let actionLogin = UserActionCreators.loginRegisteredUser(callbackRedirect);
+					  dispatch(actionLogin);
+				  }
+			  });
+			  resolve(  dispatch(action));
+		  })
+	  }
+
+	  async function asyncDispatch() {
+		  let result = await resolveDispatch();
+
+	  }
+	  asyncDispatch();
+
+
+
+
+
+
   }
 
   handleSignInGuest() {

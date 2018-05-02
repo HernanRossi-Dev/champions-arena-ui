@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
-
+const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 function resolve(dir) {
   return path.join(__dirname, "..", dir);
 }
