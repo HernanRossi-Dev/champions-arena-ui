@@ -92,6 +92,7 @@ class CreateCharacterComponent extends React.Component {
       this.props.history.push("/characters");
     }
   }
+
   createNewCharacter(newCharacter) {
     let thisInst = this;
     let callbackRedirect = () => {
@@ -166,6 +167,7 @@ class CreateCharacterComponent extends React.Component {
       items: {},
       abilities: {},
       traits: {},
+      characterNotes: [],
       type: "Player",
       gender: this.state.gender,
       alignment: this.state.alignment,
@@ -284,18 +286,16 @@ class CreateCharacterComponent extends React.Component {
             Create Character
           </Panel.Title>
         </Panel.Heading>
-        <Form horizontal>
+        <Form horizontal >
           <CreateCharacterNameComponent updateName={this.setName} />
           <hr className={cssStyles.hr} />
           <FormGroup>
             <Col sm={2} />
             <Col sm={6}>
               <ButtonToolbar>
-                {/*<LinkContainer to={"/createCharacter/skills"}>*/}
                 <Button onClick={this.setStateMethod}>Roll</Button>
                 <Button onClick={this.setStateMethod}>Buy</Button>
                 <Button onClick={this.setStateMethod}>Custom</Button>
-                {/*</LinkContainer>*/}
               </ButtonToolbar>
             </Col>
           </FormGroup>

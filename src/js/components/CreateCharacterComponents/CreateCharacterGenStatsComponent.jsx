@@ -60,7 +60,6 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 			WIS: newStats[4],
 			CHA: newStats[5],
 		};
-		console.log(newHeroStats);console.log('newHeroStats');
 		this.props.setStateStats(newHeroStats);
 		this.setState({characterStats: newHeroStats});
 	}

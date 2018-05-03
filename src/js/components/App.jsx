@@ -42,7 +42,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+	    showFooter: true,
     };
   }
 
@@ -80,7 +81,7 @@ class App extends React.Component {
                   path={`/home`}
                   component={HomeComponent}
                 />
-                <PrivateRoute path={`/characters`} component={ CharacterList} />
+
                 <PrivateRoute
                   path={`/createCharacter/skills`}
                   component={CreateCharacterSkillsAndFeatsComponent}
@@ -101,6 +102,7 @@ class App extends React.Component {
                 <PrivateRoute path={`/skills`} component={Skills} />
                 <PrivateRoute path={`/items`} component={ItemsComponent} />
                 <PrivateRoute path={`/characters/:id`} component={CharacterEdit} />
+	              <PrivateRoute path={`/characters`} component={ CharacterList} />
                 <Route path={`/legal`} component={PathfinderCommunityUse} />
 	              <Route path={( !store.getState().userReducer.loggedIn)? `/forgotPassword`  :`/home`} component={
 		              ( store.getState().userReducer.loggedIn)? HomeComponent  :ForgotPassword} />

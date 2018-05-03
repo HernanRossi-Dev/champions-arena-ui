@@ -132,12 +132,7 @@ export default class CreateCharacterClassComponent extends React.Component {
               >
                 Cleric
               </ToggleButton>{" "}
-              <ToggleButton
-                value={"Barbarian"}
-                className={cssStyles.alignmentButtonGroup}
-              >
-                Barbarian
-              </ToggleButton>
+
 	            <ToggleButton
                 value={"Bard"}
                 className={cssStyles.alignmentButtonGroup}

@@ -1,24 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import * as cssStyles from "../../../styles/Styles.css";
+import store from "../../store/index.js";
+
 import {
-    Button,
-    ButtonToolbar,
-    Col,
-    ControlLabel,
-    FormControl,
-    FormGroup,
-    InputGroup,
-    Panel,
-    Row
+  Button,
+  ButtonToolbar,
+  Col,
+  ControlLabel,
+  FormControl,
+  FormGroup,
+  InputGroup,
+  Panel,
+  Row
 } from "react-bootstrap";
 
 class CharacterFilter extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.createInitFilter = this.createInitFilter.bind(this);
-    const newInitFilter = this.createInitFilter(this.props.initFilter);
+    CharacterFilter.createInitFilter = CharacterFilter.createInitFilter.bind(this);
+    const newInitFilter = CharacterFilter.createInitFilter(this.props.initFilter);
     this.applyFilter = this.applyFilter.bind(this);
     this.onChangeRace = this.onChangeRace.bind(this);
     this.onChangeClass = this.onChangeClass.bind(this);
@@ -36,29 +38,23 @@ class CharacterFilter extends React.Component {
     };
   }
 
-  createInitFilter(oldInitFilter) {
+  static createInitFilter(oldInitFilter) {
     let queryString = oldInitFilter.split("&");
     let newInitFilter = {};
-    if (queryString[0].length === 1) {
-
-    } else {
-      const queryLength = queryString.length;
-      queryString[0] = queryString[0].substr(1);
-      queryString[queryLength - 1] = queryString[queryLength - 1].substr(
-        0,
-        queryLength - 1
-      );
-      for (let i = 0; i < queryLength - 1; i += 1) {
-        let currentFilter = queryString[i].split("=");
-        let key = currentFilter[0];
-        newInitFilter[key] = currentFilter[1];
-      }
+    const queryLength = queryString.length;
+    if(queryLength > 1) {
+	    for (let i = 1; i < queryLength ; i += 1) {
+		    let currentFilter = queryString[i].split("=");
+		    let key = currentFilter[0];
+		    newInitFilter[key] = currentFilter[1];
+		    console.log(currentFilter);
+	    }
     }
     return newInitFilter;
   }
 
   componentWillReceiveProps(newProps) {
-    newProps.initFilter = this.createInitFilter(newProps.initFilter);
+    newProps.initFilter = CharacterFilter.createInitFilter(newProps.initFilter);
     this.setState({
       class: newProps.initFilter.class,
       race: newProps.initFilter.race,
@@ -91,6 +87,12 @@ class CharacterFilter extends React.Component {
   }
 
   resetFilter() {
+    let filters = ['class', 'race','level_gte','level_lte'];
+    for(let index in filters){
+      if(this.props.initFilter[filters[index]] === undefined){
+	      this.props.initFilter[filters[index]]='';
+      }
+    }
     this.setState({
       class: this.props.initFilter.class,
       race: this.props.initFilter.race,
@@ -105,7 +107,6 @@ class CharacterFilter extends React.Component {
   }
 
   applyFilter() {
-    debugger;
     const newFilter = {};
     if (this.state.race) newFilter.race = this.state.race;
     if (this.state.class) newFilter.class = this.state.class;
@@ -116,13 +117,15 @@ class CharacterFilter extends React.Component {
 
   render() {
     return (
-      <Panel  defaultExpanded >
-        <Panel.Heading  className={cssStyles.panelHeader}>
-          <Panel.Title toggle className={cssStyles.panelHeaderText}>Filter Characters</Panel.Title>
+      <Panel defaultExpanded>
+        <Panel.Heading className={cssStyles.panelHeader}>
+          <Panel.Title toggle className={cssStyles.panelHeaderText}>
+            Filter Characters
+          </Panel.Title>
         </Panel.Heading>
         <Panel.Collapse>
           <Panel.Body>
-            <Row >
+            <Row>
               <Col xs={6} sm={4} md={3} lg={3}>
                 <FormGroup>
                   <ControlLabel>Class</ControlLabel>
@@ -143,6 +146,7 @@ class CharacterFilter extends React.Component {
                     <option value="Cleric">Cleric</option>
                     <option value="Warlock">Warlock</option>
                     <option value="Bard">Bard</option>
+                    <option value="Barbarian">Barbarian</option>
                   </FormControl>
                 </FormGroup>
               </Col>
@@ -154,10 +158,9 @@ class CharacterFilter extends React.Component {
                     value={this.state.race}
                     onChange={this.onChangeRace}
                   >
-                    <option value={""}>Any</option>
+                    <option value={''}>Any</option>
                     <option value={"Human"}>Human</option>
                     <option value={"Dwarf"}>Dwarf</option>
-                    <option value={"Orc"}>Orc</option>
                     <option value={"Elf"}>Elf</option>
                     <option value={"Gnome"}>Gnome</option>
                     <option value={"Half-Elf"}>Half-Elf</option>
@@ -182,12 +185,22 @@ class CharacterFilter extends React.Component {
                   </InputGroup>
                 </FormGroup>
               </Col>
-	            <Col >
-		            <FormGroup>
-			            <ControlLabel>&nbsp;</ControlLabel>
-			            <ButtonToolbar>
-                    <Button bsStyle={"primary"}  onClick={this.applyFilter.bind(this)} >Apply</Button>
-                    <Button onClick={this.resetFilter.bind(this)} disabled={!this.state.changed}>Reset</Button>
+              <Col>
+                <FormGroup>
+                  <ControlLabel>&nbsp;</ControlLabel>
+                  <ButtonToolbar>
+                    <Button
+                      bsStyle={"primary"}
+                      onClick={this.applyFilter.bind(this)}
+                    >
+                      Apply
+                    </Button>
+                    <Button
+                      onClick={this.resetFilter}
+                      disabled={!this.state.changed}
+                    >
+                      Reset
+                    </Button>
                     <Button onClick={this.clearFilter.bind(this)}>Clear</Button>
                   </ButtonToolbar>
                 </FormGroup>

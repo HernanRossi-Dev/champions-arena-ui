@@ -11,7 +11,7 @@ export default class CreateCharacterNameComponent extends React.Component {
 
 	render () {
 		const changeName = () => {
-			this.props.updateName(this.characterName.value);
+			this.props.updateName(this.characterName.value.trim());
 		};
 		return (
 			<FormGroup >

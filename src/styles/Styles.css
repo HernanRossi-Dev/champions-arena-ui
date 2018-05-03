@@ -55,6 +55,14 @@ body {
   border-width: 1px thin thin thin;
   border-color:  #df691a ;
 }
+.editCharacterPanelParent {
+  padding-bottom: 10px;
+  margin-top: 30px;
+  width: 1700px;
+  border-style: solid;
+  border-width: 1px thin thin thin;
+  border-color:  #df691a ;
+}
 
 .createCharacterPanelHeaderStyle  {
   margin-bottom: 25px;

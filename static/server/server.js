@@ -92,8 +92,6 @@ users.findOne({ email: devUser.email })
 
 app.get("/api/characters/:id", (req, res) => {
   let characterID;
-  console.log("fetch characters");
-  console.log(req.params.id);
 
   try {
     characterID = new ObjectID(req.params.id);
@@ -102,7 +100,7 @@ app.get("/api/characters/:id", (req, res) => {
     return;
   }
 
-  db.collections('characters')
+  db.collection('characters')
     .find({ _id: characterID })
     .limit(1)
     .next()
@@ -158,6 +156,7 @@ app.post("/api/characters", (req, res) => {
     .collection("characters")
     .insertOne(newCharacter)
     .then(result =>
+
       db
         .collection("characters")
         .find({ _id: result.insertedId })
@@ -165,6 +164,7 @@ app.post("/api/characters", (req, res) => {
         .next()
     )
     .then(newCharacter => {
+    	console.log('Character added to list');
       res.json(newCharacter);
     })
     .catch(error => {
@@ -177,8 +177,7 @@ app.delete("/api/characters/:id", (req, res) => {
   let characterID;
   try {
     characterID = new ObjectID(req.params.id);
-    console.log(characterID);
-    console.log("characters id");
+
   } catch (error) {
     res.status(422).json({ message: `Invalid characters ID format: ${error}` });
     return;

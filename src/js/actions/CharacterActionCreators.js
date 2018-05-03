@@ -50,30 +50,42 @@ function requestCharacter(URL) {
   };
 }
 
-export const fetchCharacter = URL => dispatch => {
-  dispatch(requestCharacter(URL));
-  fetch(URL,{ method: "GET",
-		  headers: { authorization: store.getState().userReducer.authToken },}
-    ).then(response => {
-    if (!response.ok) {
-      response.json().then(error => {
-        alert(`Failed to fetch character: ${error.message}`);
-        dispatch({
-          type: types.FETCHING_CHARACTER_FAIL,
-          payload: error,
-          error: true
-        });
-      });
-    } else {
-      response.json().then(data => {
-        dispatch({
-          type: types.FETCHING_CHARACTER_SUCCESS,
-          editCharacter: data
-        });
-      });
-    }
-  });
-};
+export const fetchCharacter = (characterID, callbackSetState) => {
+	return function(dispatch, getState)  {
+		dispatch(requestCharacter(URL));
+		fetch(`/api/characters/${characterID}`,{ method: "GET",
+			headers: { authorization: store.getState().userReducer.authToken }}
+		).then(response => {
+			if (!response.ok) {
+				response.json().then(error => {
+					alert(`Failed to fetch character: ${error.message}`);
+					dispatch({
+						type: types.FETCHING_CHARACTER_FAIL,
+						payload: error,
+						error: true
+					});
+				});
+			} else {
+				response.json().then(data => {console.log(data);
+					function resolveDispatch () {
+						return new Promise(resolve => {
+							resolve(dispatch({
+								type: types.FETCHING_CHARACTER_SUCCESS,
+								editCharacter: data
+							}));
+						})
+					}
+					async function asyncDispatch () {
+						const result = await resolveDispatch();
+						callbackSetState();
+					}
+					asyncDispatch();
+
+				});
+			}
+		});
+	};
+}
 
 function deletingCharacter(characterID) {
   return {
@@ -120,14 +132,23 @@ export const createCharacter = (newCharacter, callBackRedirect) => {
       body: JSON.stringify(newCharacter)
     }).then(response => {
       if (response.ok) {
-
         response.json().then(updatedCharacter => {
           updatedCharacter.created = new Date(updatedCharacter.created);
-          dispatch({
-            type: types.CREATING_CHARACTER_SUCCESS,
-            character: updatedCharacter
-          });
-	        callBackRedirect();
+
+	        function resolveDispatch () {
+		        return new Promise(resolve => {
+			        resolve(dispatch({
+				        type: types.CREATING_CHARACTER_SUCCESS,
+				        character: updatedCharacter
+			        }));
+		        })
+	        }
+	        async function asyncDispatch () {
+		        let result = await resolveDispatch();
+		        callBackRedirect();
+		        return result;
+	        }
+	        asyncDispatch();
         });
 
       } else {

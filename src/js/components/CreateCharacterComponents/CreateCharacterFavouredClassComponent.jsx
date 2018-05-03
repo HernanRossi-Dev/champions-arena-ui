@@ -80,6 +80,12 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
 						className={cssStyles.favouredClassButtonGroup}
 					>
 						<ToggleButton
+							value={"Barbarian"}
+							className={cssStyles.favouredClassButtonGroup}
+						>
+							Barbarian
+						</ToggleButton>
+						<ToggleButton
 							value={"Monk"}
 							className={cssStyles.favouredClassButtonGroup}
 						>
@@ -133,12 +139,7 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
 						>
 							Cleric
 						</ToggleButton>{" "}
-						<ToggleButton
-							value={"Barbarian"}
-							className={cssStyles.favouredClassButtonGroup}
-						>
-							Barbarian
-						</ToggleButton>
+
 						<ToggleButton
 							value={"Bard"}
 							className={cssStyles.favouredClassButtonGroup}

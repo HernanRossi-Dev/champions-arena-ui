@@ -2,7 +2,6 @@ import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
 import CharacterFilter from "./CharacterFilter.jsx";
-import {withRouter} from "react-router-dom";
 import store from "../../store/index.js";
 import * as CharacterActionCreators from "../../actions/CharacterActionCreators.js";
 import {connect} from "react-redux";
@@ -30,9 +29,9 @@ class CharacterList extends React.Component {
   }
 
   setFilter(query) {
-    let filter = "?";
+    let filter = "";
     for (let key in query) {
-      filter +=  key + "=" + query[key] + "&";
+      filter += "&"+ key + "=" + query[key]  ;
     }
     this.props.history.push({
       pathname: this.props.location.pathname,
@@ -49,21 +48,21 @@ class CharacterList extends React.Component {
       let { dispatch } = this.props;
       this.loadData(dispatch);
     }
-    console.log('number of characters');
-    console.log(store.getState().characterReducer.numberOfCharacters);
   }
 
   loadData(dispatch) {
     let filter = "";
-    let currentUser = store.getState().userReducer.currentUserName;
 
-	  filter += "?" + 'user=' + currentUser;
     if (this.props.location.query !== undefined) {
+      let currentUser = store.getState().userReducer.currentUserName;
+	    filter += '?user=' + currentUser;
       for (let key in this.props.location.query) {
-        filter += "?" + key + "=" + this.props.location.query[key];
+        filter += "&" + key + "=" + this.props.location.query[key];
       }
     } else {
-      filter += this.props.location.search;
+	    let currentUser = store.getState().userReducer.currentUserName;
+	    filter +=  '?user=' + currentUser;
+      filter += this.props.location.search.substring(1);
     }
     let action = CharacterActionCreators.fetchCharacters(filter);
     dispatch(action);
