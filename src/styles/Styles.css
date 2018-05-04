@@ -158,14 +158,31 @@ body {
 }
 
 
+
+.rollForStatsButton {
+
+  font-size: 17px;
+}
+
+.statsMethodButtons {
+  margin-right: 20px;
+  font-size: 18px;
+  font-family: "Crimson Text", serif;
+
+}
+
+
 .genStatsNumberStyle {
   font-size: 20px;
   font-family: "Josefin Sans", sans-serif;
   text-align: center !important;
   align-content: center !important;
-  align-items: center !important;
+
 }
 
+.customStatsIcons {
+    text-align: center !important;
+}
 .characterTableParent {
   text-align: center;
   width: 850px;

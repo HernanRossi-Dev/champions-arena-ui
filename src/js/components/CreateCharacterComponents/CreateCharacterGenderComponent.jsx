@@ -4,7 +4,7 @@ import { Col, ControlLabel, FormGroup, ToggleButtonGroup, ToggleButton } from "r
 
 export default class CreateCharacterGenderComponent extends React.Component {
 	constructor (props) {
-		super(props);
+		super();
 		this.state = {
 			gender: ""
 		}

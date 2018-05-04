@@ -8,14 +8,16 @@ import * as cssStyles from "../../../styles/Styles.css";
 import store from "../../store/index.js";
 
 import {
-  Button,
-  ButtonToolbar,
-  Col,
-  Form,
-  FormGroup,
-  Panel,
-  Modal
-} from "react-bootstrap";
+	Button,
+	ButtonToolbar,
+	Col,
+	Form,
+	FormGroup,
+	Panel,
+	Modal, ControlLabel,
+	Collapse,
+	Well
+} from 'react-bootstrap'
 import { LinkContainer } from "react-router-bootstrap";
 import CreateCharacterRaceComponent from "./CreateCharacterRaceComponent.jsx";
 import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
@@ -24,12 +26,12 @@ import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
 import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx";
 import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
 import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClassComponent";
-import CreateHeroPointBuyStatsComponent from "./CreateHeroPointBuyStatsComponent";
+import CreateCharacterPointBuyStatsComponent from "./CreateCharacterPointBuyStatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 
 class CreateCharacterComponent extends React.Component {
   constructor(props, context) {
-    super(props, context);
+    super();
     this.createNewCharacter = this.createNewCharacter.bind(this);
     this.state = {
       characterStats: {
@@ -61,7 +63,9 @@ class CreateCharacterComponent extends React.Component {
       invalidFields: [""],
       show: false,
       numberOfCharacters: store.getState().characterReducer.numberOfCharacters,
-      choseStatsMethod: "roll"
+      choseStatsMethod: "Roll",
+      previousStatsMethod: "Roll",
+	    showStatsMethod: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setRace = this.setRace.bind(this);
@@ -75,7 +79,7 @@ class CreateCharacterComponent extends React.Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.setStateMethod = this.setStateMethod.bind(this);
-    this.GenStatsMethod = this.GenStatsMethod.bind(this);
+    // this.GenStatsMethod = this.GenStatsMethod.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(
       CharacterActionCreators,
@@ -84,12 +88,14 @@ class CreateCharacterComponent extends React.Component {
   }
 
   componentDidMount() {
-    let characterCount = store.getState().characterReducer.numberOfCharacters;
-    if (characterCount > 10) {
-      alert(
-        "Guest accounts limited to 10 characters. Please register to create more."
-      );
-      this.props.history.push("/characters");
+    if(store.getState().userReducer.currentUser.isGuest) {
+	    let characterCount = store.getState().characterReducer.numberOfCharacters;
+	    if (characterCount > 10) {
+		    alert(
+			    "Guest accounts limited to 10 characters. Please register to create more."
+		    );
+		    this.props.history.push("/characters");
+	    }
     }
   }
 
@@ -198,7 +204,6 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setStateStats(newStatsObject) {
-	  console.log(newStatsObject);console.log('newStatsObject');
     this.setState({
       characterStats: newStatsObject,
       baseCharacterStats: newStatsObject
@@ -226,32 +231,11 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setStateMethod(e) {
-    this.setState({ choseStatsMethod: e.target.innerHTML });
+    const prevMethod = this.state.choseStatsMethod;
+    this.setState({ previousStatsMethod: prevMethod, choseStatsMethod: e.target.innerHTML });
   }
 
-	GenStatsMethod () {
-		if (this.state.choseStatsMethod === "Roll") {
-			return (
-				<CreateCharacterGenStatsComponent
-					setStateStats={this.setStateStats}
-					characterStats={this.state.characterStats}
-					racialBonus={this.state.racialBonus}
-				/>
-			);
-		} else if (this.state.choseStatsMethod === "Buy") {
-			return <CreateHeroPointBuyStatsComponent />;
-		} else if (this.state.choseStatsMethod === "Custom") {
-			return <CreateCharacterCustomStatsInput />;
-		} else {
-			return (
-				<CreateCharacterGenStatsComponent
-					setStateStats={this.setStateStats}
-					characterStats={this.state.characterStats}
-					racialBonus={this.state.racialBonus}
-				/>
-			);
-		}
-	};
+
 
   render() {
     const ValidationModal = () => {
@@ -276,7 +260,24 @@ class CreateCharacterComponent extends React.Component {
       );
     };
 
-
+	  const GenStatsMethod = () => {
+		  if (this.state.choseStatsMethod === "Roll") {
+			  return (
+				  <CreateCharacterGenStatsComponent
+					  setStateStats={this.setStateStats}
+					  characterStats={this.state.characterStats}
+					  racialBonus={this.state.racialBonus}
+				  />
+			  );
+		  } else if (this.state.choseStatsMethod === "Buy") {
+			  return <CreateCharacterPointBuyStatsComponent />;
+		  } else if (this.state.choseStatsMethod === "Custom") {
+			  return <CreateCharacterCustomStatsInput
+				  setStateStats={this.setStateStats}
+				  characterStats={this.state.characterStats}
+				  racialBonus={this.state.racialBonus}/>;
+		  }
+	  };
     return (
       <Panel className={cssStyles.createCharacterPanelParent}>
         <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
@@ -290,18 +291,26 @@ class CreateCharacterComponent extends React.Component {
           <CreateCharacterNameComponent updateName={this.setName} />
           <hr className={cssStyles.hr} />
           <FormGroup>
-            <Col sm={2} />
-            <Col sm={6}>
+            <Col sm={1} />
+	          <Col
+		          componentClass={ControlLabel}
+		          sm={3}
+		          className={cssStyles.createColLabelStyle}
+	          ><div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Choose Stats method:</div>
+	          </Col>
+            <Col sm={7} style={{marginLeft:'45px'}}>
               <ButtonToolbar>
-                <Button onClick={this.setStateMethod}>Roll</Button>
-                <Button onClick={this.setStateMethod}>Buy</Button>
-                <Button onClick={this.setStateMethod}>Custom</Button>
+                <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Roll</Button>
+                <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Buy</Button>
+                <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Custom</Button>
               </ButtonToolbar>
             </Col>
           </FormGroup>
+	        <FormGroup  >
 
-          {this.GenStatsMethod()}
+              <GenStatsMethod />
 
+          </FormGroup>
           <hr className={cssStyles.hr} />
           <CreateCharacterRaceComponent setRace={this.setRace.bind(this)} />
           <hr className={cssStyles.hr} />

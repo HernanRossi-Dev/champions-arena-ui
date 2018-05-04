@@ -4,7 +4,7 @@ import NavBarComponent from './NavBarComponent';
 
 export default class SiteHeaderComponent extends React.Component {
 	constructor(props) {
-		super(props);
+		super();
 
 	}
 

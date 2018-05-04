@@ -25,7 +25,7 @@ import { connect } from 'react-redux'
 
 class CreateCharacterSkillsComponent extends React.Component {
 	constructor(props) {
-		super(props);
+		super();
 
 		this.state = {
 

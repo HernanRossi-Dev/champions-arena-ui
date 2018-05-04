@@ -6,6 +6,7 @@ const initialState = {
 	loggedIn: null,
 	authToken: '',
 	currentUserName: '',
+
 };
 const userReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -24,6 +25,7 @@ const userReducer = (state = initialState, action) => {
 				currentUserName: action.newGuest.name,
 				loggedIn: true,
 				authToken: action.auth0Token,
+
 			})
 		case types.CREATE_GUEST_USER_FAIL:
 			return {
@@ -35,7 +37,7 @@ const userReducer = (state = initialState, action) => {
 				currentUser:{},
 				currentUserName: '',
 				isFetching: true,
-				didInvalidate: false
+				didInvalidate: false,
 			})
 		case types.CREATE_USER_SUCCESS:
 			return Object.assign({}, state, {

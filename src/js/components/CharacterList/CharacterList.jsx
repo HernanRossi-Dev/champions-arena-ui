@@ -12,7 +12,7 @@ import characterReducer from '../../reducers/CharacterReducers'
 
 class CharacterList extends React.Component {
   constructor(props) {
-    super(props);
+    super();
 
     this.setFilter = this.setFilter.bind(this);
     this.deleteCharacter = this.deleteCharacter.bind(this);

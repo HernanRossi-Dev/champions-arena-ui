@@ -26,6 +26,8 @@ import { NavItem } from "react-bootstrap";
 import * as cssStyles from "../../styles/Styles.css";
 import "../../styles/Styles.css";
 import { LinkContainer } from "react-router-bootstrap";
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+
 
 import {
   BrowserRouter,
@@ -37,6 +39,26 @@ import {
 import SiteHeaderComponent from "./SiteHeaderComponent";
 
 const NoMatch = () => <p>Page Not Found</p>;
+const theme = createMuiTheme({
+	overrides: {
+		MuiInput: {
+			underline: {
+				'&:before': { //underline color when textfield is inactive
+					backgroundColor: '#697785',
+					height:'1px',
+				},
+				'&:hover:not($disabled):before': { //underline color when hovered
+					backgroundColor: 'white',
+					height:'1px',
+				},
+				'&:after': {
+					backgroundColor: '#df691a',
+					height:'1px',
+				},
+			}
+		}
+	}})
+
 
 class App extends React.Component {
   constructor() {
@@ -134,7 +156,10 @@ ReactDOM.render(
 	<Provider store={store}>
 		<PersistGate persistor={persistor}>
 		<BrowserRouter >
+			<MuiThemeProvider theme={theme}>
+
       <App />
+		</MuiThemeProvider>
 		</BrowserRouter>
 		</PersistGate>
 	</Provider>,

@@ -66,6 +66,27 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 
 
 	render(){
+		const ShowRacialBonus = () => {
+			if(this.props.racialBonus.statsBonus){
+				let rBon = this.props.racialBonus.statsBonus;
+				let key;
+				let infoString = "Racial bonus applied to stats: ";
+
+				for (key in rBon) {
+					if(rBon[key] > 0){
+						infoString += key + ": +" + rBon[key] + ", ";
+					} else {
+						infoString += key + ": " + rBon[key];
+					}
+				}return(
+					<div style={{wordSpacing:'3px'}}>{infoString}</div>
+				)
+			} else {
+				return(
+					<div></div>
+				)
+			}
+		}
 		return (
 			<div>
 			<GenerateStatsFormGroup genStats={this.generateStats} racialBonus={this.state.racialBonus}/>
@@ -102,6 +123,12 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 						</FormControl.Static>
 					</Col>
 				</FormGroup>
+				<FormGroup>
+				<Col sm={4}/>
+				<Col sm={6}>
+					<ShowRacialBonus />
+				</Col>
+				</FormGroup>
 			</div>
 		);
 	};
@@ -111,46 +138,24 @@ export default class CreateCharacterGenStatsComponent extends React.Component {
 
 class GenerateStatsFormGroup extends React.Component {
 	constructor (props){
-		super(props)
+		super()
 	}
 
 	render() {
-		const ShowRacialBonus = () => {
-			if(this.props.racialBonus.statsBonus){
-				let rBon = this.props.racialBonus.statsBonus;
-				let key;
-				let infoString = "Racial bonus applied to stats: ";
-				console.log(rBon);
-				for (key in rBon) {
-					if(rBon[key] > 0){
-						infoString += key + ": +" + rBon[key] + ", ";
-					} else {
-						infoString += key + ": " + rBon[key];
-					}
-				}return(
-					<div>{infoString}</div>
-				)
-			} else {
-				return(
-					<div></div>
-				)
-			}
-		}
+
 		return(
 		<FormGroup>
 			<Col sm={1}/>
-			<Col sm={2} className={cssStyles.createColLabelStyle}>
+			<Col sm={4} style={{marginLeft:'20px'}} className={cssStyles.createColLabelStyle}>
 				<ButtonToolbar>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">Roll 4d6 keep best 3 dice (re-roll all 1's)</Tooltip>}>
-						<Button bsStyle="primary" onClick={this.props.genStats}>
+					<OverlayTrigger  placement="right" overlay={<Tooltip id="tooltip">Roll 4d6 keep best 3 dice (re-roll all 1's)</Tooltip>}>
+						<Button className={cssStyles.rollForStatsButton} bsStyle="primary" onClick={this.props.genStats}>
 							Roll For Stats
 						</Button>
 					</OverlayTrigger>
 				</ButtonToolbar>
 			</Col>
-			<Col sm={6}>
-				<ShowRacialBonus />
-			</Col>
+
 		</FormGroup>
 		)
 	}

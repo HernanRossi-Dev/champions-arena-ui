@@ -13,7 +13,7 @@ import {
 
 export default class CreateCharacterAlignmentComponent extends React.Component {
   constructor(props, context) {
-    super(props, context);
+    super();
     this.state = {
       alignment: "",
       alignmentInfo: "",

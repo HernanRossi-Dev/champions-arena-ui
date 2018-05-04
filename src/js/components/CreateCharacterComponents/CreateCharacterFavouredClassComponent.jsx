@@ -22,7 +22,7 @@ import Coverflow  from 'react-coverflow';
 
 export default class CreateCharacterFavouredClassComponent extends React.Component {
 	constructor(props) {
-		super(props);
+		super();
 		this.saveFavouredClass = this.saveFavouredClass.bind(this);
 		this.handleShow = this.handleShow.bind(this);
 		this.handleClose = this.handleClose.bind(this);

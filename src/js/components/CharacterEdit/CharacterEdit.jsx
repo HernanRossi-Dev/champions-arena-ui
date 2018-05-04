@@ -21,7 +21,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 class CharacterEdit extends React.Component {
 
 	constructor (props) {
-		super(props);
+		super();
 		const {dispatch } = props;
 		this.onSubmit = this.onSubmit.bind(this);
 		this.handleShow = this.handleShow.bind(this);

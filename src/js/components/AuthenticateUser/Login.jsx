@@ -21,12 +21,10 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
 import { bindActionCreators } from "redux";
 import store from "../../store";
 var passwordHash = require("password-hash");
-import * as HelperConstants from '../../constants/HelperConstants';
-import * as types from '../../constants/ActionTypes'
 
 class Login extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super();
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);

@@ -18,7 +18,7 @@ import {
 
 class CharacterFilter extends React.Component {
   constructor(props, context) {
-    super(props, context);
+    super(props);
     CharacterFilter.createInitFilter = CharacterFilter.createInitFilter.bind(this);
     const newInitFilter = CharacterFilter.createInitFilter(this.props.initFilter);
     this.applyFilter = this.applyFilter.bind(this);

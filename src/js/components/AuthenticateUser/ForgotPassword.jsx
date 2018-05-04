@@ -22,7 +22,7 @@ var passwordHash = require("password-hash");
 
 class ForgotPassword extends React.Component {
 	constructor(props, context) {
-		super(props, context);
+		super();
 		this.handleClose = this.handleClose.bind(this);
 		this.handleShow = this.handleShow.bind(this);
 		this.sendUserInfo = this.sendUserInfo.bind(this);

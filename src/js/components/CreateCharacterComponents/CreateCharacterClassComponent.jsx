@@ -22,7 +22,7 @@ import {
 
 export default class CreateCharacterClassComponent extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.setClass = this.setClass.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);

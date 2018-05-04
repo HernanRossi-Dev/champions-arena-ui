@@ -25,7 +25,7 @@ let passwordHash = require('password-hash');
 
 class Signup extends React.Component {
   constructor(props, context) {
-    super(props, context);
+    super();
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);

@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 
 class NavBarComponent extends React.Component {
 	constructor(props) {
-		super(props);
+		super();
 
 		this.toggle = this.toggle.bind(this);
 		this.handleOpenWorld = this.handleOpenWorld.bind(this);

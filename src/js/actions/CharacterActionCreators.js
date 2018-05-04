@@ -66,7 +66,7 @@ export const fetchCharacter = (characterID, callbackSetState) => {
 					});
 				});
 			} else {
-				response.json().then(data => {console.log(data);
+				response.json().then(data => {
 					function resolveDispatch () {
 						return new Promise(resolve => {
 							resolve(dispatch({

@@ -13,7 +13,7 @@ import {
 
 export default class CreateCharacterRaceComponent extends React.Component {
   constructor(props, context) {
-    super(props, context);
+    super();
     this.changeRaceInfo = this.changeRaceInfo.bind(this);
     this.state = {
       race: "",
