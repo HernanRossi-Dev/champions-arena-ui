@@ -54,6 +54,7 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
 			backgroundColor: "transparent",
 
 		};
+		const { children, active, colorize } = this.props;
 	return (
 		<div>
 

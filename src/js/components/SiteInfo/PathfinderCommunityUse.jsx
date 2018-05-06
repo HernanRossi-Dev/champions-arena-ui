@@ -21,7 +21,7 @@ export default class PathfinderCommunityUse extends React.Component {
 
         </span>
 	      <div className={Styles.LegalImgDiv}> <img
-		      src={require("../../../assets/Paizo.png")}
+		      src={require("../../../../public/assets/Paizo.png")}
 		      width="143"
 		      height="186"
 		      alt=""

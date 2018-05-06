@@ -17,7 +17,7 @@ class HomeComponent extends React.Component {
           </div>
         <div className={cssStyles.homeImageDiv}>
           <img
-            src={require("../../assets/OccultYoon.png")}
+            src={require("../../../public/assets/OccultYoon.png")}
             width="318.75"
             height="367.2"
             alt=""

@@ -9,6 +9,7 @@ import {bindActionCreators} from "redux";
 import CharacterTable from "./CharacterTable";
 import * as cssStyles from '../../../styles/Styles.css'
 import characterReducer from '../../reducers/CharacterReducers'
+import { withRouter } from 'react-router-dom'
 
 class CharacterList extends React.Component {
   constructor(props) {
@@ -108,4 +109,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(CharacterList);
+export default withRouter(connect(mapStateToProps)(CharacterList));

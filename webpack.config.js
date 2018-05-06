@@ -6,11 +6,12 @@ function resolve(dir) {
 }
 
 module.exports = {
+	mode: 'development',
   entry: {
-    app: [resolve("ArenaBattleApp/src/js/components/App.jsx")]
+    app: [resolve("ChampionsArena/src/js/components/App.jsx")]
   },
   output: {
-    path: resolve("ArenaBattleApp/static/"),
+    path: resolve("ChampionsArena/static/"),
     filename: "[name].bundle.js"
   },
   resolve: {
@@ -38,18 +39,26 @@ module.exports = {
 
       },
 	    {
-		    test: /\.(png|jpg)$/,
-        loader: 'url-loader?limit=8192'
+		    test: /\.(jpg|png|gif|svg|pdf|ico)$/,
+		    use: [
+			    {
+				    loader: 'file-loader',
+				    options: {
+					    name: '[path][name]-[hash:8].[ext]'
+				    },
+			    },
+		    ]
 	    },
 	    {
 		    test: /\.css$/,
 		    loader: 'style-loader'
-	    }, {
+	    },
+	    {
 		    test: /\.css$/,
 		    loader: 'css-loader',
 		    query: {
 			    modules: true,
-			    localIdentName: '[name]__[local]___[hash:base64:5]'
+			    // localIndentName: '[name]__[local]___[hash:base64:5]'
 		    }
 	    },
 	    {

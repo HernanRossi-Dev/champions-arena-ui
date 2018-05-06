@@ -18,39 +18,39 @@ export default class CreateCharacterGenderComponent extends React.Component {
 			this.setState({ gender: newGender})
 		};
 
-		const ShowGenderImage =(props) => {
-			const gender = this.state.gender.toString();
-			if(gender === "Male"){
-				return (
-					<img
-						src={require("../../../assets/mymalesymbol.png")}
-						width="50"
-						height="50"
-						alt=""
-
-					/>
-
-				);
-			} else if (gender === "Female"){
-				return (
-					<img
-						src={require("../../../assets/myfemalesymbol.png")}
-						width="40"
-						height="50"
-						alt=""
-					/>
-				);
-			} else {
-				return (
-					<img
-						src={require("../../../assets/myotherymbol.png")}
-						width="33"
-						height="50"
-						alt=""
-					/>
-				);
-			}
-		};
+		// const ShowGenderImage =(props) => {
+		// 	const gender = this.state.gender.toString();
+		// 	if(gender === "Male"){
+		// 		return (
+		// 			<img
+		// 				src={require("../../../assets/mymalesymbol.png")}
+		// 				width="50"
+		// 				height="50"
+		// 				alt=""
+		//
+		// 			/>
+		//
+		// 		);
+		// 	} else if (gender === "Female"){
+		// 		return (
+		// 			<img
+		// 				src={require("../../../assets/myfemalesymbol.png")}
+		// 				width="40"
+		// 				height="50"
+		// 				alt=""
+		// 			/>
+		// 		);
+		// 	} else {
+		// 		return (
+		// 			<img
+		// 				src={require("../../../assets/myotherymbol.png")}
+		// 				width="33"
+		// 				height="50"
+		// 				alt=""
+		// 			/>
+		// 		);
+		// 	}
+		// };
 		return (
 			<FormGroup>
 				<Col sm={1} />

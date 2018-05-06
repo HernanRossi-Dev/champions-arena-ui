@@ -1,7 +1,7 @@
 {
-  "name": "PathfinderArenaBattle",
+  "name": "ChampionsArena",
   "version": "1.0.0",
-  "description": "A Pathfinder Character creation and Arena battle app",
+  "description": "A Pathfinder Character creation and Campaign companion",
   "private": true,
   "scripts": {
     "start": "nodemon -w ./static/server/server.js ./static/server/server.js",
@@ -29,9 +29,11 @@
     "bcrypt": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.1.1",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
     "generate-password": "^1.4.0",
+    "jquery": "^3.3.1",
     "jsonwebtoken": "^8.2.1",
     "jwks-rsa": "^1.2.1",
     "material-ui": "^1.0.0-beta.44",

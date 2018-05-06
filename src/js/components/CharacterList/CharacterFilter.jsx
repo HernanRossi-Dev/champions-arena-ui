@@ -54,7 +54,7 @@ class CharacterFilter extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    newProps.initFilter = CharacterFilter.createInitFilter(newProps.initFilter);
+    // newProps.initFilter = CharacterFilter.createInitFilter(newProps.initFilter);
     this.setState({
       class: newProps.initFilter.class,
       race: newProps.initFilter.race,
@@ -119,7 +119,7 @@ class CharacterFilter extends React.Component {
     return (
       <Panel defaultExpanded>
         <Panel.Heading className={cssStyles.panelHeader}>
-          <Panel.Title toggle className={cssStyles.panelHeaderText}>
+          <Panel.Title className={cssStyles.panelHeaderText}>
             Filter Characters
           </Panel.Title>
         </Panel.Heading>
@@ -215,7 +215,7 @@ class CharacterFilter extends React.Component {
 
 CharacterFilter.propTypes = {
   setFilter: PropTypes.func.isRequired,
-  initFilter: PropTypes.object.isRequired
+  initFilter: PropTypes.string
 };
 
 export default withRouter(CharacterFilter);

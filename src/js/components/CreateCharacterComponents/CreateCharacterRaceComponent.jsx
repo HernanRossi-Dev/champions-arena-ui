@@ -129,7 +129,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
 	          <Collapse in={this.state.showRaceInfo} style={raceDivStyle}>
             {/*<RaceTextToggle />*/}
             <div>
-	            <Well>
+	            <Well  style={{backgroundColor:'transparent'}}>
 		          {this.state.raceInfo}
 	            </Well>
             </div>

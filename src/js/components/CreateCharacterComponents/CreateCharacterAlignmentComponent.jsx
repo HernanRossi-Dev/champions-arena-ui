@@ -64,7 +64,8 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
 	  const alignmentDivStyle = {
 		  fontSize: "17px !important",
 		  fontFamily: "'Josefin Sans', sans-serif",
-		  textAlign: "left"
+		  textAlign: "left",
+
 	  };
     // const AlignmentTextToggle = () => {
     //
@@ -252,7 +253,7 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
 	          <Collapse in={this.state.showAlignment} style={alignmentDivStyle}>
 
 		          <div>
-			          <Well>
+			          <Well style={{backgroundColor:'transparent'}}>
 				          {this.state.alignmentInfo}
 			          </Well>
 		          </div>

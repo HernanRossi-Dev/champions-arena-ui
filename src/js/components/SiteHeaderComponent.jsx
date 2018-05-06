@@ -22,7 +22,7 @@ export default class SiteHeaderComponent extends React.Component {
 					<div className="card-header" style={style}>
 						<img
 							className={cssStyles.titleImage}
-							src={require("../../assets/PathfinderRpg.png")}
+							src={require("../../../public/assets/PathfinderRpg.png")}
 							width="371"
 							height="95"
 							alt=""

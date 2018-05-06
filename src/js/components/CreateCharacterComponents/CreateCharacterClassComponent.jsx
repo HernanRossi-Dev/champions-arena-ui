@@ -71,10 +71,12 @@ export default class CreateCharacterClassComponent extends React.Component {
               name="raceValue"
               onClick={this.setClass}
               className={cssStyles.alignmentButtonGroupParent}
+
             >
 	            <ToggleButton
 		            value={"Barbarian"}
 		            className={cssStyles.alignmentButtonGroup}
+
 	            >
 		            Barbarian
 	            </ToggleButton>

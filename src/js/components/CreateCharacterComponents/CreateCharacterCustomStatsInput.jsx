@@ -140,39 +140,39 @@ class CreateCharacterCustomStatsInput extends React.Component {
 
   render() {
     const PlusButtonFormGroup = () => (
-      <FormGroup className={cssStyles.customStatsIcons}>
+      <FormGroup className={cssStyles.customStatsIcons} >
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.increaseStat} name={"STR"}>
+          <Button bsSize={"small"} onClick={this.increaseStat} name={"STR"} style={{backgroundColor:'transparent'}}>
             {" "}
-            <i className="fas fa-plus" id={"STR"}/>
+            <i className="fas fa-plus" id={"STR"} />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.increaseStat} name={"DEX"}>
+          <Button bsSize={"small"} onClick={this.increaseStat} name={"DEX"}  style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-plus" id="DEX" />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.increaseStat} name={"CON"}>
+          <Button bsSize={"small"} onClick={this.increaseStat} name={"CON"} style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-plus" />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.increaseStat} name={"INT"}>
+          <Button bsSize={"small"} onClick={this.increaseStat} name={"INT"} style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-plus" />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.increaseStat} name={"WIS"}>
+          <Button bsSize={"small"} onClick={this.increaseStat} name={"WIS"} style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-plus" />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.increaseStat} name={"CHA"}>
+          <Button bsSize={"small"} onClick={this.increaseStat} name={"CHA"} style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-plus" />
           </Button>
@@ -182,34 +182,34 @@ class CreateCharacterCustomStatsInput extends React.Component {
     const MinusButtonFormGroup = () => (
       <FormGroup className={cssStyles.customStatsIcons}>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.decreaseStat} name={"STR"}>
+          <Button bsSize={"small"} onClick={this.decreaseStat} name={"STR"} style={{backgroundColor:'transparent'}}>
             <i className="fas fa-minus" id={"STR"}/>
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.decreaseStat} name={"DEX"}>
+          <Button bsSize={"small"} onClick={this.decreaseStat} name={"DEX"} style={{backgroundColor:'transparent'}}>
             <i className="fas fa-minus" id="DEX"/>
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.decreaseStat} name={"CON"}>
+          <Button bsSize={"small"} onClick={this.decreaseStat} name={"CON"} style={{backgroundColor:'transparent'}}>
             <i className="fas fa-minus" />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.decreaseStat} name={"INT"}>
+          <Button bsSize={"small"} onClick={this.decreaseStat} name={"INT"} style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-minus" />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.decreaseStat} name={"WIS"}>
+          <Button bsSize={"small"} onClick={this.decreaseStat} name={"WIS"} style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-minus" />
           </Button>
         </Col>
         <Col sm={2}>
-          <Button bsSize={"small"} onClick={this.decreaseStat} name={"CHA"}>
+          <Button bsSize={"small"} onClick={this.decreaseStat} name={"CHA"} style={{backgroundColor:'transparent'}}>
             {" "}
             <i className="fas fa-minus" />
           </Button>

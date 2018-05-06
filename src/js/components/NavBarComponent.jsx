@@ -13,7 +13,10 @@ class NavBarComponent extends React.Component {
 	constructor(props) {
 		super();
 
-		this.toggle = this.toggle.bind(this);
+		this.onToggleCreate = this.onToggleCreate.bind(this);
+		this.onToggleWorld = this.onToggleWorld.bind(this);
+		this.onToggleArena = this.onToggleArena.bind(this);
+		this.onToggleOptions = this.onToggleOptions.bind(this);
 		this.handleOpenWorld = this.handleOpenWorld.bind(this);
 		this.handleOpenCreate = this.handleOpenCreate.bind(this);
 		this.handleCloseWorld = this.handleCloseWorld.bind(this);
@@ -65,9 +68,24 @@ class NavBarComponent extends React.Component {
 		this.setState({ isOpenArena: false });
 	}
 
-	toggle() {
+	onToggleCreate() {
 		this.setState({
-			dropdownOpen: !this.state.dropdownOpen
+			isOpenCreate: !this.state.isOpenCreate
+		});
+	}
+	onToggleArena() {
+		this.setState({
+			isOpenArena: !this.state.isOpenArena
+		});
+	}
+	onToggleWorld() {
+		this.setState({
+			isOpenWorld: !this.state.isOpenWorld
+		});
+	}
+	onToggleOptions() {
+		this.setState({
+			isOpenOptions: !this.state.isOpenOptions
 		});
 	}
 
@@ -100,7 +118,7 @@ class NavBarComponent extends React.Component {
 		return (
 			<div>
 				<Navbar
-					toggleable={false}
+					toggleable={'false'}
 					fluid
 					className={cssStyles.navbarStyle}
 					fixedTop={true}
@@ -117,6 +135,7 @@ class NavBarComponent extends React.Component {
 							onMouseEnter={this.handleOpenCreate}
 							onMouseLeave={this.handleCloseCreate}
 							open={this.state.isOpenCreate}
+							onToggle={this.onToggleCreate}
 							title="Create New Character"
 							id="basic-nav-dropdown"
 							className={cssStyles.navDropDown}
@@ -137,6 +156,7 @@ class NavBarComponent extends React.Component {
 							onMouseEnter={this.handleOpenArena}
 							onMouseLeave={this.handleCloseArena}
 							open={this.state.isOpenArena}
+							onToggle={this.onToggleArena}
 							title="Arena"
 							id="basic-nav-dropdown"
 							className={cssStyles.navDropDown}
@@ -157,6 +177,7 @@ class NavBarComponent extends React.Component {
 							onMouseEnter={this.handleOpenWorld}
 							onMouseLeave={this.handleCloseWorld}
 							open={this.state.isOpenWorld}
+							onToggle={this.onToggleWorld}
 							title="World Info"
 							id="basic-nav-dropdown"
 							className={cssStyles.navDropDown}
@@ -183,6 +204,7 @@ class NavBarComponent extends React.Component {
 							onMouseEnter={this.handleOpenOptions}
 							onMouseLeave={this.handleCloseOptions}
 							open={this.state.isOpenOptions}
+							onToggle={this.onToggleOptions}
 							title={<i className="fas fa-bars" />}
 							id="basic-nav-dropdown"
 							noCaret

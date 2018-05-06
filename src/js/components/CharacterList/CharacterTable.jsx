@@ -50,7 +50,7 @@ const CharacterTable = props => {
 };
 
 CharacterTable.propTypes = {
-  characters: PropTypes.object.isRequired
+  characters: PropTypes.array
 };
 
 export default withRouter(CharacterTable);

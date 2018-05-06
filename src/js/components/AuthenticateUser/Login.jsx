@@ -155,7 +155,8 @@ class Login extends React.Component {
       width: "100%"
     };
     const buttonToolbarStyle = {
-      alignItems: "center"
+      alignItems: "center",
+      marginLeft:'-10px'
     };
     const panelHeadingStyle = {
       borderRadius: "5px 5px 0 0",
@@ -255,7 +256,7 @@ class Login extends React.Component {
 		              </Col>
 	              </FormGroup>
                 <FormGroup>
-                  <Col sm={3} />
+                  <Col sm={4} />
                   <Col sm={6} style={buttonToolbarStyle}>
                     <ButtonToolbar style={buttonToolbarStyle}>
                       <LinkContainer to={"/home"} style={{ width: "90px" }}>
