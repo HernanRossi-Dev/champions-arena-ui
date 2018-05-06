@@ -55,9 +55,20 @@ const theme = createMuiTheme({
 					backgroundColor: '#df691a',
 					height:'1px',
 				},
+			},	focused: {
+				'&:before': { //underline color when textfield is inactive
+					color: '#df691a',
+					height:'1px',
+				},
+				'&:hover:not($disabled):before': { //underline color when hovered
+          color: '#df691a',					height:'1px',
+				},
+				'&:after': {
+          color: '#df691a',					height:'1px',
+				},
 			}
-		}
-	}})
+		},
+	}});
 
 
 class App extends React.Component {

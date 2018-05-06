@@ -1,7 +1,9 @@
 import React from "react";
 import * as cssStyles from "../../../styles/Styles.css";
 import "whatwg-fetch";
-
+import {TextField} from 'material-ui';
+import { withStyles } from 'material-ui/styles';
+import PropTypes from "prop-types";
 import {
   Button,
   ButtonToolbar,
@@ -21,10 +23,31 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
 import { bindActionCreators } from "redux";
 import store from "../../store";
 var passwordHash = require("password-hash");
+const styles = {
+  root: {
+    fontColor:'white'
+  },
+  input: {
+    color: "white",
+    fontSize: 18,
+    fontColor:'white'
+  },
+  labelStyle:{
+    color: '#df691a',
+    fontSize: 16,
+    fontFamily: "'Crimson Text', sans-serif",
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
 
+
+
+};
 class Login extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
@@ -88,11 +111,6 @@ class Login extends React.Component {
 	  }
 	  asyncDispatch();
 
-
-
-
-
-
   }
 
   handleSignInGuest() {
@@ -115,11 +133,14 @@ class Login extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     const divContainerStyle = {
       display: "flex",
       width: "100%",
       flexDirection: "column",
       alignItems: "center"
+
     };
     const divContainerStyleChild = {
       width: "25%",
@@ -143,7 +164,6 @@ class Login extends React.Component {
       marginBottom: "20px",
       borderBottom: "1px solid #df691a"
     };
-
     return (
       <div className={cssStyles.loginParent}>
         <div style={divContainerStyle}>
@@ -158,47 +178,56 @@ class Login extends React.Component {
                   <br /> Please Log In
                 </Panel.Title>
               </Panel.Heading>
+              <div className={cssStyles.formcontainer}>
+
               <Form horizontal style={panelBody}>
                 <FormGroup>
-                  <Col sm={1} />
-                  <Col
-                    componentClass={ControlLabel}
-                    sm={2}
-                    className={cssStyles.createColLabelStyle}
-                  >
-                    Email
-                  </Col>{" "}
-                  <Col sm={1} />
-                  <Col sm={5}>
-                    <FormControl
-                      name={"email"}
+                  <Col sm={3} />
+                  <Col sm={6}>
+                    <TextField
+                      id="email"
+                      placeholder="User Email"
+                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif",color: '#df691a', fontSize:'16px' }}>User Email</span>}
                       inputRef={ref => {
-                        this.email = ref;
+                        this.email = ref;}}
+                      className={classes.root}
+                      InputProps={{
+                        className: classes.input
+
                       }}
-                      placeholder="Enter email"
+                      InputLabelProps={{
+                        root: classes.labelStyle
+                      }}
                     />
                   </Col>
+                  <Col sm={3}/>
                 </FormGroup>
+
                 <FormGroup>
-                  <Col sm={1} />
-                  <Col
-                    componentClass={ControlLabel}
-                    sm={2}
-                    className={cssStyles.createColLabelStyle}
-                  >
-                    Password
-                  </Col>{" "}
-                  <Col sm={1} />
-                  <Col sm={5}>
-                    <FormControl
-                      name={"password"}
-                      type={"password"}
+                  <Col sm={3} />
+                  <Col sm={6}>
+                    <div  >
+                    <TextField
+                      id="password"
+                      placeholder="User Password"
+                      type={'password'}
                       inputRef={ref => {
-                        this.password = ref;
+                        this.password = ref;}}
+
+                      className={classes.root}
+                      InputProps={{
+                        className: classes.input
+
                       }}
-                      placeholder="Enter Password"
+                      InputLabelProps={{
+                        className: classes.labelStyle
+                      }}
+                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif",color: '#df691a', fontSize:'16px'  }}>User Password</span>}
                     />
+                    </div>
                   </Col>
+                  <Col sm={3}/>
+
                 </FormGroup>
                 <FormGroup>
                   <Modal show={this.state.show} onHide={this.handleClose}>
@@ -226,7 +255,7 @@ class Login extends React.Component {
 		              </Col>
 	              </FormGroup>
                 <FormGroup>
-                  <Col sm={4} />
+                  <Col sm={3} />
                   <Col sm={6} style={buttonToolbarStyle}>
                     <ButtonToolbar style={buttonToolbarStyle}>
                       <LinkContainer to={"/home"} style={{ width: "90px" }}>
@@ -252,6 +281,7 @@ class Login extends React.Component {
                   </Col>
                 </FormGroup>
               </Form>
+              </div>
             </Panel>
           </div>
           <div
@@ -271,4 +301,9 @@ class Login extends React.Component {
     );
   }
 }
-export default withRouter(connect()(Login));
+
+Login.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withRouter(connect()(withStyles(styles)(Login)));

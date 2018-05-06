@@ -1,13 +1,19 @@
 @import url("https://stackpath.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css");
 
-
-
 body {
   display: table;
   width: 100%;
   height: 100%;
 }
 
+.formcontainer input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #4e5d6c inset;
+  -webkit-text-fill-color: #FFFFFF;
+
+}
+.jss p {
+    font-size: 18px;
+}
 
 .aboutSiteText {
   font-family: "Josefin Sans", sans-serif;
@@ -53,7 +59,7 @@ body {
   width: 1050px;
   border-style: solid;
   border-width: 1px thin thin thin;
-  border-color:  #df691a ;
+  border-color: #df691a;
 }
 .editCharacterPanelParent {
   padding-bottom: 10px;
@@ -61,18 +67,17 @@ body {
   width: 1700px;
   border-style: solid;
   border-width: 1px thin thin thin;
-  border-color:  #df691a ;
+  border-color: #df691a;
 }
 
-.createCharacterPanelHeaderStyle  {
+.createCharacterPanelHeaderStyle {
   margin-bottom: 25px;
   text-align: left;
   /*background-image: url("../assets/vector-grunge-background.jpg");*/
-
 }
-.createCharacterPanelHeaderStyleText  {
+.createCharacterPanelHeaderStyleText {
   font-size: 23px;
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: "Cinzel Decorative", cursive;
   text-align: left;
   word-spacing: 10px;
   /*color: saddlebrown;*/
@@ -81,16 +86,14 @@ body {
   /*text-shadow: 2px 2px 0px #fa621f;*/
   border-bottom-style: groove;
   border-bottom-width: thin;
-  border-color:  #df691a ;
+  border-color: #df691a;
   margin-left: 70px;
   margin-bottom: 20px;
   margin-top: 20px;
   margin-right: 680px;
-
 }
 .createCharacterClassModal {
   margin-top: 35px;
-
 }
 .createCharacterFormPadding {
   padding-top: 20px;
@@ -101,13 +104,11 @@ body {
   text-align: left !important;
   align-content: left !important;
   align-items: left !important;
-
 }
 .classModalImageDiv {
-    margin-left: 25%;
-    background-color: transparent;
+  margin-left: 25%;
+  background-color: transparent;
   margin-bottom: 40px;
-
 }
 
 .dropdown-menu li {
@@ -123,19 +124,19 @@ body {
 }
 
 .headingText {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: "Cinzel Decorative", cursive;
 
-    font-size: 35px;
+  font-size: 35px;
   color: ghostwhite;
-  text-shadow: 2px 2px 0px #FE8F3E;
+  text-shadow: 2px 2px 0px #fe8f3e;
 }
 
 .homeBodyText {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: "Cinzel Decorative", cursive;
 
-    font-size: 30px;
+  font-size: 30px;
   color: white;
-  text-shadow: 2px 2px 0 #FF6C00;
+  text-shadow: 2px 2px 0 #ff6c00;
   padding-top: 50px;
   text-align: center;
 }
@@ -144,23 +145,19 @@ body {
   font-size: 20px;
   font-family: "Crimson Text", serif;
   margin-right: 20px;
-
 }
 .genderImageStyle {
-    background-color: SlateGray;
-    position:relative;
-    width: 100%;
-    height: 100%;
-    opacity: 0.20;
-    -moz-opacity: 20%;
-    -webkit-opacity: 20%;
-    z-index: 2;
+  background-color: SlateGray;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  -moz-opacity: 20%;
+  -webkit-opacity: 20%;
+  z-index: 2;
 }
 
-
-
 .rollForStatsButton {
-
   font-size: 17px;
 }
 
@@ -168,25 +165,21 @@ body {
   margin-right: 20px;
   font-size: 18px;
   font-family: "Crimson Text", serif;
-
 }
-
 
 .genStatsNumberStyle {
   font-size: 20px;
   font-family: "Josefin Sans", sans-serif;
   text-align: center !important;
   align-content: center !important;
-
 }
 
 .customStatsIcons {
-    text-align: center !important;
+  text-align: center !important;
 }
 .characterTableParent {
   text-align: center;
   width: 850px;
-
 }
 
 .characterTableHeader {
@@ -205,7 +198,6 @@ body {
   font-size: 18px;
   line-height: normal;
   font-family: "Merriweather", serif;
-
 }
 .hr {
   display: block;
@@ -239,7 +231,6 @@ body {
   border-top: 1px solid #485563;
   border-bottom: 1px solid #df691a;
   margin-bottom: 25px;
-
 }
 .homeImageDiv {
   padding-top: 20px;
@@ -271,24 +262,26 @@ body {
 .loginDiv {
   align-content: space-around;
   background-color: white;
+    display: flex;
 }
 .loginPanelParent {
   width: 25%;
-
+    display: flex;
 }
 .loginParent {
   background: #2b3e50;
   z-index: 9999;
   width: 100vw !important;
-
+    display: flex;
+    align-content: center;
+    -webkit-align-content: center;
 }
 .loginPanelHeading {
   font-family: "Merriweather", serif;
   font-size: 18px;
   text-align: center;
-
 }
-.loginModalStyle{
+.loginModalStyle {
   font-family: "Merriweather", serif;
   font-size: 18px;
   text-align: center;
@@ -310,27 +303,24 @@ body {
 }
 
 .navBarFont {
-  font-size: 18px ;
-  font-family: "Crimson Text", serif ;
+  font-size: 18px;
+  font-family: "Crimson Text", serif;
   color: white;
-
 }
-.navbarStyle   {
+.navbarStyle {
   border-bottom-style: groove;
   border-bottom-width: thin;
-  border-color:  #df691a ;
+  border-color: #df691a;
 
   background: #2b3e50;
   z-index: 9999;
   width: 100%;
 }
 
-.navDropDown  a {
-
-
+.navDropDown a {
 }
 .navBarMenuItem a {
-  border-color:#df691a;
+  border-color: #df691a;
   border-bottom-style: groove;
   border-bottom-width: thin;
   font-size: 14px !important;
@@ -369,7 +359,6 @@ body {
   flex: 1;
 }
 
-
 .styleFooter {
   background-color: #2b3e50;
   display: flex;
@@ -379,5 +368,3 @@ body {
   padding: 12px;
   width: 100%;
 }
-
-

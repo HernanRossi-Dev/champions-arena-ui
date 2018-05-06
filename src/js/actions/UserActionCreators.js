@@ -201,23 +201,30 @@ function logoutGuestUserStart() {
 export const logoutGuestUser = (userName, callbackRedirect) => {
   return function(dispatch, getState) {
     dispatch(logoutGuestUserStart());
-    fetch(`/api/users/${userName}`, {
-      method: "DELETE"
-    }).then(response => {
-      if (!response.ok) {
-        alert("Failed to delete user");
-        dispatch({
-          type: types.USER_LOGOUT_FAIL,
-          payload: error,
-          error: true
+
+    fetch('api/authenticate').then(response => {
+      response.json().then(data => {
+        let token = JSON.parse(data.body);
+        fetch(`/api/users/${userName}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
+        }).then(response => {
+          if (!response.ok) {
+            alert("Failed to delete user");
+            dispatch({
+              type: types.USER_LOGOUT_FAIL,
+              payload: error,
+              error: true
+            });
+          } else {
+            dispatch({
+              type: types.USER_LOGOUT_SUCCESS,
+              loggedOut: true
+            });
+            callbackRedirect();
+          }
         });
-      } else {
-        dispatch({
-          type: types.USER_LOGOUT_SUCCESS,
-          loggedOut: true
-        });
-        callbackRedirect();
-      }
-    });
+      })
+    })
   };
 };

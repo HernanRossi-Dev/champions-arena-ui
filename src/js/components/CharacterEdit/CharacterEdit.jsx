@@ -7,6 +7,8 @@ import * as CharacterActionCreators from "../../actions/CharacterActionCreators.
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as cssStyles from '../../../styles/Styles.css'
+import {TextField} from 'material-ui';
+import { withStyles } from 'material-ui/styles';
 import {
 	Button,
 	ButtonToolbar,
@@ -18,6 +20,25 @@ import {
 } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
+
+const styles = {
+  root: {
+    fontColor:'white'
+  },
+  input: {
+    color: "white",
+    fontSize: 20,
+    fontColor:'white',
+    fontFamily: "'Josefin Sans', sans-serif"
+  },
+  helperText: {
+    color: "white",
+    fontSize: 17,
+    fontColor:'white',
+    fontFamily: "'Crimson Text', sans-serif"
+  },
+
+};
 class CharacterEdit extends React.Component {
 
 	constructor (props) {
@@ -81,7 +102,9 @@ class CharacterEdit extends React.Component {
 	};
 
 	render() {
-		return (
+    const { classes } = this.props;
+
+    return (
 			<Panel className={cssStyles.editCharacterPanelParent}>
 				<Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
 					<Panel.Title
@@ -93,59 +116,129 @@ class CharacterEdit extends React.Component {
 				<Form horizontal>
 
 					<hr className={cssStyles.hr} />
-					<FormGroup>
-						<Col sm={5}>
 							<FormGroup >
-								<Col sm={1} />
-								<Col
-									componentClass={ControlLabel}
-									sm={2}
-									className={cssStyles.createColLabelStyle}
-								>
-									<div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Name:</div>
+								<Col sm={1}/>
+								<Col sm={2}>
+                  <TextField
+                    onChange={this.changeName}
+                    id="characterName"
+                    helperText="Character Name"
+                    value={this.state.editCharacter.name}
+                    inputRef={ref => {
+                      this.characterName = ref;}}
+                    className={classes.root}
+                    InputProps={{
+                      className: classes.input
 
+                    }}
+										FormHelperTextProps={{
+                      className: classes.helperText
+
+                    }}
+                  />
 								</Col>
-								<Col sm={5}>
-									<FormControl
-										name={"name"}
-										onChange={this.changeName}
-										inputRef={ref => {
-											this.characterName = ref;
-										}}
-										value={this.state.editCharacter.name}
-									/>
+                <Col sm={2}>
+                  <TextField
+                    id="alignment"
+                    helperText="Alignment"
+                    onChange={this.alignment}
+                    inputRef={ref => {
+                      this.alignment = ref;
+                    }}
+                    value={this.state.editCharacter.alignment}
+                    className={classes.root}
+                    InputProps={{
+                      className: classes.input
+
+                    }}
+                    FormHelperTextProps={{
+                      className: classes.helperText
+
+                    }}
+                  />
+                </Col>
+                <Col sm={2}>
+                  <TextField
+                    id="player"
+                    helperText="Player"
+                    inputRef={ref => {
+                      this.player = ref;
+                    }}
+                    value={this.state.editCharacter.user}
+                    className={classes.root}
+                    InputProps={{
+                      className: classes.input
+
+                    }}
+                    FormHelperTextProps={{
+                      className: classes.helperText
+
+                    }}
+                  />
+                </Col>
+								<Col sm={1}>
+                  <TextField
+                    id="level"
+                    helperText="Level"
+                    inputRef={ref => {
+                      this.level = ref;
+                    }}
+                    value={this.state.editCharacter.level}
+                    className={classes.root}
+                    InputProps={{
+                      className: classes.input
+
+                    }}
+                    FormHelperTextProps={{
+                      className: classes.helperText
+
+                    }}
+										style={{width:'75%'}}
+                  />
 								</Col>
+									<Col sm={1}>
+                  <TextField
+                    id="deity"
+                    helperText="Deity"
+                    inputRef={ref => {
+                      this.level = ref;
+                    }}
+                    value={this.state.editCharacter.deity}
+                    className={classes.root}
+                    InputProps={{
+                      className: classes.input
+
+                    }}
+                    FormHelperTextProps={{
+                      className: classes.helperText
+
+                    }}
+                    style={{ width:'150px'}}
+
+                  />
+                </Col>	<Col sm={2}>
+                  <TextField
+                    id="homeland"
+                    helperText="Homeland"
+                    inputRef={ref => {
+                      this.level = ref;
+                    }}
+                    value={this.state.editCharacter.homeland}
+                    className={classes.root}
+                    InputProps={{
+                      className: classes.input
+
+                    }}
+                    FormHelperTextProps={{
+                      className: classes.helperText
+
+                    }}
+                    style={{ marginLeft: '50px', width:'90%'}}
+
+                  />
+                </Col>
+                <Col sm={1}/>
 							</FormGroup>
-							<FormGroup >
-								<Col sm={1} />
-								<Col
-									componentClass={ControlLabel}
-									sm={2}
-									className={cssStyles.createColLabelStyle}
-								>
-									<div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Alignment:</div>
-
-								</Col>
-								<Col sm={5}>
-									<FormControl
-										name={"alignment"}
-										onChange={this.alignment}
-										inputRef={ref => {
-											this.alignment = ref;
-										}}
-										value={this.state.editCharacter.alignment}
-									/>
-								</Col>
-							</FormGroup>
-
-
-						</Col>
-						<Col sm={1} />
-
-						<Col sm={5}>
-
-						</Col>
-					</FormGroup>
 
 
 
@@ -215,4 +308,4 @@ const mapStateToProps = state => ({
 	editCharacter: state.editCharacter
 });
 
-export default withRouter(connect(mapStateToProps) (CharacterEdit));
+export default withRouter(connect(mapStateToProps) (withStyles(styles)(CharacterEdit)));

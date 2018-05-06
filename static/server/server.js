@@ -261,7 +261,7 @@ app.post("/api/users", (req, res) => {
 
 	if(newUser.isGuest) {
 		let guestUserName ='guest';
-		guestUserName += Math.random().toString().slice(2,12);
+		guestUserName += Math.random().toString().slice(2,7);
 	  newUser.name = guestUserName;
   }
 	let i = 0;
