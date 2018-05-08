@@ -158,6 +158,7 @@ class CreateCharacterComponent extends React.Component {
       this.props.history.push("/characters");
     }
     this.createNewCharacter({
+
       name: this.state.name,
       class: this.state.class,
       race: this.state.characterRace,

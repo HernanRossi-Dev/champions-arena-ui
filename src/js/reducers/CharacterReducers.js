@@ -1,5 +1,4 @@
 import * as types from "../constants/ActionTypes";
-import store from "../store";
 
 const initialState = {
 	editCharacter: {},
@@ -47,12 +46,15 @@ const characterReducer = (state = initialState, action) => {
 				editCharacter: action.editCharacter
 
 			});
+			case types.FETCHING_CHARACTER_FAIL:
+				return {
+					...state
+				};
 
 		case types.UPDATING_CHARACTER:
 			return Object.assign({}, state, {
 				isFetching: true,
 				didInvalidate: false,
-				editCharacter: action.updatedCharacter
 			});
 		case types.UPDATING_CHARACTER_SUCCESS:
 			return Object.assign({}, state, {
@@ -60,6 +62,10 @@ const characterReducer = (state = initialState, action) => {
 				didInvalidate: false,
 				editCharacter:  action.updatedCharacter
 			});
+			case types.UPDATING_CHARACTER_FAIL:
+				return {
+					...state
+				};
 		case types.FETCHING_CHARACTERS_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
@@ -72,6 +78,10 @@ const characterReducer = (state = initialState, action) => {
 				isFetching: true,
 				didInvalidate: false
 			});
+			case types.FETCHING_CHARACTERS_FAIL:
+				return {
+					...state
+				};
 		case types.CREATING_CHARACTER_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
@@ -84,6 +94,10 @@ const characterReducer = (state = initialState, action) => {
 				isFetching: true,
 				didInvalidate: false
 			});
+			case types.CREATING_CHARACTER_FAIL:
+				return {
+					...state
+				};
 		case types.DELETING_CHARACTERS_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
@@ -95,6 +109,10 @@ const characterReducer = (state = initialState, action) => {
 				isFetching: true,
 				didInvalidate: false
 			});
+			case types.DELETING_CHARACTERS_FAIL:
+				return {
+					...state
+				};
 		case types.CLEAR_CHARACTER_EDIT:
 			return Object.assign({}, state, {
 				isFetching: false,

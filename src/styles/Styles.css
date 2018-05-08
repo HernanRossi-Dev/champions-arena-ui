@@ -23,16 +23,24 @@ body {
 }
 
 .alignmentButtonGroup {
+  background-color: transparent !important;
+
   font-size: 20px !important;
   font-family: "Crimson Text", serif;
   text-align: left !important;
 
   width: 30%;
 }
-
+.alignmentButtonGroup:global(.active){
+  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;
+}
 .favouredClassButtonGroup {
+  background-color: transparent !important;
   font-size: 20px;
   font-family: "Crimson Text", serif;
+}
+.favouredClassButtonGroup:global(.active){
+  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;
 }
 .alignmentInfoDiv {
   font-size: 15px !important;
@@ -47,6 +55,7 @@ body {
   width: 100%;
 }
 .createColStyle {
+  background: transparent;
   font-size: 18px;
   font-family: "Crimson Text", serif;
   text-align: center !important;
@@ -60,6 +69,7 @@ body {
   border-style: solid;
   border-width: 1px thin thin thin;
   border-color: #df691a;
+  background: transparent;
 }
 .editCharacterPanelParent {
   padding-bottom: 10px;
@@ -68,12 +78,14 @@ body {
   border-style: solid;
   border-width: 1px thin thin thin;
   border-color: #df691a;
+    background: transparent;
 }
 
 .createCharacterPanelHeaderStyle {
   margin-bottom: 25px;
   text-align: left;
-  /*background-image: url("../assets/vector-grunge-background.jpg");*/
+  background-color:SlateGray !important;
+  background:rgba(255,255,255,0.12) !important;  /*background-image: url("../../public/assets/vector-grunge-background.jpg");*/
 }
 .createCharacterPanelHeaderStyleText {
   font-size: 23px;
@@ -90,7 +102,7 @@ body {
   margin-left: 70px;
   margin-bottom: 20px;
   margin-top: 20px;
-  margin-right: 680px;
+  margin-right: 500px;
 }
 .createCharacterClassModal {
   margin-top: 35px;
@@ -98,6 +110,9 @@ body {
 .createCharacterFormPadding {
   padding-top: 20px;
 }
+
+
+
 .createColLabelStyle {
   font-size: 18px;
   font-family: "Crimson Text", serif;
@@ -142,9 +157,14 @@ body {
 }
 
 .genderButtonGroup {
+  background-color: transparent !important;
+
   font-size: 20px;
   font-family: "Crimson Text", serif;
   margin-right: 20px;
+}
+.genderButtonGroup:global(.active){
+  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;
 }
 .genderImageStyle {
   background-color: SlateGray;
@@ -165,6 +185,7 @@ body {
   margin-right: 20px;
   font-size: 18px;
   font-family: "Crimson Text", serif;
+  background-color: #df691a;
 }
 
 .genStatsNumberStyle {
@@ -325,12 +346,17 @@ body {
   border-bottom-width: thin;
   font-size: 14px !important;
 }
-.titleImage {
+.HeaderImage {
   margin-top: 10px;
+}
+
+.titleImage {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .splash_img {
   /*background-image: url("../assets/GolarionMap.png");*/
-  background-image: url("../assets/BlogBannerOne.jpg");
+  background-image: url("../../public/assets/BlogBannerOne.jpg");
   object-fit: cover;
   background-size: cover;
   background-position: center;
@@ -341,7 +367,7 @@ body {
 }
 .splash_imgLogin {
   /*background-image: url("../assets/GolarionMap.png");*/
-  background-image: url("../assets/BlogBannerOne.jpg");
+  background-image: url("../../public/assets/BlogBannerOne.jpg");
   object-fit: cover;
   background-size: cover;
   background-position: center;
@@ -353,14 +379,18 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+    background-image: url("../../public/assets/PZO1140-Chapter1.jpg");
+    background-repeat: repeat-y;
+    background-size: 100%;
 }
 
 .SiteContent {
   flex: 1;
+
 }
 
 .styleFooter {
-  background-color: #2b3e50;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   flex-direction: column;

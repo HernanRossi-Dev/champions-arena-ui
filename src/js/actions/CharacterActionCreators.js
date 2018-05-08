@@ -1,26 +1,28 @@
 import * as types from "../constants/ActionTypes";
 import "whatwg-fetch";
-import store from '../store/index';
+import store from "../store/index";
 
 export const clearCharacterEdit = () => {
-	return {
-		type: types.CLEAR_CHARACTER_EDIT,
-	};
+  return {
+    type: types.CLEAR_CHARACTER_EDIT
+  };
 };
 
-function updatingCharacter(updateCharacter) {
+function updatingCharacter() {
   return {
-    type: types.UPDATING_CHARACTER,
-    updateHero: updateCharacter
+    type: types.UPDATING_CHARACTER
   };
 }
 
-export const updateCharacter = updateCharacter => dispatch => {
+export const updateCharacter = (updateCharacter, callBackSetState) => dispatch => {
   const URL = `/api/characters/${updateCharacter._id}`;
-  dispatch(updatingCharacter(updateCharacter));
+  dispatch(updatingCharacter());
   fetch(URL, {
     method: "PUT",
-    headers: { "Content-Type": "application/json", authorization: store.getState().userReducer.authToken },
+    headers: {
+      "Content-Type": "application/json",
+      authorization: store.getState().userReducer.authToken
+    },
     body: JSON.stringify(updateCharacter)
   }).then(response => {
     if (!response.ok) {
@@ -34,10 +36,21 @@ export const updateCharacter = updateCharacter => dispatch => {
       });
     } else {
       response.json().then(data => {
-        dispatch({
-          type: types.UPDATING_CHARACTER_SUCCESS,
-          updatedCharacter: data
-        });
+        function resolveDispatch() {
+          return new Promise(resolve => {
+            resolve(
+              dispatch({
+                type: types.UPDATING_CHARACTER_SUCCESS,
+                updatedCharacter: data
+              })
+            );
+          });
+        }
+        async function asyncDispatch() {
+          await resolveDispatch();
+	        callBackSetState();
+        }
+        asyncDispatch();
       });
     }
   });
@@ -51,41 +64,43 @@ function requestCharacter(URL) {
 }
 
 export const fetchCharacter = (characterID, callbackSetState) => {
-	return function(dispatch, getState)  {
-		dispatch(requestCharacter(URL));
-		fetch(`/api/characters/${characterID}`,{ method: "GET",
-			headers: { authorization: store.getState().userReducer.authToken }}
-		).then(response => {
-			if (!response.ok) {
-				response.json().then(error => {
-					alert(`Failed to fetch character: ${error.message}`);
-					dispatch({
-						type: types.FETCHING_CHARACTER_FAIL,
-						payload: error,
-						error: true
-					});
-				});
-			} else {
-				response.json().then(data => {
-					function resolveDispatch () {
-						return new Promise(resolve => {
-							resolve(dispatch({
-								type: types.FETCHING_CHARACTER_SUCCESS,
-								editCharacter: data
-							}));
-						})
-					}
-					async function asyncDispatch () {
-						const result = await resolveDispatch();
-						callbackSetState();
-					}
-					asyncDispatch();
-
-				});
-			}
-		});
-	};
-}
+  return function(dispatch, getState) {
+    dispatch(requestCharacter(URL));
+    fetch(`/api/characters/${characterID}`, {
+      method: "GET",
+      headers: { authorization: store.getState().userReducer.authToken }
+    }).then(response => {
+      if (!response.ok) {
+        response.json().then(error => {
+          alert(`Failed to fetch character: ${error.message}`);
+          dispatch({
+            type: types.FETCHING_CHARACTER_FAIL,
+            payload: error,
+            error: true
+          });
+        });
+      } else {
+        response.json().then(data => {
+          function resolveDispatch() {
+            return new Promise(resolve => {
+              resolve(
+                dispatch({
+                  type: types.FETCHING_CHARACTER_SUCCESS,
+                  editCharacter: data
+                })
+              );
+            });
+          }
+          async function asyncDispatch() {
+            const result = await resolveDispatch();
+            callbackSetState();
+          }
+          asyncDispatch();
+        });
+      }
+    });
+  };
+};
 
 function deletingCharacter(characterID) {
   return {
@@ -97,8 +112,10 @@ function deletingCharacter(characterID) {
 export const deleteCharacter = characterID => {
   return function(dispatch, getState) {
     dispatch(deletingCharacter(characterID));
-    fetch(`/api/characters/${characterID}`, { method: "DELETE",
-	    headers: { authorization: store.getState().userReducer.authToken },}).then(response => {
+    fetch(`/api/characters/${characterID}`, {
+      method: "DELETE",
+      headers: { authorization: store.getState().userReducer.authToken }
+    }).then(response => {
       if (!response.ok) {
         alert("Failed to delete character");
         dispatch({
@@ -128,29 +145,33 @@ export const createCharacter = (newCharacter, callBackRedirect) => {
     dispatch(creatingCharacter(newCharacter));
     fetch("/api/characters", {
       method: "POST",
-      headers: { "Content-Type": "application/json",authorization: store.getState().userReducer.authToken },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: store.getState().userReducer.authToken
+      },
       body: JSON.stringify(newCharacter)
     }).then(response => {
       if (response.ok) {
         response.json().then(updatedCharacter => {
           updatedCharacter.created = new Date(updatedCharacter.created);
 
-	        function resolveDispatch () {
-		        return new Promise(resolve => {
-			        resolve(dispatch({
-				        type: types.CREATING_CHARACTER_SUCCESS,
-				        character: updatedCharacter
-			        }));
-		        })
-	        }
-	        async function asyncDispatch () {
-		        let result = await resolveDispatch();
-		        callBackRedirect();
-		        return result;
-	        }
-	        asyncDispatch();
+          function resolveDispatch() {
+            return new Promise(resolve => {
+              resolve(
+                dispatch({
+                  type: types.CREATING_CHARACTER_SUCCESS,
+                  character: updatedCharacter
+                })
+              );
+            });
+          }
+          async function asyncDispatch() {
+            let result = await resolveDispatch();
+            callBackRedirect();
+            return result;
+          }
+          asyncDispatch();
         });
-
       } else {
         response.json().then(error => {
           alert(`Failed to create character: ${error.message}`);
@@ -175,10 +196,9 @@ function requestCharacterList(URL) {
 export const fetchCharacters = (filter = "") => dispatch => {
   dispatch(requestCharacterList(filter));
   fetch(`/api/characters${filter}`, {
-		  method: 'GET',
-		  headers: {authorization: store.getState().userReducer.authToken}
-    }
-    ).then(response => {
+    method: "GET",
+    headers: { authorization: store.getState().userReducer.authToken }
+  }).then(response => {
     if (response.ok) {
       response.json().then(data => {
         dispatch({

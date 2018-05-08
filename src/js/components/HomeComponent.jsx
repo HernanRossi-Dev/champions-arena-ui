@@ -10,10 +10,12 @@ class HomeComponent extends React.Component {
       <div className={cssStyles.homeBodyText}>
         Welcome to the Arena<br />
           <div className={cssStyles.homeTextParagraph}>
-              Create Player and Non-Player Pathfinder characters.<br/>Track levels, skills, inventory and campaign info.<br/>
+              This is very much a work in progress, I am constantly updating and implementing new features. Currently there is just a <br/>
+            basic framework of what I want to eventually accomplish, feel free to look around. Thanks for visiting!<br/>
+              Create Player and Non-Player Pathfinder characters.<br/>Track characters, NPC's, inventory and campaign info.<br/>
               To get started create a character by clicking <i>Create New Character</i> at the top.<br/>
-              This application is a work in progress, let me know if the site could be improved at hrossi.work@gmail.com.<br/>
-              Thanks you for visiting.
+	          Let me know if you have any ideas how the site could be improved at hrossi.work@gmail.com.<br/>
+
           </div>
         <div className={cssStyles.homeImageDiv}>
           <img
