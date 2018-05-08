@@ -290,7 +290,7 @@ body {
     display: flex;
 }
 .loginParent {
-  background: #2b3e50;
+  background: transparent;
   z-index: 9999;
   width: 100vw !important;
     display: flex;
@@ -386,7 +386,6 @@ body {
 
 .SiteContent {
   flex: 1;
-
 }
 
 .styleFooter {

@@ -136,6 +136,7 @@ class Login extends React.Component {
     const { classes } = this.props;
 
     const divContainerStyle = {
+      backgroundColor: 'transparent',
       display: "flex",
       width: "100%",
       flexDirection: "column",
@@ -144,9 +145,11 @@ class Login extends React.Component {
     };
     const divContainerStyleChild = {
       width: "25%",
+	    backgroundColor: 'transparent',
       alignItems: "center"
     };
     const panelBody = {
+	    backgroundColor: 'transparent',
       alignItems: "center"
     };
     const panelParentStyle = {
@@ -284,18 +287,6 @@ class Login extends React.Component {
               </Form>
               </div>
             </Panel>
-          </div>
-          <div
-            className={cssStyles.styleFooter}
-            style={{ bottom: "0%", position: "fixed" }}
-          >
-            <div> Hernan Rossi &#169; 2018</div>
-            <LinkContainer to="/legal">
-              <NavItem>
-                Pathfinder content used under Open Gaming License, and Community
-                Use Policy
-              </NavItem>
-            </LinkContainer>
           </div>
         </div>
       </div>

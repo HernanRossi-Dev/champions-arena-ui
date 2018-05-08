@@ -80,11 +80,6 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount(){
-  	//Create a new session token for the api
-
-  }
-
   render() {
 	  const PrivateRoute = ({ component: Component, ...rest }) => (
 		  <Route
