@@ -36,3 +36,7 @@ Mongo:
    Issues with modules can be resolved by deleting them and reinstalling:
    $ rm -rf node_modules
    $ npm install
+
+
+Deploy to AWS:
+git archive -v -o myapp.zip --format=zip HEAD

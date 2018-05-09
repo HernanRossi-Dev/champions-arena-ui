@@ -1,17 +1,16 @@
-// const webpack = require("webpack");
+
 const path = require("path");
-// const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 function resolve(dir) {
   return path.join(__dirname, "..", dir);
 }
 
 module.exports = {
-	mode: 'development',
+	mode: 'production',
   entry: {
     app: [resolve("ChampionsArena/src/js/components/App.jsx")]
   },
   output: {
-    path: resolve("ChampionsArena/static/"),
+    path: resolve("ChampionsArena/dist/"),
     filename: "[name].bundle.js"
   },
   resolve: {
