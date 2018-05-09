@@ -22,10 +22,10 @@ import { connect, Provider } from 'react-redux'
 import { PersistGate } from "redux-persist/lib/integration/react";
 import store from "../store/index";
 import { persistor } from "../store/index";
-import { NavItem } from "react-bootstrap";
+import  NavItem  from "react-bootstrap/lib/NavItem";
 import * as cssStyles from "../../styles/Styles.css";
 import "../../styles/Styles.css";
-import { LinkContainer } from "react-router-bootstrap";
+import  LinkContainer  from "react-router-bootstrap/lib/LinkContainer";
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 

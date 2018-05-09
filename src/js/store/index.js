@@ -1,4 +1,4 @@
-import { applyMiddleware, compose, createStore } from 'redux'
+import { applyMiddleware,  createStore } from 'redux'
 import rootReducer from "../reducers/index";
 import thunkMiddleWare from "redux-thunk";
 import {createLogger} from "redux-logger";
@@ -15,11 +15,20 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const loggerMiddleWare = createLogger();
+let store;
+console.log(process.env.NODE_ENV );
+if(process.env.NODE_ENV !== 'production'){
+	store = createStore(
+		persistedReducer,
+		applyMiddleware(thunkMiddleWare, loggerMiddleWare)
+	);
+} else {
+	store = createStore(
+		persistedReducer,
+		applyMiddleware(thunkMiddleWare)
+	);
+}
 
-const store = createStore(
-	persistedReducer,
-  applyMiddleware(thunkMiddleWare, loggerMiddleWare)
-);
 
 // const store = compose(applyMiddleware(thunkMiddleWare, loggerMiddleWare))(createStore)(persistedReducer)
 

@@ -1,108 +1,231 @@
-export const defaultCharacters = [
-	{
-		user: 'guest',
-		name: 'Pelin',
-		class: 'Rogue',
-		race: 'Halfling',
-		level: 1,
-		XP: 0,
-		STR: 11,
-		DEX: 17,
-		CON: 9,
-		INT: 14,
-		WIS: 15,
-		CHA: 12,
-		attributePointsToSpend: 0,
-		items: {},
-		abilities: {},
-		traits: {},
-		type: 'Example',
-		gender: 'Male',
-		alignment: 'Neutral Good',
-		age: 34,
-	},{
-		user: 'guest',
-		name: 'Thadri',
-		class: 'Wizard',
-		race: 'Half-Elf',
-		level: 1,
-		XP: 0,
-		STR: 12,
-		DEX: 13,
-		CON: 5,
-		INT: 18,
-		WIS: 15,
-		CHA: 16,
-		attributePointsToSpend: 0,
-		items: {},
-		abilities: {},
-		traits: {},
-		type: 'Example',
-		gender: 'Male',
-		alignment: 'Lawful Neutral',
-		age: 54,
-	},{
-		user: 'guest',
-		name: 'Trish',
-		class: 'Sorcerer',
-		race: 'Human',
-		level: 1,
-		XP: 0,
-		STR: 9,
-		DEX: 14,
-		CON: 15,
-		INT: 16,
-		WIS: 16,
-		CHA: 10,
-		attributePointsToSpend: 0,
-		items: {},
-		abilities: {},
-		traits: {},
-		type: 'Example',
-		gender: 'Female',
-		alignment: 'Neutral Evil',
-		age: 28,
-	},{
-		user: 'guest',
-		name: 'Brick',
-		class: 'Barbarian',
-		race: 'Half-Orc',
-		level: 1,
-		XP: 0,
-		STR: 18,
-		DEX: 17,
-		CON: 15,
-		INT: 13,
-		WIS: 10,
-		CHA: 16,
-		attributePointsToSpend: 0,
-		items: {},
-		abilities: {},
-		traits: {},
-		type: 'Example',
-		gender: 'Male',
-		alignment: 'Chaotic Good',
-		age: 31,
-	},{
-		user: 'guest',
-		name: 'Fetlin',
-		class: 'Monk',
-		race: 'Dwarf',
-		level: 1,
-		XP: 0,
-		STR: 15,
-		DEX: 18,
-		CON: 16,
-		INT: 13,
-		WIS: 16,
-		CHA: 10,
-		attributePointsToSpend: 0,
-		items: {},
-		abilities: {},
-		traits: {},
-		type: 'Example',
-		gender: 'Male',
-		alignment: 'Lawful Good',
-		age: 65,
-	},
+const defaultCharacters = [
+  {
+	  player: 'NPC',
+
+    name: "Amiri",
+    class: "Barbarian",
+    race: "Human",
+	  type: "Iconic",
+	  gender: "Female",
+	  alignment: "Chaotic Neutral",
+	  age: 'unknown',
+	  hair: 'Brown',
+	  eyes: 'Brown',
+	  height: 'Unknown',
+	  weight: 'Unknown',
+    level: 7,
+    XP: 19200,
+    attributes: { Init: 2, Senses: { Perception: 16 } },
+    STR: 30,
+    DEX: 14,
+    CON: 24,
+    INT: 10,
+    WIS: 12,
+    CHA: 10,
+    baseAttack: 12,
+    CMB: { base: 22, additional: { "bull rush": 24 } },
+    CMD: { base: 35, vs: { "bull rush": 37 } },
+    feats: [
+      "Cleave",
+      "Exotic Weapons Proficiency (bastard sword)",
+      "Power Attack",
+      "Great Cleave",
+      "Improved Bull Rush",
+      "Toughness",
+      "Weapon Proficiency (bastard sword)"
+    ],
+    skills: {
+      Climb: 23,
+      HandleAnimal: 9,
+      Intimidate: 15,
+      Perception: 16,
+      Survival: 13,
+      Swim: 20
+    },
+
+    size: "Medium",
+    defense: {
+      AC: 24,
+      touch: 13,
+      "flat-footed": {
+        base: 22,
+        armor: 9,
+        deflection: 3,
+        Dex: 2,
+        natural: 2,
+        rage: -2
+      }
+    },
+    hp: { base: 191, aug: "12d12+108" },
+    Fort: 29,
+    Ref: 10,
+    Will: 12,
+    offense: {
+      Speed: 40,
+      Melee: { modifiers:{ baseAttack: 3, }, name:"Large bastard sword"},
+      Ranged: { modifiers:{ baseAttack: 1, }, name:"Longbow"},
+      SpecialAttacks: {
+        "Greater rage": "30 rounds/day",
+        "Rage powers": "guarded stance [+3 dodge vs melee",
+        "Increased damage reduction": "+1",
+        "Powerful Blow": "+4",
+        "Renewed vigor": "3d8+7 hp",
+        "Strength surge": "+12",
+        "Surprise accuracy": "+4"
+      }
+    },
+
+    languages: ["Common"],
+    gear: {
+      weapons: {
+        "Javelin of Lightning": { amount: 1, modifiers: {} },
+        "Large Bastard Sword": { amount: 1, modifiers: { attackBonus: 3 } },
+        LongBow: { amount: 1, modifiers: { arrows: 20 } }
+      },
+      potions: {
+        "Potions of Cure Serious Wounds": { amount: 5 },
+        "Potion of Delay Poison": { amount: 1 },
+        "Potion of Fly": { amount: 1 },
+        "Potion of Hase": { amount: 1 },
+        "Potion of Lesser Restoration": { amount: 1 }
+      },
+      armor: {
+        "Hide Armor": { amount: 1, modifiers: { AC: 5 } },
+        "Belt of Physical Might": { amount: 1, modifiers: { STR: 4, DEX: 4 } },
+        "Cloak of Resistence": { amount: 1, modifiers: { AC: 4 } }
+      },
+	    other: {
+      	backpack: {amount: 1},
+      	bedroll: {amount: 1},
+      	caltrops: {amount: 1},
+      	shovel: {amount: 1},
+      	torches: {amount: 5},
+      	waterskin: {amount: 1},
+      	gp:  420,
+      	'trail rations': {amount: 4},
+      	'flint and steel': {amount: 1},
+      	'hemp rope (50 ft)': {amount: 1},
+	    }
+    },
+	  homeland: 'Realm of the Mammoth Lords',
+	  deity: 'Gorum',
+    bio:
+      "Amiri never fit into the expected gender roles of her tribe, refusing to be the docile, domestic sort of woman " +
+      "that the Six Bear tribe valued. Instead, she insisted on competing with the male warriors of her tribe, and constantly " +
+      "one-upped them. If another hunter brought back a caribou to feed the tribe, she brought back two. If the best warrior" +
+      " among them killed four orcs in a raid, she killed six. Though many were secretly impressed by her prowess, other tribes " +
+      "mocked them, and the village elders knew that tradition could not be mocked without grave consequences. Amiri had to die." +
+      " When the tribe attempted to send her on a suicide mission, however, Amiri refused to fall. Instead, she returned with an " +
+      "enormous trophy: a frost giant's sword. Her former comrades' laughter—how could she possibly expect to wield such a huge " +
+      "blade—and the admission that she'd been sent out to die was too much for Amiri. Rage overtook her, and in that blind bloodlust " +
+      "she found a strength she'd never known she possessed. When the red mists cleared, she was surrounded by dead members of" +
+      " her hunting party. While she was unrepentant for the deaths of the men who preferred to betray her rather than admit her" +
+      " skill, Amiri still knew that kin-killing was a crime she could never live down. She abandoned her people to the cold " +
+      "steppes and tundra and headed south toward more civilized lands, enjoying the heady rush of finally no longer being " +
+      "bound by tradition. Since then, she has taken to traveling only with those adventurers and mercenary companies who " +
+      "show her proper respect. She values her over-sized sword (even though she can only truly wield it properly when her " +
+      "blood rage takes her), but never speaks of the circumstances that forced her to flee her homeland. Some things are " +
+      "better left unsaid.\n" +
+      "\n"
+  },
+  {
+  	player: 'NPC',
+    name: "Ezren",
+    class: "Wizard",
+    race: "Human",
+	  homeland: 'Absalom',
+	  deity: 'Atheist',
+	  type: "Iconic",
+	  hair: 'White',
+	  eyes: 'Blue',
+	  height: 'Unknown',
+	  weight: 'Unknown',
+	  gender: "Male",
+	  alignment: "Neutral Good",
+	  age: 52,
+    level: 1,
+    XP: 400,
+	  attributes: { Init: 2, Senses: { Perception: 1 } },
+	  STR: 10,
+	  DEX: 14,
+	  CON: 13,
+	  INT: 18,
+	  WIS: 12,
+	  CHA: 10,
+	  baseAttack: 0,
+	  CMB: { base: 0, additional: {  } },
+	  CMD: { base: 12, vs: {  } },
+	  feats: [
+		  "Combat Casting",
+		  "Great Fortitude",
+		  "Scribe Scroll",
+	  ],
+	  skills: {
+		  Appraise: 8,
+		  Knowledge: 8,
+		  Linguistics : 8,
+		  Spellcraft: 8,
+	  },
+
+	  size: "Medium",
+	  defense: {
+		  AC: 16,
+		  touch: 12,
+		  "flat-footed": {
+			  base: 14,
+			  armor: 4,
+			  Dex: 2,
+		  }
+	  },
+	  hp: { base: 8, aug: "1d6+2" },
+	  Fort: 3,
+	  Ref: 2,
+	  Will: 3,
+	  offense: {
+		  Speed: 30,
+		  Melee: {modifiers: {baseAttack: 1, roll: {amount: 1, dice: 6}}, name: "Mwk cane"},
+		  Ranged: {modifiers: {baseAttack: 2, roll: {amount: 1, dice: 8}}, name: "Light Crossbow"},
+		  SpecialAttacks: {
+			  "Hands of the Apprentice": "7/day",
+		  },
+		  Wizard: {
+			  levels: {
+				  0: ['acid splash', 'detect magic', 'light'],
+				  1: ['burning hands', 'magic missile']
+			  }
+		  },
+	  },
+	  languages: ["Common", 'Draconic', 'Goblin', 'Infernal','Osiriani', 'Terran'],
+		  specialQualities: {'arcane bond': 'cane'},
+	  gear: {
+		  weapons: {
+			  "Dagger": { amount: 1, modifiers: {} },
+			  "Light crossbow": { amount: 1, modifiers: { bolts: 10 } },
+			  'Masterwork Cane': { amount: 1, modifiers: { } }
+		  },
+
+		  armor: {
+		  },
+		  other: {
+			  backpack: {amount: 1},
+			  'scroll case': {amount: 1},
+			  'spell component pouch': {amount: 1},
+			  gp:  9,
+			  spellbook: { levels : {
+					  0: ['color spray', 'expeditious retreat', 'grease', 'mage armor', 'protection from evil', 'shield', 'sleep'],
+				  }
+			  },
+		  }
+	  },
+	  bio:
+	  "Born to a successful merchant in Absalom, Ezren spent his childhood in comfort and safety, only to have all" +
+	  " that change when his father was charged with heresy against the god Abadar. Ezren spent much of his adult " +
+	  "life attempting to prove his father's innocence, only to finally confirm his father's guilt. The revelation " +
+	  "shook Ezren to the core, undermining his faith in family and church, and he abandoned both, setting out to " +
+	  "find a new life. Despite his age, Ezren embraced arcane studies, a pursuit that swiftly revealed a true aptitude " +
+	  "for the wizardly arts. With freedom and potency he's never enjoyed before, Ezren seeks to explore the world he so long neglected."
+  },
+
 ];
+
+exports.defaultCharacters = defaultCharacters;

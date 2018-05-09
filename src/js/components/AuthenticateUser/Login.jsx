@@ -91,8 +91,6 @@ class Login extends React.Component {
 		  return new Promise(resolve => {
 			  let action = UserActionCreators.fetchRegisteredUser(queryUser, () => {
 				  let databaseQueryUserResult = store.getState().userReducer.currentUser;
-				  console.log(databaseQueryUserResult);console.log('databaseQueryUserResult');
-				  console.log(email);console.log('email');
 
 				  if (databaseQueryUserResult && databaseQueryUserResult.email !== email ) {
 					  alert(`Password/Email combination does not match any registered user.`);

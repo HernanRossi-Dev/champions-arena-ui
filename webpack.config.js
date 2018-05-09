@@ -1,6 +1,6 @@
-const webpack = require("webpack");
+// const webpack = require("webpack");
 const path = require("path");
-const WebpackMildCompile = require('webpack-mild-compile').Plugin;
+// const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 function resolve(dir) {
   return path.join(__dirname, "..", dir);
 }
@@ -28,6 +28,7 @@ module.exports = {
       }
     }
   },
+
   module: {
     rules: [
       {
@@ -83,7 +84,7 @@ module.exports = {
     contentBase: "static",
     proxy: {
       "/api/*": {
-        target: "http://localhost:3000"
+        target: "http://localhost:8080"
       }
     },
     historyApiFallback: true

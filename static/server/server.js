@@ -1,25 +1,39 @@
 /* eslint-disable no-trailing-spaces */
-import express from "express";
-import bodyParser from "body-parser";
-import SourceMapSupport from "source-map-support";
-import path from "path";
-import "babel-polyfill";
-import { defaultCharacters } from "./defaultCharacters";
+// import express from "express";
+// import bodyParser from "body-parser";
+// import SourceMapSupport from "source-map-support";
+// import path from "path";
+// import "babel-polyfill";
+// import { defaultCharacters } from "./defaultCharacters";
 
-var mongoose = require("mongoose");
-var mongoDB =
+let express = require( "express");
+let bodyParser = require("body-parser");
+let SourceMapSupport = require("source-map-support");
+let path = require("path");
+require("babel-polyfill");
+let defaultCharacters = require("./defaultCharacters");
+defaultCharacters = defaultCharacters.defaultCharacters;
+const mongoose = require("mongoose");
+const mongoDB =
   "mongodb+srv://HernanRossi:!Horseshit1!@pathfinderarena-gmjjh.mongodb.net/test";
-var ObjectID = require("mongodb").ObjectID;
-var jwt = require('express-jwt');
-var jwks = require('jwks-rsa');
+const ObjectID = require("mongodb").ObjectID;
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 
 
 SourceMapSupport.install();
 const app = express();
+
+// let compression= require('compression');
+// app.use(compression())
+
+let helmet = require('helmet');
+app.use(helmet());
+
 app.use(express.static("static"));
 app.use(bodyParser.json());
 
-var jwtCheck = jwt({
+let jwtCheck = jwt({
 	secret: jwks.expressJwtSecret({
 		cache: true,
 		rateLimit: true,
@@ -40,8 +54,8 @@ mongoose.Promise = require("bluebird");
 mongoose
   .connect(mongoDB)
   .then(() => {
-    app.listen(3000, () => {
-      console.log("App started on port 3000.");
+    app.listen(process.env.PORT || 8080, () => {
+      console.log("App started on port 8080.");
     });
   })
   .catch(error => {
@@ -56,10 +70,10 @@ let devUser = {
   email: "hernan_rossi@msn.com"
 };
 
-var request = require("request");
+const request = require("request");
 
 app.get('/api/authenticate', (req, res) =>{
-	var options = { method: 'POST',
+	let options = { method: 'POST',
 		url: 'https://thearena.auth0.com/oauth/token',
 		headers: { 'content-type': 'application/json' },
 		body: '{"client_id":"KuhIFt8Blg4CChqebw13Snf6XSwXz5Cf","client_secret":"QBIZeiYeH_tIMp2GXcGTuVdmMRXfQd_YLmkd947zsFMsEQxlQGw4SGsVQZyBXDIy","audience":"https://thecampaignArena.com","grant_type":"client_credentials"}' };
