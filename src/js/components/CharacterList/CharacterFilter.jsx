@@ -117,9 +117,9 @@ class CharacterFilter extends React.Component {
 
   render() {
     return (
-      <Panel defaultExpanded>
+      <Panel className={cssStyles.panelHeaderParent} defaultExpanded>
         <Panel.Heading className={cssStyles.panelHeader}>
-          <Panel.Title className={cssStyles.panelHeaderText}>
+          <Panel.Title className={cssStyles.panelHeaderText} toggle>
             Filter Characters
           </Panel.Title>
         </Panel.Heading>

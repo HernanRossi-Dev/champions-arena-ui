@@ -152,7 +152,7 @@ body {
   font-size: 30px;
   color: white;
   text-shadow: 2px 2px 0 #ff6c00;
-  padding-top: 50px;
+  padding-top: 5px;
   text-align: center;
 }
 
@@ -255,14 +255,14 @@ body {
 }
 .homeImageDiv {
   padding-top: 20px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 
 .homeTextParagraph {
   font-family: "Josefin Sans", sans-serif;
   font-size: 18px;
   color: white;
-  padding-top: 30px;
+  padding-top: 20px;
   text-shadow: none;
   text-align: left;
 }
@@ -315,10 +315,16 @@ body {
   align-content: space-around;
 }
 
+.panelHeaderParent {
+  border: thin groove #df691a;
+  background: transparent;
+
+}
 .panelHeader {
-  /*background-color: #df691a !important;*/
+  background: transparent;
 }
 .panelHeaderText {
+  background: transparent;
   font-size: 22px !important;
   font-family: "Crimson Text", serif !important;
 }
