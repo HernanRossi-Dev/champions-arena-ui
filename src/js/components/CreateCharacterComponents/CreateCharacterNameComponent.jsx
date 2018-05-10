@@ -22,7 +22,7 @@ class CreateCharacterNameComponent extends React.Component {
 
 	render () {
 		const { classes } = this.props;
-		const changeName = () => {console.log(this.characterName.value.trim());
+		const changeName = () => {
 			 this.props.updateName(this.characterName.value.trim());
 		};
 		return (

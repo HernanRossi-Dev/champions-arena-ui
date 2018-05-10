@@ -91,7 +91,6 @@ class Signup extends React.Component {
       return;
     }
     if(newUserPassword === newUserPasswordConfirm){
-      console.log('Passwords match');
     } else {
 	    alert("Oops. Your passwords do not match");
 	    return;

@@ -108,7 +108,6 @@ class NavBarComponent extends React.Component {
 			}
 			async function asyncLogout() {
 				let result = await resolveLogout();
-				console.log(result);
 			}
 			asyncLogout();
 		}

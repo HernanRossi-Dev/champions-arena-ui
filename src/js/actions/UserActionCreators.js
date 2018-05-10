@@ -124,7 +124,6 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
 						  async function asyncDispatch () {
 							  let result = await resolveDispatch();
 							  queryCallBack();
-							  console.log(result);
 						  }
 						  asyncDispatch();
 					  });

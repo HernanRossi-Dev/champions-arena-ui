@@ -250,7 +250,6 @@ class CreateCharacterComponent extends React.Component {
     };
     const InvalidFields = () => {
       this.state.invalidFields.map(field => {
-        console.log(field);
       });
       return (
         <ul>

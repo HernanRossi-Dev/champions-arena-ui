@@ -47,7 +47,6 @@ class CharacterFilter extends React.Component {
 		    let currentFilter = queryString[i].split("=");
 		    let key = currentFilter[0];
 		    newInitFilter[key] = currentFilter[1];
-		    console.log(currentFilter);
 	    }
     }
     return newInitFilter;

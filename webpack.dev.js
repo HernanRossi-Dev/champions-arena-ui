@@ -6,11 +6,11 @@ module.exports = merge(common, {
 	devtool: "source-map",
 	devServer: {
 			contentBase: "./static",
-			// proxy: {
-			// 	"/api/*": {
-			// 		target: "http://localhost:8081"
-			// 	}
-			// },
+			proxy: {
+				"/api/*": {
+					target: "http://localhost:8080"
+				}
+			},
 			historyApiFallback: true
 		}
 });

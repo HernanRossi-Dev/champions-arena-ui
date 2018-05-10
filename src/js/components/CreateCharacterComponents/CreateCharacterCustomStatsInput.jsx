@@ -56,7 +56,6 @@ class CreateCharacterCustomStatsInput extends React.Component {
         case "STR":
           newCharStats = Object.assign({}, this.state.characterStats);
           newCharStats.STR = newCharStats.STR + 1;
-          console.log(newCharStats);
           this.setState({ characterStats: newCharStats });
           break;
 	      case "DEX":
@@ -87,7 +86,6 @@ class CreateCharacterCustomStatsInput extends React.Component {
         default:
           break;
       }
-      console.log('setting stats');
 		  this.props.setStateStats(newCharStats);
     } else {
     }
