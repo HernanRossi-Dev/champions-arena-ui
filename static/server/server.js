@@ -84,7 +84,7 @@ let jwtCheck = jwt({
 	issuer: "https://thearena.auth0.com/",
 	algorithms: ['RS256']
 });
-app.use(jwtCheck);
+// app.use(jwtCheck);
 app.use(function (err, req, res, next) {
 	if (err.name === 'UnauthorizedError') {
 		console.log(req);console.log(next);
