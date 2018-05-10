@@ -225,6 +225,126 @@ const defaultCharacters = [
 	  "find a new life. Despite his age, Ezren embraced arcane studies, a pursuit that swiftly revealed a true aptitude " +
 	  "for the wizardly arts. With freedom and potency he's never enjoyed before, Ezren seeks to explore the world he so long neglected."
   },
+	{
+  	player: 'NPC',
+    name: "Lini",
+    class: "Druid",
+    race: "Gnome",
+	  homeland: 'Lands of the Linnorm Kings',
+	  deity: 'Green Faith',
+	  type: "Iconic",
+	  hair: 'Green',
+	  eyes: 'Green',
+	  height: 'Unknown',
+	  weight: 'Unknown',
+	  gender: "Male",
+	  alignment: "Neutral",
+	  age: 'Unknown',
+    level: 17,
+    XP: 19200,
+	  attributes: { Init: 1, Senses: { Perception: 23, other: ['Low-light vision'] } },
+	  STR: 6,
+	  DEX: 12,
+	  CON: 16,
+	  INT: 12,
+	  WIS: 22,
+	  CHA: 16,
+	  baseAttack: 9,
+	  CMB: { base: 6, additional: {  } },
+	  CMD: { base: 19, vs: {  } },
+	  feats: [
+		  "Augmented Summoning",
+		  "Combat Casting",
+		  "Lighting Reflexes",
+		  "Natural Spell",
+		  "Self-Sufficient",
+		  "Spell Focus (conjuration)",
+	  ],
+	  skills: {
+		  Craft: [3, 'jewelery'],
+			'Handle Animal': 18,
+		  Heal : 19,
+		  Knowledge: [[16, 'geography'], [18, 'nature']],
+		  Perception: 23,
+		  Spellcraft: 16,
+		  Survival: 17,
+	  },
+
+	  size: "Small",
+	  defense: {
+		  AC: 24,
+		  touch: 14,
+		  "flat-footed": {
+			  base: 23,
+			  armor: 5,
+			  deflection: 2,
+			  natural: 5,
+			  size: 1,
+			  Dex: 1,
+		  }
+	  },
+	  hp: { base: 93, aug: "12d8+36" },
+	  Fort: 12,
+	  Ref: 8,
+	  Will: {base: 15, vs: {illusion: 2, 'fey-targeted effects': 4, 'plant-targeted effects': 4}},
+		DefensiveAbilities: {'defensive training': {bonus: 4, effect: 'dodge bonus to AC vs giants'}
+					, DR: '10/adamantine', immune: ['poison']},
+	  offense: {
+		  Speed: 20,
+		  Melee: {modifiers: {baseAttack: 3, roll: {amount: 1, dice: 4, bonus: 1}}, name: "Sickle"},
+		  Ranged: {modifiers: {baseAttack: 2, roll: {amount: 1, dice: 3}}, name: "Sling"},
+		  SpecialAttacks: {
+			  "Wild Shape": "6/day",
+			  'Attack Bonus' : "+1 on attack rolls against goblinoid and reptilian humanoids",
+		  },
+		  'Spell-Like Abilities': {
+			  'Dancing Lights': '1/day',
+			  'Ghost Sound': 'DC 14',
+			  'Speak with animals': 'unrestricted',
+			  'Prestidigitation': 'unrestricted',
+		  },
+	  },
+		DruidSpells: {
+  		0: ['detect magic', 'know direction', 'light', 'resistance'],
+			1: ['entangle', 'faerie fire', 'goodberry', 'speak with animals'],
+			2: ['barkskin', 'bull\'s strength', 'flaming sphere', 'lesser restoration', 'spider climb'],
+			3: ['daylight', 'greater magic fang', 'neutralize poison', 'remove disease'],
+			4: ['air walk', 'dispel magic', 'flame strike', 'ice storm'],
+			5: ['animal growth', 'stoneskin', 'wall of thorns'],
+			6: ['mass bull\'s strength', 'move earth', 'wall of stone']
+		}
+		,
+	  languages: ["Common", 'Druidic', 'Gnome', 'Goblin','Sylvan'],
+		  specialQualities: {'nature bond (animal companion': 'Droogami (snow leopard', other: ['nature sense', 'trackless step', 'wild empathy', 'woodland stride']},
+	  gear: {
+		  weapons: {
+			  "Wand of Flame Blade": { amount: 1, modifiers: {charges: 21, damage: 'acid'} },
+			  "Sickle": { amount: 1, modifiers: { bonus: 3 } },
+			  'Sling': { amount: 1, modifiers: { bonus: 2, bullets: 20 } }
+		  },
+
+		  armor: {
+			  'Leather Armor': { amount: 1, modifiers: { bonus: 3} },
+			  'Cloak of Resistance': { amount: 1, modifiers: { bonus: 1} },
+			  'Druid\'s Vestments': { amount: 1, modifiers: { bonus: 1} },
+			  'Ring of Protection': { amount: 1, modifiers: { bonus: 2} },
+			  'Headband of Inspired Wisdom': { amount: 1, modifiers: { bonus: 4} },
+		  },
+		  other: {
+			  'Belt Pouch': {amount: 1},
+			  'Stick Collection': {amount: 1},
+			  'spell component pouch': {amount: 1},
+			  gp:  603,
+
+		  }
+	  },
+	  bio:
+	  "Lini always had a way with wild creatures. More than once, her enclave was threatened by some" +
+	  " great bear or razor-clawed cat, yet each time she soothed the beast and sent it on its way." +
+	  " In the years since her departure from the Lands of the Linnorm Kings, Lini has collected more " +
+	  "than a dozen sticks—one from each forest she has visited. These sticks are a roadmap of her experiences, " +
+	  "and each holds a wealth of memories for the gnome druid."
+  },
 
 ];
 

@@ -301,7 +301,7 @@ class CreateCharacterComponent extends React.Component {
             <Col sm={7} style={{marginLeft:'45px'}}>
               <ButtonToolbar>
                 <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Roll</Button>
-                <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Buy</Button>
+                {/*<Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Buy</Button>*/}
                 <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Custom</Button>
               </ButtonToolbar>
             </Col>

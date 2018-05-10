@@ -359,18 +359,7 @@ class Signup extends React.Component {
               </Form>
             </Panel>
           </div>
-          <div
-            className={cssStyles.styleFooter}
-            style={{ bottom: "0%", position: "fixed" }}
-          >
-            <div> Hernan Rossi &#169; 2018</div>
-            <LinkContainer to="/legal">
-              <NavItem>
-                Pathfinder content used under Open Gaming License, and Community
-                Use Policy
-              </NavItem>
-            </LinkContainer>
-          </div>
+
         </div>
       </div>
     );
