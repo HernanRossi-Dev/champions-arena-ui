@@ -11,6 +11,6 @@ module.exports = merge(common, {
 			// 		target: "http://localhost:8081"
 			// 	}
 			// },
-			// historyApiFallback: true
+			historyApiFallback: true
 		}
 });

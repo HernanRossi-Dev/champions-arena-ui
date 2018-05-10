@@ -135,8 +135,10 @@ class App extends React.Component {
 	              <Route path={( !store.getState().userReducer.loggedIn)? `/forgotPassword`  :`/home`} component={
 		              ( store.getState().userReducer.loggedIn)? HomeComponent  :ForgotPassword} />
                 <Route path={`/about`} component={AboutSiteComponent} />
-                <Redirect from="/" to="/home" />
-                <Route path="*" component={NoMatch} />
+                <Route exact path={`/`} component={
+	                ( !store.getState().userReducer.loggedIn)? Login : HomeComponent  } />
+	              <Route path={`*`} component={
+		              ( !store.getState().userReducer.loggedIn)? Login : HomeComponent  }/>
               </Switch>
 
           </div>

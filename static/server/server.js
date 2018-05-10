@@ -28,7 +28,7 @@ const app = express();
 // app.use(compression())
 
 let helmet = require('helmet');
-// app.use(helmet());
+ app.use(helmet());
 
 app.use(express.static("dist"));
 app.use(bodyParser.json());
@@ -73,18 +73,18 @@ app.get('/api/authenticate', (req, res) =>{
 	});
 })
 
-// let jwtCheck = jwt({
-// 	secret: jwks.expressJwtSecret({
-// 		cache: true,
-// 		rateLimit: true,
-// 		jwksRequestsPerMinute: 5,
-// 		jwksUri: "https://thearena.auth0.com/.well-known/jwks.json"
-// 	}),
-// 	audience: 'https://thecampaignArena.com',
-// 	issuer: "https://thearena.auth0.com/",
-// 	algorithms: ['RS256']
-// });
-//app.use(jwtCheck);
+let jwtCheck = jwt({
+	secret: jwks.expressJwtSecret({
+		cache: true,
+		rateLimit: true,
+		jwksRequestsPerMinute: 5,
+		jwksUri: "https://thearena.auth0.com/.well-known/jwks.json"
+	}),
+	audience: 'https://thecampaignArena.com',
+	issuer: "https://thearena.auth0.com/",
+	algorithms: ['RS256']
+});
+app.use(jwtCheck);
 app.use(function (err, req, res, next) {
 	if (err.name === 'UnauthorizedError') {
 		res.status(401).json({message:'Missing or invalid token. Please logout And log back in.'});
