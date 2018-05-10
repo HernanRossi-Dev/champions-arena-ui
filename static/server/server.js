@@ -27,8 +27,8 @@ const app = express();
 // let compression= require('compression');
 // app.use(compression())
 
-let helmet = require('helmet');
- app.use(helmet());
+// let helmet = require('helmet');
+//  app.use(helmet());
 
 app.use(express.static("dist"));
 app.use(bodyParser.json());
@@ -87,23 +87,24 @@ let jwtCheck = jwt({
 app.use(jwtCheck);
 app.use(function (err, req, res, next) {
 	if (err.name === 'UnauthorizedError') {
+		console.log(req);console.log(next);
 		res.status(401).json({message:'Missing or invalid token. Please logout And log back in.'});
 	}
 });
 
-users.findOne({ email: devUser.email })
-  .limit(1)
-  .exec(function(err, user) {
-    if (user) {
-    } else {
-	    db.collection("users").insert(devUser);
-      let i = 0;
-      for (i; i < defaultCharacters.length; i += 1) {
-        defaultCharacters[i].user = devUser.name;
-      }
-      db.collection("characters").insert(defaultCharacters);
-    }
-  });
+// users.findOne({ email: devUser.email })
+//   .limit(1)
+//   .exec(function(err, user) {
+//     if (user) {
+//     } else {
+// 	    db.collection("users").insert(devUser);
+//       let i = 0;
+//       for (i; i < defaultCharacters.length; i += 1) {
+//         defaultCharacters[i].user = devUser.name;
+//       }
+//       db.collection("characters").insert(defaultCharacters);
+//     }
+//   });
 
 app.get("/api/characters/:id", (req, res) => {
   let characterID;
