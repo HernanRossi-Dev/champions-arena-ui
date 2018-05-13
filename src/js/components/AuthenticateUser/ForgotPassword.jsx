@@ -134,7 +134,7 @@ class ForgotPassword extends React.Component {
 
 											<LinkContainer
 												to={"/signin"}
-												style={{ margin: "5px 0px 0px 0px" }}
+												style={{ margin: "0px 0px 0px 5px" }}
 											>
 												<Button >
 													Back

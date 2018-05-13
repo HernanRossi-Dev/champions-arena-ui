@@ -101,7 +101,7 @@ class App extends React.Component {
       return (
         <div className={["card", cssStyles.Site].join(" ")}>
           <SiteHeaderComponent />
-          <div className={["container-fluid", cssStyles.SiteContent].join(" ")}>
+          <div className={["container-fluid", cssStyles.SiteContent].join(" ")} style={{paddingLeft: 0, paddingRight: 0}}>
 
               <Switch>
                 <PrivateRoute
