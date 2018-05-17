@@ -54,12 +54,6 @@ mongoose
 let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-let devUser = {
-  name: "hernan",
-  password: "Horseshit1",
-  email: "hernan_rossi@msn.com"
-};
-
 const request = require("request");
 
 app.get('/api/authenticate', (req, res) =>{
@@ -71,7 +65,7 @@ app.get('/api/authenticate', (req, res) =>{
 	request(options, function (error, response, body) {
 		res.json(response);
 	});
-})
+});
 
 let jwtCheck = jwt({
 	secret: jwks.expressJwtSecret({
@@ -87,7 +81,6 @@ let jwtCheck = jwt({
 
 app.use(function (err, req, res, next) {
 	if (err.name === 'UnauthorizedError') {
-		console.log(req);console.log(next);
 		res.status(401).json({message:'Missing or invalid token. Please logout And log back in.'});
 	}
 });
