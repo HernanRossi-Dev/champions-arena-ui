@@ -2,10 +2,6 @@ const path = require("path");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-function resolve(dir) {
-  return path.resolve(__dirname, "..", dir);
-}
-
 module.exports = {
   entry: {
     app: [path.resolve(__dirname, "./src/js/components/App.jsx")]

@@ -11,7 +11,7 @@ const persistConfig = {
 	key: 'root',
 	storage,
 	stateReconciler: hardSet
-}
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const loggerMiddleWare = createLogger();

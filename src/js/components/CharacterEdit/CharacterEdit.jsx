@@ -7,7 +7,6 @@ import * as CharacterActionCreators from "../../actions/CharacterActionCreators.
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as cssStyles from "../../../styles/Styles.css";
-import { withStyles } from "material-ui/styles";
 import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
 import {
   Button,
@@ -19,7 +18,6 @@ import {
   Modal
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import * as types from "../../constants/ActionTypes";
 
 class CharacterEdit extends React.Component {
   constructor(props) {

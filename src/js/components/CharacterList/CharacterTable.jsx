@@ -1,4 +1,3 @@
-import store from "../../store/index";
 import React from "react";
 import PropTypes from "prop-types";
 import CharacterRow from "./CharacterRow.jsx";

@@ -1,11 +1,3 @@
-/* eslint-disable no-trailing-spaces */
-// import express from "express";
-// import bodyParser from "body-parser";
-// import SourceMapSupport from "source-map-support";
-// import path from "path";
-// import "babel-polyfill";
-// import { defaultCharacters } from "./defaultCharacters";
-
 let express = require( "express");
 let bodyParser = require("body-parser");
 let SourceMapSupport = require("source-map-support");
@@ -15,7 +7,7 @@ let defaultCharacters = require("./defaultCharacters");
 defaultCharacters = defaultCharacters.defaultCharacters;
 const mongoose = require("mongoose");
 const mongoDB =
-  "mongodb+srv://HernanRossi:!Horseshit1!@pathfinderarena-gmjjh.mongodb.net/test";
+  "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
 const ObjectID = require("mongodb").ObjectID;
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
@@ -24,18 +16,12 @@ const jwks = require('jwks-rsa');
 SourceMapSupport.install();
 const app = express();
 
-// let compression= require('compression');
-// app.use(compression())
 
-// let helmet = require('helmet');
-//  app.use(helmet());
+let helmet = require('helmet');
+ app.use(helmet());
 
 app.use(express.static("dist"));
 app.use(bodyParser.json());
-
-
-
-
 
 let characters = require("./models/characters");
 let users = require("./models/users");
@@ -135,12 +121,6 @@ app.get("/api/characters", (req, res) => {
     });
 });
 
-
-
-
-
-
-
 app.get("/api/users", (req, res) => {
 	const filter = {};
 	if (req.query.name) filter.name = req.query.name;
@@ -168,16 +148,15 @@ app.get("/api/users", (req, res) => {
 				let transporter = nodemailer.createTransport({
 					service: 'Gmail',
 					auth: {
-						user: 'hrossi.work@gmail.com', // Your email id
-						pass: 'Horseshit1' // Your password
+						user: 'thechampionsarena@gmail.com',
+						pass: 'Han4567!'
 					}
 				});
 				let mailOptions = {
-					from: 'hrossi.work@gmail.com', // sender address
-					to: users.email, // list of receivers
-					subject: 'The Arena Temporary Password', // Subject line
-					text: text //, // plaintext body
-					// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+					from: 'TheChampionsArena@gmail.com',
+					to: users.email,
+					subject: 'The Arena Temporary Password',
+					text: text
 				};
 
 				transporter.sendMail(mailOptions, function(error, info){
@@ -198,15 +177,9 @@ app.get("/api/users", (req, res) => {
 		});
 });
 
-
-
-
-
-
 app.get("*", (req, res) => {
 	res.sendFile(path.resolve("static/index.html"));
 });
-
 
 app.use(jwtCheck);
 app.put("/api/characters/:id", (req, res) => {
@@ -217,10 +190,8 @@ app.put("/api/characters/:id", (req, res) => {
 		res.status(422).json({ message: `Invalid characters id format: ${e}` });
 		return;
 	}
-
 	const character = req.body;
 	delete character._id;
-
 	if (character.created) {
 		character.created = new Date(character.created);
 	}
@@ -242,6 +213,7 @@ app.put("/api/characters/:id", (req, res) => {
 			res.status(500).json({ message: `Internal Server Error: ${error}` });
 		});
 });
+
 app.post("/api/users", (req, res) => {
 	const newUser = req.body;
 
@@ -267,15 +239,14 @@ app.post("/api/users", (req, res) => {
 				.next()
 		)
 		.then(newUser => {
-
 			res.json(newUser);
-
 		})
 		.catch(error => {
 			console.log(error);
 			res.status(500).json({ message: `Internal Server Error: ${error}` });
 		});
 });
+
 app.post("/api/characters", (req, res) => {
 	const newCharacter = req.body;
 	if (!newCharacter.age) {
@@ -331,6 +302,7 @@ app.delete("/api/characters/:id", (req, res) => {
 			res.status(500).json({ message: `Internal Server Error: ${error}` });
 		});
 });
+
 app.delete("/api/characters", (req, res) => {
 	const filter = {};
 	if (req.query.user) filter.user = req.query.user;
@@ -352,6 +324,7 @@ app.delete("/api/characters", (req, res) => {
 			res.status(500).json({ message: `Internal Server Error: ${error}` });
 		});
 });
+
 app.delete("/api/users/:name", (req, res) => {
 	const deleteUser = req.params.name;
 
@@ -380,13 +353,12 @@ app.delete("/api/users/:name", (req, res) => {
 		});
 
 });
+
 app.delete("/api/users", (req, res) => {
 	const deleteUser = req.query;
 	const filter = {};
 	if(deleteUser.name) filter.name = req.query.name;
 	if(deleteUser.email) filter.email = req.query.email;
-
-	console.log(deleteUser);console.log(filter);
 	db
 		.collection("users")
 		.deleteMany( filter )
@@ -415,11 +387,4 @@ app.delete("/api/users", (req, res) => {
 
 });
 
-
-
-
-
-
 module.export = app;
-
-
