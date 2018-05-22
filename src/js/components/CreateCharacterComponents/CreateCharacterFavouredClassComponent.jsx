@@ -32,10 +32,11 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
 		};
 	}
 
-	saveFavouredClass(selectedFavouredClass){
-		this.props.updateFavClass(selectedFavouredClass);
-	}
+	saveFavouredClass(e){
+		const targetText = e.target.textContent.toString();
+		this.props.updateFavClass(targetText);
 
+	}
 	handleClose() {
 		this.setState({ show: false });
 	}

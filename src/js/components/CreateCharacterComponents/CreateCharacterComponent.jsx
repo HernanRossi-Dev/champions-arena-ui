@@ -157,8 +157,8 @@ class CreateCharacterComponent extends React.Component {
       );
       this.props.history.push("/characters");
     }
+    let userName = store.getState().userReducer.currentUserName;
     this.createNewCharacter({
-
       name: this.state.name,
       class: this.state.class,
       race: this.state.characterRace,
@@ -170,17 +170,17 @@ class CreateCharacterComponent extends React.Component {
       INT: this.state.characterStats.INT,
       WIS: this.state.characterStats.WIS,
       CHA: this.state.characterStats.CHA,
-      attributePointsToSpend: 0,
-      items: {},
-      abilities: {},
-      traits: {},
-      characterNotes: [],
+      // attributePointsToSpend: 0,
+      // items: {},
+      // abilities: {},
+      // traits: {},
+      // characterNotes: [],
       type: "Player",
       gender: this.state.gender,
       alignment: this.state.alignment,
       favouredClass: this.state.favouredClass,
       racialBonus: this.state.racialBonus,
-      user: store.getState().userReducer.currentUserName
+      user: userName
     });
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
