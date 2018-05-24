@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as cssStyles from "../../../styles/Styles.css";
 import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
+import CharacterEditStatsComponent from './CharacterEditStatsComponent.jsx';
+import CharacterEditSkillsComponent from './CharacterEditSkillsComponent.jsx';
 import {
   Button,
   ButtonToolbar,
@@ -210,7 +212,16 @@ class CharacterEdit extends React.Component {
           />
 
           <hr className={cssStyles.hr} />
-
+	        <FormGroup>
+            <Col sm={1}/>
+		        <Col sm={5}>
+            <CharacterEditStatsComponent/>
+		        </Col>
+		        <Col sm={5}>
+            <CharacterEditSkillsComponent/>
+		        </Col>
+		        <Col sm={1}/>
+          </FormGroup>
           <hr className={cssStyles.hr} />
 
           <hr className={cssStyles.hr} />
