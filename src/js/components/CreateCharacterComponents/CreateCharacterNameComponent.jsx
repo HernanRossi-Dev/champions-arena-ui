@@ -1,8 +1,8 @@
 import React from "react";
 import * as cssStyles from "../../../styles/Styles.css";
 import { Col, ControlLabel, FormGroup, FormControl} from "react-bootstrap";
-import {TextField} from 'material-ui';
-import { withStyles } from 'material-ui/styles';
+import {TextField} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
 

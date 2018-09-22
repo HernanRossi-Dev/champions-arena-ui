@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, ControlLabel, FormGroup } from "react-bootstrap";
-import { TextField } from "material-ui";
-import { withStyles } from "material-ui/styles/index";
+import { TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles/index";
 import * as cssStyles from "../../../styles/Styles.css";
 
 const styles = {

@@ -2,8 +2,8 @@ import React from "react";
 import * as cssStyles from "../../../styles/Styles.css";
 import { ControlLabel, FormControl } from "react-bootstrap";
 import { Col, FormGroup } from "reactstrap";
-import { TextField } from "material-ui";
-import { withStyles } from "material-ui/styles";
+import { TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import { Button } from "react-bootstrap";
 const styles = {
   root: {

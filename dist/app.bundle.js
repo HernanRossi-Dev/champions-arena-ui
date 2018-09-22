@@ -4,6 +4,7 @@
 /******/ 		var chunkIds = data[0];
 /******/ 		var moreModules = data[1];
 /******/ 		var executeModules = data[2];
+/******/
 /******/ 		// add "moreModules" to the modules object,
 /******/ 		// then flag all "chunkIds" as loaded and fire callback
 /******/ 		var moduleId, chunkId, i = 0, resolves = [];
@@ -20,6 +21,7 @@
 /******/ 			}
 /******/ 		}
 /******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
 /******/ 		while(resolves.length) {
 /******/ 			resolves.shift()();
 /******/ 		}
@@ -57,11 +59,6 @@
 /******/ 		"app": 0
 /******/ 	};
 /******/
-/******/ 	// script path function
-/******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({}[chunkId]||chunkId) + ".bundle.js"
-/******/ 	}
-/******/
 /******/ 	var deferredModules = [];
 /******/
 /******/ 	// The require function
@@ -98,17 +95,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -142,7 +154,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/index.js??ref--7!./src/styles/Styles.css":
+/***/ "./node_modules/css-loader/index.js?!./src/styles/Styles.css":
 /*!*****************************************************************!*\
   !*** ./node_modules/css-loader??ref--7!./src/styles/Styles.css ***!
   \*****************************************************************/
@@ -155,7 +167,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n\nbody {\n  display: table;\n  width: 100%;\n  height: 100%;\n}\n\n.UeJMY7peMlry1IGl2c7kn input:-webkit-autofill {\n  -webkit-box-shadow: 0 0 0 1000px #4e5d6c inset;\n  -webkit-text-fill-color: #FFFFFF;\n\n}\n._2x1U_54odc29N8ZS6FBwO7 p {\n    font-size: 18px;\n}\n\n._35UuK4wysCuxrpZmOhcD7m {\n  font-family: \"Josefin Sans\", sans-serif;\n  font-size: 20px;\n  color: white;\n  padding-top: 200px;\n}\n\n._2qS26b_Y7G_tM4hh9ypplz {\n  background-color: transparent !important;\n\n  font-size: 20px !important;\n  font-family: \"Crimson Text\", serif;\n  text-align: left !important;\n\n  width: 30%;\n}\n._2qS26b_Y7G_tM4hh9ypplz.active{\n  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;\n}\n.dMsXG5mwx7DfjIcNFCfOf {\n  background-color: transparent !important;\n  font-size: 20px;\n  font-family: \"Crimson Text\", serif;\n}\n.dMsXG5mwx7DfjIcNFCfOf.active{\n  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;\n}\n._1L3IG7m8Gwklx_or8z48Kn {\n  font-size: 15px !important;\n  font-family: \"Crimson Text\", serif;\n  text-align: center !important;\n}\n\n._1oF0cbVxo9Rp-a4dzzLFOJ {\n  font-size: 20px !important;\n  font-family: \"Crimson Text\", serif;\n  text-align: left !important;\n  width: 100%;\n}\n._2rYC0Sk1P0MyH7ItFVJAOC {\n  background: transparent;\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  text-align: center !important;\n  align-content: center !important;\n  align-items: center !important;\n}\n._30tYyoEMZkxIrwHy30K_ec {\n  background: transparent;\n  font-size: 15px;\n  font-family: \"Crimson Text\", serif;\n}\n\n._37dBhTi67mBsWCh4AVVAG {\n  padding-bottom: 10px;\n  margin-top: 30px;\n  width: 1050px;\n  border-style: solid;\n  border-width: 1px thin thin thin;\n  border-color: #df691a;\n  background: transparent;\n}\n._3Kh5WRq35fZpfCwMVnlVxM {\n  padding-bottom: 10px;\n  margin-top: 30px;\n  width: 1700px;\n  border-style: solid;\n  border-width: 1px thin thin thin;\n  border-color: #df691a;\n    background: transparent;\n}\n\n._3rnzRwNdbmenCN76NHMmtg {\n  margin-bottom: 25px;\n  text-align: left;\n  background-color:SlateGray !important;\n  background:rgba(255,255,255,0.12) !important;  /*background-image: url(\"../../public/assets/vector-grunge-background.jpg\");*/\n}\n._26CV-HX4ZXn5afOoFjFkOk {\n  font-size: 23px;\n  font-family: \"Cinzel Decorative\", cursive;\n  text-align: left;\n  word-spacing: 10px;\n  /*color: saddlebrown;*/\n  /*text-shadow: 2px 2px 0px white;*/\n  color: white;\n  /*text-shadow: 2px 2px 0px #fa621f;*/\n  border-bottom-style: groove;\n  border-bottom-width: thin;\n  border-color: #df691a;\n  margin-left: 70px;\n  margin-bottom: 20px;\n  margin-top: 20px;\n  margin-right: 500px;\n}\n._2LdKJikrrFHaDCkm4Ix0_H {\n  margin-top: 35px;\n}\n.oB28C7GJDdwqlCYvd48r {\n  padding-top: 20px;\n}\n\n\n\n._19-tzvIC99bsuwI8S-oBN6 {\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  text-align: left !important;\n  align-content: left !important;\n  align-items: left !important;\n}\n._3PLrmQ3pVEs3fThMHR8Gqu {\n  margin-left: 25%;\n  background-color: transparent;\n  margin-bottom: 40px;\n}\n\n._118T_chXRqzIjgDusUJ0bx li {\n  font-family: \"Crimson Text\", serif !important;\n  font-size: 16px;\n}\n\n._1au4PTHPHqarkizjO-Zf4B {\n  color: #fa621f;\n  outline: none;\n  border: none;\n  background-color: transparent !important;\n}\n\n._2bXfH5IfvpaXKr-1LdHJEf {\n  font-family: \"Cinzel Decorative\", cursive;\n\n  font-size: 35px;\n  color: ghostwhite;\n  text-shadow: 2px 2px 0px #fe8f3e;\n}\n\n.hBaUb-OVzuJ3JTddJs08g {\n  font-family: \"Cinzel Decorative\", cursive;\n\n  font-size: 30px;\n  color: white;\n  text-shadow: 2px 2px 0 #ff6c00;\n  padding-top: 5px;\n  text-align: center;\n}\n\n._1MXh2x-aK3SnE1XGkz3soX {\n  background-color: transparent !important;\n\n  font-size: 20px;\n  font-family: \"Crimson Text\", serif;\n  margin-right: 20px;\n}\n._1MXh2x-aK3SnE1XGkz3soX.active{\n  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;\n}\n._3eSpfOdL7aQTrgPM46mqJP {\n  background-color: SlateGray;\n  position: relative;\n  width: 100%;\n  height: 100%;\n  opacity: 0.2;\n  -moz-opacity: 20%;\n  -webkit-opacity: 20%;\n  z-index: 2;\n}\n\n._2N37s73umOxLLPonQo_Xhb {\n  font-size: 17px;\n}\n\n._3bsM5Zh81356AM__L91oT3 {\n  margin-right: 20px;\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  background-color: #df691a;\n}\n\n.TthrdTEPet-8-ADzA0hNY {\n  font-size: 20px;\n  font-family: \"Josefin Sans\", sans-serif;\n  text-align: center !important;\n  align-content: center !important;\n}\n\n._1L5U5kJpirUBy-BQD5tECl {\n  text-align: center !important;\n}\n.bnGeTGLUuf8VU5tAblRLo {\n  text-align: center;\n  width: 850px;\n}\n\n._3nfIKyGu_--OQr10aq2a0q {\n  font-size: 24px;\n  font-family: \"Crimson Text\", serif;\n\n  /*background-color: #FA621F;*/\n  background-color: #df691a;\n}\n._27a9B-F08t6UcGEtG-wJ44 {\n  text-align: center;\n}\n\n.zvW7WWnOPxz1q3LBimdEg {\n  text-align: center;\n  font-size: 18px;\n  line-height: normal;\n  font-family: \"Merriweather\", serif;\n}\n._2U64YKFE7Trxc5YWvH6qvk {\n  display: block;\n  position: relative;\n  padding: 0;\n  margin: 8px auto;\n  height: 0;\n  width: 80%;\n  max-height: 0;\n  font-size: 1px;\n  line-height: 0;\n  clear: both;\n  border: none;\n  border-top: 1px solid #485563;\n  border-bottom: 1px solid #697785;\n  margin-bottom: 25px;\n  margin-top: 25px;\n}\n._3iES6f3Y9yB37ptkpG8Jzy {\n  display: block;\n  position: relative;\n  padding: 0;\n  margin: 8px auto;\n  height: 0;\n  width: 80%;\n  max-height: 0;\n  font-size: 1px;\n  line-height: 0;\n  clear: both;\n  border: none;\n  border-top: 1px solid #485563;\n  border-bottom: 1px solid #df691a;\n  margin-bottom: 25px;\n}\n._2sZahgOE8hd43CNSAX8JrZ {\n  padding-top: 20px;\n  padding-bottom: 20px;\n}\n\n.jc2PM9QU16jeKc2sX5Dlw {\n  font-family: \"Josefin Sans\", sans-serif;\n  font-size: 18px;\n  color: white;\n  padding-top: 20px;\n  text-shadow: none;\n  text-align: left;\n}\n\n._3NV23_cY-tozSHc0BE9as_ {\n  text-align: center;\n  padding: 100px 25px;\n}\n.jga1Hkttp-foqx1wNN25L {\n  vertical-align: middle;\n  line-height: normal;\n  font-family: \"Merriweather\", serif;\n  font-size: 18px;\n  text-align: center;\n  color: white;\n}\n\n._2vk3Du-80gOGz9B_Rz_Fi5 {\n  align-content: space-around;\n  background-color: white;\n    display: flex;\n}\n.k8w9cqMHlAMU2r67FERqg {\n  width: 25%;\n    display: flex;\n}\n.QZul3UBz3z4gpg8xWR5R7 {\n  background: transparent;\n  z-index: 9999;\n  width: 100vw !important;\n    display: flex;\n    align-content: center;\n    -webkit-align-content: center;\n}\n._2eAIvpPe7oqz3CaApc8iqh {\n  font-family: \"Merriweather\", serif;\n  font-size: 18px;\n  text-align: center;\n}\n._1steMoEVUVyK2p9c3ot_rJ {\n  font-family: \"Merriweather\", serif;\n  font-size: 18px;\n  text-align: center;\n}\n._2Ex8N_so0dAg3nWxxEaQQp {\n  padding-top: 30px;\n}\n\n._1g1QTChTxkafGGrfG0yFxN {\n  align-content: space-around;\n}\n\n._1FSfoZtQsd-ZFWBDHz4nY0 {\n  border: thin groove #df691a;\n  background: transparent;\n\n}\n._1EfAOR613TfEQdveVkLatU {\n  background: transparent;\n}\n._1N1skf_sTjbYhvhL_Vi7LX {\n  background: transparent;\n  font-size: 22px !important;\n  font-family: \"Crimson Text\", serif !important;\n}\n\n.sNP5KRvhTWQxSfvKP2rvS {\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  color: white;\n}\n._28IZxteOVQM6pteA2Ad4sO {\n  border-bottom-style: groove;\n  border-bottom-width: thin;\n  border-color: #df691a;\n\n  background: #2b3e50;\n  z-index: 9999;\n  width: 100%;\n}\n\n._1_urJNBbXDWrqXsQrjOkl5 a {\n}\n._2LJoBP79CjPjoltLxGakLK a {\n  border-color: #df691a;\n  border-bottom-style: groove;\n  border-bottom-width: thin;\n  font-size: 14px !important;\n}\n._3kUQ440OepZFIIYw-9iOFD {\n  margin-top: 10px;\n}\n\n._2FW4MgJRCkD0Ei9Jk890FF {\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\n._1gPsqR-gjtiuoMrrMNKq_r {\n  /*background-image: url(\"../assets/GolarionMap.png\");*/\n  background-image: url(" + escape(__webpack_require__(/*! ../../public/assets/BlogBannerOne.jpg */ "./public/assets/BlogBannerOne.jpg")) + ");\n  object-fit: cover;\n  background-size: cover;\n  background-position: center;\n  -ms-background-position-x: center;\n  -ms-background-position-y: bottom;\n  margin-top: 42px;\n  margin-bottom: 30px;\n}\n.lYmLohIJTkWjA_7m7qG7U {\n  /*background-image: url(\"../assets/GolarionMap.png\");*/\n  background-image: url(" + escape(__webpack_require__(/*! ../../public/assets/BlogBannerOne.jpg */ "./public/assets/BlogBannerOne.jpg")) + ");\n  object-fit: cover;\n  background-size: cover;\n  background-position: center;\n  -ms-background-position-x: center;\n  -ms-background-position-y: bottom;\n}\n\n._3DtO-rprLO5w9tO-5XABes {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column;\n    background-image: url(" + escape(__webpack_require__(/*! ../../public/assets/PZO1140-Chapter1.jpg */ "./public/assets/PZO1140-Chapter1.jpg")) + ");\n    background-repeat: repeat-y;\n    background-size: 100%;\n}\n\n._1KzIo5gt2mHBR20dLat7e9 {\n  flex: 1;\n}\n\n._3kOykWKpQuAezSDfHVIz7J {\n  background-color: transparent;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  padding: 12px;\n  width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n\nbody {\n  display: table;\n  width: 100%;\n  height: 100%;\n}\n\n.UeJMY7peMlry1IGl2c7kn input:-webkit-autofill {\n  -webkit-box-shadow: 0 0 0 1000px #4e5d6c inset;\n  -webkit-text-fill-color: #FFFFFF;\n\n}\n._2x1U_54odc29N8ZS6FBwO7 p {\n    font-size: 18px;\n}\n\n._35UuK4wysCuxrpZmOhcD7m {\n  font-family: \"Josefin Sans\", sans-serif;\n  font-size: 20px;\n  color: white;\n  padding-top: 200px;\n}\n\n._2qS26b_Y7G_tM4hh9ypplz {\n  background-color: transparent !important;\n\n  font-size: 20px !important;\n  font-family: \"Crimson Text\", serif;\n  text-align: left !important;\n\n  width: 30%;\n}\n._2qS26b_Y7G_tM4hh9ypplz.active{\n  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;\n}\n.dMsXG5mwx7DfjIcNFCfOf {\n  background-color: transparent !important;\n  font-size: 20px;\n  font-family: \"Crimson Text\", serif;\n}\n.dMsXG5mwx7DfjIcNFCfOf.active{\n  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;\n}\n._1L3IG7m8Gwklx_or8z48Kn {\n  font-size: 15px !important;\n  font-family: \"Crimson Text\", serif;\n  text-align: center !important;\n}\n\n._1oF0cbVxo9Rp-a4dzzLFOJ {\n  font-size: 20px !important;\n  font-family: \"Crimson Text\", serif;\n  text-align: left !important;\n  width: 100%;\n}\n._2rYC0Sk1P0MyH7ItFVJAOC {\n  background: transparent;\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  text-align: center !important;\n  align-content: center !important;\n  align-items: center !important;\n}\n\n._37dBhTi67mBsWCh4AVVAG {\n  padding-bottom: 10px;\n  margin-top: 30px;\n  width: 1050px;\n  border-style: solid;\n  border-width: 1px thin thin thin;\n  border-color: #df691a;\n  background: transparent;\n}\n._3Kh5WRq35fZpfCwMVnlVxM {\n  padding-bottom: 10px;\n  margin-top: 30px;\n  width: 1700px;\n  border-style: solid;\n  border-width: 1px thin thin thin;\n  border-color: #df691a;\n    background: transparent;\n}\n\n._3rnzRwNdbmenCN76NHMmtg {\n  margin-bottom: 25px;\n  text-align: left;\n  background-color:SlateGray !important;\n  background:rgba(255,255,255,0.12) !important;  /*background-image: url(\"../../public/assets/vector-grunge-background.jpg\");*/\n}\n._26CV-HX4ZXn5afOoFjFkOk {\n  font-size: 23px;\n  font-family: \"Cinzel Decorative\", cursive;\n  text-align: left;\n  word-spacing: 10px;\n  /*color: saddlebrown;*/\n  /*text-shadow: 2px 2px 0px white;*/\n  color: white;\n  /*text-shadow: 2px 2px 0px #fa621f;*/\n  border-bottom-style: groove;\n  border-bottom-width: thin;\n  border-color: #df691a;\n  margin-left: 70px;\n  margin-bottom: 20px;\n  margin-top: 20px;\n  margin-right: 500px;\n}\n._2LdKJikrrFHaDCkm4Ix0_H {\n  margin-top: 35px;\n}\n.oB28C7GJDdwqlCYvd48r {\n  padding-top: 20px;\n}\n\n\n\n._19-tzvIC99bsuwI8S-oBN6 {\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  text-align: left !important;\n  align-content: left !important;\n  align-items: left !important;\n}\n._3PLrmQ3pVEs3fThMHR8Gqu {\n  margin-left: 25%;\n  background-color: transparent;\n  margin-bottom: 40px;\n}\n\n._118T_chXRqzIjgDusUJ0bx li {\n  font-family: \"Crimson Text\", serif !important;\n  font-size: 16px;\n}\n\n._1au4PTHPHqarkizjO-Zf4B {\n  color: #fa621f;\n  outline: none;\n  border: none;\n  background-color: transparent !important;\n}\n\n._2bXfH5IfvpaXKr-1LdHJEf {\n  font-family: \"Cinzel Decorative\", cursive;\n\n  font-size: 35px;\n  color: ghostwhite;\n  text-shadow: 2px 2px 0px #fe8f3e;\n}\n\n.hBaUb-OVzuJ3JTddJs08g {\n  font-family: \"Cinzel Decorative\", cursive;\n\n  font-size: 30px;\n  color: white;\n  text-shadow: 2px 2px 0 #ff6c00;\n  padding-top: 5px;\n  text-align: center;\n}\n\n._1MXh2x-aK3SnE1XGkz3soX {\n  background-color: transparent !important;\n\n  font-size: 20px;\n  font-family: \"Crimson Text\", serif;\n  margin-right: 20px;\n}\n._1MXh2x-aK3SnE1XGkz3soX.active{\n  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.12) ;\n}\n._3eSpfOdL7aQTrgPM46mqJP {\n  background-color: SlateGray;\n  position: relative;\n  width: 100%;\n  height: 100%;\n  opacity: 0.2;\n  -moz-opacity: 20%;\n  -webkit-opacity: 20%;\n  z-index: 2;\n}\n\n._2N37s73umOxLLPonQo_Xhb {\n  font-size: 17px;\n}\n\n._3bsM5Zh81356AM__L91oT3 {\n  margin-right: 20px;\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  background-color: #df691a;\n}\n\n.TthrdTEPet-8-ADzA0hNY {\n  font-size: 20px;\n  font-family: \"Josefin Sans\", sans-serif;\n  text-align: center !important;\n  align-content: center !important;\n}\n\n._1L5U5kJpirUBy-BQD5tECl {\n  text-align: center !important;\n}\n.bnGeTGLUuf8VU5tAblRLo {\n  text-align: center;\n  width: 850px;\n}\n\n._3nfIKyGu_--OQr10aq2a0q {\n  font-size: 24px;\n  font-family: \"Crimson Text\", serif;\n\n  /*background-color: #FA621F;*/\n  background-color: #df691a;\n}\n._27a9B-F08t6UcGEtG-wJ44 {\n  text-align: center;\n}\n\n.zvW7WWnOPxz1q3LBimdEg {\n  text-align: center;\n  font-size: 18px;\n  line-height: normal;\n  font-family: \"Merriweather\", serif;\n}\n._2U64YKFE7Trxc5YWvH6qvk {\n  display: block;\n  position: relative;\n  padding: 0;\n  margin: 8px auto;\n  height: 0;\n  width: 80%;\n  max-height: 0;\n  font-size: 1px;\n  line-height: 0;\n  clear: both;\n  border: none;\n  border-top: 1px solid #485563;\n  border-bottom: 1px solid #697785;\n  margin-bottom: 25px;\n  margin-top: 25px;\n}\n._3iES6f3Y9yB37ptkpG8Jzy {\n  display: block;\n  position: relative;\n  padding: 0;\n  margin: 8px auto;\n  height: 0;\n  width: 80%;\n  max-height: 0;\n  font-size: 1px;\n  line-height: 0;\n  clear: both;\n  border: none;\n  border-top: 1px solid #485563;\n  border-bottom: 1px solid #df691a;\n  margin-bottom: 25px;\n}\n._2sZahgOE8hd43CNSAX8JrZ {\n  padding-top: 20px;\n  padding-bottom: 20px;\n}\n\n.jc2PM9QU16jeKc2sX5Dlw {\n  font-family: \"Josefin Sans\", sans-serif;\n  font-size: 18px;\n  color: white;\n  padding-top: 20px;\n  text-shadow: none;\n  text-align: left;\n}\n\n._3NV23_cY-tozSHc0BE9as_ {\n  text-align: center;\n  padding: 100px 25px;\n}\n.jga1Hkttp-foqx1wNN25L {\n  vertical-align: middle;\n  line-height: normal;\n  font-family: \"Merriweather\", serif;\n  font-size: 18px;\n  text-align: center;\n  color: white;\n}\n\n._2vk3Du-80gOGz9B_Rz_Fi5 {\n  align-content: space-around;\n  background-color: white;\n    display: flex;\n}\n.k8w9cqMHlAMU2r67FERqg {\n  width: 25%;\n    display: flex;\n}\n.QZul3UBz3z4gpg8xWR5R7 {\n  background: transparent;\n  z-index: 9999;\n  width: 100vw !important;\n    display: flex;\n    align-content: center;\n    -webkit-align-content: center;\n}\n._2eAIvpPe7oqz3CaApc8iqh {\n  font-family: \"Merriweather\", serif;\n  font-size: 18px;\n  text-align: center;\n}\n._1steMoEVUVyK2p9c3ot_rJ {\n  font-family: \"Merriweather\", serif;\n  font-size: 18px;\n  text-align: center;\n}\n._2Ex8N_so0dAg3nWxxEaQQp {\n  padding-top: 30px;\n}\n\n._1g1QTChTxkafGGrfG0yFxN {\n  align-content: space-around;\n}\n\n._1FSfoZtQsd-ZFWBDHz4nY0 {\n  border: thin groove #df691a;\n  background: transparent;\n\n}\n._1EfAOR613TfEQdveVkLatU {\n  background: transparent;\n}\n._1N1skf_sTjbYhvhL_Vi7LX {\n  background: transparent;\n  font-size: 22px !important;\n  font-family: \"Crimson Text\", serif !important;\n}\n\n.sNP5KRvhTWQxSfvKP2rvS {\n  font-size: 18px;\n  font-family: \"Crimson Text\", serif;\n  color: white;\n}\n._28IZxteOVQM6pteA2Ad4sO {\n  border-bottom-style: groove;\n  border-bottom-width: thin;\n  border-color: #df691a;\n\n  background: #2b3e50;\n  z-index: 9999;\n  width: 100%;\n}\n\n._1_urJNBbXDWrqXsQrjOkl5 a {\n}\n._2LJoBP79CjPjoltLxGakLK a {\n  border-color: #df691a;\n  border-bottom-style: groove;\n  border-bottom-width: thin;\n  font-size: 14px !important;\n}\n._3kUQ440OepZFIIYw-9iOFD {\n  margin-top: 10px;\n}\n\n._2FW4MgJRCkD0Ei9Jk890FF {\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\n._1gPsqR-gjtiuoMrrMNKq_r {\n  /*background-image: url(\"../assets/GolarionMap.png\");*/\n  background-image: url(" + escape(__webpack_require__(/*! ../../public/assets/BlogBannerOne.jpg */ "./public/assets/BlogBannerOne.jpg")) + ");\n  object-fit: cover;\n  background-size: cover;\n  background-position: center;\n  -ms-background-position-x: center;\n  -ms-background-position-y: bottom;\n  margin-top: 42px;\n  margin-bottom: 30px;\n}\n.lYmLohIJTkWjA_7m7qG7U {\n  /*background-image: url(\"../assets/GolarionMap.png\");*/\n  background-image: url(" + escape(__webpack_require__(/*! ../../public/assets/BlogBannerOne.jpg */ "./public/assets/BlogBannerOne.jpg")) + ");\n  object-fit: cover;\n  background-size: cover;\n  background-position: center;\n  -ms-background-position-x: center;\n  -ms-background-position-y: bottom;\n}\n\n._3DtO-rprLO5w9tO-5XABes {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column;\n    background-image: url(" + escape(__webpack_require__(/*! ../../public/assets/PZO1140-Chapter1.jpg */ "./public/assets/PZO1140-Chapter1.jpg")) + ");\n    background-repeat: repeat-y;\n    background-size: 100%;\n}\n\n._1KzIo5gt2mHBR20dLat7e9 {\n  flex: 1;\n}\n\n._3kOykWKpQuAezSDfHVIz7J {\n  background-color: transparent;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  padding: 12px;\n  width: 100%;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -167,7 +179,6 @@ exports.locals = {
 	"alignmentInfoDiv": "_1L3IG7m8Gwklx_or8z48Kn",
 	"alignmentButtonGroupParent": "_1oF0cbVxo9Rp-a4dzzLFOJ",
 	"createColStyle": "_2rYC0Sk1P0MyH7ItFVJAOC",
-	"editCharStatsStyle": "_30tYyoEMZkxIrwHy30K_ec",
 	"createCharacterPanelParent": "_37dBhTi67mBsWCh4AVVAG",
 	"editCharacterPanelParent": "_3Kh5WRq35fZpfCwMVnlVxM",
 	"createCharacterPanelHeaderStyle": "_3rnzRwNdbmenCN76NHMmtg",
@@ -919,7 +930,7 @@ var logoutGuestUser = exports.logoutGuestUser = function logoutGuestUser(userNam
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1026,7 +1037,7 @@ var _LinkContainer = __webpack_require__(/*! react-router-bootstrap/lib/LinkCont
 
 var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
 
-var _styles = __webpack_require__(/*! material-ui/styles */ "./node_modules/material-ui/styles/index.js");
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
@@ -1047,171 +1058,172 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NoMatch = function NoMatch() {
-	return _react2.default.createElement(
-		"p",
-		null,
-		"Page Not Found"
-	);
+  return _react2.default.createElement(
+    "p",
+    null,
+    "Page Not Found"
+  );
 };
 var theme = (0, _styles.createMuiTheme)({
-	overrides: {
-		MuiInput: {
-			underline: {
-				'&:before': { //underline color when textfield is inactive
-					backgroundColor: '#697785',
-					height: '1px'
-				},
-				'&:hover:not($disabled):before': { //underline color when hovered
-					backgroundColor: 'white',
-					height: '1px'
-				},
-				'&:after': {
-					backgroundColor: '#df691a',
-					height: '1px'
-				}
-			}, focused: {
-				'&:before': { //underline color when textfield is inactive
-					color: '#df691a',
-					height: '1px'
-				},
-				'&:hover:not($disabled):before': { //underline color when hovered
-					color: '#df691a', height: '1px'
-				},
-				'&:after': {
-					color: '#df691a', height: '1px'
-				}
-			}
-		}
-	} });
+  overrides: {
+    MuiInput: {
+      underline: {
+        '&:before': { //underline color when textfield is inactive
+          backgroundColor: '#697785',
+          height: '1px'
+        },
+        '&:hover:not($disabled):before': { //underline color when hovered
+          backgroundColor: 'white',
+          height: '1px'
+        },
+        '&:after': {
+          backgroundColor: '#df691a',
+          height: '1px'
+        }
+      }, focused: {
+        '&:before': { //underline color when textfield is inactive
+          color: '#df691a',
+          height: '1px'
+        },
+        '&:hover:not($disabled):before': { //underline color when hovered
+          color: '#df691a', height: '1px'
+        },
+        '&:after': {
+          color: '#df691a', height: '1px'
+        }
+      }
+    }
+  }
+});
 
 var App = function (_React$Component) {
-	_inherits(App, _React$Component);
+  _inherits(App, _React$Component);
 
-	function App() {
-		_classCallCheck(this, App);
+  function App() {
+    _classCallCheck(this, App);
 
-		var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-		_this.state = {
-			loggedIn: false,
-			showFooter: true
-		};
-		return _this;
-	}
+    _this.state = {
+      loggedIn: false,
+      showFooter: true
+    };
+    return _this;
+  }
 
-	_createClass(App, [{
-		key: "render",
-		value: function render() {
-			var PrivateRoute = function PrivateRoute(_ref) {
-				var Component = _ref.component,
-				    rest = _objectWithoutProperties(_ref, ["component"]);
+  _createClass(App, [{
+    key: "render",
+    value: function render() {
+      var PrivateRoute = function PrivateRoute(_ref) {
+        var Component = _ref.component,
+            rest = _objectWithoutProperties(_ref, ["component"]);
 
-				return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
-					render: function render(props) {
-						return _index2.default.getState().userReducer.loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, {
-							to: {
-								pathname: "/login",
-								state: { from: props.location }
-							}
-						});
-					}
-				}));
-			};
-			return _react2.default.createElement(
-				"div",
-				{ className: ["card", cssStyles.Site].join(" ") },
-				_react2.default.createElement(_SiteHeaderComponent2.default, null),
-				_react2.default.createElement(
-					"div",
-					{ className: ["container-fluid", cssStyles.SiteContent].join(" "), style: { paddingLeft: 0, paddingRight: 0 } },
-					_react2.default.createElement(
-						_reactRouterDom.Switch,
-						null,
-						_react2.default.createElement(PrivateRoute, {
-							exact: true,
-							path: "/home",
-							component: _HomeComponent2.default
-						}),
-						_react2.default.createElement(PrivateRoute, {
-							path: "/createCharacter/skills",
-							component: _CreateCharacterSkillsComponent2.default
-						}),
-						_react2.default.createElement(PrivateRoute, {
-							path: "/createCharacter",
-							component: _CreateCharacterComponent2.default
-						}),
-						_react2.default.createElement(_reactRouterDom.Route, { path: !_index2.default.getState().userReducer.loggedIn ? "/login" : "/home", component: !_index2.default.getState().userReducer.loggedIn ? _Login2.default : _HomeComponent2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/campaign", component: _CreateCampaign2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/encounter", component: _CreateEncounter2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { path: "/OGL", component: _OGL2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { path: !_index2.default.getState().userReducer.loggedIn ? "/signup" : "/home", component: _index2.default.getState().userReducer.loggedIn ? _HomeComponent2.default : _Signup2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/createNPC", component: _CreateNPCComponent2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/beasts", component: _BeastComponent2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/skills", component: _SkillsComponent2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/items", component: _ItemsComponent2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/characters/:id", component: _CharacterEdit2.default }),
-						_react2.default.createElement(PrivateRoute, { path: "/characters", component: _CharacterList2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { path: "/legal", component: _PathfinderCommunityUse2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { path: !_index2.default.getState().userReducer.loggedIn ? "/forgotPassword" : "/home", component: _index2.default.getState().userReducer.loggedIn ? _HomeComponent2.default : _ForgotPassword2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { path: "/about", component: _AboutSiteComponent2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: !_index2.default.getState().userReducer.loggedIn ? _Login2.default : _HomeComponent2.default }),
-						_react2.default.createElement(_reactRouterDom.Route, { path: "*", component: !_index2.default.getState().userReducer.loggedIn ? _Login2.default : _HomeComponent2.default })
-					)
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: cssStyles.styleFooter },
-					_react2.default.createElement(
-						"div",
-						null,
-						" Hernan Rossi \xA9 2018"
-					),
-					_react2.default.createElement(
-						_LinkContainer2.default,
-						{ to: "/legal" },
-						_react2.default.createElement(
-							_NavItem2.default,
-							null,
-							"Pathfinder content used under Open Gaming License, and Community Use Policy"
-						)
-					)
-				)
-			);
-		}
-	}]);
+        return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
+          render: function render(props) {
+            return _index2.default.getState().userReducer.loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, {
+              to: {
+                pathname: "/login",
+                state: { from: props.location }
+              }
+            });
+          }
+        }));
+      };
+      return _react2.default.createElement(
+        "div",
+        { className: ["card", cssStyles.Site].join(" ") },
+        _react2.default.createElement(_SiteHeaderComponent2.default, null),
+        _react2.default.createElement(
+          "div",
+          { className: ["container-fluid", cssStyles.SiteContent].join(" "), style: { paddingLeft: 0, paddingRight: 0 } },
+          _react2.default.createElement(
+            _reactRouterDom.Switch,
+            null,
+            _react2.default.createElement(PrivateRoute, {
+              exact: true,
+              path: "/home",
+              component: _HomeComponent2.default
+            }),
+            _react2.default.createElement(PrivateRoute, {
+              path: "/createCharacter/skills",
+              component: _CreateCharacterSkillsComponent2.default
+            }),
+            _react2.default.createElement(PrivateRoute, {
+              path: "/createCharacter",
+              component: _CreateCharacterComponent2.default
+            }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: !_index2.default.getState().userReducer.loggedIn ? "/login" : "/home", component: !_index2.default.getState().userReducer.loggedIn ? _Login2.default : _HomeComponent2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/campaign", component: _CreateCampaign2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/encounter", component: _CreateEncounter2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/OGL", component: _OGL2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: !_index2.default.getState().userReducer.loggedIn ? "/signup" : "/home", component: _index2.default.getState().userReducer.loggedIn ? _HomeComponent2.default : _Signup2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/createNPC", component: _CreateNPCComponent2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/beasts", component: _BeastComponent2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/skills", component: _SkillsComponent2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/items", component: _ItemsComponent2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/characters/:id", component: _CharacterEdit2.default }),
+            _react2.default.createElement(PrivateRoute, { path: "/characters", component: _CharacterList2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/legal", component: _PathfinderCommunityUse2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: !_index2.default.getState().userReducer.loggedIn ? "/forgotPassword" : "/home", component: _index2.default.getState().userReducer.loggedIn ? _HomeComponent2.default : _ForgotPassword2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/about", component: _AboutSiteComponent2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: !_index2.default.getState().userReducer.loggedIn ? _Login2.default : _HomeComponent2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: "*", component: !_index2.default.getState().userReducer.loggedIn ? _Login2.default : _HomeComponent2.default })
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: cssStyles.styleFooter },
+          _react2.default.createElement(
+            "div",
+            null,
+            " Hernan Rossi \xA9 2018"
+          ),
+          _react2.default.createElement(
+            _LinkContainer2.default,
+            { to: "/legal" },
+            _react2.default.createElement(
+              _NavItem2.default,
+              null,
+              "Pathfinder content used under Open Gaming License, and Community Use Policy"
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-	return App;
+  return App;
 }(_react2.default.Component);
 
 App.propTypes = {
-	children: _propTypes2.default.object
+  children: _propTypes2.default.object
 };
 
 _reactDom2.default.render(_react2.default.createElement(
-	_reactRedux.Provider,
-	{ store: _index2.default },
-	_react2.default.createElement(
-		_react3.PersistGate,
-		{ persistor: _index.persistor },
-		_react2.default.createElement(
-			_reactRouterDom.BrowserRouter,
-			null,
-			_react2.default.createElement(
-				_styles.MuiThemeProvider,
-				{ theme: theme },
-				_react2.default.createElement(App, null)
-			)
-		)
-	)
+  _reactRedux.Provider,
+  { store: _index2.default },
+  _react2.default.createElement(
+    _react3.PersistGate,
+    { persistor: _index.persistor },
+    _react2.default.createElement(
+      _reactRouterDom.BrowserRouter,
+      null,
+      _react2.default.createElement(
+        _styles.MuiThemeProvider,
+        { theme: theme },
+        _react2.default.createElement(App, null)
+      )
+    )
+  )
 ), document.getElementById("contents"));
 
 if (false) {}
 
 var mapStateToProps = function mapStateToProps(state) {
-	return {
-		loggedIn: _index2.default.getState().userReducer.loggedIn,
-		user: _index2.default.getState().userReducer.currentUserName
-	};
+  return {
+    loggedIn: _index2.default.getState().userReducer.loggedIn,
+    user: _index2.default.getState().userReducer.currentUserName
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
@@ -1633,9 +1645,9 @@ var cssStyles = _interopRequireWildcard(_Styles);
 
 __webpack_require__(/*! whatwg-fetch */ "./node_modules/whatwg-fetch/fetch.js");
 
-var _materialUi = __webpack_require__(/*! material-ui */ "./node_modules/material-ui/index.es.js");
+var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
 
-var _styles = __webpack_require__(/*! material-ui/styles */ "./node_modules/material-ui/styles/index.js");
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
 
 var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 
@@ -1869,7 +1881,7 @@ var Login = function (_React$Component) {
                     _react2.default.createElement(
                       _reactBootstrap.Col,
                       { sm: 6 },
-                      _react2.default.createElement(_materialUi.TextField, {
+                      _react2.default.createElement(_core.TextField, {
                         id: "email",
                         placeholder: "User Email",
                         label: _react2.default.createElement(
@@ -1902,7 +1914,7 @@ var Login = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        _react2.default.createElement(_materialUi.TextField, {
+                        _react2.default.createElement(_core.TextField, {
                           id: "password",
                           placeholder: "User Password",
                           type: 'password',
@@ -3021,9 +3033,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
-var _materialUi = __webpack_require__(/*! material-ui */ "./node_modules/material-ui/index.es.js");
+var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
 
-var _index = __webpack_require__(/*! material-ui/styles/index */ "./node_modules/material-ui/styles/index.js");
+var _index = __webpack_require__(/*! @material-ui/core/styles/index */ "./node_modules/@material-ui/core/styles/index.js");
 
 var _Styles = __webpack_require__(/*! ../../../styles/Styles.css */ "./src/styles/Styles.css");
 
@@ -3180,7 +3192,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 2 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               onChange: this.changeName,
               id: "characterName",
               helperText: "Character Name",
@@ -3200,7 +3212,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 2 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "alignment",
               helperText: "Alignment",
               onChange: this.changeAlignment,
@@ -3220,7 +3232,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 2 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "player",
               helperText: "Player",
               onChange: this.changePlayer,
@@ -3240,7 +3252,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "level",
               helperText: "Level",
               onChange: this.changeLevel,
@@ -3261,7 +3273,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "deity",
               helperText: "Deity",
               onChange: this.changeDeity,
@@ -3283,7 +3295,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 2 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "homeland",
               helperText: "Homeland",
               onChange: this.changeHomeland,
@@ -3310,7 +3322,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "race",
               helperText: "Race",
               value: this.state.editCharacter.race ? this.state.editCharacter.race : "",
@@ -3327,7 +3339,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "size",
               helperText: "size",
               onChange: this.changeSize,
@@ -3348,7 +3360,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "gender",
               helperText: "Gender",
               onChange: this.changeGender,
@@ -3369,7 +3381,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "age",
               helperText: "Age",
               onChange: this.changeAge,
@@ -3390,7 +3402,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "height",
               helperText: "Height",
               onChange: this.changeHeight,
@@ -3412,7 +3424,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "weight",
               helperText: "Weight",
               inputRef: function inputRef(ref) {
@@ -3433,7 +3445,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "hair",
               helperText: "Hair",
               onChange: this.changeHair,
@@ -3455,7 +3467,7 @@ var CharacterEditBasicInfoComponent = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { sm: 1 },
-            _react2.default.createElement(_materialUi.TextField, {
+            _react2.default.createElement(_core.TextField, {
               id: "eyes",
               helperText: "Eyes",
               inputRef: function inputRef(ref) {
@@ -3497,7 +3509,7 @@ exports.default = (0, _index.withStyles)(styles)(CharacterEditBasicInfoComponent
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3508,9 +3520,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
-var _materialUi = __webpack_require__(/*! material-ui */ "./node_modules/material-ui/index.es.js");
+var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
 
-var _index = __webpack_require__(/*! material-ui/styles/index */ "./node_modules/material-ui/styles/index.js");
+var _index = __webpack_require__(/*! @material-ui/core/styles/index */ "./node_modules/@material-ui/core/styles/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3521,46 +3533,46 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var styles = {
-	root: {
-		fontColor: "white"
-	},
-	input: {
-		color: "white",
-		fontSize: 20,
-		fontColor: "white",
-		fontFamily: "'Josefin Sans', sans-serif"
-	},
-	helperText: {
-		color: "white",
-		fontSize: 14,
-		fontColor: "white",
-		fontFamily: "'Cinzel Decorative', sans-serif"
-		// textShadow: '1px 1px 0px #DFFE02',
-	}
+  root: {
+    fontColor: "white"
+  },
+  input: {
+    color: "white",
+    fontSize: 20,
+    fontColor: "white",
+    fontFamily: "'Josefin Sans', sans-serif"
+  },
+  helperText: {
+    color: "white",
+    fontSize: 14,
+    fontColor: "white",
+    fontFamily: "'Cinzel Decorative', sans-serif"
+    // textShadow: '1px 1px 0px #DFFE02',
+  }
 };
 
 var CharacterEditSkillsComponent = function (_React$Component) {
-	_inherits(CharacterEditSkillsComponent, _React$Component);
+  _inherits(CharacterEditSkillsComponent, _React$Component);
 
-	function CharacterEditSkillsComponent() {
-		_classCallCheck(this, CharacterEditSkillsComponent);
+  function CharacterEditSkillsComponent() {
+    _classCallCheck(this, CharacterEditSkillsComponent);
 
-		return _possibleConstructorReturn(this, (CharacterEditSkillsComponent.__proto__ || Object.getPrototypeOf(CharacterEditSkillsComponent)).call(this));
-	}
+    return _possibleConstructorReturn(this, (CharacterEditSkillsComponent.__proto__ || Object.getPrototypeOf(CharacterEditSkillsComponent)).call(this));
+  }
 
-	_createClass(CharacterEditSkillsComponent, [{
-		key: "render",
-		value: function render() {
+  _createClass(CharacterEditSkillsComponent, [{
+    key: "render",
+    value: function render() {
 
-			return _react2.default.createElement(
-				"div",
-				{ style: { textAlign: 'center' } },
-				"Skills segment under construction"
-			);
-		}
-	}]);
+      return _react2.default.createElement(
+        "div",
+        { style: { textAlign: 'center' } },
+        "Skills segment under construction"
+      );
+    }
+  }]);
 
-	return CharacterEditSkillsComponent;
+  return CharacterEditSkillsComponent;
 }(_react2.default.Component);
 
 exports.default = (0, _index.withStyles)(styles)(CharacterEditSkillsComponent);
@@ -3578,7 +3590,7 @@ exports.default = (0, _index.withStyles)(styles)(CharacterEditSkillsComponent);
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3589,9 +3601,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
-var _materialUi = __webpack_require__(/*! material-ui */ "./node_modules/material-ui/index.es.js");
+var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
 
-var _index = __webpack_require__(/*! material-ui/styles/index */ "./node_modules/material-ui/styles/index.js");
+var _index = __webpack_require__(/*! @material-ui/core/styles/index */ "./node_modules/@material-ui/core/styles/index.js");
 
 var _Styles = __webpack_require__(/*! ../../../styles/Styles.css */ "./src/styles/Styles.css");
 
@@ -3608,119 +3620,132 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var styles = {
-	root: {
-		fontColor: "white"
-	},
-	input: {
-		color: "white",
-		fontSize: 20,
-		fontColor: "white",
-		fontFamily: "'Josefin Sans', sans-serif"
-	},
-	helperText: {
-		color: "white",
-		fontSize: 14,
-		fontColor: "white",
-		fontFamily: "'Cinzel Decorative', sans-serif"
-		// textShadow: '1px 1px 0px #DFFE02',
-	}
+  root: {
+    fontColor: "white"
+  },
+  input: {
+    color: "white",
+    fontSize: 20,
+    fontColor: "white",
+    fontFamily: "'Josefin Sans', sans-serif"
+  },
+  helperText: {
+    color: "white",
+    fontSize: 14,
+    fontColor: "white",
+    fontFamily: "'Cinzel Decorative', sans-serif"
+    // textShadow: '1px 1px 0px #DFFE02',
+  }
 };
 
 var CharacterEditStatsComponent = function (_React$Component) {
-	_inherits(CharacterEditStatsComponent, _React$Component);
+  _inherits(CharacterEditStatsComponent, _React$Component);
 
-	function CharacterEditStatsComponent() {
-		_classCallCheck(this, CharacterEditStatsComponent);
+  function CharacterEditStatsComponent() {
+    _classCallCheck(this, CharacterEditStatsComponent);
 
-		return _possibleConstructorReturn(this, (CharacterEditStatsComponent.__proto__ || Object.getPrototypeOf(CharacterEditStatsComponent)).call(this));
-	}
+    return _possibleConstructorReturn(this, (CharacterEditStatsComponent.__proto__ || Object.getPrototypeOf(CharacterEditStatsComponent)).call(this));
+  }
 
-	_createClass(CharacterEditStatsComponent, [{
-		key: "render",
-		value: function render() {
+  _createClass(CharacterEditStatsComponent, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        _reactBootstrap.FormGroup,
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { sm: 7 },
+          _react2.default.createElement(StatsHeaderFormGroup, null)
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { sm: 5 },
+          _react2.default.createElement(
+            "div",
+            { style: { textAlign: "center" } },
+            "Hp placeholder"
+          )
+        )
+      );
+    }
+  }]);
 
-			return _react2.default.createElement(
-				_reactBootstrap.FormGroup,
-				null,
-				_react2.default.createElement(
-					_reactBootstrap.Col,
-					{ sm: 7 },
-					_react2.default.createElement(StatsHeaderFormGroup, null)
-				),
-				_react2.default.createElement(
-					_reactBootstrap.Col,
-					{ sm: 5 },
-					_react2.default.createElement(
-						"div",
-						{ style: { textAlign: 'center' } },
-						"Hp placeholder"
-					)
-				)
-			);
-		}
-	}]);
-
-	return CharacterEditStatsComponent;
+  return CharacterEditStatsComponent;
 }(_react2.default.Component);
 
 var StatsHeaderFormGroup = function StatsHeaderFormGroup() {
-	return _react2.default.createElement(
-		_reactBootstrap.FormGroup,
-		null,
-		_react2.default.createElement(
-			_reactBootstrap.Col,
-			{
-				sm: 2,
-				style: { background: 'transparent',
-					fontSize: '15px',
-					fontFamily: '\"Crimson Text\", serif' } },
-			"Ability Name"
-		),
-		_react2.default.createElement(
-			_reactBootstrap.Col,
-			{
-				sm: 2,
-				style: { background: 'transparent',
-					fontSize: '15px',
-					fontFamily: '\"Crimson Text\", serif' } },
-			"Ability",
-			_react2.default.createElement("br", null),
-			"Score"
-		),
-		_react2.default.createElement(
-			_reactBootstrap.Col,
-			{
-				sm: 2,
-				style: { background: 'transparent',
-					fontSize: '15px',
-					fontFamily: '\"Crimson Text\", serif' } },
-			"Ability Modifier"
-		),
-		_react2.default.createElement(
-			_reactBootstrap.Col,
-			{
-				sm: 2,
-				style: { background: 'transparent',
-					fontSize: '15px',
-					fontFamily: '\"Crimson Text\", serif',
-					marginRight: '15px' } },
-			"Temp",
-			_react2.default.createElement("br", null),
-			"Adjustment"
-		),
-		_react2.default.createElement(
-			_reactBootstrap.Col,
-			{
-				sm: 2,
-				style: { background: 'transparent',
-					fontSize: '15px',
-					fontFamily: '\"Crimson Text\", serif' }
-			},
-			"Temp ",
-			_react2.default.createElement("br", null),
-			"Modifier"
-		)
-	);
+  return _react2.default.createElement(
+    _reactBootstrap.FormGroup,
+    null,
+    _react2.default.createElement(
+      _reactBootstrap.Col,
+      {
+        sm: 2,
+        style: {
+          background: "transparent",
+          fontSize: "15px",
+          fontFamily: '"Crimson Text", serif'
+        }
+      },
+      "Ability Name"
+    ),
+    _react2.default.createElement(
+      _reactBootstrap.Col,
+      {
+        sm: 2,
+        style: {
+          background: "transparent",
+          fontSize: "15px",
+          fontFamily: '"Crimson Text", serif'
+        }
+      },
+      "Ability",
+      _react2.default.createElement("br", null),
+      "Score"
+    ),
+    _react2.default.createElement(
+      _reactBootstrap.Col,
+      {
+        sm: 2,
+        style: {
+          background: "transparent",
+          fontSize: "15px",
+          fontFamily: '"Crimson Text", serif'
+        }
+      },
+      "Ability Modifier"
+    ),
+    _react2.default.createElement(
+      _reactBootstrap.Col,
+      {
+        sm: 2,
+        style: {
+          background: "transparent",
+          fontSize: "15px",
+          fontFamily: '"Crimson Text", serif',
+          marginRight: "15px"
+        }
+      },
+      "Temp",
+      _react2.default.createElement("br", null),
+      "Adjustment"
+    ),
+    _react2.default.createElement(
+      _reactBootstrap.Col,
+      {
+        sm: 2,
+        style: {
+          background: "transparent",
+          fontSize: "15px",
+          fontFamily: '"Crimson Text", serif'
+        }
+      },
+      "Temp ",
+      _react2.default.createElement("br", null),
+      "Modifier"
+    )
+  );
 };
 exports.default = (0, _index.withStyles)(styles)(CharacterEditStatsComponent);
 
@@ -8344,9 +8369,9 @@ var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules
 
 var _reactstrap = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/dist/reactstrap.es.js");
 
-var _materialUi = __webpack_require__(/*! material-ui */ "./node_modules/material-ui/index.es.js");
+var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
 
-var _styles = __webpack_require__(/*! material-ui/styles */ "./node_modules/material-ui/styles/index.js");
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -8808,7 +8833,7 @@ exports.default = (0, _styles.withStyles)(styles)(CreateCharacterCustomStatsInpu
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -8823,10 +8848,6 @@ var cssStyles = _interopRequireWildcard(_Styles);
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
-var _reactCoverflow = __webpack_require__(/*! react-coverflow */ "./node_modules/react-coverflow/main.js");
-
-var _reactCoverflow2 = _interopRequireDefault(_reactCoverflow);
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -8838,237 +8859,237 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CreateCharacterFavouredClassComponent = function (_React$Component) {
-	_inherits(CreateCharacterFavouredClassComponent, _React$Component);
+  _inherits(CreateCharacterFavouredClassComponent, _React$Component);
 
-	function CreateCharacterFavouredClassComponent(props) {
-		_classCallCheck(this, CreateCharacterFavouredClassComponent);
+  function CreateCharacterFavouredClassComponent(props) {
+    _classCallCheck(this, CreateCharacterFavouredClassComponent);
 
-		var _this = _possibleConstructorReturn(this, (CreateCharacterFavouredClassComponent.__proto__ || Object.getPrototypeOf(CreateCharacterFavouredClassComponent)).call(this));
+    var _this = _possibleConstructorReturn(this, (CreateCharacterFavouredClassComponent.__proto__ || Object.getPrototypeOf(CreateCharacterFavouredClassComponent)).call(this));
 
-		_this.saveFavouredClass = _this.saveFavouredClass.bind(_this);
-		_this.handleShow = _this.handleShow.bind(_this);
-		_this.handleClose = _this.handleClose.bind(_this);
-		_this.state = {
-			show: false,
-			selectedFavouredClass: ""
-		};
-		return _this;
-	}
+    _this.saveFavouredClass = _this.saveFavouredClass.bind(_this);
+    _this.handleShow = _this.handleShow.bind(_this);
+    _this.handleClose = _this.handleClose.bind(_this);
+    _this.state = {
+      show: false,
+      selectedFavouredClass: ""
+    };
+    return _this;
+  }
 
-	_createClass(CreateCharacterFavouredClassComponent, [{
-		key: "saveFavouredClass",
-		value: function saveFavouredClass(e) {
-			var targetText = e.target.textContent.toString();
-			this.props.updateFavClass(targetText);
-		}
-	}, {
-		key: "handleClose",
-		value: function handleClose() {
-			this.setState({ show: false });
-		}
-	}, {
-		key: "handleShow",
-		value: function handleShow() {
-			this.setState({ show: true });
-		}
-	}, {
-		key: "render",
-		value: function render() {
-			var favouredClassDivStyle = {
-				fontSize: "19px",
-				fontFamily: "'Josefin Sans', sans-serif",
-				textAlign: "left"
-			};
-			var favouredClassInfoImgStyle = {
-				backgroundColor: "transparent"
+  _createClass(CreateCharacterFavouredClassComponent, [{
+    key: "saveFavouredClass",
+    value: function saveFavouredClass(e) {
+      var targetText = e.target.textContent.toString();
+      this.props.updateFavClass(targetText);
+    }
+  }, {
+    key: "handleClose",
+    value: function handleClose() {
+      this.setState({ show: false });
+    }
+  }, {
+    key: "handleShow",
+    value: function handleShow() {
+      this.setState({ show: true });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var favouredClassDivStyle = {
+        fontSize: "19px",
+        fontFamily: "'Josefin Sans', sans-serif",
+        textAlign: "left"
+      };
+      var favouredClassInfoImgStyle = {
+        backgroundColor: "transparent"
 
-			};
-			var _props = this.props,
-			    children = _props.children,
-			    active = _props.active,
-			    colorize = _props.colorize;
+      };
+      var _props = this.props,
+          children = _props.children,
+          active = _props.active,
+          colorize = _props.colorize;
 
-			return _react2.default.createElement(
-				"div",
-				null,
-				_react2.default.createElement(
-					_reactBootstrap.FormGroup,
-					null,
-					_react2.default.createElement(_reactBootstrap.Col, { sm: 1 }),
-					_react2.default.createElement(
-						_reactBootstrap.Col,
-						{
-							componentClass: _reactBootstrap.ControlLabel,
-							sm: 1
-						},
-						_react2.default.createElement(
-							"div",
-							{ style: favouredClassDivStyle },
-							" ",
-							_react2.default.createElement(
-								"strong",
-								null,
-								"Favoured Class:"
-							)
-						)
-					),
-					_react2.default.createElement(
-						_reactBootstrap.Col,
-						{ sm: 1 },
-						_react2.default.createElement(
-							_reactBootstrap.Button,
-							{ onClick: this.handleShow, style: favouredClassInfoImgStyle },
-							_react2.default.createElement("i", { style: favouredClassInfoImgStyle, className: "far fa-question-circle" })
-						)
-					),
-					_react2.default.createElement(
-						_reactBootstrap.Col,
-						{ sm: 7 },
-						_react2.default.createElement(
-							_reactBootstrap.ButtonToolbar,
-							null,
-							_react2.default.createElement(
-								_reactBootstrap.ToggleButtonGroup,
-								{
-									type: "radio",
-									name: "raceValue",
-									onClick: this.saveFavouredClass,
-									className: cssStyles.favouredClassButtonGroup
-								},
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Barbarian",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Barbarian"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Monk",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Monk"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Wizard",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Wizard"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Ranger",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Ranger"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Druid",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Druid"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Paladin",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Paladin"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Sorcerer",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Sorcerer"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Rogue",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Rogue"
-								),
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Fighter",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Fighter"
-								),
-								" ",
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Cleric",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Cleric"
-								),
-								" ",
-								_react2.default.createElement(
-									_reactBootstrap.ToggleButton,
-									{
-										value: "Bard",
-										className: cssStyles.favouredClassButtonGroup
-									},
-									"Bard"
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						_reactBootstrap.Col,
-						{ sm: 1 },
-						_react2.default.createElement(
-							_reactBootstrap.Modal,
-							{ show: this.state.show, onHide: this.handleClose },
-							_react2.default.createElement(
-								_reactBootstrap.Modal.Header,
-								{ closeButton: true },
-								_react2.default.createElement(
-									_reactBootstrap.Modal.Title,
-									null,
-									"Favoured Class Selection"
-								)
-							),
-							_react2.default.createElement(
-								_reactBootstrap.Modal.Body,
-								null,
-								_react2.default.createElement(
-									"div",
-									{ style: favouredClassDivStyle },
-									"Each character begins play with a single favored class of his choosing. Whenever a character gains a level in his favored class, he receives either + 1 hit point or + 1 skill rank. The choice of favored class cannot be changed once the character is created, and the choice of gaining a hit point or a skill rank each time a character gains a level (including his first level) cannot be changed once made for a particular level."
-								)
-							),
-							_react2.default.createElement(
-								_reactBootstrap.Modal.Footer,
-								null,
-								_react2.default.createElement(
-									_reactBootstrap.Button,
-									{ onClick: this.handleClose },
-									"Close"
-								)
-							)
-						)
-					)
-				)
-			);
-		}
-	}]);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.FormGroup,
+          null,
+          _react2.default.createElement(_reactBootstrap.Col, { sm: 1 }),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            {
+              componentClass: _reactBootstrap.ControlLabel,
+              sm: 1
+            },
+            _react2.default.createElement(
+              "div",
+              { style: favouredClassDivStyle },
+              " ",
+              _react2.default.createElement(
+                "strong",
+                null,
+                "Favoured Class:"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { sm: 1 },
+            _react2.default.createElement(
+              _reactBootstrap.Button,
+              { onClick: this.handleShow, style: favouredClassInfoImgStyle },
+              _react2.default.createElement("i", { style: favouredClassInfoImgStyle, className: "far fa-question-circle" })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { sm: 7 },
+            _react2.default.createElement(
+              _reactBootstrap.ButtonToolbar,
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.ToggleButtonGroup,
+                {
+                  type: "radio",
+                  name: "raceValue",
+                  onClick: this.saveFavouredClass,
+                  className: cssStyles.favouredClassButtonGroup
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Barbarian",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Barbarian"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Monk",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Monk"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Wizard",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Wizard"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Ranger",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Ranger"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Druid",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Druid"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Paladin",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Paladin"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Sorcerer",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Sorcerer"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Rogue",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Rogue"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Fighter",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Fighter"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Cleric",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Cleric"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.ToggleButton,
+                  {
+                    value: "Bard",
+                    className: cssStyles.favouredClassButtonGroup
+                  },
+                  "Bard"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { sm: 1 },
+            _react2.default.createElement(
+              _reactBootstrap.Modal,
+              { show: this.state.show, onHide: this.handleClose },
+              _react2.default.createElement(
+                _reactBootstrap.Modal.Header,
+                { closeButton: true },
+                _react2.default.createElement(
+                  _reactBootstrap.Modal.Title,
+                  null,
+                  "Favoured Class Selection"
+                )
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Modal.Body,
+                null,
+                _react2.default.createElement(
+                  "div",
+                  { style: favouredClassDivStyle },
+                  "Each character begins play with a single favored class of his choosing. Whenever a character gains a level in his favored class, he receives either + 1 hit point or + 1 skill rank. The choice of favored class cannot be changed once the character is created, and the choice of gaining a hit point or a skill rank each time a character gains a level (including his first level) cannot be changed once made for a particular level."
+                )
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Modal.Footer,
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.Button,
+                  { onClick: this.handleClose },
+                  "Close"
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-	return CreateCharacterFavouredClassComponent;
+  return CreateCharacterFavouredClassComponent;
 }(_react2.default.Component);
 
 exports.default = CreateCharacterFavouredClassComponent;
@@ -9587,9 +9608,9 @@ var cssStyles = _interopRequireWildcard(_Styles);
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
-var _materialUi = __webpack_require__(/*! material-ui */ "./node_modules/material-ui/index.es.js");
+var _core = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/index.es.js");
 
-var _styles = __webpack_require__(/*! material-ui/styles */ "./node_modules/material-ui/styles/index.js");
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
 
 var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 
@@ -9656,7 +9677,7 @@ var CreateCharacterNameComponent = function (_React$Component) {
 				_react2.default.createElement(
 					_reactBootstrap.Col,
 					{ sm: 8 },
-					_react2.default.createElement(_materialUi.TextField, {
+					_react2.default.createElement(_core.TextField, {
 						id: "nameInput",
 						placeholder: "Enter Character Name",
 
@@ -12150,7 +12171,7 @@ var _index = __webpack_require__(/*! ../reducers/index */ "./src/js/reducers/ind
 
 var _index2 = _interopRequireDefault(_index);
 
-var _reduxThunk = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/lib/index.js");
+var _reduxThunk = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -12200,7 +12221,7 @@ exports.default = store;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../node_modules/css-loader??ref--7!./Styles.css */ "./node_modules/css-loader/index.js??ref--7!./src/styles/Styles.css");
+var content = __webpack_require__(/*! !../../node_modules/css-loader??ref--7!./Styles.css */ "./node_modules/css-loader/index.js?!./src/styles/Styles.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12229,7 +12250,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/nan/ChampionsArena/ChampionsArena/src/js/components/App.jsx */"./src/js/components/App.jsx");
+module.exports = __webpack_require__(/*! /home/nan/workspace/ChampionsArena/src/js/components/App.jsx */"./src/js/components/App.jsx");
 
 
 /***/ }),
