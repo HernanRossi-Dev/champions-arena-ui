@@ -937,6 +937,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _NavItem = __webpack_require__(/*! react-bootstrap/lib/NavItem */ "./node_modules/react-bootstrap/lib/NavItem.js");
+
+var _NavItem2 = _interopRequireDefault(_NavItem);
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _react3 = __webpack_require__(/*! redux-persist/lib/integration/react */ "./node_modules/redux-persist/lib/integration/react.js");
+
+var _LinkContainer = __webpack_require__(/*! react-router-bootstrap/lib/LinkContainer */ "./node_modules/react-router-bootstrap/lib/LinkContainer.js");
+
+var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
+
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 var _CharacterList = __webpack_require__(/*! ./CharacterList/CharacterList.jsx */ "./src/js/components/CharacterList/CharacterList.jsx");
 
 var _CharacterList2 = _interopRequireDefault(_CharacterList);
@@ -1005,41 +1033,13 @@ var _CreateCharacterSkillsComponent = __webpack_require__(/*! ./CreateCharacterC
 
 var _CreateCharacterSkillsComponent2 = _interopRequireDefault(_CreateCharacterSkillsComponent);
 
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
-var _react3 = __webpack_require__(/*! redux-persist/lib/integration/react */ "./node_modules/redux-persist/lib/integration/react.js");
-
 var _index = __webpack_require__(/*! ../store/index */ "./src/js/store/index.js");
 
 var _index2 = _interopRequireDefault(_index);
 
-var _NavItem = __webpack_require__(/*! react-bootstrap/lib/NavItem */ "./node_modules/react-bootstrap/lib/NavItem.js");
-
-var _NavItem2 = _interopRequireDefault(_NavItem);
-
 var _Styles = __webpack_require__(/*! ../../styles/Styles.css */ "./src/styles/Styles.css");
 
 var cssStyles = _interopRequireWildcard(_Styles);
-
-var _LinkContainer = __webpack_require__(/*! react-router-bootstrap/lib/LinkContainer */ "./node_modules/react-router-bootstrap/lib/LinkContainer.js");
-
-var _LinkContainer2 = _interopRequireDefault(_LinkContainer);
-
-var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
-
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 var _SiteHeaderComponent = __webpack_require__(/*! ./SiteHeaderComponent */ "./src/js/components/SiteHeaderComponent.jsx");
 
@@ -1639,9 +1639,9 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Styles = __webpack_require__(/*! ../../../styles/Styles.css */ "./src/styles/Styles.css");
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
-var cssStyles = _interopRequireWildcard(_Styles);
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 __webpack_require__(/*! whatwg-fetch */ "./node_modules/whatwg-fetch/fetch.js");
 
@@ -1655,25 +1655,29 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
+var _FormGroup = __webpack_require__(/*! @material-ui/core/FormGroup */ "./node_modules/@material-ui/core/FormGroup/index.js");
+
 var _reactRouterBootstrap = __webpack_require__(/*! react-router-bootstrap */ "./node_modules/react-router-bootstrap/lib/index.js");
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _FormControl = __webpack_require__(/*! react-bootstrap/es/FormControl */ "./node_modules/react-bootstrap/es/FormControl.js");
+var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
 
-var _FormControl2 = _interopRequireDefault(_FormControl);
+var _Styles = __webpack_require__(/*! ../../../styles/Styles.css */ "./src/styles/Styles.css");
+
+var cssStyles = _interopRequireWildcard(_Styles);
 
 var _UserActionCreators = __webpack_require__(/*! ../../actions/UserActionCreators */ "./src/js/actions/UserActionCreators.js");
 
 var UserActionCreators = _interopRequireWildcard(_UserActionCreators);
 
-var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
-
 var _store = __webpack_require__(/*! ../../store */ "./src/js/store/index.js");
 
 var _store2 = _interopRequireDefault(_store);
+
+var _stylescss = __webpack_require__(/*! ./stylescss */ "./src/js/components/AuthenticateUser/stylescss.js");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -1686,6 +1690,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var passwordHash = __webpack_require__(/*! password-hash */ "./node_modules/password-hash/lib/password-hash.js");
+
 var styles = {
   root: {
     fontColor: 'white'
@@ -1704,7 +1709,6 @@ var styles = {
     display: 'flex',
     flexWrap: 'wrap'
   }
-
 };
 
 var Login = function (_React$Component) {
@@ -1747,11 +1751,10 @@ var Login = function (_React$Component) {
   }, {
     key: "handleSignIn",
     value: function handleSignIn() {
-
       var email = this.email.value;
       var password = this.password.value;
       var hashedPassword = passwordHash.generate(password);
-      var queryUser = "?email=" + email + "&password=" + passwordHash.generate(password);
+      var queryUser = "?email=" + email + "&password=" + passwordHash.generate(hashedPassword);
       var thisInst = this;
       var callbackRedirect = function callbackRedirect() {
         thisInst.props.history.push("/home");
@@ -1814,11 +1817,7 @@ var Login = function (_React$Component) {
         alignItems: "center"
 
       };
-      var divContainerStyleChild = {
-        width: "25%",
-        backgroundColor: 'transparent',
-        alignItems: "center"
-      };
+      var divContainerStyleChild = {};
       var panelBody = {
         backgroundColor: 'transparent',
         alignItems: "center"
@@ -1846,8 +1845,8 @@ var Login = function (_React$Component) {
           "div",
           { style: divContainerStyle },
           _react2.default.createElement(
-            "div",
-            { style: divContainerStyleChild },
+            _stylescss.LoginContainer,
+            null,
             _react2.default.createElement(
               _reactBootstrap.Panel,
               { style: panelParentStyle },
@@ -1875,7 +1874,7 @@ var Login = function (_React$Component) {
                   _reactBootstrap.Form,
                   { horizontal: true, style: panelBody },
                   _react2.default.createElement(
-                    _reactBootstrap.FormGroup,
+                    _FormGroup.FormGroupM,
                     null,
                     _react2.default.createElement(_reactBootstrap.Col, { sm: 3 }),
                     _react2.default.createElement(
@@ -1917,15 +1916,13 @@ var Login = function (_React$Component) {
                         _react2.default.createElement(_core.TextField, {
                           id: "password",
                           placeholder: "User Password",
-                          type: 'password',
+                          type: "password",
                           inputRef: function inputRef(ref) {
                             _this2.password = ref;
                           },
-
                           className: classes.root,
                           InputProps: {
                             className: classes.input
-
                           },
                           InputLabelProps: {
                             className: classes.labelStyle
@@ -2577,6 +2574,35 @@ var Signup = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)()(Signup));
+
+/***/ }),
+
+/***/ "./src/js/components/AuthenticateUser/stylescss.js":
+/*!*********************************************************!*\
+  !*** ./src/js/components/AuthenticateUser/stylescss.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LoginContainer = undefined;
+
+var _templateObject = _taggedTemplateLiteral(['\n  width: 25%;\n  background-color: transparent;\n  align-items: center;\n\n  @media (max-width: 1560px) {\n    width: 35%;\n  }\n  @media (max-width: 1170px) {\n    width: 50%;\n  }\n\n  @media (max-width: 780px) {\n    width: 90%;\n  }\n'], ['\n  width: 25%;\n  background-color: transparent;\n  align-items: center;\n\n  @media (max-width: 1560px) {\n    width: 35%;\n  }\n  @media (max-width: 1170px) {\n    width: 50%;\n  }\n\n  @media (max-width: 780px) {\n    width: 90%;\n  }\n']);
+
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var LoginContainer = exports.LoginContainer = _styledComponents2.default.div(_templateObject);
 
 /***/ }),
 
@@ -10750,8 +10776,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -10760,86 +10784,68 @@ var _Styles = __webpack_require__(/*! ../../styles/Styles.css */ "./src/styles/S
 
 var cssStyles = _interopRequireWildcard(_Styles);
 
+var _OccultYoon = __webpack_require__(/*! ../../../public/assets/OccultYoon.png */ "./public/assets/OccultYoon.png");
+
+var _OccultYoon2 = _interopRequireDefault(_OccultYoon);
+
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var HomeComponent = function (_React$Component) {
-  _inherits(HomeComponent, _React$Component);
-
-  function HomeComponent() {
-    _classCallCheck(this, HomeComponent);
-
-    return _possibleConstructorReturn(this, (HomeComponent.__proto__ || Object.getPrototypeOf(HomeComponent)).apply(this, arguments));
-  }
-
-  _createClass(HomeComponent, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: cssStyles.homeBodyText },
-        "Welcome to the Arena",
-        _react2.default.createElement("br", null),
-        _react2.default.createElement(
-          "div",
-          { className: cssStyles.homeTextParagraph },
-          "This is very much a work in progress and currently only supports desktop browsers, best with Chrome.",
-          _react2.default.createElement("br", null),
-          " I am constantly updating and implementing new features. Currently there is just a ",
-          _react2.default.createElement("br", null),
-          "basic framework of what I want to eventually accomplish, feel free to look around. Thanks for visiting!",
-          _react2.default.createElement("br", null),
-          "Create Player and Non-Player Pathfinder characters. Track characters, NPC's, inventory and campaign info.",
-          _react2.default.createElement("br", null),
-          "To get started create a character by clicking ",
-          _react2.default.createElement(
-            "i",
-            null,
-            "Create New Character"
-          ),
-          " at the top.",
-          _react2.default.createElement("br", null),
-          "Click on the ",
-          _react2.default.createElement(
-            "i",
-            null,
-            "Characters"
-          ),
-          " tab at the top to see a list of all your characters.",
-          _react2.default.createElement("br", null),
-          "There a few default ones you can delete or edit.",
-          _react2.default.createElement("br", null),
-          "Click on a characters name to see more detailed attributes and edit them.",
-          _react2.default.createElement("br", null),
-          "Let me know if you have any ideas how the site could be improved at hrossi.work@gmail.com.",
-          _react2.default.createElement("br", null)
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: cssStyles.homeImageDiv },
-          _react2.default.createElement("img", {
-            src: __webpack_require__(/*! ../../../public/assets/OccultYoon.png */ "./public/assets/OccultYoon.png"),
-            width: "318.75",
-            height: "367.2",
-            alt: ""
-          })
-        )
-      );
-    }
-  }]);
-
-  return HomeComponent;
-}(_react2.default.Component);
-
+function HomeComponent(props) {
+  return _react2.default.createElement(
+    "div",
+    { className: cssStyles.homeBodyText },
+    "Welcome to the Arena",
+    _react2.default.createElement("br", null),
+    _react2.default.createElement(
+      "div",
+      { className: cssStyles.homeTextParagraph },
+      "This is a work in progress and currently only supports desktop browsers, best with Chrome.",
+      _react2.default.createElement("br", null),
+      "I am constantly updating and implementing new features. Currently there is just a ",
+      _react2.default.createElement("br", null),
+      "basic framework of what I want to eventually accomplish, feel free to look around. Thanks for visiting!",
+      _react2.default.createElement("br", null),
+      "Create Player and Non-Player Pathfinder characters. Track characters, NPC's, inventory and campaign info.",
+      _react2.default.createElement("br", null),
+      "To get started create a character by clicking ",
+      _react2.default.createElement(
+        "i",
+        null,
+        "Create New Character"
+      ),
+      " at the top.",
+      _react2.default.createElement("br", null),
+      "Click on the ",
+      _react2.default.createElement(
+        "i",
+        null,
+        "Characters"
+      ),
+      " tab at the top to see a list of all your characters.",
+      _react2.default.createElement("br", null),
+      "There a few default ones you can delete or edit.",
+      _react2.default.createElement("br", null),
+      "Click on a characters name to see more detailed attributes and edit them.",
+      _react2.default.createElement("br", null),
+      "Let me know if you have any ideas how the site could be improved at hrossi.work@gmail.com.",
+      _react2.default.createElement("br", null)
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: cssStyles.homeImageDiv },
+      _react2.default.createElement("img", {
+        src: _OccultYoon2.default,
+        width: "318.75",
+        height: "367.2",
+        alt: ""
+      })
+    )
+  );
+}
 exports.default = (0, _reactRouterDom.withRouter)(HomeComponent);
 
 /***/ }),
@@ -10855,7 +10861,7 @@ exports.default = (0, _reactRouterDom.withRouter)(HomeComponent);
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -10864,13 +10870,19 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Styles = __webpack_require__(/*! ../../styles/Styles.css */ "./src/styles/Styles.css");
+var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
 
-var cssStyles = _interopRequireWildcard(_Styles);
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
 var _reactRouterBootstrap = __webpack_require__(/*! react-router-bootstrap */ "./node_modules/react-router-bootstrap/lib/index.js");
+
+var _Styles = __webpack_require__(/*! ../../styles/Styles.css */ "./src/styles/Styles.css");
+
+var cssStyles = _interopRequireWildcard(_Styles);
 
 var _store = __webpack_require__(/*! ../store */ "./src/js/store/index.js");
 
@@ -10879,12 +10891,6 @@ var _store2 = _interopRequireDefault(_store);
 var _UserActionCreators = __webpack_require__(/*! ../actions/UserActionCreators */ "./src/js/actions/UserActionCreators.js");
 
 var UserActionCreators = _interopRequireWildcard(_UserActionCreators);
-
-var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
-
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -10897,342 +10903,341 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NavBarComponent = function (_React$Component) {
-	_inherits(NavBarComponent, _React$Component);
+  _inherits(NavBarComponent, _React$Component);
 
-	function NavBarComponent(props) {
-		_classCallCheck(this, NavBarComponent);
+  function NavBarComponent(props) {
+    _classCallCheck(this, NavBarComponent);
 
-		var _this = _possibleConstructorReturn(this, (NavBarComponent.__proto__ || Object.getPrototypeOf(NavBarComponent)).call(this));
+    var _this = _possibleConstructorReturn(this, (NavBarComponent.__proto__ || Object.getPrototypeOf(NavBarComponent)).call(this));
 
-		_this.onToggleCreate = _this.onToggleCreate.bind(_this);
-		_this.onToggleWorld = _this.onToggleWorld.bind(_this);
-		_this.onToggleArena = _this.onToggleArena.bind(_this);
-		_this.onToggleOptions = _this.onToggleOptions.bind(_this);
-		_this.handleOpenWorld = _this.handleOpenWorld.bind(_this);
-		_this.handleOpenCreate = _this.handleOpenCreate.bind(_this);
-		_this.handleCloseWorld = _this.handleCloseWorld.bind(_this);
-		_this.handleOpenOptions = _this.handleOpenOptions.bind(_this);
-		_this.handleCloseOptions = _this.handleCloseOptions.bind(_this);
-		_this.handleCloseCreate = _this.handleCloseCreate.bind(_this);
-		_this.handleCloseArena = _this.handleCloseArena.bind(_this);
-		_this.handleOpenArena = _this.handleOpenArena.bind(_this);
-		_this.logout = _this.logout.bind(_this);
-		_this.state = {
-			dropdownOpen: false,
-			isOpenWorld: false,
-			isOpenCreate: false,
-			isOpenOptions: false,
-			isOpenArena: false
-		};
-		var dispatch = props.dispatch;
+    _this.onToggleCreate = _this.onToggleCreate.bind(_this);
+    _this.onToggleWorld = _this.onToggleWorld.bind(_this);
+    _this.onToggleArena = _this.onToggleArena.bind(_this);
+    _this.onToggleOptions = _this.onToggleOptions.bind(_this);
+    _this.handleOpenWorld = _this.handleOpenWorld.bind(_this);
+    _this.handleOpenCreate = _this.handleOpenCreate.bind(_this);
+    _this.handleCloseWorld = _this.handleCloseWorld.bind(_this);
+    _this.handleOpenOptions = _this.handleOpenOptions.bind(_this);
+    _this.handleCloseOptions = _this.handleCloseOptions.bind(_this);
+    _this.handleCloseCreate = _this.handleCloseCreate.bind(_this);
+    _this.handleCloseArena = _this.handleCloseArena.bind(_this);
+    _this.handleOpenArena = _this.handleOpenArena.bind(_this);
+    _this.logout = _this.logout.bind(_this);
+    _this.state = {
+      dropdownOpen: false,
+      isOpenWorld: false,
+      isOpenCreate: false,
+      isOpenOptions: false,
+      isOpenArena: false
+    };
+    var dispatch = props.dispatch;
 
-		_this.boundActionCreators = (0, _redux.bindActionCreators)(UserActionCreators, dispatch);
-		return _this;
-	}
+    _this.boundActionCreators = (0, _redux.bindActionCreators)(UserActionCreators, dispatch);
+    return _this;
+  }
 
-	_createClass(NavBarComponent, [{
-		key: 'handleOpenWorld',
-		value: function handleOpenWorld() {
-			this.setState({ isOpenWorld: true });
-		}
-	}, {
-		key: 'handleCloseWorld',
-		value: function handleCloseWorld() {
-			this.setState({ isOpenWorld: false });
-		}
-	}, {
-		key: 'handleOpenCreate',
-		value: function handleOpenCreate() {
-			this.setState({ isOpenCreate: true });
-		}
-	}, {
-		key: 'handleCloseCreate',
-		value: function handleCloseCreate() {
-			this.setState({ isOpenCreate: false });
-		}
-	}, {
-		key: 'handleOpenOptions',
-		value: function handleOpenOptions() {
-			this.setState({ isOpenOptions: true });
-		}
-	}, {
-		key: 'handleCloseOptions',
-		value: function handleCloseOptions() {
-			this.setState({ isOpenOptions: false });
-		}
-	}, {
-		key: 'handleOpenArena',
-		value: function handleOpenArena() {
-			this.setState({ isOpenArena: true });
-		}
-	}, {
-		key: 'handleCloseArena',
-		value: function handleCloseArena() {
-			this.setState({ isOpenArena: false });
-		}
-	}, {
-		key: 'onToggleCreate',
-		value: function onToggleCreate() {
-			this.setState({
-				isOpenCreate: !this.state.isOpenCreate
-			});
-		}
-	}, {
-		key: 'onToggleArena',
-		value: function onToggleArena() {
-			this.setState({
-				isOpenArena: !this.state.isOpenArena
-			});
-		}
-	}, {
-		key: 'onToggleWorld',
-		value: function onToggleWorld() {
-			this.setState({
-				isOpenWorld: !this.state.isOpenWorld
-			});
-		}
-	}, {
-		key: 'onToggleOptions',
-		value: function onToggleOptions() {
-			this.setState({
-				isOpenOptions: !this.state.isOpenOptions
-			});
-		}
-	}, {
-		key: 'logout',
-		value: function logout() {
-			var thisInst = this;
-			var callbackRedirect = function callbackRedirect() {
-				thisInst.props.history.push('/login');
-			};
-			var dispatch = this.props.dispatch;
+  _createClass(NavBarComponent, [{
+    key: 'handleOpenWorld',
+    value: function handleOpenWorld() {
+      this.setState({ isOpenWorld: true });
+    }
+  }, {
+    key: 'handleCloseWorld',
+    value: function handleCloseWorld() {
+      this.setState({ isOpenWorld: false });
+    }
+  }, {
+    key: 'handleOpenCreate',
+    value: function handleOpenCreate() {
+      this.setState({ isOpenCreate: true });
+    }
+  }, {
+    key: 'handleCloseCreate',
+    value: function handleCloseCreate() {
+      this.setState({ isOpenCreate: false });
+    }
+  }, {
+    key: 'handleOpenOptions',
+    value: function handleOpenOptions() {
+      this.setState({ isOpenOptions: true });
+    }
+  }, {
+    key: 'handleCloseOptions',
+    value: function handleCloseOptions() {
+      this.setState({ isOpenOptions: false });
+    }
+  }, {
+    key: 'handleOpenArena',
+    value: function handleOpenArena() {
+      this.setState({ isOpenArena: true });
+    }
+  }, {
+    key: 'handleCloseArena',
+    value: function handleCloseArena() {
+      this.setState({ isOpenArena: false });
+    }
+  }, {
+    key: 'onToggleCreate',
+    value: function onToggleCreate() {
+      this.setState({
+        isOpenCreate: !this.state.isOpenCreate
+      });
+    }
+  }, {
+    key: 'onToggleArena',
+    value: function onToggleArena() {
+      this.setState({
+        isOpenArena: !this.state.isOpenArena
+      });
+    }
+  }, {
+    key: 'onToggleWorld',
+    value: function onToggleWorld() {
+      this.setState({
+        isOpenWorld: !this.state.isOpenWorld
+      });
+    }
+  }, {
+    key: 'onToggleOptions',
+    value: function onToggleOptions() {
+      this.setState({
+        isOpenOptions: !this.state.isOpenOptions
+      });
+    }
+  }, {
+    key: 'logout',
+    value: function logout() {
+      var thisInst = this;
+      var dispatch = this.props.dispatch;
 
-			var action = void 0;
-			if (_store2.default.getState().userReducer.currentUser.isGuest) {
-				action = UserActionCreators.logoutGuestUser(_store2.default.getState().userReducer.currentUserName, callbackRedirect);
-				dispatch(action);
-			} else {
-				var asyncLogout = async function asyncLogout() {
-					var result = await resolveLogout();
-				};
+      var action = void 0;
+      var callbackRedirect = function callbackRedirect() {
+        thisInst.props.history.push('/login');
+      };
+      var resolveLogout = function resolveLogout() {
+        return new Promise(function (resolve) {
+          action = UserActionCreators.logoutRegisteredUser();
+          resolve(dispatch(action));
+        });
+      };
+      async function asyncLogout() {
+        var result = await resolveLogout();
+        return result;
+      }
+      if (_store2.default.getState().userReducer.currentUser.isGuest) {
+        action = UserActionCreators.logoutGuestUser(_store2.default.getState().userReducer.currentUserName, callbackRedirect);
+        dispatch(action);
+      } else {
+        asyncLogout();
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Navbar,
+          {
+            toggleable: 'false',
+            fluid: true,
+            className: cssStyles.navbarStyle,
+            fixedTop: true
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Nav,
+            { bsStyle: 'tabs', justified: true, className: cssStyles.navBarFont },
+            _react2.default.createElement(
+              _reactRouterBootstrap.LinkContainer,
+              { to: '/home' },
+              _react2.default.createElement(
+                _reactBootstrap.NavItem,
+                null,
+                'Home'
+              )
+            ),
+            _react2.default.createElement(
+              _reactRouterBootstrap.LinkContainer,
+              { to: '/characters' },
+              _react2.default.createElement(
+                _reactBootstrap.NavItem,
+                null,
+                'Characters'
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavDropdown,
+              {
+                eventKey: 3,
+                onMouseEnter: this.handleOpenCreate,
+                onMouseLeave: this.handleCloseCreate,
+                open: this.state.isOpenCreate,
+                onToggle: this.onToggleCreate,
+                title: 'Create New Character',
+                id: 'basic-nav-dropdown',
+                className: cssStyles.navDropDown
+              },
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/createCharacter' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.1, className: cssStyles.navBarMenuItem },
+                  'New Player Character'
+                )
+              ),
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/createNPC' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.2, className: cssStyles.navBarMenuItem },
+                  'New Non-Player Character'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavDropdown,
+              {
+                eventKey: 3,
+                onMouseEnter: this.handleOpenArena,
+                onMouseLeave: this.handleCloseArena,
+                open: this.state.isOpenArena,
+                onToggle: this.onToggleArena,
+                title: 'Arena',
+                id: 'basic-nav-dropdown',
+                className: cssStyles.navDropDown
+              },
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/campaign' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.1, className: cssStyles.navBarMenuItem },
+                  'Campaign'
+                )
+              ),
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/encounter' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.2, className: cssStyles.navBarMenuItem },
+                  'Encounter'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavDropdown,
+              {
+                eventKey: 3,
+                onMouseEnter: this.handleOpenWorld,
+                onMouseLeave: this.handleCloseWorld,
+                open: this.state.isOpenWorld,
+                onToggle: this.onToggleWorld,
+                title: 'World Info',
+                id: 'basic-nav-dropdown',
+                className: cssStyles.navDropDown
+              },
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/beasts' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.1, className: cssStyles.navBarMenuItem },
+                  'Beasts'
+                )
+              ),
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/skills' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.2, className: cssStyles.navBarMenuItem },
+                  'Skills'
+                )
+              ),
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/items' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.3, className: cssStyles.navBarMenuItem },
+                  'Items'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavDropdown,
+              {
+                eventKey: 3,
+                onMouseEnter: this.handleOpenOptions,
+                onMouseLeave: this.handleCloseOptions,
+                open: this.state.isOpenOptions,
+                onToggle: this.onToggleOptions,
+                title: _react2.default.createElement('i', { className: 'fas fa-bars' }),
+                id: 'basic-nav-dropdown',
+                noCaret: true,
+                className: cssStyles.navDropDown
+              },
+              _react2.default.createElement(
+                _reactBootstrap.MenuItem,
+                { eventKey: 3.1, className: cssStyles.navBarMenuItem },
+                _store2.default.getState().userReducer.loggedIn ? _react2.default.createElement(
+                  'p',
+                  null,
+                  'Logged in as ',
+                  _store2.default.getState().userReducer.currentUserName
+                ) : _react2.default.createElement(
+                  'p',
+                  null,
+                  'Please Log in'
+                )
+              ),
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/about' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.2, className: cssStyles.navBarMenuItem },
+                  'About Site'
+                )
+              ),
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/OGL' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.3, className: cssStyles.navBarMenuItem },
+                  'About OGL'
+                )
+              ),
+              _react2.default.createElement(
+                _reactRouterBootstrap.LinkContainer,
+                { to: '/logout' },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: 3.3, className: cssStyles.navBarMenuItem },
+                  _store2.default.getState().userReducer.loggedIn ? _react2.default.createElement(
+                    _reactBootstrap.Button,
+                    { onClick: this.logout },
+                    'log out'
+                  ) : _react2.default.createElement(
+                    'p',
+                    null,
+                    'Not logged in'
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-				var resolveLogout = function resolveLogout() {
-					return new Promise(function (resolve) {
-						action = UserActionCreators.logoutRegisteredUser();
-						resolve(dispatch(action));
-					});
-				};
-
-				asyncLogout();
-			}
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					_reactBootstrap.Navbar,
-					{
-						toggleable: 'false',
-						fluid: true,
-						className: cssStyles.navbarStyle,
-						fixedTop: true
-					},
-					_react2.default.createElement(
-						_reactBootstrap.Nav,
-						{ bsStyle: 'tabs', justified: true, className: cssStyles.navBarFont },
-						_react2.default.createElement(
-							_reactRouterBootstrap.LinkContainer,
-							{ to: '/home' },
-							_react2.default.createElement(
-								_reactBootstrap.NavItem,
-								null,
-								'Home'
-							)
-						),
-						_react2.default.createElement(
-							_reactRouterBootstrap.LinkContainer,
-							{ to: '/characters' },
-							_react2.default.createElement(
-								_reactBootstrap.NavItem,
-								null,
-								'Characters'
-							)
-						),
-						_react2.default.createElement(
-							_reactBootstrap.NavDropdown,
-							{
-								eventKey: 3,
-								onMouseEnter: this.handleOpenCreate,
-								onMouseLeave: this.handleCloseCreate,
-								open: this.state.isOpenCreate,
-								onToggle: this.onToggleCreate,
-								title: 'Create New Character',
-								id: 'basic-nav-dropdown',
-								className: cssStyles.navDropDown
-							},
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/createCharacter' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.1, className: cssStyles.navBarMenuItem },
-									'New Player Character'
-								)
-							),
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/createNPC' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.2, className: cssStyles.navBarMenuItem },
-									'New Non-Player Character'
-								)
-							)
-						),
-						_react2.default.createElement(
-							_reactBootstrap.NavDropdown,
-							{
-								eventKey: 3,
-								onMouseEnter: this.handleOpenArena,
-								onMouseLeave: this.handleCloseArena,
-								open: this.state.isOpenArena,
-								onToggle: this.onToggleArena,
-								title: 'Arena',
-								id: 'basic-nav-dropdown',
-								className: cssStyles.navDropDown
-							},
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/campaign' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.1, className: cssStyles.navBarMenuItem },
-									'Campaign'
-								)
-							),
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/encounter' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.2, className: cssStyles.navBarMenuItem },
-									'Encounter'
-								)
-							)
-						),
-						_react2.default.createElement(
-							_reactBootstrap.NavDropdown,
-							{
-								eventKey: 3,
-								onMouseEnter: this.handleOpenWorld,
-								onMouseLeave: this.handleCloseWorld,
-								open: this.state.isOpenWorld,
-								onToggle: this.onToggleWorld,
-								title: 'World Info',
-								id: 'basic-nav-dropdown',
-								className: cssStyles.navDropDown
-							},
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/beasts' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.1, className: cssStyles.navBarMenuItem },
-									'Beasts'
-								)
-							),
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/skills' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.2, className: cssStyles.navBarMenuItem },
-									'Skills'
-								)
-							),
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/items' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.3, className: cssStyles.navBarMenuItem },
-									'Items'
-								)
-							)
-						),
-						_react2.default.createElement(
-							_reactBootstrap.NavDropdown,
-							{
-								eventKey: 3,
-								onMouseEnter: this.handleOpenOptions,
-								onMouseLeave: this.handleCloseOptions,
-								open: this.state.isOpenOptions,
-								onToggle: this.onToggleOptions,
-								title: _react2.default.createElement('i', { className: 'fas fa-bars' }),
-								id: 'basic-nav-dropdown',
-								noCaret: true,
-								className: cssStyles.navDropDown
-							},
-							_react2.default.createElement(
-								_reactBootstrap.MenuItem,
-								{ eventKey: 3.1, className: cssStyles.navBarMenuItem },
-								_store2.default.getState().userReducer.loggedIn ? _react2.default.createElement(
-									'p',
-									null,
-									'Logged in as ',
-									_store2.default.getState().userReducer.currentUserName
-								) : _react2.default.createElement(
-									'p',
-									null,
-									'Please Log in'
-								)
-							),
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/about' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.2, className: cssStyles.navBarMenuItem },
-									'About Site'
-								)
-							),
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/OGL' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.3, className: cssStyles.navBarMenuItem },
-									'About OGL'
-								)
-							),
-							_react2.default.createElement(
-								_reactRouterBootstrap.LinkContainer,
-								{ to: '/logout' },
-								_react2.default.createElement(
-									_reactBootstrap.MenuItem,
-									{ eventKey: 3.3, className: cssStyles.navBarMenuItem },
-									_store2.default.getState().userReducer.loggedIn ? _react2.default.createElement(
-										_reactBootstrap.Button,
-										{ onClick: this.logout },
-										'log out'
-									) : _react2.default.createElement(
-										'p',
-										null,
-										'Not logged in'
-									)
-								)
-							)
-						)
-					)
-				)
-			);
-		}
-	}]);
-
-	return NavBarComponent;
+  return NavBarComponent;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)()(NavBarComponent));
@@ -11250,7 +11255,7 @@ exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)()(Nav
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -11267,6 +11272,14 @@ var _NavBarComponent = __webpack_require__(/*! ./NavBarComponent */ "./src/js/co
 
 var _NavBarComponent2 = _interopRequireDefault(_NavBarComponent);
 
+var _PathfinderRpg = __webpack_require__(/*! ../../../public/assets/PathfinderRpg.png */ "./public/assets/PathfinderRpg.png");
+
+var _PathfinderRpg2 = _interopRequireDefault(_PathfinderRpg);
+
+var _HeaderText1nobezel = __webpack_require__(/*! ../../../public/assets/HeaderText1nobezel.png */ "./public/assets/HeaderText1nobezel.png");
+
+var _HeaderText1nobezel2 = _interopRequireDefault(_HeaderText1nobezel);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -11278,55 +11291,54 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SiteHeaderComponent = function (_React$Component) {
-	_inherits(SiteHeaderComponent, _React$Component);
+  _inherits(SiteHeaderComponent, _React$Component);
 
-	function SiteHeaderComponent(props) {
-		_classCallCheck(this, SiteHeaderComponent);
+  function SiteHeaderComponent(props) {
+    _classCallCheck(this, SiteHeaderComponent);
 
-		return _possibleConstructorReturn(this, (SiteHeaderComponent.__proto__ || Object.getPrototypeOf(SiteHeaderComponent)).call(this));
-	}
+    return _possibleConstructorReturn(this, (SiteHeaderComponent.__proto__ || Object.getPrototypeOf(SiteHeaderComponent)).call(this));
+  }
 
-	_createClass(SiteHeaderComponent, [{
-		key: 'render',
-		value: function render() {
-			var style = {
-				display: "flex",
-				justifyContent: "center",
-				flexDirection: "column",
-				alignItems: "center"
-			};
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(_NavBarComponent2.default, null),
-				_react2.default.createElement(
-					'div',
-					{ className: cssStyles.splash_img },
-					_react2.default.createElement(
-						'div',
-						{ className: 'card-header', style: style },
-						_react2.default.createElement('img', {
-							className: cssStyles.HeaderImage,
-							src: __webpack_require__(/*! ../../../public/assets/PathfinderRpg.png */ "./public/assets/PathfinderRpg.png"),
-							width: '371',
-							height: '95',
-							alt: ''
-						}),
-						_react2.default.createElement('img', {
-							className: cssStyles.titleImage,
-							src: __webpack_require__(/*! ../../../public/assets/HeaderText1nobezel.png */ "./public/assets/HeaderText1nobezel.png"),
-							width: '381.36' //base 1589
-							, height: '35.76' //base 149
-							, alt: ''
+  _createClass(SiteHeaderComponent, [{
+    key: 'render',
+    value: function render() {
+      var style = {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center"
+      };
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_NavBarComponent2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: cssStyles.splash_img },
+          _react2.default.createElement(
+            'div',
+            { className: 'card-header', style: style },
+            _react2.default.createElement('img', {
+              src: _PathfinderRpg2.default,
+              width: '371',
+              height: '95',
+              alt: ''
+            }),
+            _react2.default.createElement('img', {
+              className: cssStyles.titleImage,
+              src: _HeaderText1nobezel2.default,
+              width: '381.36' //base 1589
+              , height: '35.76' //base 149
+              , alt: ''
 
-						})
-					)
-				)
-			);
-		}
-	}]);
+            })
+          )
+        )
+      );
+    }
+  }]);
 
-	return SiteHeaderComponent;
+  return SiteHeaderComponent;
 }(_react2.default.Component);
 
 exports.default = SiteHeaderComponent;

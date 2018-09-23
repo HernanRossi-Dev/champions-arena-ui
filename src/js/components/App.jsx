@@ -1,3 +1,17 @@
+import NavItem from "react-bootstrap/lib/NavItem";
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import { connect, Provider } from 'react-redux'
+import { PersistGate } from "redux-persist/lib/integration/react";
+import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import CharacterList from "./CharacterList/CharacterList.jsx";
 import CharacterEdit from "./CharacterEdit/CharacterEdit.jsx";
 import CreateCharacterComponent from "./CreateCharacterComponents/CreateCharacterComponent.jsx";
@@ -15,27 +29,8 @@ import Login from "./AuthenticateUser/Login.jsx";
 import Signup from "./AuthenticateUser/Signup.jsx";
 import ForgotPassword from "./AuthenticateUser/ForgotPassword.jsx";
 import CreateCharacterSkillsAndFeatsComponent from "./CreateCharacterComponents/SkillsAndFeats/CreateCharacterSkillsComponent.jsx";
-import React from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import { connect, Provider } from 'react-redux'
-import { PersistGate } from "redux-persist/lib/integration/react";
-import store from "../store/index";
-import { persistor } from "../store/index";
-import NavItem from "react-bootstrap/lib/NavItem";
+import store, { persistor } from "../store/index";
 import * as cssStyles from "../../styles/Styles.css";
-import "../../styles/Styles.css";
-import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-
-import {
-  BrowserRouter,
-  Redirect,
-  Route,
-  Switch,
-  withRouter,
-} from "react-router-dom";
 import SiteHeaderComponent from "./SiteHeaderComponent";
 
 const NoMatch = () => <p>Page Not Found</p>;
@@ -85,7 +80,7 @@ class App extends React.Component {
     const PrivateRoute = ({ component: Component, ...rest }) => (
       <Route
         {...rest}
-        render={props =>
+        render={(props) =>
           store.getState().userReducer.loggedIn ? (
             <Component {...props} />
           ) : (
