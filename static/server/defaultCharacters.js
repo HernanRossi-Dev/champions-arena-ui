@@ -1,18 +1,18 @@
 const defaultCharacters = [
   {
-	  player: 'NPC',
+    player: 'NPC',
 
     name: "Amiri",
     class: "Barbarian",
     race: "Human",
-	  type: "Iconic",
-	  gender: "Female",
-	  alignment: "Chaotic Neutral",
-	  age: 'unknown',
-	  hair: 'Brown',
-	  eyes: 'Brown',
-	  height: 'Unknown',
-	  weight: 'Unknown',
+    type: "Iconic",
+    gender: "Female",
+    alignment: "Chaotic Neutral",
+    age: 'unknown',
+    hair: 'Brown',
+    eyes: 'Brown',
+    height: 'Unknown',
+    weight: 'Unknown',
     level: 7,
     XP: 19200,
     attributes: { Init: 2, Senses: { Perception: 16 } },
@@ -62,8 +62,8 @@ const defaultCharacters = [
     Will: 12,
     offense: {
       Speed: 40,
-      Melee: { modifiers:{ baseAttack: 3, }, name:"Large bastard sword"},
-      Ranged: { modifiers:{ baseAttack: 1, }, name:"Longbow"},
+      Melee: { modifiers: { baseAttack: 3, }, name: "Large bastard sword" },
+      Ranged: { modifiers: { baseAttack: 1, }, name: "Longbow" },
       SpecialAttacks: {
         "Greater rage": "30 rounds/day",
         "Rage powers": "guarded stance [+3 dodge vs melee",
@@ -94,21 +94,21 @@ const defaultCharacters = [
         "Belt of Physical Might": { amount: 1, modifiers: { STR: 4, DEX: 4 } },
         "Cloak of Resistence": { amount: 1, modifiers: { AC: 4 } }
       },
-	    other: {
-      	backpack: {amount: 1},
-      	bedroll: {amount: 1},
-      	caltrops: {amount: 1},
-      	shovel: {amount: 1},
-      	torches: {amount: 5},
-      	waterskin: {amount: 1},
-      	gp:  420,
-      	'trail rations': {amount: 4},
-      	'flint and steel': {amount: 1},
-      	'hemp rope (50 ft)': {amount: 1},
-	    }
+      other: {
+        backpack: { amount: 1 },
+        bedroll: { amount: 1 },
+        caltrops: { amount: 1 },
+        shovel: { amount: 1 },
+        torches: { amount: 5 },
+        waterskin: { amount: 1 },
+        gp: 420,
+        'trail rations': { amount: 4 },
+        'flint and steel': { amount: 1 },
+        'hemp rope (50 ft)': { amount: 1 },
+      }
     },
-	  homeland: 'Realm of the Mammoth Lords',
-	  deity: 'Gorum',
+    homeland: 'Realm of the Mammoth Lords',
+    deity: 'Gorum',
     bio:
       "Amiri never fit into the expected gender roles of her tribe, refusing to be the docile, domestic sort of woman " +
       "that the Six Bear tribe valued. Instead, she insisted on competing with the male warriors of her tribe, and constantly " +
@@ -129,221 +129,224 @@ const defaultCharacters = [
       "\n"
   },
   {
-  	player: 'NPC',
+    player: 'NPC',
     name: "Ezren",
     class: "Wizard",
     race: "Human",
-	  homeland: 'Absalom',
-	  deity: 'Atheist',
-	  type: "Iconic",
-	  hair: 'White',
-	  eyes: 'Blue',
-	  height: 'Unknown',
-	  weight: 'Unknown',
-	  gender: "Male",
-	  alignment: "Neutral Good",
-	  age: 52,
+    homeland: 'Absalom',
+    deity: 'Atheist',
+    type: "Iconic",
+    hair: 'White',
+    eyes: 'Blue',
+    height: 'Unknown',
+    weight: 'Unknown',
+    gender: "Male",
+    alignment: "Neutral Good",
+    age: 52,
     level: 1,
     XP: 400,
-	  attributes: { Init: 2, Senses: { Perception: 1 } },
-	  STR: 10,
-	  DEX: 14,
-	  CON: 13,
-	  INT: 18,
-	  WIS: 12,
-	  CHA: 10,
-	  baseAttack: 0,
-	  CMB: { base: 0, additional: {  } },
-	  CMD: { base: 12, vs: {  } },
-	  feats: [
-		  "Combat Casting",
-		  "Great Fortitude",
-		  "Scribe Scroll",
-	  ],
-	  skills: {
-		  Appraise: 8,
-		  Knowledge: 8,
-		  Linguistics : 8,
-		  Spellcraft: 8,
-	  },
+    attributes: { Init: 2, Senses: { Perception: 1 } },
+    STR: 10,
+    DEX: 14,
+    CON: 13,
+    INT: 18,
+    WIS: 12,
+    CHA: 10,
+    baseAttack: 0,
+    CMB: { base: 0, additional: {} },
+    CMD: { base: 12, vs: {} },
+    feats: [
+      "Combat Casting",
+      "Great Fortitude",
+      "Scribe Scroll",
+    ],
+    skills: {
+      Appraise: 8,
+      Knowledge: 8,
+      Linguistics: 8,
+      Spellcraft: 8,
+    },
 
-	  size: "Medium",
-	  defense: {
-		  AC: 16,
-		  touch: 12,
-		  "flat-footed": {
-			  base: 14,
-			  armor: 4,
-			  Dex: 2,
-		  }
-	  },
-	  hp: { base: 8, aug: "1d6+2" },
-	  Fort: 3,
-	  Ref: 2,
-	  Will: 3,
-	  offense: {
-		  Speed: 30,
-		  Melee: {modifiers: {baseAttack: 1, roll: {amount: 1, dice: 6}}, name: "Mwk cane"},
-		  Ranged: {modifiers: {baseAttack: 2, roll: {amount: 1, dice: 8}}, name: "Light Crossbow"},
-		  SpecialAttacks: {
-			  "Hands of the Apprentice": "7/day",
-		  },
-		  Wizard: {
-			  levels: {
-				  0: ['acid splash', 'detect magic', 'light'],
-				  1: ['burning hands', 'magic missile']
-			  }
-		  },
-	  },
-	  languages: ["Common", 'Draconic', 'Goblin', 'Infernal','Osiriani', 'Terran'],
-		  specialQualities: {'arcane bond': 'cane'},
-	  gear: {
-		  weapons: {
-			  "Dagger": { amount: 1, modifiers: {} },
-			  "Light crossbow": { amount: 1, modifiers: { bolts: 10 } },
-			  'Masterwork Cane': { amount: 1, modifiers: { } }
-		  },
+    size: "Medium",
+    defense: {
+      AC: 16,
+      touch: 12,
+      "flat-footed": {
+        base: 14,
+        armor: 4,
+        Dex: 2,
+      }
+    },
+    hp: { base: 8, aug: "1d6+2" },
+    Fort: 3,
+    Ref: 2,
+    Will: 3,
+    offense: {
+      Speed: 30,
+      Melee: { modifiers: { baseAttack: 1, roll: { amount: 1, dice: 6 } }, name: "Mwk cane" },
+      Ranged: { modifiers: { baseAttack: 2, roll: { amount: 1, dice: 8 } }, name: "Light Crossbow" },
+      SpecialAttacks: {
+        "Hands of the Apprentice": "7/day",
+      },
+      Wizard: {
+        levels: {
+          0: ['acid splash', 'detect magic', 'light'],
+          1: ['burning hands', 'magic missile']
+        }
+      },
+    },
+    languages: ["Common", 'Draconic', 'Goblin', 'Infernal', 'Osiriani', 'Terran'],
+    specialQualities: { 'arcane bond': 'cane' },
+    gear: {
+      weapons: {
+        "Dagger": { amount: 1, modifiers: {} },
+        "Light crossbow": { amount: 1, modifiers: { bolts: 10 } },
+        'Masterwork Cane': { amount: 1, modifiers: {} }
+      },
 
-		  armor: {
-		  },
-		  other: {
-			  backpack: {amount: 1},
-			  'scroll case': {amount: 1},
-			  'spell component pouch': {amount: 1},
-			  gp:  9,
-			  spellbook: { levels : {
-					  0: ['color spray', 'expeditious retreat', 'grease', 'mage armor', 'protection from evil', 'shield', 'sleep'],
-				  }
-			  },
-		  }
-	  },
-	  bio:
-	  "Born to a successful merchant in Absalom, Ezren spent his childhood in comfort and safety, only to have all" +
-	  " that change when his father was charged with heresy against the god Abadar. Ezren spent much of his adult " +
-	  "life attempting to prove his father's innocence, only to finally confirm his father's guilt. The revelation " +
-	  "shook Ezren to the core, undermining his faith in family and church, and he abandoned both, setting out to " +
-	  "find a new life. Despite his age, Ezren embraced arcane studies, a pursuit that swiftly revealed a true aptitude " +
-	  "for the wizardly arts. With freedom and potency he's never enjoyed before, Ezren seeks to explore the world he so long neglected."
+      armor: {
+      },
+      other: {
+        backpack: { amount: 1 },
+        'scroll case': { amount: 1 },
+        'spell component pouch': { amount: 1 },
+        gp: 9,
+        spellbook: {
+          levels: {
+            0: ['color spray', 'expeditious retreat', 'grease', 'mage armor', 'protection from evil', 'shield', 'sleep'],
+          }
+        },
+      }
+    },
+    bio:
+      "Born to a successful merchant in Absalom, Ezren spent his childhood in comfort and safety, only to have all" +
+      " that change when his father was charged with heresy against the god Abadar. Ezren spent much of his adult " +
+      "life attempting to prove his father's innocence, only to finally confirm his father's guilt. The revelation " +
+      "shook Ezren to the core, undermining his faith in family and church, and he abandoned both, setting out to " +
+      "find a new life. Despite his age, Ezren embraced arcane studies, a pursuit that swiftly revealed a true aptitude " +
+      "for the wizardly arts. With freedom and potency he's never enjoyed before, Ezren seeks to explore the world he so long neglected."
   },
-	{
-  	player: 'NPC',
+  {
+    player: 'NPC',
     name: "Lini",
     class: "Druid",
     race: "Gnome",
-	  homeland: 'Lands of the Linnorm Kings',
-	  deity: 'Green Faith',
-	  type: "Iconic",
-	  hair: 'Green',
-	  eyes: 'Green',
-	  height: 'Unknown',
-	  weight: 'Unknown',
-	  gender: "Male",
-	  alignment: "Neutral",
-	  age: 'Unknown',
+    homeland: 'Lands of the Linnorm Kings',
+    deity: 'Green Faith',
+    type: "Iconic",
+    hair: 'Green',
+    eyes: 'Green',
+    height: 'Unknown',
+    weight: 'Unknown',
+    gender: "Male",
+    alignment: "Neutral",
+    age: 'Unknown',
     level: 17,
     XP: 19200,
-	  attributes: { Init: 1, Senses: { Perception: 23, other: ['Low-light vision'] } },
-	  STR: 6,
-	  DEX: 12,
-	  CON: 16,
-	  INT: 12,
-	  WIS: 22,
-	  CHA: 16,
-	  baseAttack: 9,
-	  CMB: { base: 6, additional: {  } },
-	  CMD: { base: 19, vs: {  } },
-	  feats: [
-		  "Augmented Summoning",
-		  "Combat Casting",
-		  "Lighting Reflexes",
-		  "Natural Spell",
-		  "Self-Sufficient",
-		  "Spell Focus (conjuration)",
-	  ],
-	  skills: {
-		  Craft: [3, 'jewelery'],
-			'Handle Animal': 18,
-		  Heal : 19,
-		  Knowledge: [[16, 'geography'], [18, 'nature']],
-		  Perception: 23,
-		  Spellcraft: 16,
-		  Survival: 17,
-	  },
+    attributes: { Init: 1, Senses: { Perception: 23, other: ['Low-light vision'] } },
+    STR: 6,
+    DEX: 12,
+    CON: 16,
+    INT: 12,
+    WIS: 22,
+    CHA: 16,
+    baseAttack: 9,
+    CMB: { base: 6, additional: {} },
+    CMD: { base: 19, vs: {} },
+    feats: [
+      "Augmented Summoning",
+      "Combat Casting",
+      "Lighting Reflexes",
+      "Natural Spell",
+      "Self-Sufficient",
+      "Spell Focus (conjuration)",
+    ],
+    skills: {
+      Craft: [3, 'jewelery'],
+      'Handle Animal': 18,
+      Heal: 19,
+      Knowledge: [[16, 'geography'], [18, 'nature']],
+      Perception: 23,
+      Spellcraft: 16,
+      Survival: 17,
+    },
 
-	  size: "Small",
-	  defense: {
-		  AC: 24,
-		  touch: 14,
-		  "flat-footed": {
-			  base: 23,
-			  armor: 5,
-			  deflection: 2,
-			  natural: 5,
-			  size: 1,
-			  Dex: 1,
-		  }
-	  },
-	  hp: { base: 93, aug: "12d8+36" },
-	  Fort: 12,
-	  Ref: 8,
-	  Will: {base: 15, vs: {illusion: 2, 'fey-targeted effects': 4, 'plant-targeted effects': 4}},
-		DefensiveAbilities: {'defensive training': {bonus: 4, effect: 'dodge bonus to AC vs giants'}
-					, DR: '10/adamantine', immune: ['poison']},
-	  offense: {
-		  Speed: 20,
-		  Melee: {modifiers: {baseAttack: 3, roll: {amount: 1, dice: 4, bonus: 1}}, name: "Sickle"},
-		  Ranged: {modifiers: {baseAttack: 2, roll: {amount: 1, dice: 3}}, name: "Sling"},
-		  SpecialAttacks: {
-			  "Wild Shape": "6/day",
-			  'Attack Bonus' : "+1 on attack rolls against goblinoid and reptilian humanoids",
-		  },
-		  'Spell-Like Abilities': {
-			  'Dancing Lights': '1/day',
-			  'Ghost Sound': 'DC 14',
-			  'Speak with animals': 'unrestricted',
-			  'Prestidigitation': 'unrestricted',
-		  },
-	  },
-		DruidSpells: {
-  		0: ['detect magic', 'know direction', 'light', 'resistance'],
-			1: ['entangle', 'faerie fire', 'goodberry', 'speak with animals'],
-			2: ['barkskin', 'bull\'s strength', 'flaming sphere', 'lesser restoration', 'spider climb'],
-			3: ['daylight', 'greater magic fang', 'neutralize poison', 'remove disease'],
-			4: ['air walk', 'dispel magic', 'flame strike', 'ice storm'],
-			5: ['animal growth', 'stoneskin', 'wall of thorns'],
-			6: ['mass bull\'s strength', 'move earth', 'wall of stone']
-		}
-		,
-	  languages: ["Common", 'Druidic', 'Gnome', 'Goblin','Sylvan'],
-		  specialQualities: {'nature bond (animal companion': 'Droogami (snow leopard', other: ['nature sense', 'trackless step', 'wild empathy', 'woodland stride']},
-	  gear: {
-		  weapons: {
-			  "Wand of Flame Blade": { amount: 1, modifiers: {charges: 21, damage: 'acid'} },
-			  "Sickle": { amount: 1, modifiers: { bonus: 3 } },
-			  'Sling': { amount: 1, modifiers: { bonus: 2, bullets: 20 } }
-		  },
+    size: "Small",
+    defense: {
+      AC: 24,
+      touch: 14,
+      "flat-footed": {
+        base: 23,
+        armor: 5,
+        deflection: 2,
+        natural: 5,
+        size: 1,
+        Dex: 1,
+      }
+    },
+    hp: { base: 93, aug: "12d8+36" },
+    Fort: 12,
+    Ref: 8,
+    Will: { base: 15, vs: { illusion: 2, 'fey-targeted effects': 4, 'plant-targeted effects': 4 } },
+    DefensiveAbilities: {
+      'defensive training': { bonus: 4, effect: 'dodge bonus to AC vs giants' }
+      , DR: '10/adamantine', immune: ['poison']
+    },
+    offense: {
+      Speed: 20,
+      Melee: { modifiers: { baseAttack: 3, roll: { amount: 1, dice: 4, bonus: 1 } }, name: "Sickle" },
+      Ranged: { modifiers: { baseAttack: 2, roll: { amount: 1, dice: 3 } }, name: "Sling" },
+      SpecialAttacks: {
+        "Wild Shape": "6/day",
+        'Attack Bonus': "+1 on attack rolls against goblinoid and reptilian humanoids",
+      },
+      'Spell-Like Abilities': {
+        'Dancing Lights': '1/day',
+        'Ghost Sound': 'DC 14',
+        'Speak with animals': 'unrestricted',
+        'Prestidigitation': 'unrestricted',
+      },
+    },
+    DruidSpells: {
+      0: ['detect magic', 'know direction', 'light', 'resistance'],
+      1: ['entangle', 'faerie fire', 'goodberry', 'speak with animals'],
+      2: ['barkskin', 'bull\'s strength', 'flaming sphere', 'lesser restoration', 'spider climb'],
+      3: ['daylight', 'greater magic fang', 'neutralize poison', 'remove disease'],
+      4: ['air walk', 'dispel magic', 'flame strike', 'ice storm'],
+      5: ['animal growth', 'stoneskin', 'wall of thorns'],
+      6: ['mass bull\'s strength', 'move earth', 'wall of stone']
+    }
+    ,
+    languages: ["Common", 'Druidic', 'Gnome', 'Goblin', 'Sylvan'],
+    specialQualities: { 'nature bond (animal companion': 'Droogami (snow leopard', other: ['nature sense', 'trackless step', 'wild empathy', 'woodland stride'] },
+    gear: {
+      weapons: {
+        "Wand of Flame Blade": { amount: 1, modifiers: { charges: 21, damage: 'acid' } },
+        "Sickle": { amount: 1, modifiers: { bonus: 3 } },
+        'Sling': { amount: 1, modifiers: { bonus: 2, bullets: 20 } }
+      },
 
-		  armor: {
-			  'Leather Armor': { amount: 1, modifiers: { bonus: 3} },
-			  'Cloak of Resistance': { amount: 1, modifiers: { bonus: 1} },
-			  'Druid\'s Vestments': { amount: 1, modifiers: { bonus: 1} },
-			  'Ring of Protection': { amount: 1, modifiers: { bonus: 2} },
-			  'Headband of Inspired Wisdom': { amount: 1, modifiers: { bonus: 4} },
-		  },
-		  other: {
-			  'Belt Pouch': {amount: 1},
-			  'Stick Collection': {amount: 1},
-			  'spell component pouch': {amount: 1},
-			  gp:  603,
+      armor: {
+        'Leather Armor': { amount: 1, modifiers: { bonus: 3 } },
+        'Cloak of Resistance': { amount: 1, modifiers: { bonus: 1 } },
+        'Druid\'s Vestments': { amount: 1, modifiers: { bonus: 1 } },
+        'Ring of Protection': { amount: 1, modifiers: { bonus: 2 } },
+        'Headband of Inspired Wisdom': { amount: 1, modifiers: { bonus: 4 } },
+      },
+      other: {
+        'Belt Pouch': { amount: 1 },
+        'Stick Collection': { amount: 1 },
+        'spell component pouch': { amount: 1 },
+        gp: 603,
 
-		  }
-	  },
-	  bio:
-	  "Lini always had a way with wild creatures. More than once, her enclave was threatened by some" +
-	  " great bear or razor-clawed cat, yet each time she soothed the beast and sent it on its way." +
-	  " In the years since her departure from the Lands of the Linnorm Kings, Lini has collected more " +
-	  "than a dozen sticks—one from each forest she has visited. These sticks are a roadmap of her experiences, " +
-	  "and each holds a wealth of memories for the gnome druid."
+      }
+    },
+    bio:
+      "Lini always had a way with wild creatures. More than once, her enclave was threatened by some" +
+      " great bear or razor-clawed cat, yet each time she soothed the beast and sent it on its way." +
+      " In the years since her departure from the Lands of the Linnorm Kings, Lini has collected more " +
+      "than a dozen sticks—one from each forest she has visited. These sticks are a roadmap of her experiences, " +
+      "and each holds a wealth of memories for the gnome druid."
   },
 
 ];

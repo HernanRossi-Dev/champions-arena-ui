@@ -1,12 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import store from "../store/index";
 import * as cssStyles from '../../styles/Styles.css';
 import NavBarComponent from './NavBarComponent';
 import PathfinderImage from '../../../public/assets/PathfinderRpg.png';
 import HeaderText from '../../../public/assets/HeaderText1nobezel.png';
 
-export default class SiteHeaderComponent extends React.Component {
+class SiteHeaderComponent extends React.Component {
   constructor(props) {
     super();
+    this.renderNavBar = this.renderNavBar.bind(this);
+  }
+
+  renderNavBar() {
+    if (store.getState().userReducer.loggedIn) {
+      return <NavBarComponent />;
+    } return null;
   }
 
   render() {
@@ -18,7 +27,8 @@ export default class SiteHeaderComponent extends React.Component {
     };
     return (
       <div >
-        <NavBarComponent />
+
+        { this.renderNavBar() }
         <div className={cssStyles.splash_img}>
           <div className="card-header" style={style}>
             <img
@@ -33,12 +43,19 @@ export default class SiteHeaderComponent extends React.Component {
               width="381.36" //base 1589
               height="35.76" //base 149
               alt=""
-
             />
-            {/*<p className={cssStyles.headingText}>Champions Arena</p>*/}
           </div>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return ({
+    loggedIn: store.getState().userReducer.loggedIn,
+    user: store.getState().userReducer.currentUserName,
+  });
+};
+
+export default connect(mapStateToProps)(SiteHeaderComponent);

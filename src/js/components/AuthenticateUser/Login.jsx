@@ -107,9 +107,12 @@ class Login extends React.Component {
   }
 
   handleSignInGuest() {
+
+    let guestUserName = 'guest';
+    guestUserName += Math.random().toString().slice(2, 7);
     const newGuestUser = {
-      name: "guest",
-      email: "guest@gmail.com",
+      name: guestUserName,
+      email: '',
       password: "12345",
       isGuest: true
     };

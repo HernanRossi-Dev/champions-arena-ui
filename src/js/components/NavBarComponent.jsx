@@ -211,7 +211,7 @@ class NavBarComponent extends React.Component {
             >
               <MenuItem eventKey={3.1} className={cssStyles.navBarMenuItem}>
                 {(store.getState().userReducer.loggedIn) ?
-                  <p>Logged in as {store.getState().userReducer.currentUserName}</p>  : <p>Please Log in</p> }
+                  <p>Logged in as {store.getState().userReducer.currentUserName}</p> : <p>Please Log in</p> }
               </MenuItem>
               <LinkContainer to="/about">
                 <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>

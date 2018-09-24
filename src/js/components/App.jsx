@@ -50,7 +50,8 @@ const theme = createMuiTheme({
           backgroundColor: '#df691a',
           height: '1px',
         },
-      }, focused: {
+      },
+      focused: {
         '&:before': { //underline color when textfield is inactive
           color: '#df691a',
           height: '1px',
@@ -65,7 +66,6 @@ const theme = createMuiTheme({
     },
   }
 });
-
 
 class App extends React.Component {
   constructor() {
@@ -114,13 +114,19 @@ class App extends React.Component {
               path={`/createCharacter`}
               component={CreateCharacterComponent}
             />
-            <Route path={!(store.getState().userReducer.loggedIn) ? `/login` : `/home`} component={
-              (!store.getState().userReducer.loggedIn) ? Login : HomeComponent} />
+            <Route
+              path={!(store.getState().userReducer.loggedIn) ? `/login` : `/home`}
+              component={
+              (!store.getState().userReducer.loggedIn) ? Login : HomeComponent}
+            />
             <PrivateRoute path={`/campaign`} component={CreateCampaign} />
             <PrivateRoute path={`/encounter`} component={CreateEncounter} />
             <Route path={`/OGL`} component={OGL} />
-            <Route path={(!store.getState().userReducer.loggedIn) ? `/signup` : `/home`} component={
-              (store.getState().userReducer.loggedIn) ? HomeComponent : Signup} />
+            <Route
+              path={(!store.getState().userReducer.loggedIn) ? `/signup` : `/home`}
+              component={
+              (store.getState().userReducer.loggedIn) ? HomeComponent : Signup}
+            />
             <PrivateRoute path={`/createNPC`} component={CreateNPCComponent} />
             <PrivateRoute path={`/beasts`} component={Beasts} />
             <PrivateRoute path={`/skills`} component={Skills} />
@@ -128,13 +134,23 @@ class App extends React.Component {
             <PrivateRoute path={`/characters/:id`} component={CharacterEdit} />
             <PrivateRoute path={`/characters`} component={CharacterList} />
             <Route path={`/legal`} component={PathfinderCommunityUse} />
-            <Route path={(!store.getState().userReducer.loggedIn) ? `/forgotPassword` : `/home`} component={
-              (store.getState().userReducer.loggedIn) ? HomeComponent : ForgotPassword} />
+            <Route
+              path={(!store.getState().userReducer.loggedIn) ? `/forgotPassword` : `/home`}
+              component={
+              (store.getState().userReducer.loggedIn) ? HomeComponent : ForgotPassword}
+            />
             <Route path={`/about`} component={AboutSiteComponent} />
-            <Route exact path={`/`} component={
-              (!store.getState().userReducer.loggedIn) ? Login : HomeComponent} />
-            <Route path={`*`} component={
-              (!store.getState().userReducer.loggedIn) ? Login : HomeComponent} />
+            <Route
+              exact
+              path={`/`}
+              component={
+              (!store.getState().userReducer.loggedIn) ? Login : HomeComponent}
+            />
+            <Route
+              path={`*`}
+              component={
+              (!store.getState().userReducer.loggedIn) ? Login : HomeComponent}
+            />
           </Switch>
 
         </div>
@@ -143,8 +159,8 @@ class App extends React.Component {
           <LinkContainer to="/legal">
             <NavItem>
               Pathfinder content used under Open Gaming License, and Community
-							Use Policy
-              </NavItem>
+              Use Policy
+            </NavItem>
           </LinkContainer>
         </div>
       </div>
@@ -161,7 +177,6 @@ ReactDOM.render(
     <PersistGate persistor={persistor}>
       <BrowserRouter >
         <MuiThemeProvider theme={theme}>
-
           <App />
         </MuiThemeProvider>
       </BrowserRouter>
@@ -174,11 +189,11 @@ if (module.hot) {
   module.hot.accept();
 }
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = (state) => {
+  return ({
     loggedIn: store.getState().userReducer.loggedIn,
     user: store.getState().userReducer.currentUserName,
-  }
+  });
 };
 
 export default connect(mapStateToProps)(App);
