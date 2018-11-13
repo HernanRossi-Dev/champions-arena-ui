@@ -7,15 +7,15 @@ const SourceMapSupport = require("source-map-support");
 const path = require("path");
 require("babel-polyfill");
 let defaultCharacters = require("./defaultCharacters");
-console.log(defaultCharacters);
+// console.log(defaultCharacters);
 defaultCharacters = defaultCharacters.defaultCharacters;
-console.log("Characters cast");
-console.log(defaultCharacters);
+// console.log("Characters cast");
+// console.log(defaultCharacters);
 const mongoose = require("mongoose");
 
 const mongoDB =
   "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
-const ObjectID = require("mongodb").ObjectID;
+const { ObjectID } = require("mongodb");
 
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
@@ -29,7 +29,9 @@ const helmet = require('helmet');
 
 app.use(helmet());
 
-app.use(express.static("dist"));
+// app.use(express.static('dist'));
+console.log(path.join(__dirname, '../../dist'));
+app.use(express.static(path.join(__dirname, '../../dist')));
 app.use(bodyParser.json());
 
 const characters = require("./models/characters");
@@ -54,7 +56,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 const request = require("request");
 
 app.get('/api/authenticate', (req, res) => {
-  let options = {
+  const options = {
     method: 'POST',
     url: 'https://thearena.auth0.com/oauth/token',
     headers: { 'content-type': 'application/json' },
@@ -66,7 +68,7 @@ app.get('/api/authenticate', (req, res) => {
   });
 });
 
-let jwtCheck = jwt({
+const jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
     cache: true,
     rateLimit: true,
@@ -117,10 +119,8 @@ app.get("/api/characters", (req, res) => {
   if (req.query.class) filter.class = req.query.class;
   if (req.query.race) filter.race = req.query.race;
   if (req.query.level_lte || req.query.level_gte) filter.level = {};
-  if (req.query.level_lte)
-    filter.level.$lte = parseInt(req.query.level_lte, 10);
-  if (req.query.level_gte)
-    filter.level.$gte = parseInt(req.query.level_gte, 10);
+  if (req.query.level_lte) filter.level.$lte = parseInt(req.query.level_lte, 10);
+  if (req.query.level_gte) filter.level.$gte = parseInt(req.query.level_gte, 10);
   db.collection('characters')
     .find(filter)
     .toArray()
