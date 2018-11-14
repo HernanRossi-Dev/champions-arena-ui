@@ -31,7 +31,7 @@ app.use(helmet());
 
 // app.use(express.static('dist'));
 // console.log(path.join(__dirname, '../../dist'));
-// app.use(express.static(path.join(__dirname, '../../dist')));
+app.use(express.static(path.join(__dirname, '../../dist')));
 app.use(bodyParser.json());
 
 const characters = require("./models/characters");
