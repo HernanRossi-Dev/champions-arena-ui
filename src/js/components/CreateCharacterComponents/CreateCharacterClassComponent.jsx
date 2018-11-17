@@ -1,6 +1,4 @@
 import React from "react";
-import * as cssStyles from "../../../styles/Styles.css";
-import { SelectedClassModalBody } from "./CreateCharacterClassModalContent.jsx";
 import {
   Col,
   ControlLabel,
@@ -19,6 +17,9 @@ import {
   ToggleButton,
   ButtonToolbar
 } from "react-bootstrap";
+import * as cssStyles from "../../../styles/Styles.css";
+import { SelectedClassModalBody } from "./CreateCharacterClassModalContent.jsx";
+
 
 export default class CreateCharacterClassComponent extends React.Component {
   constructor(props) {
@@ -29,8 +30,17 @@ export default class CreateCharacterClassComponent extends React.Component {
     this.state = {
       show: false,
       selectedClass: "",
-	    allowedAlignments: ['LG', 'NG', 'CG', 'LN','N','CN','LE','NE','CE'],
     };
+  }
+
+  setClass(e) {
+    const targetText = e.target.textContent.toString();
+    if (!targetText) {
+      return;
+    }
+    this.props.updateClass(targetText);
+    this.handleShow();
+    this.setState({ selectedClass: targetText });
   }
 
   handleClose() {
@@ -41,20 +51,13 @@ export default class CreateCharacterClassComponent extends React.Component {
     this.setState({ show: true });
   }
 
-  setClass(e) {
-    const targetText = e.target.textContent.toString();
-    this.props.updateClass(targetText);
-    this.handleShow();
-    this.setState({ selectedClass: targetText });
-  }
-
   render() {
     const popover = (
-      <Popover id={"modal-popover"} title={"popover"}>
+      <Popover id="modal-popover" title="popover">
         Placeholder text for popover
       </Popover>
     );
-    const tooltip = <Tooltip id={"modal-tooltip"}>Tooltip text </Tooltip>;
+    const tooltip = <Tooltip id="modal-tooltip">Tooltip text </Tooltip>;
     return (
       <FormGroup>
         <Col sm={1} />
@@ -62,7 +65,7 @@ export default class CreateCharacterClassComponent extends React.Component {
           componentClass={ControlLabel}
           sm={2}
           className={cssStyles.createColLabelStyle}
-        ><div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Class:</div>
+        ><div style={{ fontSize: '19px', fontFamily: "'Josefin Sans', sans-serif" }}>Class:</div>
         </Col>
         <Col sm={7}>
           <ButtonToolbar>
@@ -73,70 +76,68 @@ export default class CreateCharacterClassComponent extends React.Component {
               className={cssStyles.alignmentButtonGroupParent}
 
             >
-	            <ToggleButton
-		            value={"Barbarian"}
-		            className={cssStyles.alignmentButtonGroup}
-
-	            >
-		            Barbarian
+              <ToggleButton
+                value="Barbarian"
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Barbarian
 	            </ToggleButton>
               <ToggleButton
-                value={"Monk"}
+                value="Monk"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Monk
               </ToggleButton>
               <ToggleButton
-                value={"Wizard"}
+                value="Wizard"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Wizard
               </ToggleButton>
               <ToggleButton
-                value={"Ranger"}
+                value="Ranger"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Ranger
               </ToggleButton>
               <ToggleButton
-                value={"Druid"}
+                value="Druid"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Druid
               </ToggleButton>
               <ToggleButton
-                value={"Paladin"}
+                value="Paladin"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Paladin
               </ToggleButton>
               <ToggleButton
-                value={"Sorcerer"}
+                value="Sorcerer"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Sorcerer
               </ToggleButton>
               <ToggleButton
-                value={"Rogue"}
+                value="Rogue"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Rogue
               </ToggleButton>
               <ToggleButton
-                value={"Fighter"}
+                value="Fighter"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Fighter
-              </ToggleButton>{" "}
+              </ToggleButton>
               <ToggleButton
-                value={"Cleric"}
+                value="Cleric"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Cleric
-              </ToggleButton>{" "}
-
-	            <ToggleButton
-                value={"Bard"}
+              </ToggleButton>
+              <ToggleButton
+                value="Bard"
                 className={cssStyles.alignmentButtonGroup}
               >
                 Bard
@@ -159,7 +160,3 @@ export default class CreateCharacterClassComponent extends React.Component {
     );
   }
 }
-
-
-
-

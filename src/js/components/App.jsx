@@ -25,7 +25,7 @@ import PathfinderCommunityUse from "./SiteInfo/PathfinderCommunityUse.jsx";
 import CreateEncounter from "./Arena/CreateEncounter.jsx";
 import OGL from "./SiteInfo/OGL.jsx";
 import CreateCampaign from "./Arena/CreateCampaign.jsx";
-import Login from "./AuthenticateUser/Login.jsx";
+import Login from "./AuthenticateUser/Login.js";
 import Signup from "./AuthenticateUser/Signup.jsx";
 import ForgotPassword from "./AuthenticateUser/ForgotPassword.jsx";
 import CreateCharacterSkillsAndFeatsComponent from "./CreateCharacterComponents/SkillsAndFeats/CreateCharacterSkillsComponent.jsx";
@@ -91,6 +91,7 @@ class App extends React.Component {
                 }}
               />
             )
+
         }
       />
     );

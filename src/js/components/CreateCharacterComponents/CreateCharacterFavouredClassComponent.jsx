@@ -1,5 +1,4 @@
 import React from "react";
-import * as cssStyles from "../../../styles/Styles.css";
 import {
   Col,
   ControlLabel,
@@ -18,6 +17,7 @@ import {
   ToggleButton,
   ButtonToolbar
 } from "react-bootstrap";
+import * as cssStyles from "../../../styles/Styles.css";
 
 export default class CreateCharacterFavouredClassComponent extends React.Component {
   constructor(props) {
@@ -27,14 +27,12 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
     this.handleClose = this.handleClose.bind(this);
     this.state = {
       show: false,
-      selectedFavouredClass: ""
     };
   }
 
   saveFavouredClass(e) {
     const targetText = e.target.textContent.toString();
     this.props.updateFavClass(targetText);
-
   }
 
   handleClose() {
@@ -82,68 +80,67 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
                 className={cssStyles.favouredClassButtonGroup}
               >
                 <ToggleButton
-                  value={"Barbarian"}
+                  value="Barbarian"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Barbarian
 						</ToggleButton>
                 <ToggleButton
-                  value={"Monk"}
+                  value="Monk"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Monk
 						</ToggleButton>
                 <ToggleButton
-                  value={"Wizard"}
+                  value="Wizard"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Wizard
 						</ToggleButton>
                 <ToggleButton
-                  value={"Ranger"}
+                  value="Ranger"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Ranger
 						</ToggleButton>
                 <ToggleButton
-                  value={"Druid"}
+                  value="Druid"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Druid
 						</ToggleButton>
                 <ToggleButton
-                  value={"Paladin"}
+                  value="Paladin"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Paladin
 						</ToggleButton>
                 <ToggleButton
-                  value={"Sorcerer"}
+                  value="Sorcerer"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Sorcerer
 						</ToggleButton>
                 <ToggleButton
-                  value={"Rogue"}
+                  value="Rogue"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Rogue
 						</ToggleButton>
                 <ToggleButton
-                  value={"Fighter"}
+                  value="Fighter"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Fighter
-						</ToggleButton>{" "}
+						</ToggleButton>
                 <ToggleButton
-                  value={"Cleric"}
+                  value="Cleric"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Cleric
-						</ToggleButton>{" "}
-
+						</ToggleButton>
                 <ToggleButton
-                  value={"Bard"}
+                  value="Bard"
                   className={cssStyles.favouredClassButtonGroup}
                 >
                   Bard
@@ -169,6 +166,6 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
           </Col>
         </FormGroup>
       </div>
-    )
+    );
   }
 }

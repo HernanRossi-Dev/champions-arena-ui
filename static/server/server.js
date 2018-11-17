@@ -1,16 +1,14 @@
 const express = require("express");
 
 const bodyParser = require("body-parser");
-
+const nodemailer = require('nodemailer');
+const generator = require('generate-password');
 const SourceMapSupport = require("source-map-support");
-
+const passwordHash = require('password-hash');
 const path = require("path");
 require("babel-polyfill");
-let defaultCharacters = require("./defaultCharacters");
-// console.log(defaultCharacters);
-defaultCharacters = defaultCharacters.defaultCharacters;
-// console.log("Characters cast");
-// console.log(defaultCharacters);
+const { defaultCharacters } = require("./defaultCharacters");
+
 const mongoose = require("mongoose");
 
 const mongoDB =
@@ -28,15 +26,8 @@ const app = express();
 const helmet = require('helmet');
 
 app.use(helmet());
-
-// app.use(express.static('dist'));
-// console.log(path.join(__dirname, '../../dist'));
 app.use(express.static(path.join(__dirname, '../../dist')));
 app.use(bodyParser.json());
-
-const characters = require("./models/characters");
-
-const users = require("./models/users");
 
 mongoose.Promise = require("bluebird");
 
@@ -63,7 +54,7 @@ app.get('/api/authenticate', (req, res) => {
     body: '{"client_id":"KuhIFt8Blg4CChqebw13Snf6XSwXz5Cf","client_secret":"QBIZeiYeH_tIMp2GXcGTuVdmMRXfQd_YLmkd947zsFMsEQxlQGw4SGsVQZyBXDIy","audience":"https://thecampaignArena.com","grant_type":"client_credentials"}'
   };
 
-  request(options, function (error, response, body) {
+  request(options, (error, response, body) => {
     res.json(response);
   });
 });
@@ -80,7 +71,7 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({ message: 'Missing or invalid token. Please logout And log back in.' });
   }
@@ -100,14 +91,14 @@ app.get("/api/characters/:id", (req, res) => {
     .find({ _id: characterID })
     .limit(1)
     .next()
-    .then(character => {
+    .then((character) => {
       if (!character) {
         res.status(404).json({ message: `No character found: ${characterID}` });
       } else {
         res.json(character);
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
@@ -124,11 +115,11 @@ app.get("/api/characters", (req, res) => {
   db.collection('characters')
     .find(filter)
     .toArray()
-    .then(character => {
+    .then((character) => {
       const metadata = { total_count: character.length };
       res.json({ _metadata: metadata, characters: character });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log("Error: ", error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
@@ -142,49 +133,45 @@ app.get("/api/users", (req, res) => {
   db.collection('users')
     .find(filter)
     .toArray()
-    .then(users => {
+    .then((users) => {
       if (req.query.sendEmail) {
         if (users.length > 0) {
           users = users[0];
         }
-        let nodemailer = require('nodemailer');
-        let generator = require('generate-password');
-
-        let password = generator.generate({
+        const password = generator.generate({
           length: 8,
           numbers: true
         });
-        let passwordHash = require('password-hash');
-        let hashedTempPassword = passwordHash.generate('password');
-        let text = `Hello your Arena user name is: ${users.name}\n\n your temporary password is: ${password}`;
+        const hashedTempPassword = passwordHash.generate('password');
+        const text = `Hello your Arena user name is: ${users.name}\n\n your temporary password is: ${password}`;
         db.collection('users').update({ name: users.name }, { password: hashedTempPassword, name: users.name, email: users.email }, { upsert: false });
-        let transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
           service: 'Gmail',
           auth: {
             user: 'thechampionsarena@gmail.com',
             pass: 'Han4567!'
           }
         });
-        let mailOptions = {
+        const mailOptions = {
           from: 'TheChampionsArena@gmail.com',
           to: users.email,
           subject: 'The Arena Temporary Password',
-          text: text
+          text,
         };
 
-        transporter.sendMail(mailOptions, function (error, info) {
+        transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
             console.log(error);
             res.json({ yo: 'error' });
           } else {
-            console.log('Message sent: ' + info.response);
+            console.log(`Message sent: ${info.response}`);
             res.json({ yo: info.response });
           }
         });
       }
       res.json({ users });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log("Error: ", error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
@@ -216,12 +203,11 @@ app.put("/api/characters/:id", (req, res) => {
         .collection("characters")
         .find({ _id: characterId })
         .limit(1)
-        .next()
-    )
-    .then(savedCharacter => {
+        .next())
+    .then((savedCharacter) => {
       res.json(savedCharacter);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
@@ -233,7 +219,6 @@ app.post("/api/users", (req, res) => {
   let i = 0;
   for (i; i < defaultCharacters.length; i += 1) {
     defaultCharacters[i].user = newUser.name;
-    console.log(defaultCharacters[i]);
   }
   db.collection("characters").insertMany(defaultCharacters);
   newUser.created = new Date();
@@ -245,12 +230,11 @@ app.post("/api/users", (req, res) => {
         .collection("users")
         .find({ _id: result.insertedId })
         .limit(1)
-        .next()
-    )
-    .then(newUser => {
-      res.json(newUser);
+        .next())
+    .then((result) => {
+      res.json(result);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
@@ -275,12 +259,11 @@ app.post("/api/characters", (req, res) => {
         .collection("characters")
         .find({ _id: result.insertedId })
         .limit(1)
-        .next()
-    )
-    .then(newCharacter => {
-      res.json(newCharacter);
+        .next())
+    .then((result) => {
+      res.json(result);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
@@ -290,7 +273,6 @@ app.delete("/api/characters/:id", (req, res) => {
   let characterID;
   try {
     characterID = new ObjectID(req.params.id);
-
   } catch (error) {
     res.status(422).json({ message: `Invalid characters ID format: ${error}` });
     return;
@@ -299,15 +281,14 @@ app.delete("/api/characters/:id", (req, res) => {
   db
     .collection("characters")
     .deleteOne({ _id: characterID })
-    .then(deleteResult => {
-      console.log(deleteResult.result);
+    .then((deleteResult) => {
       if (deleteResult.result.n === 1) res.json({ status: "OK" });
       else {
         res.json({ status: "Warning: object not found" });
         console.log("ERROR");
       }
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
 });
@@ -318,18 +299,20 @@ app.delete("/api/characters", (req, res) => {
   if (req.query.class) filter.class = req.query.class;
   if (req.query.race) filter.race = req.query.race;
   if (req.query.level_lte || req.query.level_gte) filter.level = {};
-  if (req.query.level_lte)
+  if (req.query.level_lte) {
     filter.level.$lte = parseInt(req.query.level_lte, 10);
-  if (req.query.level_gte)
+  }
+  if (req.query.level_gte) {
     filter.level.$gte = parseInt(req.query.level_gte, 10);
+  }
   db
     .collection("characters")
     .deleteMany(filter)
-    .then(deleteResult => {
+    .then((deleteResult) => {
       console.log(deleteResult.result);
       res.json({ status: "OK" });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
 });
@@ -340,27 +323,25 @@ app.delete("/api/users/:name", (req, res) => {
   db
     .collection("users")
     .deleteOne({ name: deleteUser })
-    .then(deleteResult => {
+    .then((deleteResult) => {
       if (deleteResult.result.n === 1) {
         db
           .collection("characters")
           .deleteMany({ user: deleteUser })
-          .then(deleteResult => {
+          .then((result) => {
             res.json({ status: "OK" });
           })
-          .catch(error => {
+          .catch((error) => {
             res.status(500).json({ message: `Internal Server Error: ${error}` });
           });
-      }
-      else {
+      } else {
         res.json({ status: "Warning: object not found" });
         console.log("ERROR");
       }
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
-
 });
 
 app.delete("/api/users", (req, res) => {
@@ -371,29 +352,27 @@ app.delete("/api/users", (req, res) => {
   db
     .collection("users")
     .deleteMany(filter)
-    .then(deleteResult => {
+    .then((deleteResult) => {
       console.log(deleteResult.result.n);
       if (deleteResult.result.n === 1) {
         db
           .collection("characters")
           .deleteMany({ user: deleteUser.name })
-          .then(deleteResult => {
-            console.log(deleteResult.result);
+          .then((result) => {
+            console.log(result.result);
             res.json({ status: "OK" });
           })
-          .catch(error => {
+          .catch((error) => {
             res.status(500).json({ message: `Internal Server Error: ${error}` });
           });
-      }
-      else {
+      } else {
         res.json({ status: "Warning: object not found" });
         console.log("ERROR");
       }
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: `Internal Server Error: ${error}` });
     });
-
 });
 
 module.export = app;

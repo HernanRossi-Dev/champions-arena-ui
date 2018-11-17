@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: [path.resolve(__dirname, "./src/js/components/App.jsx")]
+    app: ['babel-polyfill', path.resolve(__dirname, "./src/js/components/App.jsx")]
   },
   output: {
     path: path.resolve(__dirname, "./dist/"),
@@ -14,15 +14,14 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".json", "*", ".html"]
   },
-
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.js?/,
         exclude: /node_modules/,
         loader: "babel-loader",
         query: {
-          presets: ["react", "es2015"]
+          presets: ["es2015", "react", "stage-0"]
         }
       },
       {
