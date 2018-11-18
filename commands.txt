@@ -40,3 +40,4 @@ Mongo:
 
 Deploy to AWS:
 git archive -v -o myapp.zip --format=zip HEAD
+    -zip file cannot have: node-modules, yarn.lock, .idea file, or non project related files

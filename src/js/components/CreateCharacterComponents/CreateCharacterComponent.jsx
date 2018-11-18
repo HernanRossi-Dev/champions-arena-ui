@@ -32,7 +32,6 @@ import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 class CreateCharacterComponent extends React.Component {
   constructor(props, context) {
     super();
-    this.createNewCharacter = this.createNewCharacter.bind(this);
     this.state = {
       characterStats: {
         STR: 15,
@@ -67,19 +66,6 @@ class CreateCharacterComponent extends React.Component {
       previousStatsMethod: "Roll",
       showStatsMethod: true
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.setRace = this.setRace.bind(this);
-    this.setName = this.setName.bind(this);
-    this.setStateStats = this.setStateStats.bind(this);
-    this.setClass = this.setClass.bind(this);
-    this.setGender = this.setGender.bind(this);
-    this.setAlignment = this.setAlignment.bind(this);
-    this.setFavouredClass = this.setFavouredClass.bind(this);
-    this.restrictAlignments = this.restrictAlignments.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.setStateMethod = this.setStateMethod.bind(this);
-    // this.GenStatsMethod = this.GenStatsMethod.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(
       CharacterActionCreators,
@@ -97,28 +83,70 @@ class CreateCharacterComponent extends React.Component {
     }
   }
 
-  createNewCharacter(newCharacter) {
-    let thisInst = this;
-    let callbackRedirect = () => {
+  setStateMethod = (e) => {
+    const prevMethod = this.state.choseStatsMethod;
+    this.setState({ previousStatsMethod: prevMethod, choseStatsMethod: e.target.innerHTML });
+  }
+
+  setFavouredClass = (newFavClass) => {
+    console.log('favoured classL: ', newFavClass);
+    this.setState({ favouredClass: newFavClass });
+  }
+
+  setGender = (newGender) => {
+    console.log('newGender: ', newGender);
+
+    this.setState({ gender: newGender });
+  }
+
+  setAlignment = (newAlignment) => {
+    console.log('newAlignment: ', newAlignment);
+
+    this.setState({ alignment: newAlignment });
+  }
+
+  setClass = (newClass) => {
+    this.restrictAlignments(newClass);
+    this.setState({
+      class: newClass,
+      alignment: "",
+      alignRenderKey: Math.random()
+    });
+  }
+
+  setStateStats = (newStatsObject) => {
+    this.setState({
+      characterStats: newStatsObject,
+      baseCharacterStats: newStatsObject
+    });
+  }
+
+  setName = (newName) => {
+    this.setState({ name: newName });
+  }
+
+  handleClose = () => {
+    this.setState({ show: false });
+  }
+
+  handleShow = () => {
+    this.setState({ show: true });
+  }
+
+  createNewCharacter = (newCharacter) => {
+    const thisInst = this;
+    const callbackRedirect = () => {
       thisInst.props.history.push("/characters");
     };
-    let { dispatch } = this.props;
-    let action = CharacterActionCreators.createCharacter(
+    const { dispatch } = this.props;
+    const action = CharacterActionCreators.createCharacter(
       newCharacter,
       callbackRedirect
     );
     dispatch(action);
   }
 
-  handleClose() {
-    this.setState({ show: false });
-  }
-
-  handleShow() {
-    this.setState({ show: true });
-  }
-
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.setState({
       numberOfInvalidFields: 0,
@@ -181,7 +209,7 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
 
-  setRace(selectedRace, racialBonus) {
+  setRace = (selectedRace, racialBonus) => {
     if (racialBonus.statsBonus) {
       const rBon = racialBonus.statsBonus;
       let key;
@@ -196,84 +224,48 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ characterRace: selectedRace, racialBonus });
   }
 
-  setName(newName) {
-    this.setState({ name: newName });
-  }
-
-  setStateStats(newStatsObject) {
-    this.setState({
-      characterStats: newStatsObject,
-      baseCharacterStats: newStatsObject
-    });
-  }
-
-  setClass(newClass) {
-    this.restrictAlignments(newClass);
-    this.setState({
-      class: newClass,
-      alignment: "",
-      alignRenderKey: Math.random()
-    });
-  }
-
-  setFavouredClass(newFavClass) {
-    this.setState({ favouredClass: newFavClass });
-  }
-  setGender(newGender) {
-    this.setState({ gender: newGender });
-  }
-
-  setAlignment(newAlignment) {
-    this.setState({ alignment: newAlignment });
-  }
-
-  setStateMethod(e) {
-    const prevMethod = this.state.choseStatsMethod;
-    this.setState({ previousStatsMethod: prevMethod, choseStatsMethod: e.target.innerHTML });
-  }
-
-
-
-  render() {
-    const ValidationModal = () => {
+  GenStatsMethod = (props) => {
+    if (this.state.choseStatsMethod === "Roll") {
       return (
-        <div>
-          {this.state.numberOfInvalidFields} errors on submission.<br />
-          Please select character's:
-          <InvalidFields />
-        </div>
-      );
-    };
-    const InvalidFields = () => {
-      this.state.invalidFields.map(field => {
-      });
-      return (
-        <ul>
-          {this.state.invalidFields.map(invalidField => {
-            return <li>{invalidField}</li>;
-          })}
-        </ul>
-      );
-    };
-
-    const GenStatsMethod = () => {
-      if (this.state.choseStatsMethod === "Roll") {
-        return (
-          <CreateCharacterGenStatsComponent
-            setStateStats={this.setStateStats}
-            characterStats={this.state.characterStats}
-            racialBonus={this.state.racialBonus}
-          />
-        );
-      } else if (this.state.choseStatsMethod === "Buy") {
-        return <CreateCharacterPointBuyStatsComponent />;
-      } else if (this.state.choseStatsMethod === "Custom") {
-        return <CreateCharacterCustomStatsInput
+        <CreateCharacterGenStatsComponent
           setStateStats={this.setStateStats}
           characterStats={this.state.characterStats}
-          racialBonus={this.state.racialBonus} />;
-      }
-    };
+          racialBonus={this.state.racialBonus}
+        />
+      );
+    } else if (this.state.choseStatsMethod === "Buy") {
+      return <CreateCharacterPointBuyStatsComponent />;
+    } else if (this.state.choseStatsMethod === "Custom") {
+      return (<CreateCharacterCustomStatsInput
+        setStateStats={this.setStateStats}
+        characterStats={this.state.characterStats}
+        racialBonus={this.state.racialBonus}
+      />);
+    }
+    return null;
+  };
+
+  InvalidFields = () => {
+    return (
+      <ul>
+        {this.state.invalidFields.map((invalidField, i) => {
+          return <li key={`${i * 5}${invalidField}`}>{invalidField}</li>;
+        })}
+      </ul>
+    );
+  };
+
+  ValidationModal = () => {
+    return (
+      <div>
+        {this.state.numberOfInvalidFields} errors on submission.<br />
+        Please select character's:
+        <this.InvalidFields />
+      </div>
+    );
+  };
+
+  render() {
     return (
       <Panel className={cssStyles.createCharacterPanelParent}>
         <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
@@ -296,19 +288,25 @@ class CreateCharacterComponent extends React.Component {
             </Col>
             <Col sm={7} style={{ marginLeft: '45px' }}>
               <ButtonToolbar>
-                <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Roll</Button>
-                {/*<Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Buy</Button>*/}
-                <Button onClick={this.setStateMethod} className={cssStyles.statsMethodButtons}>Custom</Button>
+                <Button
+                  onClick={this.setStateMethod}
+                  className={cssStyles.statsMethodButtons}
+                >Roll
+                </Button>
+                <Button
+                  onClick={this.setStateMethod}
+                  className={cssStyles.statsMethodButtons}
+                >
+                  Custom
+                </Button>
               </ButtonToolbar>
             </Col>
           </FormGroup>
-          <FormGroup  >
-
-            <GenStatsMethod />
-
+          <FormGroup>
+            <this.GenStatsMethod />
           </FormGroup>
           <hr className={cssStyles.hr} />
-          <CreateCharacterRaceComponent setRace={this.setRace.bind(this)} />
+          <CreateCharacterRaceComponent setRace={this.setRace} />
           <hr className={cssStyles.hr} />
           <CreateCharacterClassComponent updateClass={this.setClass} />
           <hr className={cssStyles.hr} />
@@ -332,8 +330,8 @@ class CreateCharacterComponent extends React.Component {
                   Create
                 </Button>
 
-                <LinkContainer to={"/home"}>
-                  <Button bsStyle={"link"}>Discard</Button>
+                <LinkContainer to="/home">
+                  <Button bsStyle="link">Discard</Button>
                 </LinkContainer>
               </ButtonToolbar>
             </Col>
@@ -346,7 +344,7 @@ class CreateCharacterComponent extends React.Component {
                 <Modal.Title>Invalid Submission</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <ValidationModal />
+                <this.ValidationModal />
               </Modal.Body>
               <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>
@@ -357,11 +355,9 @@ class CreateCharacterComponent extends React.Component {
             <Col sm={7} />
             <Col sm={4}>
               <ButtonToolbar>
-                {/*<LinkContainer to={"/createCharacter/skills"}>*/}
-                <Button bsStyle={"link"}>
+                <Button bsStyle="link">
                   Proceed to Skills (Under Construction)
                 </Button>
-                {/*</LinkContainer>*/}
               </ButtonToolbar>
             </Col>
           </FormGroup>
@@ -465,6 +461,8 @@ class CreateCharacterComponent extends React.Component {
         this.setState({
           allowedAlignments: ["NG", "CG", "N", "CN", "NE", "CE"]
         });
+        break;
+      default:
         break;
     }
   }

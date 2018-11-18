@@ -32,6 +32,9 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
 
   saveFavouredClass(e) {
     const targetText = e.target.textContent.toString();
+    if (!targetText) {
+      return;
+    }
     this.props.updateFavClass(targetText);
   }
 

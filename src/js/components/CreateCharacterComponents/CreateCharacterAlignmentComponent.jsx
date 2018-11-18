@@ -1,5 +1,4 @@
 import React from "react";
-import * as cssStyles from "../../../styles/Styles.css";
 import {
   ButtonToolbar,
   Col,
@@ -10,6 +9,14 @@ import {
   Collapse,
   Well
 } from "react-bootstrap";
+import * as cssStyles from "../../../styles/Styles.css";
+
+const alignmentDivStyle = {
+  fontSize: "17px !important",
+  fontFamily: "'Josefin Sans', sans-serif",
+  textAlign: "left",
+
+};
 
 export default class CreateCharacterAlignmentComponent extends React.Component {
   constructor(props, context) {
@@ -21,7 +28,6 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
       prevButtonPressed: "",
       allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
       clericAlignmentPrompt: "",
-      defaultValue: [],
       renderKey: 0
     };
   }
@@ -29,10 +35,10 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
   componentDidMount() {
     this.setState({ renderKey: this.props.renderKey });
   }
-  
+
   componentWillReceiveProps(props) {
-    if (props.renderKey != this.state.renderKey) {
-      this.setState({ renderKey: props.renderKey,alignmentInfo: "" });
+    if (props.renderKey !== this.state.renderKey) {
+      this.setState({ renderKey: props.renderKey, alignmentInfo: "" });
     }
     if (props.allowedAlignments.length < 1) {
       this.setState({
@@ -58,211 +64,6 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
         alignment: ""
       });
     }
-  }
-
-  render() {
-	  const alignmentDivStyle = {
-		  fontSize: "17px !important",
-		  fontFamily: "'Josefin Sans', sans-serif",
-		  textAlign: "left",
-
-	  };
-    // const AlignmentTextToggle = () => {
-    //
-    //   if (this.state.showAlignment) {
-    //     return <div style={alignmentDivStyle}> {this.state.alignmentInfo}</div>;
-    //   } else {
-    //     return <div />;
-    //   }
-    // };
-    const changeAlignment = e => {
-      const targetText = e.target.textContent.toString();
-      if (!this.state.showAlignment) {
-        this.setState({ showAlignment: true });
-      }
-      if (targetText === this.state.prevButtonPressed) {
-        if (this.state.showAlignment) {
-          this.setState({ showAlignment: !this.state.showAlignment });
-        } else {
-        }
-      } else {
-        this.setState({ showAlignment: true });
-      }
-      const currentAlignment = e.target.textContent.toString();
-      this.setState({ alignment: currentAlignment });
-      this.changeAlignmentInfo(currentAlignment);
-      this.setState({ prevButtonPressed: targetText });
-      this.props.updateAlignment(currentAlignment);
-    };
-    return (
-      <div key={this.state.renderKey}>
-        <FormGroup controlId="alignmentValue">
-          <Col sm={1} />
-          <Col
-            componentClass={ControlLabel}
-            sm={2}
-            className={cssStyles.createColLabelStyle}
-          ><div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Alignment:</div>
-          </Col>
-          <Col sm={8}>
-            <ButtonToolbar>
-              <ToggleButtonGroup
-                type="radio"
-                name="alignmentValue"
-                ref="alignmentValue"
-                className={cssStyles.alignmentButtonGroupParent}
-              >
-                <ToggleButton
-                  value={"Lawful Good"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("LG") > -1)}
-                  checked={this.state.alignment.toString() === "Lawful Good"}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("LG") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Lawful Good
-                </ToggleButton>
-                <ToggleButton
-                  value={"Neutral Good"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("NG") > -1)}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("NG") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Neutral Good
-                </ToggleButton>
-                <ToggleButton
-                  value={"Chaotic Good"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("CG") > -1)}
-                  checked={this.state.alignment.toString() === "Chaotic Good"}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("CG") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Chaotic Good
-                </ToggleButton>
-                <ToggleButton
-                  value={"Lawful Neutral"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("LN") > -1)}
-                  checked={this.state.alignment.toString() === "Lawful Neutral"}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("LN") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Lawful Neutral
-                </ToggleButton>
-                <ToggleButton
-                  value={"Neutral"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("N") > -1)}
-                  checked={this.state.alignment.toString() === "Neutral"}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("N") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Neutral
-                </ToggleButton>
-
-                <ToggleButton
-                  value={"Chaotic Neutral"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("CN") > -1)}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("CN") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Chaotic Neutral
-                </ToggleButton>
-
-                <ToggleButton
-                  value={"Lawful Evil"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("LE") > -1)}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("LE") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Lawful Evil
-                </ToggleButton>
-
-                <ToggleButton
-                  value={"Neutral Evil"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("NE") > -1)}
-                  checked={this.state.alignment.toString() === "Neutral Evil"}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("NE") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Neutral Evil
-                </ToggleButton>
-
-                <ToggleButton
-                  value={"Chaotic Evil"}
-                  className={cssStyles.alignmentButtonGroup}
-                  disabled={!(this.state.allowedAlignments.indexOf("CE") > -1)}
-                  checked={this.state.alignment.toString() === "Chaotic Evil"}
-                  onClick={
-                    !(this.state.allowedAlignments.indexOf("CE") > -1)
-                      ? null
-                      : changeAlignment
-                  }
-                >
-                  Chaotic Evil
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </ButtonToolbar>
-          </Col>
-
-          <Col sm={1} />
-        </FormGroup>
-        <FormGroup>
-          <Col sm={2} />
-          <Col sm={8}>
-            <div className={cssStyles.alignmentInfoDiv}>
-              <strong>{this.state.clericAlignmentPrompt}</strong>
-	            {(this.state.allowedAlignments.length < 9) ? <div><strong>Alignments restricted due to class</strong></div> : <div></div>}
-
-            </div>
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col sm={1} />
-          <Col sm={8}>
-            {/*<AlignmentTextToggle />*/}
-	          <Collapse in={this.state.showAlignment} style={alignmentDivStyle}>
-
-		          <div>
-			          <Well style={{backgroundColor:'transparent'}}>
-				          {this.state.alignmentInfo}
-			          </Well>
-		          </div>
-	          </Collapse>
-          </Col>
-          <Col sm={2} />
-        </FormGroup>
-      </div>
-    );
   }
 
   changeAlignmentInfo(e) {
@@ -417,6 +218,197 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
           )
         });
         break;
+      default:
+        break;
     }
   }
+
+  changeAlignment = (e) => {
+    const targetText = e.target.textContent.toString();
+    if (!targetText) {
+      return;
+    }
+    if (!this.state.showAlignment) {
+      this.setState({ showAlignment: true });
+    }
+    if (targetText === this.state.prevButtonPressed) {
+      if (this.state.showAlignment) {
+        this.setState({ showAlignment: !this.state.showAlignment });
+      }
+    } else {
+      this.setState({ showAlignment: true });
+    }
+    const currentAlignment = e.target.textContent.toString();
+    this.setState({ alignment: currentAlignment });
+    this.changeAlignmentInfo(currentAlignment);
+    this.setState({ prevButtonPressed: targetText });
+    this.props.updateAlignment(currentAlignment);
+  };
+
+  render() {
+    return (
+      <div key={this.state.renderKey}>
+        <FormGroup controlId="alignmentValue">
+          <Col sm={1} />
+          <Col
+            componentClass={ControlLabel}
+            sm={2}
+            className={cssStyles.createColLabelStyle}
+          ><div style={{fontSize:'19px',fontFamily: "'Josefin Sans', sans-serif"}}>Alignment:</div>
+          </Col>
+          <Col sm={8}>
+            <ButtonToolbar>
+              <ToggleButtonGroup
+                type="radio"
+                name="alignmentValue"
+                ref="alignmentValue"
+                className={cssStyles.alignmentButtonGroupParent}
+              >
+                <ToggleButton
+                  value="Lawful Good"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("LG") > -1)}
+                  checked={this.state.alignment.toString() === "Lawful Good"}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("LG") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Lawful Good
+                </ToggleButton>
+                <ToggleButton
+                  value="Neutral Good"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("NG") > -1)}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("NG") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Neutral Good
+                </ToggleButton>
+                <ToggleButton
+                  value="Chaotic Good"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("CG") > -1)}
+                  checked={this.state.alignment.toString() === "Chaotic Good"}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("CG") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Chaotic Good
+                </ToggleButton>
+                <ToggleButton
+                  value="Lawful Neutral"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("LN") > -1)}
+                  checked={this.state.alignment.toString() === "Lawful Neutral"}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("LN") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Lawful Neutral
+                </ToggleButton>
+                <ToggleButton
+                  value="Neutral"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("N") > -1)}
+                  checked={this.state.alignment.toString() === "Neutral"}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("N") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Neutral
+                </ToggleButton>
+                <ToggleButton
+                  value="Chaotic Neutral"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("CN") > -1)}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("CN") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Chaotic Neutral
+                </ToggleButton>
+                <ToggleButton
+                  value="Lawful Evil"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("LE") > -1)}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("LE") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Lawful Evil
+                </ToggleButton>
+                <ToggleButton
+                  value="Neutral Evil"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("NE") > -1)}
+                  checked={this.state.alignment.toString() === "Neutral Evil"}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("NE") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Neutral Evil
+                </ToggleButton>
+
+                <ToggleButton
+                  value="Chaotic Evil"
+                  className={cssStyles.alignmentButtonGroup}
+                  disabled={!(this.state.allowedAlignments.indexOf("CE") > -1)}
+                  checked={this.state.alignment.toString() === "Chaotic Evil"}
+                  onClick={
+                    !(this.state.allowedAlignments.indexOf("CE") > -1)
+                      ? null
+                      : this.changeAlignment
+                  }
+                >
+                  Chaotic Evil
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </ButtonToolbar>
+          </Col>
+          <Col sm={1} />
+        </FormGroup>
+        <FormGroup>
+          <Col sm={2} />
+          <Col sm={8}>
+            <div className={cssStyles.alignmentInfoDiv}>
+              <strong>{this.state.clericAlignmentPrompt}</strong>
+	            {(this.state.allowedAlignments.length < 9) ? <div><strong>Alignments restricted due to class</strong></div> : <div></div>}
+            </div>
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col sm={1} />
+          <Col sm={8}>
+            {/*<AlignmentTextToggle />*/}
+	          <Collapse in={this.state.showAlignment} style={alignmentDivStyle}>
+		          <div>
+			          <Well style={{backgroundColor:'transparent'}}>
+				          {this.state.alignmentInfo}
+			          </Well>
+		          </div>
+	          </Collapse>
+          </Col>
+          <Col sm={2} />
+        </FormGroup>
+      </div>
+    );
+  }
+
 }
