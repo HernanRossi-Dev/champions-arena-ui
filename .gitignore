@@ -1,6 +1,7 @@
 .vscode/settings.json
 node_modules/
 .idea
+package-lock.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
