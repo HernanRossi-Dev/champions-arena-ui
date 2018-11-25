@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { connect, Provider } from 'react-redux';
+import axios from 'axios';
 import { PersistGate } from "redux-persist/lib/integration/react";
 import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';

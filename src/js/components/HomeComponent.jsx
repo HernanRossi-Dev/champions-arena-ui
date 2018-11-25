@@ -1,7 +1,7 @@
 import React from "react";
+import { withRouter } from 'react-router-dom';
 import * as cssStyles from "../../styles/Styles.css";
 import image from "../../../public/assets/OccultYoon.png";
-import { withRouter } from 'react-router-dom'
 
 function HomeComponent(props) {
   return (

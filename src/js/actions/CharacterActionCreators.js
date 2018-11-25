@@ -14,7 +14,7 @@ function updatingCharacter() {
   };
 }
 
-export const updateCharacter = (updateCharacter, callBackSetState) => dispatch => {
+export const updateCharacter = (updateCharacter, callBackSetState) => (dispatch) => {
   const URL = `/api/characters/${updateCharacter._id}`;
   dispatch(updatingCharacter());
   fetch(URL, {
@@ -24,7 +24,7 @@ export const updateCharacter = (updateCharacter, callBackSetState) => dispatch =
       authorization: store.getState().userReducer.authToken
     },
     body: JSON.stringify(updateCharacter)
-  }).then(response => {
+  }).then((response) => {
     if (!response.ok) {
       response.json().then(error => {
         alert(`Failed to update character: ${error}`);
@@ -35,9 +35,9 @@ export const updateCharacter = (updateCharacter, callBackSetState) => dispatch =
         });
       });
     } else {
-      response.json().then(data => {
+      response.json().then((data) => {
         function resolveDispatch() {
-          return new Promise(resolve => {
+          return new Promise((resolve) => {
             resolve(
               dispatch({
                 type: types.UPDATING_CHARACTER_SUCCESS,
@@ -64,14 +64,14 @@ function requestCharacter(URL) {
 }
 
 export const fetchCharacter = (characterID, callbackSetState) => {
-  return function(dispatch, getState) {
+  return (dispatch, getState) => {
     dispatch(requestCharacter(URL));
     fetch(`/api/characters/${characterID}`, {
       method: "GET",
       headers: { authorization: store.getState().userReducer.authToken }
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
-        response.json().then(error => {
+        response.json().then((error) => {
           alert(`Failed to fetch character: ${error.message}`);
           dispatch({
             type: types.FETCHING_CHARACTER_FAIL,
@@ -80,9 +80,9 @@ export const fetchCharacter = (characterID, callbackSetState) => {
           });
         });
       } else {
-        response.json().then(data => {
+        response.json().then((data) => {
           function resolveDispatch() {
-            return new Promise(resolve => {
+            return new Promise((resolve) => {
               resolve(
                 dispatch({
                   type: types.FETCHING_CHARACTER_SUCCESS,
@@ -109,13 +109,13 @@ function deletingCharacter(characterID) {
   };
 }
 
-export const deleteCharacter = characterID => {
-  return function(dispatch, getState) {
+export const deleteCharacter = (characterID) => {
+  return (dispatch, getState) => {
     dispatch(deletingCharacter(characterID));
     fetch(`/api/characters/${characterID}`, {
       method: "DELETE",
       headers: { authorization: store.getState().userReducer.authToken }
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         alert("Failed to delete character");
         dispatch({
@@ -141,7 +141,7 @@ function creatingCharacter(newCharacter) {
 }
 
 export const createCharacter = (newCharacter, callBackRedirect) => {
-  return function(dispatch, getState) {
+  return (dispatch, getState) => {
     dispatch(creatingCharacter(newCharacter));
     fetch("/api/characters", {
       method: "POST",
@@ -150,13 +150,13 @@ export const createCharacter = (newCharacter, callBackRedirect) => {
         authorization: store.getState().userReducer.authToken
       },
       body: JSON.stringify(newCharacter)
-    }).then(response => {
+    }).then((response) => {
       if (response.ok) {
-        response.json().then(updatedCharacter => {
+        response.json().then((updatedCharacter) => {
           updatedCharacter.created = new Date(updatedCharacter.created);
 
           function resolveDispatch() {
-            return new Promise(resolve => {
+            return new Promise((resolve) => {
               resolve(
                 dispatch({
                   type: types.CREATING_CHARACTER_SUCCESS,
@@ -173,7 +173,7 @@ export const createCharacter = (newCharacter, callBackRedirect) => {
           asyncDispatch();
         });
       } else {
-        response.json().then(error => {
+        response.json().then((error) => {
           alert(`Failed to create character: ${error.message}`);
           dispatch({
             type: types.CREATING_CHARACTER_FAIL,
@@ -193,21 +193,21 @@ function requestCharacterList(URL) {
   };
 }
 
-export const fetchCharacters = (filter = "") => dispatch => {
+export const fetchCharacters = (filter = "") => (dispatch) => {
   dispatch(requestCharacterList(filter));
   fetch(`/api/characters${filter}`, {
     method: "GET",
     headers: { authorization: store.getState().userReducer.authToken }
-  }).then(response => {
+  }).then((response) => {
     if (response.ok) {
-      response.json().then(data => {
+      response.json().then((data) => {
         dispatch({
           type: types.FETCHING_CHARACTERS_SUCCESS,
           characters: data.characters
         });
       });
     } else {
-      response.json().then(error => {
+      response.json().then((error) => {
         alert(`Failed to fetch characters: ${error.message}`);
         dispatch({
           type: types.FETCHING_CHARACTERS_FAIL,

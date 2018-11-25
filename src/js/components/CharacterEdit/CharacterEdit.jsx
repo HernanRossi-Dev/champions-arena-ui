@@ -1,15 +1,14 @@
-import "whatwg-fetch";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import store from "../../store/index.js";
-import * as CharacterActionCreators from "../../actions/CharacterActionCreators.js";
+import axios from 'axios';
+import { withStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as cssStyles from "../../../styles/Styles.css";
-import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
-import CharacterEditStatsComponent from './CharacterEditStatsComponent.jsx';
-import CharacterEditSkillsComponent from './CharacterEditSkillsComponent.jsx';
+
+import CloseIcon from '@material-ui/icons/Close';
 import {
   Button,
   ButtonToolbar,
@@ -20,171 +19,197 @@ import {
   Modal
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import * as cssStyles from "../../../styles/Styles.css";
+import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
+import CharacterEditStatsComponent from './CharacterEditStatsComponent.jsx';
+import CharacterEditSkillsComponent from './CharacterEditSkillsComponent.jsx';
+import store from "../../store/index.js";
+
+const styles = theme => ({
+  close: {
+    padding: theme.spacing.unit / 2,
+  },
+  success: {
+    backgroundColor: '#34AA31',
+  },
+});
+
 
 class CharacterEdit extends React.Component {
   constructor(props) {
     super();
-    const { dispatch } = props;
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.changeName = this.changeName.bind(this);
-    this.changeAlignment = this.changeAlignment.bind(this);
-    this.changeLevel = this.changeLevel.bind(this);
-    this.changeAge = this.changeAge.bind(this);
-    this.changeHeight = this.changeHeight.bind(this);
-    this.changeWeight = this.changeWeight.bind(this);
-    this.changeHair = this.changeHair.bind(this);
-    this.changeEyes = this.changeEyes.bind(this);
-    this.changePlayer = this.changePlayer.bind(this);
-    this.changeDeity = this.changeDeity.bind(this);
-    this.changeHomeland = this.changeHomeland.bind(this);
-    this.changeSize = this.changeSize.bind(this);
-    this.changeGender = this.changeGender.bind(this);
-    this.acceptChanges = this.acceptChanges.bind(this);
-    this.saveChanges = this.saveChanges.bind(this);
-    this.rejectChanges = this.rejectChanges.bind(this);
-    this.boundActionsCreator = bindActionCreators(
-      CharacterActionCreators,
-      dispatch
-    );
     this.state = {
       editCharacter: {
         name: ""
       },
-      saveCharacter: false,
-      show: false
+      open: false,
+      show: false,
+      toastMessage: '',
     };
   }
 
   componentDidMount() {
+    axios.defaults.headers.common['authorization'] = this.props.Auth;
     this.loadCharacter();
   }
 
-  loadCharacter() {
-    const that = this;
-    let { dispatch } = this.props;
-    const callBackSetState = () =>
-      that.setState({
-        editCharacter: store.getState().characterReducer.editCharacter
-      });
-    let action = CharacterActionCreators.fetchCharacter(
-      this.props.match.params.id,
-      callBackSetState
-    );
-    dispatch(action);
+  showToast = (toastMessage) => {
+    this.setState({ open: true, toastMessage });
+  };
+
+  handleCloseToast = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ open: false, toastMessage: '' });
+  };
+
+  loadCharacter = async () => {
+    const characterID = this.props.match.params.id;
+    if (!characterID) {
+      return null;
+    }
+
+    let getResult;
+    try {
+      getResult = await axios.get(`/api/characters/${characterID}`);
+      if (!getResult) {
+        return null;
+      }
+    } catch (err) {
+      this.showToast('Error fetching character.');
+      return null;
+    }
+    this.setState({ editCharacter: getResult.data });
   }
-  handleClose() {
+
+  handleClose = () => {
     this.setState({ show: false });
   }
-  acceptChanges() {
+
+  acceptChanges = () => {
     this.setState({ show: false });
     this.saveChanges();
   }
-  rejectChanges() {
+
+  rejectChanges = () => {
     this.setState({ show: false });
   }
 
-  handleShow() {
+  handleShow = () => {
     this.setState({ show: true });
   }
 
-  componentWillUnmount() {
-    let { dispatch } = this.props;
-    let action = CharacterActionCreators.clearCharacterEdit();
-    dispatch(action);
-  }
-
-  changeName(newName) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+  changeName = (newName) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.name = newName;
     this.setState({ editCharacter: updateCharacter });
   }
 
-  changeAlignment(newAlignment) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+  changeAlignment = (newAlignment) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.alignment = newAlignment;
     this.setState({ editCharacter: updateCharacter });
   }
 
-  changeLevel(newLevel) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+  changeLevel = (newLevel) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.level = newLevel;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeAge(newAge) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeAge = (newAge) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.age = newAge;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeHeight(newHeight) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeHeight = (newHeight) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.height = newHeight;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeWeight(newWeight) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeWeight = (newWeight) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.weight = newWeight;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeHair(newHair) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeHair = (newHair) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.hair = newHair;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeEyes(newEyes) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeEyes = (newEyes) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.eyes = newEyes;
     this.setState({ editCharacter: updateCharacter });
   }
-  changePlayer(newPlayer) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changePlayer = (newPlayer) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.player = newPlayer;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeDeity(newDeity) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeDeity = (newDeity) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.deity = newDeity;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeHomeland(newHomeland) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeHomeland = (newHomeland) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.homeland = newHomeland;
     this.setState({ editCharacter: updateCharacter });
   }
-  changeSize(newSize) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+
+  changeSize = (newSize) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.size = newSize;
     this.setState({ editCharacter: updateCharacter });
   }
 
-  changeGender(newGender) {
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
+  changeGender = (newGender) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.gender = newGender;
     this.setState({ editCharacter: updateCharacter });
   }
 
-  saveChanges() {
-    let that = this;
-    let updateCharacter = Object.assign({}, this.state.editCharacter);
-    for (let attribute in updateCharacter) {
-      if (updateCharacter.hasOwnProperty(attribute)) {
-        updateCharacter[attribute] = updateCharacter[attribute].toString().trim();
-      }
+  saveChanges = async () => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
+    Object.keys(updateCharacter).forEach((key) => {
+      updateCharacter[key] = updateCharacter[key].toString().trim();
+    });
+
+    if (!this.props) {
+      return null;
     }
-    let { dispatch } = this.props;
-    const callBackSetState = () =>
-      that.setState({
-        editCharacter: store.getState().characterReducer.editCharacter
-      });
-    let action = CharacterActionCreators.updateCharacter(
-	    updateCharacter,
-      callBackSetState
-    );
-    dispatch(action);
+    const characterID = this.props.match.params.id;
+
+    let getResult;
+    try {
+      getResult = await axios.put(
+        `/api/characters/${characterID}`, updateCharacter);
+      if (!getResult) {
+        return null;
+      }
+    } catch (err) {
+      this.showToast('Error updating character.');
+      return null;
+    }
+    this.showToast('Character saved.');
+    this.setState({ editCharacter: updateCharacter });
+    return null;
   }
 
   render() {
+    const { classes } = this.props;
     return (
+      <div>
       <Panel className={cssStyles.editCharacterPanelParent}>
         <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
           <Panel.Title
@@ -261,8 +286,8 @@ class CharacterEdit extends React.Component {
             <Col sm={7} />
             <Col sm={4}>
               <ButtonToolbar>
-                <LinkContainer to={"/characters"}>
-                  <Button bsStyle={"link"}>
+                <LinkContainer to="/characters">
+                  <Button bsStyle="link">
                     Back to Character List (discard changes)
                   </Button>
                 </LinkContainer>
@@ -271,18 +296,50 @@ class CharacterEdit extends React.Component {
           </FormGroup>
         </Form>
       </Panel>
+      <Snackbar
+        // className={classes.success}
+        style={{ zIndex: 8002  }}
+
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={this.state.open}
+        autoHideDuration={3000}
+        onClose={this.handleCloseToast}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+          classes: {
+            root: classes.success
+          }
+        }}
+        message={<span id="message-id" style={{fontSize: 14}}>{this.state.toastMessage}</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={this.handleCloseToast}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
+    </div>
     );
   }
 }
 
 CharacterEdit.propTypes = {
   params: PropTypes.object,
-  updateCharacter: PropTypes.func,
-  fetchCharacter: PropTypes.func
+  classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  editCharacter: state.editCharacter
-});
+const mapStateToProps = (state) => {
+  return ({
+    Auth: store.getState().userReducer.authToken,
+  });
+};
 
-export default withRouter(connect(mapStateToProps)(CharacterEdit));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(CharacterEdit)));

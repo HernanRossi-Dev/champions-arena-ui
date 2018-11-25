@@ -43,7 +43,7 @@ class CharacterRow extends React.Component {
         <td >
           <Link
             to={`/characters/${this.props.character._id}`}
-            params={{ character: this.props.character.name }}
+
           >
             {this.props.character.name}
           </Link>
