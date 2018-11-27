@@ -11,7 +11,7 @@ const { defaultCharacters } = require("./defaultCharacters");
 
 const mongoose = require("mongoose");
 
-const mongoDB =
+const mongoDBUrl =
   "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
 const { ObjectID } = require("mongodb");
 
@@ -31,34 +31,33 @@ app.use(bodyParser.json());
 
 mongoose.Promise = require("bluebird");
 
-mongoose
-  .connect(mongoDB)
-  .then(() => {
+let db;
+(async () => {
+  try {
+    await mongoose.connect(mongoDBUrl);
     app.listen(process.env.PORT || 8080, () => {
       console.log("App started on port 8080.");
     });
-  })
-  .catch((error) => {
-    console.log("Error: ", error);
-  });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
+    db = mongoose.connection;
+    db.on("error", console.error.bind(console, "MongoDB connection error:"));
+  } catch (err) {
+    console.error('DB connection error: ', err);
+  }
+})();
 
 const request = require("request");
 
-app.get(
-  '/api/authenticate',
-   (req, res) => {
-    const options = {
-      method: 'POST',
-      url: 'https://thearena.auth0.com/oauth/token',
-      headers: { 'content-type': 'application/json' },
-      body: '{"client_id":"KuhIFt8Blg4CChqebw13Snf6XSwXz5Cf","client_secret":"QBIZeiYeH_tIMp2GXcGTuVdmMRXfQd_YLmkd947zsFMsEQxlQGw4SGsVQZyBXDIy","audience":"https://thecampaignArena.com","grant_type":"client_credentials"}'
-    };
+app.get('/api/authenticate', (req, res) => {
+  const options = {
+    method: 'POST',
+    url: 'https://thearena.auth0.com/oauth/token',
+    headers: { 'content-type': 'application/json' },
+    body: '{"client_id":"KuhIFt8Blg4CChqebw13Snf6XSwXz5Cf","client_secret":"QBIZeiYeH_tIMp2GXcGTuVdmMRXfQd_YLmkd947zsFMsEQxlQGw4SGsVQZyBXDIy","audience":"https://thecampaignArena.com","grant_type":"client_credentials"}'
+  };
 
-    request(options, (error, response, body) => {
-      res.json(response);
-    });
+  request(options, (error, response, body) => {
+    res.json(response);
+  });
 });
 
 const jwtCheck = jwt({
@@ -79,52 +78,56 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.get("/api/characters/:id", (req, res) => {
+app.get("/api/characters/:id", async (req, res) => {
   let characterID;
-
   try {
     characterID = new ObjectID(req.params.id);
-  } catch (e) {
-    res.status(422).json({ message: `Invalid issue ID format: ${e}` });
+  } catch (err) {
+    res.status(422).json({ message: `Invalid issue ID format: ${err}` });
     return;
   }
 
-  db.collection('characters')
-    .find({ _id: characterID })
-    .limit(1)
-    .next()
-    .then((character) => {
-      if (!character) {
-        res.status(404).json({ message: `No character found: ${characterID}` });
-      } else {
-        res.json(character);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({ message: `Internal Server Error: ${error}` });
-    });
+  try {
+    const character = await db.collection('characters')
+      .find({ _id: characterID })
+      .limit(1)
+      .next();
+    if (!character) {
+      res.status(404).json({ message: `No character found: ${characterID}` });
+    } else {
+      res.json(character);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: `Internal Server Error: ${err}` });
+  }
 });
 
-app.get("/api/characters", (req, res) => {
+app.get("/api/characters", async (req, res) => {
   const filter = {};
-  if (req.query.user) filter.user = req.query.user;
-  if (req.query.class) filter.class = req.query.class;
-  if (req.query.race) filter.race = req.query.race;
-  if (req.query.level_lte || req.query.level_gte) filter.level = {};
-  if (req.query.level_lte) filter.level.$lte = parseInt(req.query.level_lte, 10);
-  if (req.query.level_gte) filter.level.$gte = parseInt(req.query.level_gte, 10);
-  db.collection('characters')
-    .find(filter)
-    .toArray()
-    .then((character) => {
-      const metadata = { total_count: character.length };
-      res.json({ _metadata: metadata, characters: character });
-    })
-    .catch((error) => {
-      console.log("Error: ", error);
-      res.status(500).json({ message: `Internal Server Error: ${error}` });
-    });
+  const levelFilter = { level_lte: '$lte', level_gte: '$gte' };
+  Object.keys(req.query).forEach((key) => {
+    if (levelFilter[key]) {
+      if (!filter.level) {
+        filter.level = {};
+      }
+      filter.level[levelFilter[key]] = parseInt(req.query[key], 10);
+    } else {
+      filter[key] = req.query[key];
+    }
+  });
+
+  try {
+    const characters = await db.collection('characters')
+      .find(filter)
+      .toArray();
+
+    const metadata = { total_count: characters.length };
+    res.json({ _metadata: metadata, characters });
+  } catch (err) {
+    console.log("Error: ", err);
+    res.status(500).json({ message: `Internal Server Error: ${err}` });
+  }
 });
 
 app.get("/api/users", (req, res) => {
@@ -184,6 +187,7 @@ app.get("*", (req, res) => {
 });
 
 app.use(jwtCheck);
+
 app.put("/api/characters/:id", (req, res) => {
   let characterId;
   try {

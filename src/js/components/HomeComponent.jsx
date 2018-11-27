@@ -1,9 +1,8 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import * as cssStyles from "../../styles/Styles.css";
-import image from "../../../public/assets/OccultYoon.png";
 
-function HomeComponent(props) {
+const HomeComponent = (props) => {
   return (
     <div className={cssStyles.homeBodyText}>
       Welcome to the Arena<br />
@@ -25,7 +24,7 @@ function HomeComponent(props) {
       </div>
       <div className={cssStyles.homeImageDiv}>
         <img
-          src={image}
+          src={'https://storage.googleapis.com/championsarenastatic/static/OccultYoon.png'}
           width="318.75"
           height="367.2"
           alt=""
@@ -33,5 +32,5 @@ function HomeComponent(props) {
       </div>
     </div>
   );
-}
+};
 export default withRouter(HomeComponent);
