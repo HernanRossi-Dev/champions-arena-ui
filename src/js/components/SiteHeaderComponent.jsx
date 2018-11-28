@@ -3,16 +3,13 @@ import { connect } from 'react-redux';
 import store from "../store/index";
 import * as cssStyles from '../../styles/Styles.css';
 import NavBarComponent from './NavBarComponent';
-import PathfinderImage from '../../../public/assets/PathfinderRpg.png';
-import HeaderText from '../../../public/assets/HeaderText1nobezel.png';
 
 class SiteHeaderComponent extends React.Component {
   constructor(props) {
     super();
-    this.renderNavBar = this.renderNavBar.bind(this);
   }
 
-  renderNavBar() {
+  renderNavBar = () => {
     if (store.getState().userReducer.loggedIn) {
       return <NavBarComponent />;
     } return null;
@@ -32,14 +29,14 @@ class SiteHeaderComponent extends React.Component {
         <div className={cssStyles.splash_img}>
           <div className="card-header" style={style}>
             <img
-              src={PathfinderImage}
+              src="https://storage.googleapis.com/championsarenastatic/static/PathfinderRpg.png"
               width="371"
               height="95"
               alt=""
             />
             <img
               className={cssStyles.titleImage}
-              src={HeaderText}
+              src="https://storage.googleapis.com/championsarenastatic/static/HeaderText1nobezel.png"
               width="381.36" //base 1589
               height="35.76" //base 149
               alt=""

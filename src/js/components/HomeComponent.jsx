@@ -24,7 +24,7 @@ const HomeComponent = (props) => {
       </div>
       <div className={cssStyles.homeImageDiv}>
         <img
-          src={'https://storage.googleapis.com/championsarenastatic/static/OccultYoon.png'}
+          src="https://storage.googleapis.com/championsarenastatic/static/OccultYoon.png"
           width="318.75"
           height="367.2"
           alt=""

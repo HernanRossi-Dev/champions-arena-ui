@@ -8,7 +8,7 @@ const passwordHash = require('password-hash');
 const path = require("path");
 require("babel-polyfill");
 const { defaultCharacters } = require("./defaultCharacters");
-
+const auth = require('./auth');
 const mongoose = require("mongoose");
 
 const mongoDBUrl =
@@ -17,7 +17,6 @@ const { ObjectID } = require("mongodb");
 
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
-
 
 SourceMapSupport.install();
 const app = express();
@@ -45,20 +44,7 @@ let db;
   }
 })();
 
-const request = require("request");
-
-app.get('/api/authenticate', (req, res) => {
-  const options = {
-    method: 'POST',
-    url: 'https://thearena.auth0.com/oauth/token',
-    headers: { 'content-type': 'application/json' },
-    body: '{"client_id":"KuhIFt8Blg4CChqebw13Snf6XSwXz5Cf","client_secret":"QBIZeiYeH_tIMp2GXcGTuVdmMRXfQd_YLmkd947zsFMsEQxlQGw4SGsVQZyBXDIy","audience":"https://thecampaignArena.com","grant_type":"client_credentials"}'
-  };
-
-  request(options, (error, response, body) => {
-    res.json(response);
-  });
-});
+app.get('/api/authenticate', auth.authenticate);
 
 const jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
@@ -72,11 +58,7 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-app.use((err, req, res, next) => {
-  if (err.name === 'UnauthorizedError') {
-    res.status(401).json({ message: 'Missing or invalid token. Please logout And log back in.' });
-  }
-});
+app.use(auth.authError);
 
 app.get("/api/characters/:id", async (req, res) => {
   let characterID;

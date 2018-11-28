@@ -363,7 +363,7 @@ body {
 }
 .splash_img {
   /*background-image: url("../assets/GolarionMap.png");*/
-  background-image: url("../../public/assets/BlogBannerOne.jpg");
+  background-image: url("https://storage.googleapis.com/championsarenastatic/static/BlogBannerOne.jpg");
   object-fit: cover;
   background-size: cover;
   background-position: center;
@@ -374,7 +374,7 @@ body {
 }
 .splash_imgLogin {
   /*background-image: url("../assets/GolarionMap.png");*/
-  background-image: url("../../public/assets/BlogBannerOne.jpg");
+  background-image: url("https://storage.googleapis.com/championsarenastatic/static/BlogBannerOne.jpg");
   object-fit: cover;
   background-size: cover;
   background-position: center;
@@ -386,7 +386,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-    background-image: url("../../public/assets/PZO1140-Chapter1.jpg");
+    background-image: url("https://storage.googleapis.com/championsarenastatic/static/PZO1140-Chapter1.jpg");
     background-repeat: repeat-y;
     background-size: 100%;
 }

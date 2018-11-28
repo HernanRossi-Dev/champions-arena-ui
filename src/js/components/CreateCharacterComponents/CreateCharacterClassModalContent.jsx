@@ -1131,7 +1131,7 @@ const ClassImageComp = props => {
     case "Monk":
       return (
         <img
-          src={require("../../../../public/assets/Monk - Sajan.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Monk - Sajan.png"
           //					{/*694x1000*/ .40}
           width="277.6"
           height="400"
@@ -1142,7 +1142,7 @@ const ClassImageComp = props => {
     case "Wizard":
       return (
         <img
-          src={require("../../../../public/assets/Wizard - Ezren.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Wizard - Ezren.png"
           //{/*567x1000*/}
           width="226.8"
           height="400"
@@ -1153,7 +1153,7 @@ const ClassImageComp = props => {
     case "Fighter":
       return (
         <img
-          src={require("../../../../public/assets/Fighter - Valeros.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Fighter - Valeros.png"
           //{/*572x1000*/}
           width="228.8"
           height="400"
@@ -1163,7 +1163,7 @@ const ClassImageComp = props => {
     case "Druid":
       return (
         <img
-          src={require("../../../../public/assets/Druid - Maznar.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Druid - Maznar.png"
           //{/*790x1000*/}
           width="276.5"
           height="350"
@@ -1173,7 +1173,7 @@ const ClassImageComp = props => {
     case "Ranger":
       return (
         <img
-          src={require("../../../../public/assets/Ranger - Harsk.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Ranger - Harsk.png"
           //{/*831x1000*/}
           width="290.85"
           height="350"
@@ -1183,7 +1183,7 @@ const ClassImageComp = props => {
     case "Cleric":
       return (
         <img
-          src={require("../../../../public/assets/Cleric - Kyra.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Cleric - Kyra.png"
           //{/*641x1000*/}
           width="256.4"
           height="400"
@@ -1193,7 +1193,7 @@ const ClassImageComp = props => {
     case "Rogue":
       return (
         <img
-          src={require("../../../../public/assets/Rogue - Wu-Shen.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Rogue - Wu-Shen.png"
           //{/*639x1000*/}
           width="255.6"
           height="400"
@@ -1203,7 +1203,7 @@ const ClassImageComp = props => {
     case "Sorcerer":
       return (
         <img
-          src={require("../../../../public/assets/Sorcerer - Qualzar.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Sorcerer - Qualzar.png"
           //{/*592x1000*/}
           width="236.8"
           height="400"
@@ -1213,7 +1213,7 @@ const ClassImageComp = props => {
     case "Paladin":
       return (
         <img
-          src={require("../../../../public/assets/Paladin - Seelah.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Paladin - Seelah.png"
           //{/*702x1000*/}
           width="280.8"
           height="400"
@@ -1223,7 +1223,7 @@ const ClassImageComp = props => {
     case "Barbarian":
       return (
         <img
-          src={require("../../../../public/assets/Barbarian - Ostog.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Barbarian - Ostog.png"
           //{/*658x1000*/}
           width="263.2"
           height="400"
@@ -1233,7 +1233,7 @@ const ClassImageComp = props => {
     case "Bard":
       return (
         <img
-          src={require("../../../../public/assets/Bard - Lem.png")}
+          src="https://storage.googleapis.com/championsarenastatic/static/Bard - Lem.png"
           //{/*624x1000*/}
           width="249.4"
           height="400"
