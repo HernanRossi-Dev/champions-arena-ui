@@ -1,4 +1,6 @@
 const request = require("request");
+const jwks = require('jwks-rsa');
+const jwt = require('express-jwt');
 
 exports.authenticate = (req, res) => {
   const options = {
@@ -17,4 +19,20 @@ exports.authError = (err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({ message: 'Missing or invalid token. Please logout And log back in.' });
   }
+};
+
+exports.jwtCheck = () => {
+  const jwtCheck = jwt({
+    credentialsRequired: false,
+    secret: jwks.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: "https://thearena.auth0.com/.well-known/jwks.json"
+    }),
+    audience: 'https://thecampaignArena.com',
+    issuer: 'https://thearena.auth0.com/',
+    algorithms: ['RS256']
+  });
+  return jwtCheck;
 };

@@ -1,5 +1,4 @@
 const express = require("express");
-
 const bodyParser = require("body-parser");
 const nodemailer = require('nodemailer');
 const generator = require('generate-password');
@@ -8,20 +7,17 @@ const passwordHash = require('password-hash');
 const path = require("path");
 require("babel-polyfill");
 const { defaultCharacters } = require("./defaultCharacters");
-const auth = require('./auth');
+const authApi = require('./auth');
+const characterApi = require('./characters');
+
 const mongoose = require("mongoose");
 
 const mongoDBUrl =
   "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
 const { ObjectID } = require("mongodb");
 
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
-
 SourceMapSupport.install();
 const app = express();
-
-
 const helmet = require('helmet');
 
 app.use(helmet());
@@ -39,78 +35,18 @@ let db;
     });
     db = mongoose.connection;
     db.on("error", console.error.bind(console, "MongoDB connection error:"));
+    exports.db = db;
   } catch (err) {
     console.error('DB connection error: ', err);
   }
 })();
 
-app.get('/api/authenticate', auth.authenticate);
 
-const jwtCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: "https://thearena.auth0.com/.well-known/jwks.json"
-  }),
-  audience: 'https://thecampaignArena.com',
-  issuer: "https://thearena.auth0.com/",
-  algorithms: ['RS256']
-});
+app.get('/api/authenticate', authApi.authenticate);
+app.use(authApi.authError);
 
-app.use(auth.authError);
-
-app.get("/api/characters/:id", async (req, res) => {
-  let characterID;
-  try {
-    characterID = new ObjectID(req.params.id);
-  } catch (err) {
-    res.status(422).json({ message: `Invalid issue ID format: ${err}` });
-    return;
-  }
-
-  try {
-    const character = await db.collection('characters')
-      .find({ _id: characterID })
-      .limit(1)
-      .next();
-    if (!character) {
-      res.status(404).json({ message: `No character found: ${characterID}` });
-    } else {
-      res.json(character);
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: `Internal Server Error: ${err}` });
-  }
-});
-
-app.get("/api/characters", async (req, res) => {
-  const filter = {};
-  const levelFilter = { level_lte: '$lte', level_gte: '$gte' };
-  Object.keys(req.query).forEach((key) => {
-    if (levelFilter[key]) {
-      if (!filter.level) {
-        filter.level = {};
-      }
-      filter.level[levelFilter[key]] = parseInt(req.query[key], 10);
-    } else {
-      filter[key] = req.query[key];
-    }
-  });
-
-  try {
-    const characters = await db.collection('characters')
-      .find(filter)
-      .toArray();
-
-    const metadata = { total_count: characters.length };
-    res.json({ _metadata: metadata, characters });
-  } catch (err) {
-    console.log("Error: ", err);
-    res.status(500).json({ message: `Internal Server Error: ${err}` });
-  }
-});
+app.get("/api/characters/:id", characterApi.getCharacter);
+app.get("/api/characters", characterApi.getCharacters);
 
 app.get("/api/users", (req, res) => {
   const filter = {};
@@ -168,38 +104,10 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve("static/index.html"));
 });
 
+const jwtCheck = authApi.jwtCheck();
 app.use(jwtCheck);
 
-app.put("/api/characters/:id", (req, res) => {
-  let characterId;
-  try {
-    characterId = new ObjectID(req.params.id);
-  } catch (e) {
-    res.status(422).json({ message: `Invalid characters id format: ${e}` });
-    return;
-  }
-  const character = req.body;
-  delete character._id;
-  if (character.created) {
-    character.created = new Date(character.created);
-  }
-  db
-    .collection("characters")
-    .update({ _id: characterId }, character)
-    .then(() =>
-      db
-        .collection("characters")
-        .find({ _id: characterId })
-        .limit(1)
-        .next())
-    .then((savedCharacter) => {
-      res.json(savedCharacter);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({ message: `Internal Server Error: ${error}` });
-    });
-});
+app.put("/api/characters/:id", characterApi.createCharacter);
 
 app.post("/api/users", (req, res) => {
   const newUser = req.body;
@@ -207,6 +115,7 @@ app.post("/api/users", (req, res) => {
   let i = 0;
   for (i; i < defaultCharacters.length; i += 1) {
     defaultCharacters[i].user = newUser.name;
+    defaultCharacters[i]._id = new ObjectID(req.params.id);
   }
   db.collection("characters").insertMany(defaultCharacters);
   newUser.created = new Date();
