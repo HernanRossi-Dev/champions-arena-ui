@@ -1,14 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const nodemailer = require('nodemailer');
-const generator = require('generate-password');
 const SourceMapSupport = require("source-map-support");
-const passwordHash = require('password-hash');
 const path = require("path");
 require("babel-polyfill");
-const { defaultCharacters } = require("./defaultCharacters");
-const authApi = require('./auth');
-const characterApi = require('./characters');
+const authApi = require('./auth-controller');
+const characterApi = require('./characters-controller');
+const userApi = require('./user-controller');
 
 const mongoose = require("mongoose");
 
@@ -44,62 +41,9 @@ let db;
 
 app.get('/api/authenticate', authApi.authenticate);
 app.use(authApi.authError);
-
 app.get("/api/characters/:id", characterApi.getCharacter);
 app.get("/api/characters", characterApi.getCharacters);
-
-app.get("/api/users", (req, res) => {
-  const filter = {};
-  if (req.query.name) filter.name = req.query.name;
-  if (req.query.email) filter.email = req.query.email;
-
-  db.collection('users')
-    .find(filter)
-    .toArray()
-    .then((users) => {
-      if (req.query.sendEmail) {
-        if (users.length > 0) {
-          users = users[0];
-        }
-        const password = generator.generate({
-          length: 8,
-          numbers: true
-        });
-        const hashedTempPassword = passwordHash.generate('password');
-        const text = `Hello your Arena user name is: ${users.name}\n\n your temporary password is: ${password}`;
-        db.collection('users').update({ name: users.name }, { password: hashedTempPassword, name: users.name, email: users.email }, { upsert: false });
-        const transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-            user: 'thechampionsarena@gmail.com',
-            pass: 'Han4567!'
-          }
-        });
-        const mailOptions = {
-          from: 'TheChampionsArena@gmail.com',
-          to: users.email,
-          subject: 'The Arena Temporary Password',
-          text,
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            console.log(error);
-            res.json({ yo: 'error' });
-          } else {
-            console.log(`Message sent: ${info.response}`);
-            res.json({ yo: info.response });
-          }
-        });
-      }
-      res.json({ users });
-    })
-    .catch((error) => {
-      console.log("Error: ", error);
-      res.status(500).json({ message: `Internal Server Error: ${error}` });
-    });
-});
-
+app.get("/api/users", userApi.getUsers);
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("static/index.html"));
 });
@@ -107,36 +51,10 @@ app.get("*", (req, res) => {
 const jwtCheck = authApi.jwtCheck();
 app.use(jwtCheck);
 
-app.put("/api/characters/:id", characterApi.createCharacter);
+app.post("/api/users", userApi.createUser);
+app.delete("/api/users", userApi.deleteUsers);
 
-app.post("/api/users", (req, res) => {
-  const newUser = req.body;
-
-  let i = 0;
-  for (i; i < defaultCharacters.length; i += 1) {
-    defaultCharacters[i].user = newUser.name;
-    defaultCharacters[i]._id = new ObjectID(req.params.id);
-  }
-  db.collection("characters").insertMany(defaultCharacters);
-  newUser.created = new Date();
-  db
-    .collection("users")
-    .insertOne(newUser)
-    .then(result =>
-      db
-        .collection("users")
-        .find({ _id: result.insertedId })
-        .limit(1)
-        .next())
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({ message: `Internal Server Error: ${error}` });
-    });
-});
-
+app.put("/api/characters/:id", characterApi.updateCharacter);
 app.post("/api/characters", (req, res) => {
   const newCharacter = req.body;
   if (!newCharacter.age) {
@@ -241,35 +159,6 @@ app.delete("/api/users/:name", (req, res) => {
     });
 });
 
-app.delete("/api/users", (req, res) => {
-  const deleteUser = req.query;
-  const filter = {};
-  if (deleteUser.name) filter.name = req.query.name;
-  if (deleteUser.email) filter.email = req.query.email;
-  db
-    .collection("users")
-    .deleteMany(filter)
-    .then((deleteResult) => {
-      console.log(deleteResult.result.n);
-      if (deleteResult.result.n === 1) {
-        db
-          .collection("characters")
-          .deleteMany({ user: deleteUser.name })
-          .then((result) => {
-            console.log(result.result);
-            res.json({ status: "OK" });
-          })
-          .catch((error) => {
-            res.status(500).json({ message: `Internal Server Error: ${error}` });
-          });
-      } else {
-        res.json({ status: "Warning: object not found" });
-        console.log("ERROR");
-      }
-    })
-    .catch((error) => {
-      res.status(500).json({ message: `Internal Server Error: ${error}` });
-    });
-});
+
 
 module.export = app;

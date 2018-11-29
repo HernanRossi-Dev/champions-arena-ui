@@ -7,7 +7,7 @@ exports.getCharacter = async (req, res) => {
     characterID = new ObjectID(req.params.id);
   } catch (err) {
     res.status(422).json({ message: `Invalid issue ID format: ${err}` });
-    return;
+    throw err;
   }
 
   try {
@@ -23,6 +23,7 @@ exports.getCharacter = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: `Internal Server Error: ${err}` });
+    throw err;
   }
 };
 
@@ -50,36 +51,39 @@ exports.getCharacters = async (req, res) => {
   } catch (err) {
     console.log("Error: ", err);
     res.status(500).json({ message: `Internal Server Error: ${err}` });
+    throw err;
   }
 };
 
-exports.createCharacter = (req, res) => {
+exports.updateCharacter = async (req, res) => {
   let characterId;
   try {
     characterId = new ObjectID(req.params.id);
-  } catch (e) {
-    res.status(422).json({ message: `Invalid characters id format: ${e}` });
-    return;
+  } catch (err) {
+    console.log("Error: ", err);
+    res.status(422).json({ message: `Invalid characters id format: ${err}` });
+    throw err;
   }
   const character = req.body;
   delete character._id;
   if (character.created) {
     character.created = new Date(character.created);
   }
-  server.db
+
+  try {
+    await server.db
+      .collection("characters")
+      .update({ _id: characterId }, character);
+  } catch (err) {
+    console.log("Error: ", err);
+    res.status(500).json({ message: `Failed to save character: ${err}` });
+    throw err;
+  }
+
+  const saveResult = await server.db
     .collection("characters")
-    .update({ _id: characterId }, character)
-    .then(() =>
-      server.db
-        .collection("characters")
-        .find({ _id: characterId })
-        .limit(1)
-        .next())
-    .then((savedCharacter) => {
-      res.json(savedCharacter);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({ message: `Internal Server Error: ${error}` });
-    });
-}
+    .find({ _id: characterId })
+    .limit(1)
+    .next();
+  res.json(saveResult);
+};
