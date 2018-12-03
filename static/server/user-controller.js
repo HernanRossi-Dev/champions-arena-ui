@@ -47,10 +47,10 @@ exports.getUsers = async (req, res) => {
     console.log("Error: ", err);
     res.status(500).json({ message: `Internal Server Error: ${err}` });
   }
-
+  let rest;
   if (req.query.sendEmail) {
     if (users.length > 0) {
-      users = users[0];
+      [users, ...rest] = users;
     }
     const password = generator.generate({
       length: 8,
@@ -121,5 +121,30 @@ exports.deleteUsers = async (req, res) => {
     res.status(200).json({ message: 'Delete characters success' });
   } catch (err) {
     res.status(500).json({ message: `Failed to delete characters: ${err}` });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  const deleteUser = req.params.name;
+  let deleteResult;
+  try {
+    deleteResult = await server.db
+      .collection("users")
+      .deleteOne({ name: deleteUser });
+  } catch (err) {
+    res.status(500).json({ message: `Internal Server Error: ${err}` });
+  }
+  let deleteCharacters;
+  if (deleteResult.result.n === 1) {
+    try {
+      deleteCharacters = await server.db
+        .collection("characters")
+        .deleteMany({ user: deleteUser });
+      res.json({ status: "OK" });
+    } catch (err) {
+      res.status(500).json({ message: `Internal Server Error, failed to delete characters: ${err}` });
+    }
+  } else {
+    res.status(500).json({ message: `Internal Server Error, failed to delete user.` });
   }
 };

@@ -7,10 +7,11 @@ const HomeComponent = (props) => {
     <div className={cssStyles.homeBodyText}>
       Welcome to the Arena<br />
       <div className={cssStyles.homeTextParagraph}>
-        This is a work in progress and currently only supports desktop browsers, best with Chrome.
+        This is a work in progress and currently only supports desktop browsers, best with Chrome:<br />
+        Currently reformatting for Pathfinder 2.0.
         <br />
-        I am constantly updating and implementing new features. Currently there is just a <br />
-        basic framework of what I want to eventually accomplish, feel free to look around.
+        I am constantly updating and implementing new features, this is a
+        basic framework of what I want to eventually accomplish.<br />Feel free to look around.
          Thanks for visiting!
         <br />
         Create Player and Non-Player Pathfinder characters.

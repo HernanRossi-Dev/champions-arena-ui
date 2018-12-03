@@ -1,54 +1,47 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link, withRouter} from "react-router-dom";
-import {Button, Modal} from "react-bootstrap";
+import { Link, withRouter } from "react-router-dom";
+import {Button, Modal } from "react-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 
 class CharacterRow extends React.Component {
-  constructor (){
+  constructor() {
     super();
-    this.deleteCharacter = this.deleteCharacter.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.rejectChanges = this.rejectChanges.bind(this);
-    this.acceptChanges = this.acceptChanges.bind(this);
     this.state = {
       show: false
-    }
+    };
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false });
   }
-  acceptChanges() {
+
+  acceptChanges = () => {
     this.setState({ show: false });
     this.deleteCharacter();
   }
-  rejectChanges() {
+
+  rejectChanges = () => {
     this.setState({ show: false });
   }
 
-  handleShow() {
+  handleShow = () => {
     this.setState({ show: true });
   }
 
-  deleteCharacter() {
+  deleteCharacter = () => {
     this.props.deleteCharacter(this.props.character._id);
   }
 
-  render(){
+  render() {
     return (
-      <tr  >
-          <td>{this.props.character.type}</td>
+      <tr>
+        <td>{this.props.character.type}</td>
         <td >
-          <Link
-            to={`/characters/${this.props.character._id}`}
-
-          >
+          <Link to={`/characters/${this.props.character._id}`} >
             {this.props.character.name}
           </Link>
         </td>
-
         <td>{this.props.character.class}</td>
         <td>{this.props.character.level}</td>
         <td>{this.props.character.XP}</td>
@@ -59,11 +52,11 @@ class CharacterRow extends React.Component {
         <td>{this.props.character.INT}</td>
         <td>{this.props.character.WIS}</td>
         <td>{this.props.character.CHA}</td>
-          <td>
-        <Button type="button" bsClass={cssStyles.deleteButton} onClick={this.handleShow}>
-          <i className="fas fa-times-circle fa-lg" />
-        </Button>
-          </td>
+        <td>
+          <Button type="button" bsClass={cssStyles.deleteButton} onClick={this.handleShow}>
+            <i className="fas fa-times-circle fa-lg" />
+          </Button>
+        </td>
         <Modal
           show={this.state.show}
           onHide={this.handleClose}
@@ -80,7 +73,8 @@ class CharacterRow extends React.Component {
             <Button onClick={this.rejectChanges}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-      </tr>)
+      </tr>
+    );
   }
 }
 

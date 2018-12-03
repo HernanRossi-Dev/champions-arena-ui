@@ -17,16 +17,25 @@ import {
 } from "react-bootstrap";
 
 class CharacterFilter extends React.Component {
+
+  static createInitFilter(oldInitFilter) {
+    const queryString = oldInitFilter.split("&");
+    const newInitFilter = {};
+    const queryLength = queryString.length;
+    if (queryLength > 1) {
+	    for (let i = 1; i < queryLength; i += 1) {
+		    const currentFilter = queryString[i].split("=");
+		    const key = currentFilter[0];
+		    newInitFilter[key] = currentFilter[1];
+	    }
+    }
+    return newInitFilter;
+  }
+
   constructor(props, context) {
     super(props);
     CharacterFilter.createInitFilter = CharacterFilter.createInitFilter.bind(this);
     const newInitFilter = CharacterFilter.createInitFilter(this.props.initFilter);
-    this.applyFilter = this.applyFilter.bind(this);
-    this.onChangeRace = this.onChangeRace.bind(this);
-    this.onChangeClass = this.onChangeClass.bind(this);
-    this.onChangeLevelLte = this.onChangeLevelLte.bind(this);
-    this.resetFilter = this.resetFilter.bind(this);
-    this.clearFilter = this.clearFilter.bind(this);
 
     this.state = {
       class: newInitFilter.class,
@@ -34,26 +43,10 @@ class CharacterFilter extends React.Component {
       level_gte: newInitFilter.level_gte,
       level_lte: newInitFilter.level_lte,
       changed: false,
-      open: true
     };
   }
 
-  static createInitFilter(oldInitFilter) {
-    let queryString = oldInitFilter.split("&");
-    let newInitFilter = {};
-    const queryLength = queryString.length;
-    if(queryLength > 1) {
-	    for (let i = 1; i < queryLength ; i += 1) {
-		    let currentFilter = queryString[i].split("=");
-		    let key = currentFilter[0];
-		    newInitFilter[key] = currentFilter[1];
-	    }
-    }
-    return newInitFilter;
-  }
-
   componentWillReceiveProps(newProps) {
-    // newProps.initFilter = CharacterFilter.createInitFilter(newProps.initFilter);
     this.setState({
       class: newProps.initFilter.class,
       race: newProps.initFilter.race,
@@ -63,35 +56,36 @@ class CharacterFilter extends React.Component {
     });
   }
 
-  onChangeRace(e) {
+  onChangeRace = (e) => {
     this.setState({ race: e.target.value, changed: true });
   }
 
-  onChangeClass(e) {
+  onChangeClass = (e) => {
     this.setState({ class: e.target.value, changed: true });
   }
 
-  onChangeLevelLte(e) {
+  onChangeLevelLte = (e) => {
     const levelString = e.target.value;
     if (levelString.match(/^\d*$/)) {
       this.setState({ level_lte: e.target.value, changed: true });
     }
   }
 
-  onChangeLevelGte(e) {
+  onChangeLevelGte = (e) => {
     const levelString = e.target.value;
     if (levelString.match(/^\d*$/)) {
       this.setState({ level_gte: e.target.value, changed: true });
     }
   }
 
-  resetFilter() {
-    let filters = ['class', 'race','level_gte','level_lte'];
-    for(let index in filters){
-      if(this.props.initFilter[filters[index]] === undefined){
-	      this.props.initFilter[filters[index]]='';
+  resetFilter = () => {
+    const filters = ['class', 'race', 'level_gte', 'level_lte'];
+    filters.forEach((index) => {
+      if (this.props.initFilter[filters[index]] === undefined) {
+        this.props.initFilter[filters[index]] = '';
       }
-    }
+    });
+
     this.setState({
       class: this.props.initFilter.class,
       race: this.props.initFilter.race,
@@ -101,11 +95,11 @@ class CharacterFilter extends React.Component {
     });
   }
 
-  clearFilter() {
+  clearFilter = () => {
     this.props.setFilter({});
   }
 
-  applyFilter() {
+  applyFilter = () => {
     const newFilter = {};
     if (this.state.race) newFilter.race = this.state.race;
     if (this.state.class) newFilter.class = this.state.class;
@@ -129,11 +123,11 @@ class CharacterFilter extends React.Component {
                 <FormGroup>
                   <ControlLabel>Class</ControlLabel>
                   <FormControl
-                    componentClass={"select"}
+                    componentClass="select"
                     value={this.state.class}
                     onChange={this.onChangeClass}
                   >
-                    <option value={""}>Any</option>
+                    <option value="">Any</option>
                     <option value="Monk">Monk</option>
                     <option value="Ranger">Ranger</option>
                     <option value="Wizard">Wizard</option>
@@ -151,20 +145,21 @@ class CharacterFilter extends React.Component {
               </Col>
               <Col xs={6} sm={4} md={3} lg={3}>
                 <FormGroup>
-                  <ControlLabel>Race</ControlLabel>
+                  <ControlLabel>Ancestry</ControlLabel>
                   <FormControl
-                    componentClass={"select"}
+                    componentClass="select"
                     value={this.state.race}
                     onChange={this.onChangeRace}
                   >
-                    <option value={''}>Any</option>
-                    <option value={"Human"}>Human</option>
-                    <option value={"Dwarf"}>Dwarf</option>
-                    <option value={"Elf"}>Elf</option>
-                    <option value={"Gnome"}>Gnome</option>
-                    <option value={"Half-Elf"}>Half-Elf</option>
-                    <option value={"Half-Orc"}>Half-Orc</option>
+                    <option value="">Any</option>
+                    <option value="Human">Human</option>
+                    <option value="Dwarf">Dwarf</option>
+                    <option value="Elf">Elf</option>
+                    <option value="Gnome">Gnome</option>
+                    <option value="Half-Elf">Half-Elf</option>
+                    <option value="Half-Orc">Half-Orc</option>
                     <option value="Halfling">Halfling</option>
+                    <option value="Goblin">Goblin</option>
                   </FormControl>
                 </FormGroup>
               </Col>
@@ -174,12 +169,12 @@ class CharacterFilter extends React.Component {
                   <InputGroup>
                     <FormControl
                       value={this.state.level_gte}
-                      onChange={this.onChangeLevelGte.bind(this)}
+                      onChange={this.onChangeLevelGte}
                     />
                     <InputGroup.Addon>-</InputGroup.Addon>
                     <FormControl
                       value={this.state.level_lte}
-                      onChange={this.onChangeLevelLte.bind(this)}
+                      onChange={this.onChangeLevelLte}
                     />
                   </InputGroup>
                 </FormGroup>

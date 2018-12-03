@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { Table } from 'react-bootstrap';
 import CharacterRow from "./CharacterRow.jsx";
-import {withRouter} from "react-router-dom";
-import {Table} from 'react-bootstrap';
 import * as cssStyles from "../../../styles/Styles.css";
 
 
-const CharacterTable = props => {
+const CharacterTable = (props) => {
   let characterRows;
   if (props.isFetching) {
     characterRows = (
@@ -17,24 +17,29 @@ const CharacterTable = props => {
       />
     );
   } else {
-    if (props.characters) {
-      characterRows = props
-        .characters.map(character => (
-          <CharacterRow key={character._id} character={character} deleteCharacter={props.deleteCharacter} />
-        ));
+    if (!props.characters) {
+      return null;
     }
+    characterRows = props
+      .characters.map(character => (
+        <CharacterRow
+          key={character._id}
+          character={character}
+          deleteCharacter={props.deleteCharacter}
+        />
+      ));
   }
 
   return (
     <Table bordered condensed hover responsive className={cssStyles.characterTableParent}>
       <thead className={cssStyles.characterTableHeader}>
-        <tr  >
-            <th className={cssStyles.HTRtextAt}>Type</th>
+        <tr>
+          <th className={cssStyles.HTRtextAt}>Type</th>
           <th className={cssStyles.HTRtextAt}>Name</th>
           <th className={cssStyles.HTRtextAt}>Class</th>
           <th className={cssStyles.HTRtextAt}>Level</th>
           <th className={cssStyles.HTRtextAt}>XP</th>
-          <th className={cssStyles.HTRtextAt}>Race</th>
+          <th className={cssStyles.HTRtextAt}>Ancestry</th>
           <th className={cssStyles.HTRtextAt}>STR</th>
           <th className={cssStyles.HTRtextAt}>DEX</th>
           <th className={cssStyles.HTRtextAt}>CON</th>
@@ -49,7 +54,9 @@ const CharacterTable = props => {
 };
 
 CharacterTable.propTypes = {
-  characters: PropTypes.array
+  characters: PropTypes.array,
+  isFetching: PropTypes.bool.isRequired,
+  deleteCharacter: PropTypes.func.isRequired,
 };
 
 export default withRouter(CharacterTable);

@@ -19,7 +19,7 @@ import {
   Well
 } from 'react-bootstrap'
 import { LinkContainer } from "react-router-bootstrap";
-import CreateCharacterRaceComponent from "./CreateCharacterRaceComponent.jsx";
+import CreateCharacterAncestryComponent from "./CreateCharacterAncestryComponent.jsx";
 import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
 import CreateCharacterGenStatsComponent from "./CreateCharacterGenStatsComponent.jsx";
 import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
@@ -89,19 +89,14 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setFavouredClass = (newFavClass) => {
-    console.log('favoured classL: ', newFavClass);
     this.setState({ favouredClass: newFavClass });
   }
 
   setGender = (newGender) => {
-    console.log('newGender: ', newGender);
-
     this.setState({ gender: newGender });
   }
 
   setAlignment = (newAlignment) => {
-    console.log('newAlignment: ', newAlignment);
-
     this.setState({ alignment: newAlignment });
   }
 
@@ -306,7 +301,7 @@ class CreateCharacterComponent extends React.Component {
             <this.GenStatsMethod />
           </FormGroup>
           <hr className={cssStyles.hr} />
-          <CreateCharacterRaceComponent setRace={this.setRace} />
+          <CreateCharacterAncestryComponent setRace={this.setRace} />
           <hr className={cssStyles.hr} />
           <CreateCharacterClassComponent updateClass={this.setClass} />
           <hr className={cssStyles.hr} />

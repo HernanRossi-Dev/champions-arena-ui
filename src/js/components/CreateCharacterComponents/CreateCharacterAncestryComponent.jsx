@@ -18,21 +18,21 @@ const raceDivStyle = {
 };
 
 
-export default class CreateCharacterRaceComponent extends React.Component {
+export default class CreateCharacterAncestryComponent extends React.Component {
   constructor(props, context) {
     super();
     this.state = {
-      raceInfo: "",
+      AncestryInfo: "",
       showRaceInfo: false,
       prevButtonPressed: ""
     };
   }
 
-  changeRaceInfo = (currentRace) => {
-    switch (currentRace) {
+  changeAncestryInfo = (currentAncestry) => {
+    switch (currentAncestry) {
       case "Human":
         this.setState({
-          raceInfo: (
+          AncestryInfo: (
             <p>
               {" "}
               <strong>+2 to One Ability Score </strong>
@@ -53,7 +53,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
         return { racialBonus: { abilityBonus: 2 } };
       case "Dwarf":
         this.setState({
-          raceInfo: (
+          AncestryInfo: (
             <p>
               <strong>
                 +2 Constitution, +2 Wisdom, -2 Charisma:
@@ -93,7 +93,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
         };
       case "Elf":
         this.setState({
-          raceInfo: (
+          AncestryInfo: (
             <p>
               <strong>
                 +2 Dexterity, +2 Intelligence, –2 Constitution:
@@ -123,7 +123,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
         };
       case "Gnome":
         this.setState({
-          raceInfo: (
+          AncestryInfo: (
             <p>
               <strong>
                 +2 Constitution, +2 Charisma, –2 Strength:
@@ -157,7 +157,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
         };
       case "Half-Elf":
         this.setState({
-          raceInfo: (
+          AncestryInfo: (
             <p>
               <strong>
                 +2 to One Ability Score:
@@ -181,7 +181,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
         return { racialBonus: { abilityBonus: 2 } };
       case "Half-Orc":
         this.setState({
-          raceInfo: (
+          AncestryInfo: (
             <p>
               <strong>
                 +2 to One Ability Score:
@@ -205,7 +205,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
         return { racialBonus: { abilityBonus: 2 } };
       case "Halfling":
         this.setState({
-          raceInfo: (
+          AncestryInfo: (
             <p>
               <strong>
                 +2 Dexterity, +2 Charisma, –2 Strength:
@@ -235,20 +235,52 @@ export default class CreateCharacterRaceComponent extends React.Component {
             }
           }
         };
+      // case "Goblin":
+      //   this.setState({
+      //     AncestryInfo: (
+      //       <p>
+      //         <strong>
+      //           +2 Dexterity, +2 Charisma, –2 Strength:
+      //         </strong> Halflings are nimble and strong-willed, but their small stature makes
+      //         them weaker than other races.<br />
+      //         <strong>Small: </strong> Halflings are Small creatures and gain a +1 size bonus to their AC, a +1 size bonus on attack rolls,
+      //         a –1 penalty to their Combat Maneuver Bonus and Combat Maneuver Defense, and a +4 size bonus on Stealth checks.<br />
+      //         <strong>Slow Speed:</strong> Halflings have a base speed of 20 feet.<br />
+      //         <strong>Fearless:</strong> Halflings receive a +2 racial bonus on all saving throws against fear. This bonus
+      //         stacks with the bonus granted by halfling luck.<br />
+      //         <strong>Halfling Luck:</strong> Halflings receive a +1 racial bonus on all saving throws.
+			// 		    <br />
+      //         <strong>Keen Senses:</strong> Halflings receive a +2 racial bonus on Perception skill checks.
+			// 		    <br />
+      //         <strong>Sure-Footed:</strong> Halflings receive a +2 racial bonus on Acrobatics and Climb skill checks.<br />
+      //         <strong>Weapon Familiarity: </strong> Halflings are proficient with slings and treat any weapon with the word
+      //         "halfling" in its name as a martial weapon.<br />
+      //         <strong>Languages: </strong> Halflings begin play speaking Common and Halfling. Halflings with high Intelligence
+      //         scores can choose from the following: Dwarven, Elven, Gnome, and Goblin.<br />
+      //       </p>
+      //     ),
+      //   });
+      //   return {
+      //     racialBonus: {
+      //       statsBonus: {
+      //         DEX: 2, CHA: 2, STR: -2
+      //       }
+      //     }
+      //   };
       default:
-        this.setState({ raceInfo: '' });
+        this.setState({ AncestryInfo: '' });
     }
     return null;
   }
 
   RaceTextToggle = () => {
     if (this.state.showRaceInfo) {
-      return <div style={raceDivStyle}> {this.state.raceInfo}</div>;
+      return <div style={raceDivStyle}> {this.state.AncestryInfo}</div>;
     }
     return <div />;
   };
 
-  changeRace = (e) => {
+  changeAncestry = (e) => {
     const targetText = e.target.textContent.toString();
     if (!targetText) {
       return;
@@ -263,7 +295,7 @@ export default class CreateCharacterRaceComponent extends React.Component {
     } else {
       this.setState({ showRaceInfo: true });
     }
-    const racialBonus = this.changeRaceInfo(targetText);
+    const racialBonus = this.changeAncestryInfo(targetText);
     this.setState({ prevButtonPressed: targetText });
     this.props.setRace(targetText, racialBonus.racialBonus);
   };
@@ -277,14 +309,14 @@ export default class CreateCharacterRaceComponent extends React.Component {
             componentClass={ControlLabel}
             sm={2}
             className={cssStyles.createColLabelStyle}
-          ><div style={{ fontFamily: "'Josefin Sans', sans-serif", fontSize: '19px' }}>Race:</div>
+          ><div style={{ fontFamily: "'Josefin Sans', sans-serif", fontSize: '19px' }}>Ancestry:</div>
           </Col>
           <Col sm={7}>
             <ButtonToolbar>
               <ToggleButtonGroup
                 type="radio"
                 name="raceValue"
-                onClick={this.changeRace}
+                onClick={this.changeAncestry}
                 className={cssStyles.alignmentButtonGroupParent}
               >
                 <ToggleButton
@@ -330,6 +362,12 @@ export default class CreateCharacterRaceComponent extends React.Component {
                 >
                   Half-Elf
                 </ToggleButton>
+                <ToggleButton
+                  value="Goblin"
+                  className={cssStyles.alignmentButtonGroup}
+                >
+                  Goblin
+                </ToggleButton>
               </ToggleButtonGroup>
             </ButtonToolbar>
           </Col>
@@ -339,10 +377,9 @@ export default class CreateCharacterRaceComponent extends React.Component {
           <Col sm={1} />
           <Col sm={8}>
             <Collapse in={this.state.showRaceInfo} style={raceDivStyle}>
-              {/*<RaceTextToggle />*/}
               <div>
                 <Well style={{ backgroundColor: 'transparent' }}>
-                  {this.state.raceInfo}
+                  {this.state.AncestryInfo}
                 </Well>
               </div>
             </Collapse>

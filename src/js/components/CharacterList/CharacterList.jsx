@@ -1,15 +1,15 @@
 import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import CharacterFilter from "./CharacterFilter.jsx";
 import store from "../../store/index.js";
 import * as CharacterActionCreators from "../../actions/CharacterActionCreators.js";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 import CharacterTable from "./CharacterTable";
-import * as cssStyles from '../../../styles/Styles.css'
-import characterReducer from '../../reducers/CharacterReducers'
-import { withRouter } from 'react-router-dom'
+import * as cssStyles from '../../../styles/Styles.css';
+import characterReducer from '../../reducers/CharacterReducers';
 
 class CharacterList extends React.Component {
   constructor(props) {
@@ -19,9 +19,6 @@ class CharacterList extends React.Component {
     this.deleteCharacter = this.deleteCharacter.bind(this);
     const { dispatch } = props;
     this.boundActionCreators = bindActionCreators(CharacterActionCreators, dispatch);
-    this.state={
-      characters: []
-    }
   }
 
   componentDidMount() {
@@ -44,7 +41,9 @@ class CharacterList extends React.Component {
     const oldQuery = prevProps;
     const newQuery = this.props;
     if (oldQuery.location.search === newQuery.location.search) {
+      return;
     } else if (oldQuery.location.query && newQuery.location.query) {
+      return;
     } else {
       let { dispatch } = this.props;
       this.loadData(dispatch);
