@@ -38,7 +38,7 @@ class CharacterRow extends React.Component {
       <tr>
         <td>{this.props.character.type}</td>
         <td >
-          <Link to={`/characters/${this.props.character._id}`} >
+          <Link to="/characters/${this.props.character._id}" >
             {this.props.character.name}
           </Link>
         </td>

@@ -12,7 +12,8 @@ class SiteHeaderComponent extends React.Component {
   renderNavBar = () => {
     if (store.getState().userReducer.loggedIn) {
       return <NavBarComponent />;
-    } return null;
+    }
+    return <div style={{ marginBottom: "-40px" }} />;
   }
 
   render() {
