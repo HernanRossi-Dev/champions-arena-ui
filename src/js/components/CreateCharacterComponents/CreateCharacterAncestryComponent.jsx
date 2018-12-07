@@ -34,60 +34,69 @@ export default class CreateCharacterAncestryComponent extends React.Component {
         this.setState({
           AncestryInfo: (
             <p>
-              {" "}
-              <strong>+2 to One Ability Score </strong>
-              <br />
-              <strong>Medium:</strong> Humans are medium sized creatures,
-              receiving no bonuses or penalties for their size.<br />
-              <strong>Normal Speed:</strong> Humans possess a 30 foot move speed
-              .<br />
-              <strong>Bonus Feat:</strong> Select <i>One</i> extra feat and
-              level 1.<br />
-              <strong>Skilled:</strong> Gain <i>One</i> additional skill rank at
-              level 1, and <i>One</i> additional rank when leveling up.<br />
-              <strong>Languages:</strong> Humans speak common. Humans with high
-              intelligence can choose any languages excluding hidden languages.
-            </p>
-          ),
-        });
-        return { racialBonus: { abilityBonus: 2 } };
-      case "Dwarf":
-        this.setState({
-          AncestryInfo: (
-            <p>
               <strong>
-                +2 Constitution, +2 Wisdom, -2 Charisma:
-              </strong>
-              Dwarves are tough and wise, but can be blunt.<br />
-              <strong>Medium:</strong> Dwarves are medium sized creatures,
-	          receiving no bonuses or penalties for their size.<br />
-              <strong>Slow and Steady:</strong> Dwarves possess a 20 foot move speed
-	           but their speed is never modified by armor or encumbrance.<br />
-              <strong>Dark Vision:</strong> Can see in the dark up to 60 feet.<br />
-              <strong>Defensive Training:</strong> +4 to dodge bonus AC against <i>giant</i> monsters.<br />
-              <strong>Greed:</strong> +2 bonus to <i>Appraise</i> skill checks made to determine the price of nonmagical
-            goods containing precious metals or gemstones.<br />
-              <strong>Hatred:</strong> +1 bonus attack rolls against orc and goblin subtypes.<br />
-              <strong>Hardy:</strong> +2 racial bonus saving throws against poison, spells, and spell-like abilities.<br />
-              <strong>Stability:</strong> +4 racial bonus to <i>Combat Maneuver Defense</i>
-              when resisting bull rush or trip attempts while standing
-          on ground.<br />
-              <strong>Stonecunning:</strong> Dwarves receive a +2 bonus on Perception checks to potentially notice unusual stonework, such as traps and
-              hidden doors located in stone walls or floors. They receive a check to notice such features whenever they pass within 10 feet of them,
-            whether or not they are actively looking.<br />
-              <strong>Weapon Familiarity:</strong> Dwarves are proficient with battleaxes, heavy picks,
-              and warhammers, and treat any weapon with the
-            word "dwarven" in its name as a martial weapon.<br />
-              <strong>Languages:</strong> Dwarves begin play speaking Common and Dwarven.
-              Dwarves with high Intelligence scores can choose from the following:
-            Giant, Gnome, Goblin, Orc, Terran, and Undercommon.<br />
+                Description:
+              </strong>Humans are incredibly diverse in terms of everything
+               from their body size to their perspectives and
+              personalities.<br />
+              <strong>Ability Boosts: </strong>
+              Free, Free<br />
+              <strong>Ability Flaw: </strong>
+              None<br />
+              <strong>Note: </strong>
+              Half-Elf and Half-Orc ancestries are accessible through Human ancestry traits.
+              <strong>Properties:</strong><br />
+              Hit Points: 8<br />
+              Size: Medium<br />
+              Speed: 25 feet<br />
+              <strong>Languages: </strong>Common and One additional language, selected
+               from those to which you have access.<br />
+              <strong>Bonus Languages: </strong>At 1st level, if your intelligence
+              score is 14 or higher, you can select one of the languages from the list
+               of common languages of from other languages you have access to.<br />
+              <strong>Traits: </strong>Human, Humanoid<br />
             </p>
           ),
         });
         return {
           racialBonus: {
             statsBonus: {
-              CON: 2, WIS: 2, CHA: -2
+              FREE: 2
+            }
+          }
+        };
+      case "Dwarf":
+        this.setState({
+          AncestryInfo: (
+            <p>
+              <strong>
+                Description:
+              </strong>Dwarves are a short, stocky people who are often stubborn,
+              fierce, and devoted.<br />
+              <strong>Ability Boosts: </strong>
+              Constitution, Wisdom, Free<br />
+              <strong>Ability Flaw: </strong>
+              Charisma<br />
+              <strong>Properties:</strong><br />
+              Hit Points: 10<br />
+              Size: Medium<br />
+              Speed: 20 feet<br />
+              <strong>Languages: </strong>Common and Dwarf<br />
+              <strong>Bonus Languages: </strong>At 1st level, if your intelligence
+              score is 14 or higher, you can also select one of the
+              following languages: Giant, Gnome, Goblin, Orc, Terran, or Undercommon.<br />
+              <strong>Traits: </strong>Dwarf, Humanoid<br />
+              <strong>Dark Vision: </strong>You can see in darkness and dim light just as well
+              as you can see in bright light, though your vision in darkness is in black and white.<br />
+              <strong>Unburdened: </strong>If your Speed would be reduced by armor you wear or the
+              encumbered condition you ignore 5 feet of that reduction.<br />
+            </p>
+          ),
+        });
+        return {
+          racialBonus: {
+            statsBonus: {
+              CON: 2, WIS: 2, CHA: -2, FREE: 1
             }
           }
         };
@@ -96,28 +105,32 @@ export default class CreateCharacterAncestryComponent extends React.Component {
           AncestryInfo: (
             <p>
               <strong>
-                +2 Dexterity, +2 Intelligence, –2 Constitution:
-              </strong> Elves are nimble, both in body and mind, but their form is frail.<br />
-              <strong>Medium:</strong> Elves are medium sized creatures,
-					    receiving no bonuses or penalties for their size.<br />
-              <strong>Normal Speed:</strong> Elves have a base speed of 30 feet.<br />
-              <strong>Low-Light Vision:</strong> Elves can see twice as far as humans in conditions of dim light.<br />
-              <strong>Elven Immunities:</strong> Elves are immune to magic sleep effects and get a +2 racial saving throw bonus against
-              enchantment spells and effects.<br />
-              <strong>Elven Magic:</strong> Elves receive a +2 racial bonus on caster level checks made to overcome spell resistance.
-              In addition, elves receive a +2 racial bonus on Spellcraft skill checks made to identify the properties of magic items.<br />
-              <strong>Keen Senses:</strong> Elves receive a +2 racial bonus on Perception skill checks.<br />
-              <strong>Weapon Familiarity:</strong> Elves are proficient with longbows (including composite longbows), longswords, rapiers,
-              and shortbows (including composite shortbows), and treat any weapon with the word "elven" in its name as a martial weapon.<br />
-              <strong>Languages:</strong> Elves begin play speaking Common and Elven. Elves with high Intelligence scores can choose from the
-              following: Celestial, Draconic, Gnoll, Gnome, Goblin, Orc, and Sylvan. <br />
+              Description:
+              </strong> Elves are a tall, slender, long-lived people whose culture
+               peaked long ago.<br />
+              <strong>Ability Boosts: </strong>
+              Dexterity, Intelligence, Free<br />
+              <strong>Ability Flaw: </strong>
+              Constitution<br />
+              <strong>Properties:</strong><br />
+              Hit Points: 6<br />
+              Size: Medium<br />
+              Speed: 30 feet<br />
+              <strong>Languages: </strong>Elven and Common<br />
+              <strong>Bonus Languages: </strong>At 1st level, if your intelligence
+              score is 14 or higher, you can also select one of the
+              following languages: Celestial, Draconic, Gnoll, Gnomish, Goblin,
+               Orcish, or Sylvan.<br />
+              <strong>Traits: </strong>Elf, Humanoid<br />
+              <strong>Low-Light Vision: </strong>You can see in dim light as
+               though it were bright light.<br />
             </p>
           ),
         });
         return {
           racialBonus: {
             statsBonus: {
-              DEX: 2, INT: 2, CON: -2
+              DEX: 2, INT: 2, CON: -2, FREE: 1
             }
           }
         };
@@ -126,147 +139,97 @@ export default class CreateCharacterAncestryComponent extends React.Component {
           AncestryInfo: (
             <p>
               <strong>
-                +2 Constitution, +2 Charisma, –2 Strength:
-              </strong> Gnomes are physically weak but surprisingly hardy, and their attitude makes them
-              naturally agreeable.<br />
-              <strong>Small:</strong> Gnomes are Small creatures and gain a +1 size bonus to their AC, a +1 size bonus on attack rolls, a –1 penalty
-              to their Combat Maneuver Bonus and Combat Maneuver Defense, and a +4 size bonus on Stealth checks.<br />
-              <strong>Slow Speed:</strong> Gnomes have a base speed of 20 feet.<br />
-              <strong>Low-Light Vision:</strong> Gnomes can see twice as far as humans in conditions of dim light.<br />
-              <strong>Defensive Training:</strong> Gnomes get a +4 dodge bonus to AC against monsters of the giant type.<br />
-              <strong>Gnome Magic: </strong> Gnomes add +1 to the DC of any saving throws against illusion spells that they cast. Gnomes with a
-              Charisma of 11 or higher also gain the following spell-like abilities: 1/day—dancing lights, ghost sound, prestidigitation,
-              and speak with animals. The caster level for these effects is equal to the gnome's level. The DC for these spells is equal to 10 +
-              the spell's level + the gnome's Charisma modifier.<br />
-              <strong>Hatred:</strong> Gnomes receive a +1 bonus on attack rolls against humanoid creatures of the reptilian and goblinoid subtypes
-              due to special training against these hated foes.<br />
-              <strong>Keen Senses:</strong> Gnomes receive a +2 racial bonus on Perception skill checks.<br />
-              <strong>Obsessive:</strong> Gnomes receive a +2 racial bonus on a Craft or Profession skill of their choice.<br />
-              <strong>Weapon Familiarity:</strong> Gnomes treat any weapon with the word "gnome" in its name as a martial weapon.<br />
-              <strong>Languages: </strong> Gnomes begin play speaking Common, Gnome, and Sylvan. Gnomes with high Intelligence scores can
-              choose from the following: Draconic, Dwarven, Elven, Giant, Goblin, and Orc.<br />
+                Description:
+              </strong> Gnomes are a short, slight, mercurial people
+              who crave change and excitement.<br />
+              <strong>Ability Boosts: </strong>
+              Constitution, Charisma Free<br />
+              <strong>Ability Flaw: </strong>
+              Strength<br />
+              <strong>Properties:</strong><br />
+              Hit Points: 8<br />
+              Size: Small<br />
+              Speed: 20 feet<br />
+              <strong>Languages: </strong>Gnomish, Sylvan and Common<br />
+              <strong>Bonus Languages: </strong>At 1st level, if your intelligence
+              score is 14 or higher, you can also select one of the
+              following languages: Draconic, Dwarven, Elven, Goblin, Jotun, or Orcish.<br />
+              <strong>Traits: </strong>Gnome, Humanoid<br />
+              <strong>Low-Light Vision: </strong>You can see in dim light as
+               though it were bright light.<br />
             </p>
           ),
         });
         return {
           racialBonus: {
             statsBonus: {
-              CON: 2, CHA: 2, STR: -2
+              CON: 2, CHA: 2, STR: -2, FREE: 1
             }
           }
         };
-      case "Half-Elf":
-        this.setState({
-          AncestryInfo: (
-            <p>
-              <strong>
-                +2 to One Ability Score:
-              </strong> Half-elf characters get a +2 bonus to one ability score of their choice at creation
-              to represent their varied nature.<br />
-              <strong>Medium: </strong> Half-elves are Medium creatures and have no bonuses or penalties due to their size.<br />
-              <strong>Normal Speed: </strong> Half-elves have a base speed of 30 feet.<br />
-              <strong>Low-Light Vision:</strong> Half-elves can see twice as far as humans in conditions of dim light. <br />
-              <strong>Adaptability:</strong>Half-elves receive Skill Focus as a bonus feat at 1st level.<br />
-              <strong>Elf Blood:</strong> Half-elves count as both elves and humans for any effect related to race.<br />
-              <strong>Elven Immunities:</strong> Half-elves are immune to magic sleep effects and get a +2 racial saving throw
-              bonus against enchantment spells and effects.<br />
-              <strong>Keen Senses:</strong> Half-elves receive a +2 racial bonus on Perception skill checks.<br />
-              <strong>Multitalented: </strong> Half-elves choose two favored classes at first level and gain +1 hit point or +1
-              skill point whenever they take a level in either one of those classes.<br />
-              <strong>Languages: </strong> Half-elves begin play speaking Common and Elven. Half-elves with high Intelligence
-              scores can choose any languages they want (except secret languages, such as Druidic).<br />
-            </p>
-          ),
-        });
-        return { racialBonus: { abilityBonus: 2 } };
-      case "Half-Orc":
-        this.setState({
-          AncestryInfo: (
-            <p>
-              <strong>
-                +2 to One Ability Score:
-              </strong> Half-orc characters get a +2 bonus to one ability
-              score of their choice at creation to represent their varied nature.<br />
-              <strong>Medium: </strong> Half-orcs are Medium creatures and have no bonuses or penalties due to their size.<br />
-              <strong>Normal Speed: </strong> Half-orcs have a base speed of 30 feet.<br />
-              <strong>Darkvision:</strong> Half-orcs can see in the dark up to 60 feet.<br />
-              <strong>Intimidating: </strong>Half-orcs receive a +2 racial bonus on Intimidate skill checks due to their fearsome nature.<br />
-              <strong>Orc Blood: </strong> Half-orcs count as both humans and orcs for any effect related to race. <br />
-              <strong>Orc Ferocity:</strong> Once per day, when a half-orc is brought below 0 hit points but not killed, he can fight on for one
-              more round as if disabled. At the end of his next turn, unless brought to above 0 hit points, he immediately falls unconscious
-              and begins dying.<br />
-              <strong>Weapon Familiarity: </strong> Half-orcs are proficient with greataxes and falchions and treat any weapon with the word
-              "orc" in its name as a martial weapon.<br />
-              <strong>Languages: </strong> Half-orcs begin play speaking Common and Orc. Half-orcs with high Intelligence scores can
-              choose from the following: Abyssal, Draconic, Giant, Gnoll, and Goblin.<br />
-            </p>
-          ),
-        });
-        return { racialBonus: { abilityBonus: 2 } };
       case "Halfling":
         this.setState({
           AncestryInfo: (
             <p>
               <strong>
-                +2 Dexterity, +2 Charisma, –2 Strength:
-              </strong> Halflings are nimble and strong-willed, but their small stature makes
-              them weaker than other races.<br />
-              <strong>Small: </strong> Halflings are Small creatures and gain a +1 size bonus to their AC, a +1 size bonus on attack rolls,
-              a –1 penalty to their Combat Maneuver Bonus and Combat Maneuver Defense, and a +4 size bonus on Stealth checks.<br />
-              <strong>Slow Speed:</strong> Halflings have a base speed of 20 feet.<br />
-              <strong>Fearless:</strong> Halflings receive a +2 racial bonus on all saving throws against fear. This bonus
-              stacks with the bonus granted by halfling luck.<br />
-              <strong>Halfling Luck:</strong> Halflings receive a +1 racial bonus on all saving throws.
-					    <br />
-              <strong>Keen Senses:</strong> Halflings receive a +2 racial bonus on Perception skill checks.
-					    <br />
-              <strong>Sure-Footed:</strong> Halflings receive a +2 racial bonus on Acrobatics and Climb skill checks.<br />
-              <strong>Weapon Familiarity: </strong> Halflings are proficient with slings and treat any weapon with the word
-              "halfling" in its name as a martial weapon.<br />
-              <strong>Languages: </strong> Halflings begin play speaking Common and Halfling. Halflings with high Intelligence
-              scores can choose from the following: Dwarven, Elven, Gnome, and Goblin.<br />
+                Description:
+              </strong> Halflings are short, adaptable people who exhibit
+               remarkable curiosity and humor.<br />
+              <strong>Ability Boosts: </strong>
+              Dexterity, Wisdom, Free<br />
+              <strong>Ability Flaw: </strong>
+              Strength<br />
+              <strong>Properties:</strong><br />
+              Hit Points: 6<br />
+              Size: Small<br />
+              Speed: 25 feet<br />
+              <strong>Languages: </strong>Halfling and Common<br />
+              <strong>Bonus Languages: </strong>At 1st level, if your intelligence
+              score is 14 or higher, you can also select one of the
+              following languages: Dwarven, Elven, Gnomish, or Goblin.<br />
+              <strong>Traits: </strong>Halfling, Humanoid<br />
             </p>
           ),
         });
         return {
           racialBonus: {
             statsBonus: {
-              DEX: 2, CHA: 2, STR: -2
+              DEX: 2, WIS: 2, STR: -2, FREE: 1
             }
           }
         };
-      // case "Goblin":
-      //   this.setState({
-      //     AncestryInfo: (
-      //       <p>
-      //         <strong>
-      //           +2 Dexterity, +2 Charisma, –2 Strength:
-      //         </strong> Halflings are nimble and strong-willed, but their small stature makes
-      //         them weaker than other races.<br />
-      //         <strong>Small: </strong> Halflings are Small creatures and gain a +1 size bonus to their AC, a +1 size bonus on attack rolls,
-      //         a –1 penalty to their Combat Maneuver Bonus and Combat Maneuver Defense, and a +4 size bonus on Stealth checks.<br />
-      //         <strong>Slow Speed:</strong> Halflings have a base speed of 20 feet.<br />
-      //         <strong>Fearless:</strong> Halflings receive a +2 racial bonus on all saving throws against fear. This bonus
-      //         stacks with the bonus granted by halfling luck.<br />
-      //         <strong>Halfling Luck:</strong> Halflings receive a +1 racial bonus on all saving throws.
-			// 		    <br />
-      //         <strong>Keen Senses:</strong> Halflings receive a +2 racial bonus on Perception skill checks.
-			// 		    <br />
-      //         <strong>Sure-Footed:</strong> Halflings receive a +2 racial bonus on Acrobatics and Climb skill checks.<br />
-      //         <strong>Weapon Familiarity: </strong> Halflings are proficient with slings and treat any weapon with the word
-      //         "halfling" in its name as a martial weapon.<br />
-      //         <strong>Languages: </strong> Halflings begin play speaking Common and Halfling. Halflings with high Intelligence
-      //         scores can choose from the following: Dwarven, Elven, Gnome, and Goblin.<br />
-      //       </p>
-      //     ),
-      //   });
-      //   return {
-      //     racialBonus: {
-      //       statsBonus: {
-      //         DEX: 2, CHA: 2, STR: -2
-      //       }
-      //     }
-      //   };
+      case "Goblin":
+        this.setState({
+          AncestryInfo: (
+            <p>
+              <strong>Description: </strong>
+              Goblins are a short, scrappy, energetic people who have spent
+               millenia maligned and feared.<br />
+              <strong>Ability Boosts: </strong>
+              Dexterity, Charisma, Free<br />
+              <strong>Ability Flaw: </strong>
+              Wisdom<br />
+              <strong>Properties:</strong><br />
+              Hit Points: 6<br />
+              Size: Small<br />
+              Speed: 25 feet<br />
+              <strong>Languages: </strong>Goblin and Common<br />
+              <strong>Bonus Languages: </strong>At 1st level, if your intelligence
+              score is 14 or higher, you can also select one of the
+              following languages: Draconic, Dwarven, Gnoll, Gnomish, Halfling, or Orcish.<br />
+              <strong>Traits: </strong>Goblin, Humanoid<br />
+              <strong>Dark Vision: </strong>You can see in darkness and dim light just as well
+              as you can see in bright light, though your vision in darkness is in black and white.<br />
+            </p>
+          ),
+        });
+        return {
+          racialBonus: {
+            statsBonus: {
+              DEX: 2, CHA: 2, WIS: -2, FREE: 1
+            }
+          }
+        };
       default:
         this.setState({ AncestryInfo: '' });
     }
@@ -297,7 +260,7 @@ export default class CreateCharacterAncestryComponent extends React.Component {
     }
     const racialBonus = this.changeAncestryInfo(targetText);
     this.setState({ prevButtonPressed: targetText });
-    this.props.setRace(targetText, racialBonus.racialBonus);
+    this.props.setAncestry(targetText, racialBonus.racialBonus);
   };
 
   render() {
@@ -348,19 +311,6 @@ export default class CreateCharacterAncestryComponent extends React.Component {
                   className={cssStyles.alignmentButtonGroup}
                 >
                   Gnome
-                </ToggleButton>
-
-                <ToggleButton
-                  value="Half-Orc"
-                  className={cssStyles.alignmentButtonGroup}
-                >
-                  Half-Orc
-                </ToggleButton>
-                <ToggleButton
-                  value="Half-Elf"
-                  className={cssStyles.alignmentButtonGroup}
-                >
-                  Half-Elf
                 </ToggleButton>
                 <ToggleButton
                   value="Goblin"

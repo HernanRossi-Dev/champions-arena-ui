@@ -1,12 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import * as CharacterActionCreators from "../../actions/CharacterActionCreators";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as cssStyles from "../../../styles/Styles.css";
-import store from "../../store/index.js";
-
 import {
   Button,
   ButtonToolbar,
@@ -15,18 +11,18 @@ import {
   FormGroup,
   Panel,
   Modal, ControlLabel,
-  Collapse,
-  Well
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
+import * as CharacterActionCreators from "../../actions/CharacterActionCreators";
+import * as cssStyles from "../../../styles/Styles.css";
+import store from "../../store/index.js";
 import CreateCharacterAncestryComponent from "./CreateCharacterAncestryComponent.jsx";
 import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
-import CreateCharacterGenStatsComponent from "./CreateCharacterGenStatsComponent.jsx";
 import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
 import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx";
 import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
 import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClassComponent";
-import CreateCharacterPointBuyStatsComponent from "./CreateCharacterPointBuyStatsComponent";
+import CreateCharacter20StatsComponent from "./CreateCharacter20StatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 
 class CreateCharacterComponent extends React.Component {
@@ -34,20 +30,20 @@ class CreateCharacterComponent extends React.Component {
     super();
     this.state = {
       characterStats: {
-        STR: 15,
-        DEX: 14,
-        CON: 13,
-        INT: 12,
+        STR: 10,
+        DEX: 10,
+        CON: 10,
+        INT: 10,
         WIS: 10,
-        CHA: 8
+        CHA: 10
       },
       baseCharacterStats: {
-        STR: 15,
-        DEX: 14,
-        CON: 13,
-        INT: 12,
+        STR: 10,
+        DEX: 10,
+        CON: 10,
+        INT: 10,
         WIS: 10,
-        CHA: 8
+        CHA: 10
       },
       gender: "",
       alignment: "",
@@ -62,8 +58,8 @@ class CreateCharacterComponent extends React.Component {
       invalidFields: [""],
       show: false,
       numberOfCharacters: store.getState().characterReducer.numberOfCharacters,
-      choseStatsMethod: "Roll",
-      previousStatsMethod: "Roll",
+      choseStatsMethod: "2.0",
+      previousStatsMethod: "2.0",
       showStatsMethod: true
     };
     const { dispatch } = props;
@@ -204,32 +200,43 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
 
-  setRace = (selectedRace, racialBonus) => {
-    if (racialBonus.statsBonus) {
-      const rBon = racialBonus.statsBonus;
-      let key;
-      const newStats = Object.assign({}, this.state.baseCharacterStats);
-      for (key in rBon) {
-        newStats[key] = newStats[key] + rBon[key];
-      }
-      this.setState({ characterStats: newStats });
-    } else {
-      this.setState({ characterStats: this.state.baseCharacterStats });
+  setAncestry = (newRace, racialBonus) => {
+    const bonusPoints = racialBonus.statsBonus;
+    if (newRace === this.state.characterRace) {
+      console.log('dont update race');
+      return;
     }
-    this.setState({ characterRace: selectedRace, racialBonus });
+    if (bonusPoints) {
+      console.log('bonusPoints, ', bonusPoints);
+
+      const prevrBon = this.state.racialBonus;
+      const newStats = this.state.characterStats;
+      console.log('prevrBon, ', prevrBon);
+
+      Object.keys(prevrBon).forEach((key) => {
+        newStats[key] -= prevrBon[key];
+        console.log(key, newStats[key]);
+      });
+
+      console.log('prev, ', newStats);
+      const rBon = bonusPoints;
+      Object.keys(rBon).forEach((key) => {
+        newStats[key] += rBon[key];
+        console.log(key, newStats[key]);
+      });
+      console.log('next, ', newStats);
+
+      this.setState({ characterStats: newStats, characterRace: newRace, racialBonus: bonusPoints });
+    }
   }
 
   GenStatsMethod = (props) => {
-    if (this.state.choseStatsMethod === "Roll") {
-      return (
-        <CreateCharacterGenStatsComponent
-          setStateStats={this.setStateStats}
-          characterStats={this.state.characterStats}
-          racialBonus={this.state.racialBonus}
-        />
-      );
-    } else if (this.state.choseStatsMethod === "Buy") {
-      return <CreateCharacterPointBuyStatsComponent />;
+    if (this.state.choseStatsMethod === "2.0") {
+      return (<CreateCharacter20StatsComponent
+        setStateStats={this.setStateStats}
+        characterStats={this.state.characterStats}
+        racialBonus={this.state.racialBonus}
+      />);
     } else if (this.state.choseStatsMethod === "Custom") {
       return (<CreateCharacterCustomStatsInput
         setStateStats={this.setStateStats}
@@ -286,7 +293,7 @@ class CreateCharacterComponent extends React.Component {
                 <Button
                   onClick={this.setStateMethod}
                   className={cssStyles.statsMethodButtons}
-                >Roll
+                >2.0
                 </Button>
                 <Button
                   onClick={this.setStateMethod}
@@ -301,7 +308,7 @@ class CreateCharacterComponent extends React.Component {
             <this.GenStatsMethod />
           </FormGroup>
           <hr className={cssStyles.hr} />
-          <CreateCharacterAncestryComponent setRace={this.setRace} />
+          <CreateCharacterAncestryComponent setAncestry={this.setAncestry} />
           <hr className={cssStyles.hr} />
           <CreateCharacterClassComponent updateClass={this.setClass} />
           <hr className={cssStyles.hr} />

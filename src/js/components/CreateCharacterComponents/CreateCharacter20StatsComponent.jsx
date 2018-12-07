@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ControlLabel, FormControl, Button, OverlayTrigger, ButtonToolbar, Tooltip } from "react-bootstrap";
+import { ControlLabel, FormControl, Button } from "react-bootstrap";
 import { Col, FormGroup } from "reactstrap";
 import { TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -19,17 +19,17 @@ const styles = {
     fontFamily: '"Crimson Text", serif'
   }
 };
-class CreateCharacterCustomStatsInput extends React.Component {
+class CreateCharacter20StatsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       characterStats: {
-        STR: "",
-        DEX: "",
-        CON: "",
-        INT: "",
-        WIS: "",
-        CHA: ""
+        STR: 10,
+        DEX: 10,
+        CON: 10,
+        INT: 10,
+        WIS: 10,
+        CHA: 10
       },
     };
     this.increaseStat = this.increaseStat.bind(this);
@@ -42,49 +42,11 @@ class CreateCharacterCustomStatsInput extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState({
-      characterStats: props.characterStats,
-      racialBonus: props.racialBonus
-    });
+    this.setCharacterStats(props);
   }
 
   setCharacterStats = (props) => {
-    if (props.characterStats) {
-      this.setState({ characterStats: props.characterStats, racialBonus: props.racialBonus });
-    }
-  }
-
-  generateStats = () => {
-    const newStats = [];
-    // Use 4d6 lowest drop method
-    let i;
-    let j;
-    let currentStat = 0;
-    let statRolls = [];
-    for (i = 0; i < 6; i += 1) {
-      statRolls = [];
-      currentStat = 0;
-      for (j = 0; j < 4; j += 1) {
-        let roll = Math.random() * 6;
-        while (roll < 1) {
-          roll = Math.random() * 6;
-        }
-        statRolls.push(Math.floor(roll) + 1);
-      }
-      statRolls.sort();
-      currentStat = statRolls[1] + statRolls[2] + statRolls[3];
-      newStats.push(currentStat);
-    }
-    const newHeroStats = {
-      STR: newStats[0],
-      DEX: newStats[1],
-      CON: newStats[2],
-      INT: newStats[3],
-      WIS: newStats[4],
-      CHA: newStats[5],
-    };
-    this.props.setStateStats(newHeroStats);
-    this.setState({characterStats: newHeroStats});
+    this.setState({ characterStats: props.characterStats });
   }
 
   increaseStat(e) {
@@ -280,7 +242,6 @@ class CreateCharacterCustomStatsInput extends React.Component {
 
     return (
       <div>
-        <GenerateStatsFormGroup genStats={this.generateStats} racialBonus={this.state.racialBonus}/>
         <StatsHeaderFormGroup />
         <PlusButtonFormGroup />
         <FormGroup>
@@ -326,23 +287,6 @@ class CreateCharacterCustomStatsInput extends React.Component {
     );
   }
 }
-
-const GenerateStatsFormGroup = (props) => {
-  return (
-    <FormGroup>
-      <Col sm={1} />
-      <Col sm={4} style={{ marginLeft: '20px' }} className={cssStyles.createColLabelStyle}>
-        <ButtonToolbar>
-          <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">Roll 4d6 keep best 3 dice (re-roll all 1's)</Tooltip>}>
-            <Button className={cssStyles.rollForStatsButton} bsStyle="primary" onClick={props.genStats}>
-              Roll For Stats
-            </Button>
-          </OverlayTrigger>
-        </ButtonToolbar>
-      </Col>
-    </FormGroup>
-  );
-};
 
 const StatsHeaderFormGroup = () => (
   <FormGroup>
@@ -390,4 +334,4 @@ const StatsHeaderFormGroup = () => (
     </Col>
   </FormGroup>
 );
-export default withStyles(styles)(CreateCharacterCustomStatsInput);
+export default withStyles(styles)(CreateCharacter20StatsComponent);
