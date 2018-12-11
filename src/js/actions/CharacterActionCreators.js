@@ -133,59 +133,6 @@ export const deleteCharacter = (characterID) => {
   };
 };
 
-function creatingCharacter(newCharacter) {
-  return {
-    type: types.CREATE_CHARACTER,
-    payload: newCharacter
-  };
-}
-
-export const createCharacter = (newCharacter, callBackRedirect) => {
-  return (dispatch, getState) => {
-    dispatch(creatingCharacter(newCharacter));
-    fetch("/api/characters", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: store.getState().userReducer.authToken
-      },
-      body: JSON.stringify(newCharacter)
-    }).then((response) => {
-      if (response.ok) {
-        response.json().then((updatedCharacter) => {
-          updatedCharacter.created = new Date(updatedCharacter.created);
-
-          function resolveDispatch() {
-            return new Promise((resolve) => {
-              resolve(
-                dispatch({
-                  type: types.CREATING_CHARACTER_SUCCESS,
-                  character: updatedCharacter
-                })
-              );
-            });
-          }
-          async function asyncDispatch() {
-            let result = await resolveDispatch();
-            callBackRedirect();
-            return result;
-          }
-          asyncDispatch();
-        });
-      } else {
-        response.json().then((error) => {
-          alert(`Failed to create character: ${error.message}`);
-          dispatch({
-            type: types.CREATING_CHARACTER_FAIL,
-            payload: error,
-            error: true
-          });
-        });
-      }
-    });
-  };
-};
-
 function requestCharacterList(URL) {
   return {
     type: types.FETCHING_CHARACTERS,

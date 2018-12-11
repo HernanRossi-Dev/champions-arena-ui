@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 import {
   Button,
   ButtonToolbar,
@@ -13,7 +18,6 @@ import {
   Modal, ControlLabel,
 } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
-import * as CharacterActionCreators from "../../actions/CharacterActionCreators";
 import * as cssStyles from "../../../styles/Styles.css";
 import store from "../../store/index.js";
 import CreateCharacterAncestryComponent from "./CreateCharacterAncestryComponent.jsx";
@@ -25,10 +29,23 @@ import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClas
 import CreateCharacter20StatsComponent from "./CreateCharacter20StatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 
+
+const styles = theme => ({
+  close: {
+    padding: theme.spacing.unit / 2,
+  },
+  success: {
+    backgroundColor: '#34AA31',
+  },
+});
+
 class CreateCharacterComponent extends React.Component {
   constructor(props, context) {
     super();
     this.state = {
+      open: false,
+      show: false,
+      toastMessage: '',
       characterStats: {
         STR: 10,
         DEX: 10,
@@ -56,20 +73,16 @@ class CreateCharacterComponent extends React.Component {
       alignRenderKey: Math.random(),
       numberOfInvalidFields: 0,
       invalidFields: [""],
-      show: false,
+      showToast: false,
       numberOfCharacters: store.getState().characterReducer.numberOfCharacters,
       choseStatsMethod: "2.0",
       previousStatsMethod: "2.0",
       showStatsMethod: true
     };
-    const { dispatch } = props;
-    this.boundActionCreators = bindActionCreators(
-      CharacterActionCreators,
-      dispatch
-    );
   }
 
   componentDidMount() {
+    axios.defaults.headers.common['authorization'] = this.props.Auth;
     if (store.getState().userReducer.currentUser.isGuest) {
       const characterCount = store.getState().characterReducer.numberOfCharacters;
       if (characterCount > 10) {
@@ -124,18 +137,43 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ show: true });
   }
 
-  createNewCharacter = (newCharacter) => {
-    const thisInst = this;
-    const callbackRedirect = () => {
-      thisInst.props.history.push("/characters");
+  showToast = (toastMessage) => {
+    this.setState({ open: true, toastMessage });
+  };
+
+  handleCloseToast = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false, toastMessage: '' });
+  };
+
+  saveNewCharacter = async (newCharacter) => {
+    let postResult;
+    const postResponse = {
+      message: 'Character Created',
+      status_code: 201,
+      status: 'OK',
     };
-    const { dispatch } = this.props;
-    const action = CharacterActionCreators.createCharacter(
-      newCharacter,
-      callbackRedirect
-    );
-    dispatch(action);
-  }
+    try {
+      postResult = await axios.post(`/api/characters`, newCharacter);
+      if (!postResult) {
+        postResponse.message = 'Failed to create character.';
+        postResponse.status_code = 500;
+        postResponse.status = 'ERROR';
+        return postResponse;
+      }
+    } catch (err) {
+      this.showToast('Error creating character.');
+      postResponse.message = err.message;
+      postResponse.status_code = 500;
+      postResponse.status = 'ERROR';
+      return postResponse;
+    }
+    this.showToast('Creating character success.');
+    this.props.history.push("/characters");
+    return postResponse;
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -173,7 +211,7 @@ class CreateCharacterComponent extends React.Component {
       this.props.history.push("/characters");
     }
     const userName = store.getState().userReducer.currentUserName;
-    this.createNewCharacter({
+    this.saveNewCharacter({
       name: this.state.name,
       class: this.state.class,
       race: this.state.characterRace,
@@ -203,28 +241,20 @@ class CreateCharacterComponent extends React.Component {
   setAncestry = (newRace, racialBonus) => {
     const bonusPoints = racialBonus.statsBonus;
     if (newRace === this.state.characterRace) {
-      console.log('dont update race');
       return;
     }
     if (bonusPoints) {
-      console.log('bonusPoints, ', bonusPoints);
-
       const prevrBon = this.state.racialBonus;
       const newStats = this.state.characterStats;
-      console.log('prevrBon, ', prevrBon);
-
       Object.keys(prevrBon).forEach((key) => {
         newStats[key] -= prevrBon[key];
-        console.log(key, newStats[key]);
       });
 
       console.log('prev, ', newStats);
       const rBon = bonusPoints;
       Object.keys(rBon).forEach((key) => {
         newStats[key] += rBon[key];
-        console.log(key, newStats[key]);
       });
-      console.log('next, ', newStats);
 
       this.setState({ characterStats: newStats, characterRace: newRace, racialBonus: bonusPoints });
     }
@@ -268,103 +298,136 @@ class CreateCharacterComponent extends React.Component {
   };
 
   render() {
-    return (
-      <Panel className={cssStyles.createCharacterPanelParent}>
-        <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
-          <Panel.Title
-            className={cssStyles.createCharacterPanelHeaderStyleText}
-          >
-            Create Character
-          </Panel.Title>
-        </Panel.Heading>
-        <Form horizontal >
-          <CreateCharacterNameComponent updateName={this.setName} />
-          <hr className={cssStyles.hr} />
-          <FormGroup>
-            <Col sm={1} />
-            <Col
-              componentClass={ControlLabel}
-              sm={3}
-              className={cssStyles.createColLabelStyle}
-            ><div style={{ fontSize: '19px', fontFamily: "'Josefin Sans', sans-serif" }}>Choose Stats method:</div>
-            </Col>
-            <Col sm={7} style={{ marginLeft: '45px' }}>
-              <ButtonToolbar>
-                <Button
-                  onClick={this.setStateMethod}
-                  className={cssStyles.statsMethodButtons}
-                >2.0
-                </Button>
-                <Button
-                  onClick={this.setStateMethod}
-                  className={cssStyles.statsMethodButtons}
-                >
-                  Custom
-                </Button>
-              </ButtonToolbar>
-            </Col>
-          </FormGroup>
-          <FormGroup>
-            <this.GenStatsMethod />
-          </FormGroup>
-          <hr className={cssStyles.hr} />
-          <CreateCharacterAncestryComponent setAncestry={this.setAncestry} />
-          <hr className={cssStyles.hr} />
-          <CreateCharacterClassComponent updateClass={this.setClass} />
-          <hr className={cssStyles.hr} />
-          <CreateCharacterFavouredClassComponent
-            updateFavClass={this.setFavouredClass}
-          />
-          <hr className={cssStyles.hr} />
-          <CreateCharacterGenderComponent updateGender={this.setGender} />
-          <hr className={cssStyles.hr} />
-          <CreateCharacterAlignmentComponent
-            updateAlignment={this.setAlignment}
-            allowedAlignments={this.state.allowedAlignments}
-            renderKey={this.state.alignRenderKey}
-          />
-          <hr className={cssStyles.hr} />
-          <FormGroup className={cssStyles.createColStyle}>
-            <Col sm={8} />
-            <Col sm={4}>
-              <ButtonToolbar>
-                <Button bsStyle="primary" onClick={this.handleSubmit}>
-                  Create
-                </Button>
+    const { classes } = this.props;
 
-                <LinkContainer to="/home">
-                  <Button bsStyle="link">Discard</Button>
-                </LinkContainer>
-              </ButtonToolbar>
-            </Col>
-            <Modal
-              show={this.state.show}
-              onHide={this.handleClose}
-              className={cssStyles.createCharacterClassModal}
+    return (
+      <div>
+        <Panel className={cssStyles.createCharacterPanelParent}>
+          <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
+            <Panel.Title
+              className={cssStyles.createCharacterPanelHeaderStyleText}
             >
-              <Modal.Header closeButton>
-                <Modal.Title>Invalid Submission</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <this.ValidationModal />
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={this.handleClose}>Close</Button>
-              </Modal.Footer>
-            </Modal>
-          </FormGroup>
-          <FormGroup>
-            <Col sm={7} />
-            <Col sm={4}>
-              <ButtonToolbar>
-                <Button bsStyle="link">
-                  Proceed to Skills (Under Construction)
-                </Button>
-              </ButtonToolbar>
-            </Col>
-          </FormGroup>
-        </Form>
-      </Panel>
+              Create Character
+            </Panel.Title>
+          </Panel.Heading>
+          <Form horizontal >
+            <CreateCharacterNameComponent updateName={this.setName} />
+            <hr className={cssStyles.hr} />
+            <FormGroup>
+              <Col sm={1} />
+              <Col
+                componentClass={ControlLabel}
+                sm={3}
+                className={cssStyles.createColLabelStyle}
+              ><div style={{ fontSize: '19px', fontFamily: "'Josefin Sans', sans-serif" }}>Choose Stats method:</div>
+              </Col>
+              <Col sm={7} style={{ marginLeft: '45px' }}>
+                <ButtonToolbar>
+                  <Button
+                    onClick={this.setStateMethod}
+                    className={cssStyles.statsMethodButtons}
+                  >2.0
+                  </Button>
+                  <Button
+                    onClick={this.setStateMethod}
+                    className={cssStyles.statsMethodButtons}
+                  >
+                    Custom
+                  </Button>
+                </ButtonToolbar>
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <this.GenStatsMethod />
+            </FormGroup>
+            <hr className={cssStyles.hr} />
+            <CreateCharacterAncestryComponent setAncestry={this.setAncestry} />
+            <hr className={cssStyles.hr} />
+            <CreateCharacterClassComponent updateClass={this.setClass} />
+            <hr className={cssStyles.hr} />
+            <CreateCharacterFavouredClassComponent
+              updateFavClass={this.setFavouredClass}
+            />
+            <hr className={cssStyles.hr} />
+            <CreateCharacterGenderComponent updateGender={this.setGender} />
+            <hr className={cssStyles.hr} />
+            <CreateCharacterAlignmentComponent
+              updateAlignment={this.setAlignment}
+              allowedAlignments={this.state.allowedAlignments}
+              renderKey={this.state.alignRenderKey}
+            />
+            <hr className={cssStyles.hr} />
+            <FormGroup className={cssStyles.createColStyle}>
+              <Col sm={8} />
+              <Col sm={4}>
+                <ButtonToolbar>
+                  <Button bsStyle="primary" onClick={this.handleSubmit}>
+                    Create
+                  </Button>
+
+                  <LinkContainer to="/home">
+                    <Button bsStyle="link">Discard</Button>
+                  </LinkContainer>
+                </ButtonToolbar>
+              </Col>
+              <Modal
+                show={this.state.show}
+                onHide={this.handleClose}
+                className={cssStyles.createCharacterClassModal}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Invalid Submission</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <this.ValidationModal />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleClose}>Close</Button>
+                </Modal.Footer>
+              </Modal>
+            </FormGroup>
+            <FormGroup>
+              <Col sm={7} />
+              <Col sm={4}>
+                <ButtonToolbar>
+                  <Button bsStyle="link">
+                    Proceed to Skills (Under Construction)
+                  </Button>
+                </ButtonToolbar>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Panel>
+        <Snackbar
+          style={{ zIndex: 8002  }}
+
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={this.state.open}
+          autoHideDuration={3000}
+          onClose={this.handleCloseToast}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+            classes: {
+              root: classes.success
+            }
+          }}
+          message={<span id="message-id" style={{fontSize: 14}}>{this.state.toastMessage}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleCloseToast}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+      </div>
     );
   }
 
@@ -470,4 +533,10 @@ class CreateCharacterComponent extends React.Component {
   }
 }
 
-export default withRouter(connect()(CreateCharacterComponent));
+const mapStateToProps = (state) => {
+  return ({
+    Auth: store.getState().userReducer.authToken,
+  });
+};
+
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(CreateCharacterComponent)));

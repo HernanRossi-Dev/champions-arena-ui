@@ -34,11 +34,12 @@ class CharacterRow extends React.Component {
   }
 
   render() {
+    const characteraID = this.props.character._id;
     return (
       <tr>
         <td>{this.props.character.type}</td>
         <td >
-          <Link to="/characters/${this.props.character._id}" >
+          <Link to={ `/characters/${characteraID}` }>
             {this.props.character.name}
           </Link>
         </td>

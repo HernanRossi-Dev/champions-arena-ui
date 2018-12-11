@@ -67,6 +67,7 @@ class CharacterEdit extends React.Component {
 
   loadCharacter = async () => {
     const characterID = this.props.match.params.id;
+    console.log(characterID);
     if (!characterID) {
       return null;
     }
@@ -192,8 +193,7 @@ class CharacterEdit extends React.Component {
 
     let getResult;
     try {
-      getResult = await axios.put(
-        `/api/characters/${characterID}`, updateCharacter);
+      getResult = await axios.put(`/api/characters/${characterID}`, updateCharacter);
       if (!getResult) {
         return null;
       }
@@ -296,37 +296,36 @@ class CharacterEdit extends React.Component {
           </FormGroup>
         </Form>
       </Panel>
-      <Snackbar
-        // className={classes.success}
-        style={{ zIndex: 8002  }}
+        <Snackbar
+          style={{ zIndex: 8002  }}
 
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        open={this.state.open}
-        autoHideDuration={3000}
-        onClose={this.handleCloseToast}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-          classes: {
-            root: classes.success
-          }
-        }}
-        message={<span id="message-id" style={{fontSize: 14}}>{this.state.toastMessage}</span>}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            className={classes.close}
-            onClick={this.handleCloseToast}
-          >
-            <CloseIcon />
-          </IconButton>,
-        ]}
-      />
-    </div>
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={this.state.open}
+          autoHideDuration={3000}
+          onClose={this.handleCloseToast}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+            classes: {
+              root: classes.success
+            }
+          }}
+          message={<span id="message-id" style={{fontSize: 14}}>{this.state.toastMessage}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleCloseToast}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+      </div>
     );
   }
 }
