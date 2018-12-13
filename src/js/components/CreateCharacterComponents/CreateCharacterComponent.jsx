@@ -45,6 +45,8 @@ class CreateCharacterComponent extends React.Component {
     this.state = {
       open: false,
       show: false,
+      showChangeStat: false,
+      showChangeStatCust: false,
       toastMessage: '',
       characterStats: {
         STR: 10,
@@ -75,9 +77,11 @@ class CreateCharacterComponent extends React.Component {
       invalidFields: [""],
       showToast: false,
       numberOfCharacters: store.getState().characterReducer.numberOfCharacters,
-      choseStatsMethod: "2.0",
+      chooseStatsMethod: "2.0",
       previousStatsMethod: "2.0",
-      showStatsMethod: true
+      showStatsMethod: true,
+      freeAbilityPoints: 0,
+      baseFreeAbilityPoints: 0,
     };
   }
 
@@ -90,11 +94,6 @@ class CreateCharacterComponent extends React.Component {
         this.props.history.push("/characters");
       }
     }
-  }
-
-  setStateMethod = (e) => {
-    const prevMethod = this.state.choseStatsMethod;
-    this.setState({ previousStatsMethod: prevMethod, choseStatsMethod: e.target.innerHTML });
   }
 
   setFavouredClass = (newFavClass) => {
@@ -223,23 +222,29 @@ class CreateCharacterComponent extends React.Component {
       INT: this.state.characterStats.INT,
       WIS: this.state.characterStats.WIS,
       CHA: this.state.characterStats.CHA,
-      // attributePointsToSpend: 0,
-      // items: {},
-      // abilities: {},
-      // traits: {},
-      // characterNotes: [],
+      freeAbilityPoints: this.state.freeAbilityPoints,
+      items: {},
+      abilities: {},
+      traits: {},
+      characterNotes: [],
       type: "Player",
       gender: this.state.gender,
       alignment: this.state.alignment,
       favouredClass: this.state.favouredClass,
       racialBonus: this.state.racialBonus,
-      user: userName
+      user: userName,
+      ancestryProps: this.state.ancestryProps,
     });
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
 
-  setAncestry = (newRace, racialBonus) => {
-    const bonusPoints = racialBonus.statsBonus;
+  setAncestry = (newRace, ancestryProps) => {
+    console.log(ancestryProps);
+    const bonusPoints = ancestryProps.statsBonus;
+    const { freeAbilityPoints } = ancestryProps;
+    const subtractPrevPoints = this.state.characterRace === 'Human' ? 2 : 1;
+    let newBaseFreeAbilityPoints = this.state.baseFreeAbilityPoints - subtractPrevPoints;
+    newBaseFreeAbilityPoints += freeAbilityPoints;
     if (newRace === this.state.characterRace) {
       return;
     }
@@ -250,28 +255,55 @@ class CreateCharacterComponent extends React.Component {
         newStats[key] -= prevrBon[key];
       });
 
-      console.log('prev, ', newStats);
       const rBon = bonusPoints;
       Object.keys(rBon).forEach((key) => {
         newStats[key] += rBon[key];
       });
 
-      this.setState({ characterStats: newStats, characterRace: newRace, racialBonus: bonusPoints });
+      this.setState({
+        characterStats: newStats,
+        characterRace: newRace,
+        racialBonus: bonusPoints,
+        freeAbilityPoints,
+        baseFreeAbilityPoints: newBaseFreeAbilityPoints,
+        ancestryProps
+      });
     }
   }
+  resetBaseStats = () => {
+    const characterStats = {
+      STR: 10,
+      DEX: 10,
+      CON: 10,
+      INT: 10,
+      WIS: 10,
+      CHA: 10
+    };
+    Object.keys(this.state.racialBonus).forEach((key) => {
+      characterStats[key] += this.state.racialBonus[key];
+    });
+    // TODO add all other stat modifiers
+    this.setState({
+      characterStats,
+      freeAbilityPoints: this.state.baseFreeAbilityPoints
+    });
+  };
 
   GenStatsMethod = (props) => {
-    if (this.state.choseStatsMethod === "2.0") {
+    if (this.state.chooseStatsMethod === "2.0") {
       return (<CreateCharacter20StatsComponent
         setStateStats={this.setStateStats}
         characterStats={this.state.characterStats}
         racialBonus={this.state.racialBonus}
+        freeAbilityPoints={this.state.freeAbilityPoints}
+
       />);
-    } else if (this.state.choseStatsMethod === "Custom") {
+    } else if (this.state.chooseStatsMethod === "Custom") {
       return (<CreateCharacterCustomStatsInput
         setStateStats={this.setStateStats}
         characterStats={this.state.characterStats}
         racialBonus={this.state.racialBonus}
+        freeAbilityPoints={this.state.freeAbilityPoints}
       />);
     }
     return null;
@@ -296,6 +328,39 @@ class CreateCharacterComponent extends React.Component {
       </div>
     );
   };
+
+  handleCloseStat = () => {
+    this.setState({ showChangeStat: false });
+  }
+
+  handleOpenStat = () => {
+    if (this.state.chooseStatsMethod === '2.0') {
+      return;
+    }
+    this.setState({ showChangeStat: true });
+  }
+
+  handleCloseStatCust = () => {
+    this.setState({ showChangeStatCust: false });
+  }
+
+  handleOpenStatCust = () => {
+    if (this.state.chooseStatsMethod === 'Custom') {
+      return;
+    }
+    this.setState({ showChangeStatCust: true });
+  }
+
+  setStateMethodCust = () => {
+    this.resetBaseStats();
+    this.setState({ showChangeStatCust: false, chooseStatsMethod: 'Custom' });
+  }
+
+  setStateMethodPlaytest = () => {
+    this.resetBaseStats();
+    this.setState({ chooseStatsMethod: '2.0', showChangeStat: false });
+  }
+
 
   render() {
     const { classes } = this.props;
@@ -324,12 +389,12 @@ class CreateCharacterComponent extends React.Component {
               <Col sm={7} style={{ marginLeft: '45px' }}>
                 <ButtonToolbar>
                   <Button
-                    onClick={this.setStateMethod}
+                    onClick={this.handleOpenStat}
                     className={cssStyles.statsMethodButtons}
                   >2.0
                   </Button>
                   <Button
-                    onClick={this.setStateMethod}
+                    onClick={this.handleOpenStatCust}
                     className={cssStyles.statsMethodButtons}
                   >
                     Custom
@@ -364,7 +429,6 @@ class CreateCharacterComponent extends React.Component {
                   <Button bsStyle="primary" onClick={this.handleSubmit}>
                     Create
                   </Button>
-
                   <LinkContainer to="/home">
                     <Button bsStyle="link">Discard</Button>
                   </LinkContainer>
@@ -383,6 +447,38 @@ class CreateCharacterComponent extends React.Component {
                 </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={this.handleClose}>Close</Button>
+                </Modal.Footer>
+              </Modal>
+              <Modal
+                show={this.state.showChangeStat}
+                onHide={this.handleCloseStat}
+                className={cssStyles.createCharacterClassModal}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Playtest 2.0 stat method</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Warning: changing your stat selection method will reset current stats.
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleCloseStat}>Cancel</Button>
+                  <Button onClick={this.setStateMethodPlaytest}>Proceed</Button>
+                </Modal.Footer>
+              </Modal>
+              <Modal
+                show={this.state.showChangeStatCust}
+                onHide={this.handleCloseStatCust}
+                className={cssStyles.createCharacterClassModal}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Switch to Custom Stats</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Warning: changing your stat selection method will reset current stats.
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleCloseStatCust}>Cancel</Button>
+                  <Button onClick={this.setStateMethodCust}>Proceed</Button>
                 </Modal.Footer>
               </Modal>
             </FormGroup>

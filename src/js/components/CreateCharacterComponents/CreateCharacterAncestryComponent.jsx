@@ -59,9 +59,15 @@ export default class CreateCharacterAncestryComponent extends React.Component {
           ),
         });
         return {
-          racialBonus: {
-            statsBonus: {
-              FREE: 2
+          ancestryProps: {
+            statsBonus: {},
+            freeAbilityPoints: 2,
+            hp: 8,
+            size: 'Medium',
+            speed: 25,
+            languages: ['common'],
+            traits: ['human', 'humanoid'],
+            attributes: {
             }
           }
         };
@@ -93,10 +99,23 @@ export default class CreateCharacterAncestryComponent extends React.Component {
             </p>
           ),
         });
+
         return {
-          racialBonus: {
+          ancestryProps: {
             statsBonus: {
-              CON: 2, WIS: 2, CHA: -2, FREE: 1
+              CON: 2, WIS: 2, CHA: -2
+            },
+            freeAbilityPoints: 1,
+            hp: 10,
+            size: 'Medium',
+            speed: 20,
+            languages: ['common', 'dwarf'],
+            traits: ['dwarf', 'humanoid'],
+            attributes: {
+              'dark vision': 'You can see in darkness and dim light just as well as ' +
+              'you can see in bright light, though your vision in darkness is in black and white',
+              unburdened: 'If your Speed would be reduced by armor you wear or the encumbered ' +
+              'condition you ignore 5 feet of that reduction.',
             }
           }
         };
@@ -128,9 +147,18 @@ export default class CreateCharacterAncestryComponent extends React.Component {
           ),
         });
         return {
-          racialBonus: {
+          ancestryProps: {
             statsBonus: {
-              DEX: 2, INT: 2, CON: -2, FREE: 1
+              DEX: 2, INT: 2, CON: -2
+            },
+            freeAbilityPoints: 1,
+            hp: 6,
+            size: 'Medium',
+            speed: 30,
+            languages: ['common', 'elven'],
+            traits: ['elf', 'humanoid'],
+            attributes: {
+              'low-light vision': 'You can see in dim light as though it were bright light.'
             }
           }
         };
@@ -161,9 +189,18 @@ export default class CreateCharacterAncestryComponent extends React.Component {
           ),
         });
         return {
-          racialBonus: {
+          ancestryProps: {
             statsBonus: {
-              CON: 2, CHA: 2, STR: -2, FREE: 1
+              CON: 2, CHA: 2, STR: -2
+            },
+            freeAbilityPoints: 1,
+            hp: 8,
+            size: 'small',
+            speed: 20,
+            languages: ['gnomish', 'sylvan', 'common'],
+            traits: ['gnome', 'humanoid'],
+            attributes: {
+              'low-light vision': 'You can see in dim light as though it were bright light.'
             }
           }
         };
@@ -192,9 +229,17 @@ export default class CreateCharacterAncestryComponent extends React.Component {
           ),
         });
         return {
-          racialBonus: {
+          ancestryProps: {
             statsBonus: {
-              DEX: 2, WIS: 2, STR: -2, FREE: 1
+              DEX: 2, WIS: 2, STR: -2
+            },
+            freeAbilityPoints: 1,
+            hp: 6,
+            size: 'small',
+            speed: 25,
+            languages: ['halfling', 'common'],
+            traits: ['halfling', 'humanoid'],
+            attributes: {
             }
           }
         };
@@ -224,9 +269,19 @@ export default class CreateCharacterAncestryComponent extends React.Component {
           ),
         });
         return {
-          racialBonus: {
+          ancestryProps: {
             statsBonus: {
-              DEX: 2, CHA: 2, WIS: -2, FREE: 1
+              DEX: 2, CHA: 2, WIS: -2
+            },
+            freeAbilityPoints: 1,
+            hp: 6,
+            size: 'small',
+            speed: 25,
+            languages: ['goblin', 'common'],
+            traits: ['goblin', 'humanoid'],
+            attributes: {
+              'dark vision': 'You can see in darkness and dim light just as well as ' +
+              'you can see in bright light, though your vision in darkness is in black and white',
             }
           }
         };
@@ -260,7 +315,7 @@ export default class CreateCharacterAncestryComponent extends React.Component {
     }
     const racialBonus = this.changeAncestryInfo(targetText);
     this.setState({ prevButtonPressed: targetText });
-    this.props.setAncestry(targetText, racialBonus.racialBonus);
+    this.props.setAncestry(targetText, racialBonus.ancestryProps);
   };
 
   render() {

@@ -31,9 +31,8 @@ class CreateCharacter20StatsComponent extends React.Component {
         WIS: 10,
         CHA: 10
       },
+      freeAbilityPoints: 0,
     };
-    this.increaseStat = this.increaseStat.bind(this);
-    this.decreaseStat = this.decreaseStat.bind(this);
   }
 
 
@@ -46,10 +45,10 @@ class CreateCharacter20StatsComponent extends React.Component {
   }
 
   setCharacterStats = (props) => {
-    this.setState({ characterStats: props.characterStats });
+    this.setState({ characterStats: props.characterStats, freeAbilityPoints: props.freeAbilityPoints });
   }
 
-  increaseStat(e) {
+  increaseStat = (e) => {
 	  let newCharStats = this.state.characterStats;
 	  if (this.state.characterStats[e.currentTarget.name] < 30) {
       switch (e.currentTarget.name) {
@@ -90,7 +89,7 @@ class CreateCharacter20StatsComponent extends React.Component {
     }
   }
 
-  decreaseStat(e) {
+  decreaseStat = (e) => {
     let newCharStats = this.state.characterStats;
     if (this.state.characterStats[e.currentTarget.name] > 0) {
 
@@ -133,16 +132,14 @@ class CreateCharacter20StatsComponent extends React.Component {
   }
 
   ShowRacialBonus = () => {
+    let freeStateBonus;
+    if (this.props.freeAbilityPoints) {
+      freeStateBonus = `\nFree Ability bonus available: ${this.state.freeAbilityPoints}`;
+    }
     if (this.props.racialBonus) {
       const rBon = this.props.racialBonus;
       let infoString = null;
-      let freeStateBonus = null;
-
       Object.keys(rBon).forEach((stat) => {
-        if (stat === 'FREE') {
-          freeStateBonus = `\nFree Ability bonus available: ${rBon[stat]}`;
-          return;
-        }
         if (!infoString) {
           infoString = "Racial bonus applied to stats: ";
         }
