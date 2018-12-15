@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, { object } from "prop-types";
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
@@ -270,6 +270,7 @@ class CreateCharacterComponent extends React.Component {
       });
     }
   }
+
   resetBaseStats = () => {
     const characterStats = {
       STR: 10,
@@ -633,6 +634,9 @@ const mapStateToProps = (state) => {
   return ({
     Auth: store.getState().userReducer.authToken,
   });
+};
+
+CreateCharacterComponent.propTypes = {
 };
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(CreateCharacterComponent)));
