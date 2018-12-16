@@ -1,5 +1,5 @@
 import React from "react";
-import * as cssStyles from "../../../styles/Styles.css";
+import PropTypes from 'prop-types';
 import {
   Col,
   ControlLabel,
@@ -7,54 +7,21 @@ import {
   ToggleButtonGroup,
   ToggleButton
 } from "react-bootstrap";
+import * as cssStyles from "../../../styles/Styles.css";
+
 
 export default class CreateCharacterGenderComponent extends React.Component {
   constructor(props) {
     super();
-    this.state = {
-      gender: ""
-    }
   }
 
   selectGender = (e) => {
-    const newGender = e.target.textContent.toString();
-    if (!newGender) {
+    if (!e || !e.target) {
       return;
     }
+    const newGender = e.target.value;
     this.props.updateGender(newGender);
-    this.setState({ gender: newGender });
   };
-
-  // ShowGenderImage =(props) => {
-  //   const gender = this.state.gender.toString();
-  //   if (gender === "Male") {
-  //     return (
-  //       <img
-  //         src={require("../../../assets/mymalesymbol.png")}
-  //         width="50"
-  //         height="50"
-  //         alt=""
-  //       />
-  //     );
-  //   } else if (gender === "Female") {
-  //     return (
-  //       <img
-  //         src={require("../../../assets/myfemalesymbol.png")}
-  //         width="40"
-  //         height="50"
-  //         alt=""
-  //       />
-  //     );
-  //   }
-  //   return (
-  //     <img
-  //       src={require("../../../assets/myotherymbol.png")}
-  //       width="33"
-  //       height="50"
-  //       alt=""
-  //     />
-  //   );
-  // };
 
   render() {
     return (
@@ -67,23 +34,22 @@ export default class CreateCharacterGenderComponent extends React.Component {
           <ToggleButtonGroup
             type="radio"
             name="gender"
-            className={cssStyles.genderButtonGroup}
+            onClick={this.selectGender}
+            className={cssStyles.alignmentButtonGroupParent}
           >
             <ToggleButton
-              valu ="Male"
-              className={cssStyles.genderButtonGroup}
-              onClick={this.selectGender}
+              value="Male"
+              className={cssStyles.alignmentButtonGroup}
             >
               Male
             </ToggleButton>
             <ToggleButton
               value="Female"
-              className={cssStyles.genderButtonGroup}
-              onClick={this.selectGender}
+              className={cssStyles.alignmentButtonGroup}
             >
             Female
             </ToggleButton>
-            <ToggleButton value="Other" className={cssStyles.genderButtonGroup} onClick={this.selectGender}>Other</ToggleButton>
+            <ToggleButton value="Other" className={cssStyles.alignmentButtonGroup}>Other</ToggleButton>
           </ToggleButtonGroup>
         </Col>
         <Col sm={1} > {} </Col>
@@ -91,3 +57,7 @@ export default class CreateCharacterGenderComponent extends React.Component {
     );
   }
 }
+
+CreateCharacterGenderComponent.propTypes = {
+  updateGender: PropTypes.func.isRequired,
+};

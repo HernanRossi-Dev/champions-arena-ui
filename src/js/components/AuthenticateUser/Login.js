@@ -270,7 +270,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   classes: PropTypes.object,
-  dispatch: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default withRouter(connect()(withStyles(styles)(Login)));

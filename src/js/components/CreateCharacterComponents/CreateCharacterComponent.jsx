@@ -21,10 +21,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 import store from "../../store/index.js";
 import CreateCharacterAncestryComponent from "./CreateCharacterAncestryComponent.jsx";
-import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
+import CharacterBackgroundComponent from "./CharacterBackgroundComponent";
 import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
 import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx";
 import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
+import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
 import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClassComponent";
 import CreateCharacter20StatsComponent from "./CreateCharacter20StatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
@@ -43,6 +44,9 @@ class CreateCharacterComponent extends React.Component {
   constructor(props, context) {
     super();
     this.state = {
+      backgroundInfo: {
+        selectedStat: null,
+      },
       open: false,
       show: false,
       showChangeStat: false,
@@ -69,7 +73,6 @@ class CreateCharacterComponent extends React.Component {
       name: "",
       class: "",
       characterRace: "",
-      favouredClass: "",
       racialBonus: {},
       allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
       alignRenderKey: Math.random(),
@@ -230,16 +233,15 @@ class CreateCharacterComponent extends React.Component {
       type: "Player",
       gender: this.state.gender,
       alignment: this.state.alignment,
-      favouredClass: this.state.favouredClass,
       racialBonus: this.state.racialBonus,
       user: userName,
       ancestryProps: this.state.ancestryProps,
+      backgroundProps: this.state.backgroundInfo
     });
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
 
   setAncestry = (newRace, ancestryProps) => {
-    console.log(ancestryProps);
     const bonusPoints = ancestryProps.statsBonus;
     const { freeAbilityPoints } = ancestryProps;
     const subtractPrevPoints = this.state.characterRace === 'Human' ? 2 : 1;
@@ -271,6 +273,42 @@ class CreateCharacterComponent extends React.Component {
     }
   }
 
+  setBackground = (newProps) => {
+    const newStats = this.state.characterStats;
+    const prevBB = this.state.backgroundBoost;
+    let abilityBoost = this.state.freeAbilityPoints;
+    if (newProps === 'reset') {
+      newStats[prevBB] -= 2;
+      abilityBoost -= 1;
+      const resetBackgroundInfo = {
+        selectedStat: '',
+      };
+      this.setState({
+        backgroundInfo: resetBackgroundInfo,
+        characterStats: newStats,
+        freeAbilityBoost: abilityBoost
+      });
+      return;
+    }
+
+    const { selectedStat } = newProps;
+    let freeAbilityBoost = this.state.freeAbilityPoints;
+    if (!this.state.backgroundInfo.background) {
+      freeAbilityBoost += 1;
+      newStats[selectedStat] += 2;
+    } else {
+      newStats[prevBB] -= 2;
+      newStats[selectedStat] += 2;
+    }
+
+    this.setState({
+      characterStats: newStats,
+      freeAbilityPoints: freeAbilityBoost,
+      backgroundInfo: newProps,
+      backgroundBoost: selectedStat,
+    });
+  };
+
   resetBaseStats = () => {
     const characterStats = {
       STR: 10,
@@ -296,6 +334,7 @@ class CreateCharacterComponent extends React.Component {
         setStateStats={this.setStateStats}
         characterStats={this.state.characterStats}
         racialBonus={this.state.racialBonus}
+        backgroundBoost={this.state.backgroundBoost}
         freeAbilityPoints={this.state.freeAbilityPoints}
 
       />);
@@ -304,6 +343,7 @@ class CreateCharacterComponent extends React.Component {
         setStateStats={this.setStateStats}
         characterStats={this.state.characterStats}
         racialBonus={this.state.racialBonus}
+        backgroundBoost={this.state.backgroundBoost}
         freeAbilityPoints={this.state.freeAbilityPoints}
       />);
     }
@@ -403,18 +443,17 @@ class CreateCharacterComponent extends React.Component {
                 </ButtonToolbar>
               </Col>
             </FormGroup>
-            <FormGroup>
+            <div />
+            <div />
               <this.GenStatsMethod />
-            </FormGroup>
             <hr className={cssStyles.hr} />
             <CreateCharacterAncestryComponent setAncestry={this.setAncestry} />
             <hr className={cssStyles.hr} />
+            <CharacterBackgroundComponent setBackground={this.setBackground} />
+            <hr className={cssStyles.hr} />
             <CreateCharacterClassComponent updateClass={this.setClass} />
             <hr className={cssStyles.hr} />
-            <CreateCharacterFavouredClassComponent
-              updateFavClass={this.setFavouredClass}
-            />
-            <hr className={cssStyles.hr} />
+
             <CreateCharacterGenderComponent updateGender={this.setGender} />
             <hr className={cssStyles.hr} />
             <CreateCharacterAlignmentComponent
@@ -637,6 +676,9 @@ const mapStateToProps = (state) => {
 };
 
 CreateCharacterComponent.propTypes = {
+  history: PropTypes.object,
+  classes: PropTypes.object,
+  Auth: PropTypes.string.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(CreateCharacterComponent)));

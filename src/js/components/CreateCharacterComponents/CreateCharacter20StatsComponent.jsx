@@ -35,7 +35,6 @@ class CreateCharacter20StatsComponent extends React.Component {
     };
   }
 
-
   componentDidMount() {
     this.setCharacterStats(this.props);
   }
@@ -134,28 +133,36 @@ class CreateCharacter20StatsComponent extends React.Component {
   ShowRacialBonus = () => {
     let freeStateBonus;
     if (this.props.freeAbilityPoints) {
-      freeStateBonus = `\nFree Ability bonus available: ${this.state.freeAbilityPoints}`;
+      freeStateBonus = `\nFree Ability Boosts available: ${this.state.freeAbilityPoints}\n (assign next step)`;
     }
+    let infoString = null;
+
     if (this.props.racialBonus) {
       const rBon = this.props.racialBonus;
-      let infoString = null;
       Object.keys(rBon).forEach((stat) => {
         if (!infoString) {
-          infoString = "Racial bonus applied to stats: ";
+          infoString = "Ability Boosts applied to stats: ";
         }
         if (rBon[stat] > 0) {
           infoString += `${stat}: ${rBon[stat]}, `;
         } else {
-          infoString += `${stat}: ${rBon[stat]}`;
+          infoString += `${stat}: ${rBon[stat]}, `;
         }
       });
-      return (
-        <div>
-          <div style={{ wordSpacing: '3px' }}>{infoString}</div>
-          <div style={{ wordSpacing: '3px' }}>{freeStateBonus}</div>
-        </div>
-      );
-    } return null;
+    }
+    if (this.props.backgroundBoost) {
+      if (infoString) {
+        infoString += `${this.props.backgroundBoost}: 2, `;
+      } else {
+        infoString = `Ability Boosts applied to stats: ${this.props.backgroundBoost}: 2`;
+      }
+    }
+    return (
+      <div>
+        <div style={{ wordSpacing: '3px' }}>{infoString}</div>
+        <div style={{ wordSpacing: '3px' }}>{freeStateBonus}</div>
+      </div>
+    );
   };
 
   render() {
@@ -240,40 +247,41 @@ class CreateCharacter20StatsComponent extends React.Component {
     return (
       <div>
         <StatsHeaderFormGroup />
-        <PlusButtonFormGroup />
+        {/*  <PlusButtonFormGroup /> */}
         <FormGroup>
-          <Col sm={2}>
+          <Col sm={3} />
+          <Col sm={1}>
             <FormControl.Static className={cssStyles.genStatsNumberStyle}>
               {this.state.characterStats.STR}
             </FormControl.Static>
           </Col>
-          <Col sm={2}>
+          <Col sm={1}>
             <FormControl.Static className={cssStyles.genStatsNumberStyle}>
               {this.state.characterStats.DEX}
             </FormControl.Static>
           </Col>
-          <Col sm={2}>
+          <Col sm={1}>
             <FormControl.Static className={cssStyles.genStatsNumberStyle}>
               {this.state.characterStats.CON}
             </FormControl.Static>
           </Col>
-          <Col sm={2}>
+          <Col sm={1}>
             <FormControl.Static className={cssStyles.genStatsNumberStyle}>
               {this.state.characterStats.INT}
             </FormControl.Static>
           </Col>
-          <Col sm={2}>
+          <Col sm={1}>
             <FormControl.Static className={cssStyles.genStatsNumberStyle}>
               {this.state.characterStats.WIS}
             </FormControl.Static>
           </Col>
-          <Col sm={2}>
+          <Col sm={1}>
             <FormControl.Static className={cssStyles.genStatsNumberStyle}>
               {this.state.characterStats.CHA}
             </FormControl.Static>
           </Col>
         </FormGroup>
-        <MinusButtonFormGroup />
+        {/*  <MinusButtonFormGroup /> */}
         <FormGroup>
           <Col sm={4} />
           <Col sm={6}>
@@ -287,48 +295,50 @@ class CreateCharacter20StatsComponent extends React.Component {
 
 const StatsHeaderFormGroup = () => (
   <FormGroup>
+    <Col sm={3} />
     <Col
       componentClass={ControlLabel}
-      sm={2}
+      sm={1}
       className={cssStyles.createColStyle}
     >
       STR
     </Col>
     <Col
       componentClass={ControlLabel}
-      sm={2}
+      sm={1}
       className={cssStyles.createColStyle}
     >
       DEX
     </Col>
     <Col
       componentClass={ControlLabel}
-      sm={2}
+      sm={1}
       className={cssStyles.createColStyle}
     >
       CON
     </Col>
     <Col
       componentClass={ControlLabel}
-      sm={2}
+      sm={1}
       className={cssStyles.createColStyle}
     >
       INT
     </Col>
     <Col
       componentClass={ControlLabel}
-      sm={2}
+      sm={1}
       className={cssStyles.createColStyle}
     >
       WIS
     </Col>
     <Col
       componentClass={ControlLabel}
-      sm={2}
+      sm={1}
       className={cssStyles.createColStyle}
     >
       CHA
     </Col>
   </FormGroup>
 );
+
 export default withStyles(styles)(CreateCharacter20StatsComponent);
