@@ -279,14 +279,17 @@ class CreateCharacterComponent extends React.Component {
     let abilityBoost = this.state.freeAbilityPoints;
     if (newProps === 'reset') {
       newStats[prevBB] -= 2;
-      abilityBoost -= 1;
+      if (prevBB) {
+        abilityBoost -= 1;
+      }
       const resetBackgroundInfo = {
         selectedStat: '',
       };
       this.setState({
         backgroundInfo: resetBackgroundInfo,
         characterStats: newStats,
-        freeAbilityBoost: abilityBoost
+        freeAbilityPoints: abilityBoost,
+        backgroundBoost: ''
       });
       return;
     }
@@ -300,7 +303,6 @@ class CreateCharacterComponent extends React.Component {
       newStats[prevBB] -= 2;
       newStats[selectedStat] += 2;
     }
-
     this.setState({
       characterStats: newStats,
       freeAbilityPoints: freeAbilityBoost,

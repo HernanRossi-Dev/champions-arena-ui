@@ -1,10 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { ControlLabel, FormControl, Button } from "react-bootstrap";
 import { Col, FormGroup } from "reactstrap";
-import { TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import styled from 'styled-components';
 import * as cssStyles from "../../../styles/Styles.css";
 
 const styles = {
@@ -340,5 +339,12 @@ const StatsHeaderFormGroup = () => (
     </Col>
   </FormGroup>
 );
+
+CreateCharacter20StatsComponent.propTypes = {
+  freeAbilityPoints: PropTypes.number,
+  setStateStats: PropTypes.func.isRequired,
+  racialBonus: PropTypes.number,
+  backgroundBoost: PropTypes.string,
+};
 
 export default withStyles(styles)(CreateCharacter20StatsComponent);

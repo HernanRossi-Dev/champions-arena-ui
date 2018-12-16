@@ -64,6 +64,7 @@ class CharacterBackgroundComponent extends React.Component {
       style: cssStyles.selectStatButton2,
       styleParent: cssStyles.selectStatButtonParent,
       raceDivStyle,
+      selectedStat: '',
     });
     this.props.setBackground('reset');
   };
