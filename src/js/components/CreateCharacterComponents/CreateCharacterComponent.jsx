@@ -20,6 +20,7 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 import store from "../../store/index.js";
+import { calcAbilityModifierFunc } from "../../CharacterUtils/ability-helpers";
 import CreateCharacterAncestryComponent from "./CreateCharacterAncestryComponent.jsx";
 import CharacterBackgroundComponent from "./CharacterBackgroundComponent";
 import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
@@ -73,6 +74,7 @@ class CreateCharacterComponent extends React.Component {
       name: "",
       class: "",
       characterRace: "",
+      hitPoints: 0,
       racialBonus: {},
       allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
       alignRenderKey: Math.random(),
@@ -213,10 +215,15 @@ class CreateCharacterComponent extends React.Component {
       this.props.history.push("/characters");
     }
     const userName = store.getState().userReducer.currentUserName;
+    const ancestryHP = this.state.ancestryProps.hp;
+    const classHP = this.state.classProps.hp;
+    const constModifier = calcAbilityModifierFunc(this.state.characterStats.CON);
+    const characterHP = ancestryHP + classHP + constModifier;
     this.saveNewCharacter({
       name: this.state.name,
       class: this.state.class,
       race: this.state.characterRace,
+      hitPoints: characterHP,
       level: 1,
       XP: 0,
       STR: this.state.characterStats.STR,
@@ -236,7 +243,7 @@ class CreateCharacterComponent extends React.Component {
       racialBonus: this.state.racialBonus,
       user: userName,
       ancestryProps: this.state.ancestryProps,
-      backgroundProps: this.state.backgroundInfo
+      backgroundProps: this.state.backgroundInfo,
     });
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
