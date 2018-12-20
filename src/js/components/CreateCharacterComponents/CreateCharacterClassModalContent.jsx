@@ -1120,6 +1120,45 @@ export const SelectedClassModalBody = props => {
 
         </div>
       );
+    case "Alchemist":
+      return (
+        <div style={classModalBodyStyle}>
+          <div >
+            <ClassImageComp curClass={props.selectedClass} />
+          </div>
+          <h3>Alchemist</h3>
+          <p>
+          There’s no sight more beautiful to you than a strange brew bubbling
+          in your laboratory’s beakers, and you consume your various creations
+          with abandon. Perhaps you’re fascinated with uncovering the secrets of
+          magic and science, or perhaps you simply like to watch volatile chemical
+          reactions. Regardless, you’re constantly experimenting in your lab or on
+          the go with inventive concoctions tweaked for any eventuality. With your
+          fearlessness in the face of risk, your unique path toward greatness is lined
+          with alchemical brews that push your mind and body to their limits.
+           </p>
+          <h4>Key Ability: </h4>
+          <p>
+          Intelligence
+          </p>
+          <h4>HitPoints: </h4>
+          <p>8 plus Constitution modifier</p>
+          <h3>Proficiencies: </h3>
+          <h4>Perception: </h4>
+          <p>Trained</p>
+          <h4>Saving Throws: </h4>
+          <p>Expert in Fortitude, Expert in Reflex, Trained in Will</p>
+          <h4>Skills: </h4>
+          <p>Trained in a number of skills equal to 2 plus your intelligence modifier</p>
+          <h4>Weapons: </h4>
+          <p>Trained in simple weapons, Trained in alchemical bombs</p>
+          <h4>Armor: </h4>
+          <p>Trained in light armor</p>
+          <h3>Signature Skills: </h3>
+          <p>Arcana, Crafting, Medicine</p>
+
+        </div>
+      );
     default:
       return <div >This should show yet</div>;
   }
@@ -1128,6 +1167,17 @@ export const SelectedClassModalBody = props => {
 const ClassImageComp = props => {
   const currentClass = props.curClass.toString();
   switch (currentClass) {
+    case "Alchemist":
+      return (
+        <img
+          src="https://storage.googleapis.com/championsarenastatic/static/Alchemist - Cogsnap.png"
+          //					{/*694x1000*/ .40}
+          width="277.6"
+          height="400"
+          alt=""
+          className={cssStyles.classModalImageDiv}
+        />
+      );
     case "Monk":
       return (
         <img

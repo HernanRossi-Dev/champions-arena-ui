@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Col,
   ControlLabel,
@@ -17,8 +18,9 @@ import {
   ToggleButton,
   ButtonToolbar
 } from "react-bootstrap";
+import getClassProps from "./create-character-utils/class-props-helper";
 import * as cssStyles from "../../../styles/Styles.css";
-import { SelectedClassModalBody } from "./CreateCharacterClassModalContent.jsx";
+import SelectedClassModalBodyV2 from "./CreateCharacterClassModalV2";
 
 
 export default class CreateCharacterClassComponent extends React.Component {
@@ -38,7 +40,8 @@ export default class CreateCharacterClassComponent extends React.Component {
     if (!targetText) {
       return;
     }
-    this.props.updateClass(targetText);
+    const classProps = getClassProps(targetText);
+    this.props.updateClass(targetText, classProps);
     this.handleShow();
     this.setState({ selectedClass: targetText });
   }
@@ -81,7 +84,7 @@ export default class CreateCharacterClassComponent extends React.Component {
                 className={cssStyles.alignmentButtonGroup}
               >
                 Barbarian
-	            </ToggleButton>
+              </ToggleButton>
               <ToggleButton
                 value="Monk"
                 className={cssStyles.alignmentButtonGroup}
@@ -142,6 +145,12 @@ export default class CreateCharacterClassComponent extends React.Component {
               >
                 Bard
               </ToggleButton>
+              <ToggleButton
+                value="Alchemist"
+                className={cssStyles.alignmentButtonGroup}
+              >
+                Alchemist
+              </ToggleButton>
             </ToggleButtonGroup>
           </ButtonToolbar>
         </Col>
@@ -150,7 +159,7 @@ export default class CreateCharacterClassComponent extends React.Component {
             <Modal.Title>{this.state.selectedClass}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SelectedClassModalBody selectedClass={this.state.selectedClass} />
+            <SelectedClassModalBodyV2 selectedClass={this.state.selectedClass} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
@@ -160,3 +169,7 @@ export default class CreateCharacterClassComponent extends React.Component {
     );
   }
 }
+
+CreateCharacterClassComponent.propTypes = {
+  updateClass: PropTypes.func.isRequired,
+};

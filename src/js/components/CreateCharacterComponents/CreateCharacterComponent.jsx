@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes, { object } from "prop-types";
+import PropTypes from "prop-types";
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
@@ -27,7 +27,6 @@ import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
 import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx";
 import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
 import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
-import CreateCharacterFavouredClassComponent from "./CreateCharacterFavouredClassComponent";
 import CreateCharacter20StatsComponent from "./CreateCharacter20StatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 
@@ -87,6 +86,9 @@ class CreateCharacterComponent extends React.Component {
       showStatsMethod: true,
       freeAbilityPoints: 0,
       baseFreeAbilityPoints: 0,
+      classProps: {
+        hp: 0,
+      }
     };
   }
 
@@ -113,12 +115,13 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ alignment: newAlignment });
   }
 
-  setClass = (newClass) => {
+  setClass = (newClass, classProps) => {
     this.restrictAlignments(newClass);
     this.setState({
       class: newClass,
       alignment: "",
-      alignRenderKey: Math.random()
+      alignRenderKey: Math.random(),
+      classProps
     });
   }
 
