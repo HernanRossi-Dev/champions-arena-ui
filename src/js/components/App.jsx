@@ -36,6 +36,22 @@ import SiteHeaderComponent from "./SiteHeaderComponent";
 const NoMatch = () => <p>Page Not Found</p>;
 const theme = createMuiTheme({
   overrides: {
+    // MuiSelect: {
+    //   underline: {
+    //     '&:before': { //underline color when textfield is inactive
+    //       backgroundColor: '#697785',
+    //       height: '1px',
+    //     },
+    //     '&:hover:not($disabled):before': { //underline color when hovered
+    //       backgroundColor: 'white',
+    //       height: '1px',
+    //     },
+    //     '&:after': {
+    //       backgroundColor: '#df691a',
+    //       height: '1px',
+    //     },
+    //   },
+    // },
     MuiInput: {
       underline: {
         '&:before': { //underline color when textfield is inactive

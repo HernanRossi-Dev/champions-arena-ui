@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-
 import {
   Button,
   ButtonToolbar,
@@ -23,7 +22,7 @@ import store from "../../store/index.js";
 import { calcAbilityModifierFunc } from "../../CharacterUtils/ability-helpers";
 import CreateCharacterAncestryComponent from "./CreateCharacterAncestryComponent.jsx";
 import CharacterBackgroundComponent from "./CharacterBackgroundComponent";
-import CreateCharacterClassComponent from "./CreateCharacterClassComponent.jsx";
+import CreateCharacterClassComponent from "./CharacterClassComponents/CreateCharacterClassComponent.jsx";
 import CreateCharacterGenderComponent from "./CreateCharacterGenderComponent.jsx";
 import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentComponent.jsx";
 import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
@@ -46,6 +45,7 @@ class CreateCharacterComponent extends React.Component {
     this.state = {
       backgroundInfo: {
         selectedStat: null,
+        background: "",
       },
       open: false,
       show: false,
@@ -68,10 +68,12 @@ class CreateCharacterComponent extends React.Component {
         WIS: 10,
         CHA: 10
       },
+      type: '',
       gender: "",
       alignment: "",
       name: "",
       class: "",
+      background: "",
       characterRace: "",
       hitPoints: 0,
       racialBonus: {},
@@ -88,6 +90,7 @@ class CreateCharacterComponent extends React.Component {
       baseFreeAbilityPoints: 0,
       classProps: {
         hp: 0,
+        class: ""
       }
     };
   }
@@ -134,6 +137,9 @@ class CreateCharacterComponent extends React.Component {
 
   setName = (newName) => {
     this.setState({ name: newName });
+  }
+  setType = (newType) => {
+    this.setState({ type: newType });
   }
 
   handleClose = () => {
@@ -192,9 +198,10 @@ class CreateCharacterComponent extends React.Component {
       "name",
       "class",
       "characterRace",
+      "background",
       "alignment",
-      "favouredClass",
-      "gender"
+      "gender",
+      "backgroundBoost",
     ];
     const invalidFields = [];
     let numInvalidFields = 0;
@@ -240,7 +247,7 @@ class CreateCharacterComponent extends React.Component {
       abilities: {},
       traits: {},
       characterNotes: [],
-      type: "Player",
+      type: this.state.type,
       gender: this.state.gender,
       alignment: this.state.alignment,
       racialBonus: this.state.racialBonus,
@@ -318,6 +325,7 @@ class CreateCharacterComponent extends React.Component {
       freeAbilityPoints: freeAbilityBoost,
       backgroundInfo: newProps,
       backgroundBoost: selectedStat,
+      background: newProps.background,
     });
   };
 
@@ -429,7 +437,7 @@ class CreateCharacterComponent extends React.Component {
             </Panel.Title>
           </Panel.Heading>
           <Form horizontal >
-            <CreateCharacterNameComponent updateName={this.setName} />
+            <CreateCharacterNameComponent updateName={this.setName} updateType={this.setType} />
             <hr className={cssStyles.hr} />
             <FormGroup>
               <Col sm={1} />
@@ -457,7 +465,7 @@ class CreateCharacterComponent extends React.Component {
             </FormGroup>
             <div />
             <div />
-              <this.GenStatsMethod />
+            <this.GenStatsMethod />
             <hr className={cssStyles.hr} />
             <CreateCharacterAncestryComponent setAncestry={this.setAncestry} />
             <hr className={cssStyles.hr} />

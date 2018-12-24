@@ -18,8 +18,8 @@ import {
   ToggleButton,
   ButtonToolbar
 } from "react-bootstrap";
-import getClassProps from "./create-character-utils/class-props-helper";
-import * as cssStyles from "../../../styles/Styles.css";
+import getClassProps from "../create-character-utils/class-props-helper";
+import * as cssStyles from "../../../../styles/Styles.css";
 import SelectedClassModalBodyV2 from "./CreateCharacterClassModalV2";
 
 

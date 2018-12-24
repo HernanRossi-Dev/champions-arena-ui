@@ -16,7 +16,6 @@ import {
 } from "react-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 import * as BackGroundData from './create-character-utils/select-background-info';
-import { css } from "glamor";
 
 const ChooseStateTitle = styled.div`
   font-size: 17px !important;

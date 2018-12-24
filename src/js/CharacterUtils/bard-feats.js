@@ -9,7 +9,7 @@ export default function Bard(level) {
       'Lingering Composition': `By adding a flourish, you can make your compositions last longer. You
       learn the lingering composition composition power (see page 235), which you can
       cast at a cost of 1 Spell Point. Increase your Spell Point pool by 2.`,
-      'Moment of Clarity': `In social situations, you can rely on the grandeur of your performances
+      'Versatile Performance': `In social situations, you can rely on the grandeur of your performances
       rather than ordinary social skills. You can use Performance instead of Diplomacy to
       Make an Impression and instead of Intimidation to Demoralize. You can also use an
       acting performance instead of Deception to Impersonate.`,

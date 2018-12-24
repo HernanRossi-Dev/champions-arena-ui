@@ -146,7 +146,7 @@ class NavBarComponent extends React.Component {
               </LinkContainer>
               <LinkContainer to="/createNPC">
                 <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>
-                  New Non-Player Character
+                  New Creature
                 </MenuItem>
               </LinkContainer>
             </NavDropdown>
