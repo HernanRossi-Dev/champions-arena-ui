@@ -237,4 +237,4 @@ class NavBarComponent extends React.Component {
   }
 }
 
-export default withRouter(connect()(NavBarComponent));
+export default withRouter(connect(null, null, null, { pure: false })(NavBarComponent));
