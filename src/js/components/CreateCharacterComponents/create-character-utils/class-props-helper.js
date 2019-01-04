@@ -168,7 +168,6 @@ export default function getClassProps(className) {
           'Primal spell rolls': 'Trained',
           'Primal spell DCs': 'Trained',
           'Primal spell attack rolls': 'Trained',
-
         },
         signatureSkills: ['Crafting', 'Nature', 'Survivla', 'Order'],
         classFeatures: ['Primal Spellcasting', 'Heightening Spells',
@@ -292,6 +291,120 @@ export default function getClassProps(className) {
         signatureSkills: ['Acrobatics', 'Athletics', 'Crafting', 'Nature', 'Stealth', 'Survival'],
         classFeatures: ['Hunt Target'],
         items: ''
+      });
+    case 'Rogue':
+      return ({
+        class: 'Rogue',
+        keyAbility: 'DEX',
+        hp: 8,
+        proficiencies: {
+          Perception: 'Expert'
+        },
+        savingThrows: {
+          Fortitude: 'Trained',
+          Reflex: 'Expert',
+          Will: 'Expert',
+        },
+        skills: {
+          trained: 10,
+          additionalModifier: 'INT',
+        },
+        weapons: {
+          simple: 'Trained',
+          'hand crossbow': 'Trained',
+          rapier: 'Trained',
+          sap: 'Trained',
+          shortbow: 'Trained',
+          shortsword: 'Trained',
+        },
+        armor: {
+          light: 'Trained',
+        },
+        signatureSkills: [
+          'Acrobatics',
+          'Athletics',
+          'Crafting',
+          'Deception',
+          'Diplomacy',
+          'Intimidation',
+          'Performance',
+          'Society',
+          'Stealth',
+          'Thievery',
+        ],
+        classFeatures: ['Finesse Striker', 'Sneak Attack', 'Surprise Attack'],
+        items: ''
+      });
+    case 'Sorcerer':
+      return ({
+        class: 'Sorcerer',
+        keyAbility: 'CHA',
+        hp: 6,
+        proficiencies: {
+          Perception: 'Trained'
+        },
+        savingThrows: {
+          Fortitude: 'Trained',
+          Reflex: 'Trained',
+          Will: 'Expert',
+        },
+        skills: {
+          trained: 5,
+          additionalModifier: 'INT',
+        },
+        weapons: {
+          simple: 'Trained',
+        },
+        armor: {
+        },
+        signatureSkills: [
+          'Crafting',
+        ],
+        spells: {
+          'Bloodline spell rolls': 'Trained',
+          'Bloodline spell DCs': 'Trained',
+          'Bloodline spell attack rolls': 'Trained',
+        },
+        classFeatures: ['Bloodline', 'Sorcerer Spellcasting', 'Spell Repertoire', 'Cantrips', 'Heightening Spells'],
+        items: ''
+      });
+    case 'Wizard':
+      return ({
+        class: 'Wizard',
+        keyAbility: 'INT',
+        hp: 6,
+        proficiencies: {
+          Perception: 'Trained'
+        },
+        savingThrows: {
+          Fortitude: 'Trained',
+          Reflex: 'Trained',
+          Will: 'Expert',
+        },
+        skills: {
+          trained: 2,
+          additionalModifier: 'INT',
+        },
+        weapons: {
+          club: 'Trained',
+          dagger: 'Trained',
+          staff: 'Trained',
+          'heavy crossbow': 'Trained',
+          'light crossbow': 'Trained',
+        },
+        armor: {
+        },
+        signatureSkills: [
+          'Crafting',
+          'Arcana'
+        ],
+        spells: {
+          'Arcane spell rolls': 'Trained',
+          'Arcane spell DCs': 'Trained',
+          'Arcane spell attack rolls': 'Trained',
+        },
+        classFeatures: ['Arcane Spellcasting', 'Spell Repertoire', 'Cantrips', 'Heightening Spells', 'Arcane Focus', 'Arcane School', 'Drain Arcane Focus'],
+        items: 'Spellbook'
       });
     default:
       return {};

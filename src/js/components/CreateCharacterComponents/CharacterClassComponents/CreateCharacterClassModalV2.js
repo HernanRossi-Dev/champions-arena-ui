@@ -55,11 +55,163 @@ export default function SelectedClassModalBodyV2(props) {
         </div>
       );
     case "Wizard":
-      break;
+      return (
+        <div style={classModalBodyStyle}>
+          <div >
+            <ClassImageComponent curClass={props.selectedClass} />
+          </div>
+          <h3>Wizard</h3>
+          <p>
+          You are an eternal student of the arcane secrets of the universe. You
+          treat magic like a science, cross-referencing the latest texts on practical
+          spellcraft with ancient tomes of lost magic to discover and understand
+          how magic works. Yet magical theory is vast, and there’s no way you can
+          study it all. You either specialize in one of the eight schools of magic,
+          gaining deeper understanding of the nuances of those spells above all
+          others, or favor a broader approach emphasizing the way all magic
+          comes together at the expense of depth.
+          </p>
+          <h4>Key Ability: </h4>
+          <p>
+          Intelligence
+          </p>
+          <h4>HitPoints: </h4>
+          <p>6 plus Constitution modifier</p>
+          <h3>Proficiencies: </h3>
+          <h4>Perception: </h4>
+          <p>Trained</p>
+          <h4>Saving Throws: </h4>
+          <p>Trained in Fortitude, Trained in Reflex, Expert in Will</p>
+          <h4>Skills: </h4>
+          <p>Trained in a number of skills equal to
+          2 plus your Intelligence modifier
+          </p>
+          <h4>Weapons: </h4>
+          <p>Trained in the club, dagger, heavy
+          crossbow, light crossbow, and staff
+          </p>
+          <h4>Armor: </h4>
+          <p>Untrained in all armor
+          </p>
+          <h3>Spells: </h3>
+          <p>
+          Trained in arcane spell rolls and DCs and
+          in attack rolls for arcane spells
+          </p>
+          <h3>Signature Skills: </h3>
+          <p>
+          Arcana,
+          Crafting
+          </p>
+        </div>
+      );
     case "Sorcerer":
-      break;
+      return (
+        <div style={classModalBodyStyle}>
+          <div >
+            <ClassImageComponent curClass={props.selectedClass} />
+          </div>
+          <h3>Sorcerer</h3>
+          <p>
+          You didn’t choose to become a spellcaster—you were born one. There’s
+          magic in your blood, whether divinity touched one of your ancestors, a
+          forebear communed with a primal creature, or a powerful occult ritual
+          has influenced your line. Regardless, self-reflection and study allow you
+          to refine your inherent magical skills and continuously unlock new
+          and more powerful abilities. The power in your blood carries a risk,
+          however, and you constantly face the choice of whether you’ll rise to
+          become a master spellcaster or fall into destruction.
+          </p>
+          <h4>Key Ability: </h4>
+          <p>
+          Charisma
+          </p>
+          <h4>HitPoints: </h4>
+          <p>6 plus Constitution modifier</p>
+          <h3>Proficiencies: </h3>
+          <h4>Perception: </h4>
+          <p>Trained</p>
+          <h4>Saving Throws: </h4>
+          <p>Trained in Fortitude, Trained in Reflex, Expert in Will</p>
+          <h4>Skills: </h4>
+          <p>Trained in a number of skills equal to
+          5 plus your Intelligence modifier
+          </p>
+          <h4>Weapons: </h4>
+          <p>Trained in simple weapons
+          </p>
+          <h4>Armor: </h4>
+          <p>Untrained in all armor
+          </p>
+          <h3>Spells: </h3>
+          <p>
+          Trained in arcane, divine, occult, or
+          primal spell rolls and DCs, as well as
+          attack rolls in the same tradition, as
+          indicated by your bloodline
+          </p>
+          <h3>Signature Skills: </h3>
+          <p>
+          Crafting,
+          One or more determined by your bloodline
+          </p>
+        </div>
+      );
     case "Rogue":
-      break;
+      return (
+        <div style={classModalBodyStyle}>
+          <div >
+            <ClassImageComponent curClass={props.selectedClass} />
+          </div>
+          <h3>Rogue</h3>
+          <p>
+          You are skilled and opportunistic, and you use your sharp wits to take
+          advantage of your opponents’ missteps in order to strike where it hurts
+          most. While the stereotypical rogue is a thief or scoundrel, plenty of
+          rogues make respectable and honorable livings as bounty hunters,
+          detectives, or scouts, and even sometimes as aristocrats, diplomats, or
+          politicians. One thing you all share in common is the breadth and
+          depth of your training in skills, easily outpacing your more martially or
+          magically inclined comrades.
+          </p>
+          <h4>Key Ability: </h4>
+          <p>
+          Dexterity
+          </p>
+          <h4>HitPoints: </h4>
+          <p>8 plus Constitution modifier</p>
+          <h3>Proficiencies: </h3>
+          <h4>Perception: </h4>
+          <p>Expert</p>
+          <h4>Saving Throws: </h4>
+          <p>Trained in Fortitude, Expert in Reflex, Expert in Will</p>
+          <h4>Skills: </h4>
+          <p>Trained in a number of skills equal to
+          10 plus your Intelligence modifier
+          </p>
+          <h4>Weapons: </h4>
+          <p>Trained in all simple weapons, plus the
+          hand crossbow, rapier, sap, shortbow, and
+          shortsword
+          </p>
+          <h4>Armor: </h4>
+          <p>Trained in light armor
+          </p>
+          <h3>Signature Skills: </h3>
+          <p>
+          Acrobatics,
+          Athletics,
+          Crafting,
+          Deception,
+          Diplomacy,
+          Intimidation,
+          Performance,
+          Society,
+          Stealth,
+          Thievery,
+          </p>
+        </div>
+      );
     case "Ranger":
       return (
         <div style={classModalBodyStyle}>
