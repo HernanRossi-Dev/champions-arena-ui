@@ -52,13 +52,11 @@ export default function ArcaneSchools(school) {
       (such as magic weapon) to your spellbook. You learn the
       physical boost school power, which you
       can cast at a cost of 1 Spell Point.`,
-    'Universalist Wizard': `You can choose not to specialize in an arcane school and
+    Universalist: `You can choose not to specialize in an arcane school and
       to instead become a universalist wizard. If you do, you
       can use Drain Arcane Focus once each day per each spell
       level you can cast, instead of only once per day. You also
       gain an extra wizard class feat.`
   };
-
-
-  return arcaneSchools[school] || arcaneSchools;
+  return arcaneSchools[school];
 }

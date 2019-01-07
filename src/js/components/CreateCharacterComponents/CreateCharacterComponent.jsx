@@ -28,6 +28,7 @@ import CreateCharacterAlignmentComponent from "./CreateCharacterAlignmentCompone
 import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
 import CreateCharacter20StatsComponent from "./CreateCharacter20StatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
+import CreateCharacterArcaneSchool from "./CharacterClassComponents/CreateCharacterArcaneSchool";
 
 
 const styles = theme => ({
@@ -106,10 +107,6 @@ class CreateCharacterComponent extends React.Component {
     }
   }
 
-  setFavouredClass = (newFavClass) => {
-    this.setState({ favouredClass: newFavClass });
-  }
-
   setGender = (newGender) => {
     this.setState({ gender: newGender });
   }
@@ -118,10 +115,11 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ alignment: newAlignment });
   }
 
-  setClass = (newClass, classProps) => {
-    this.restrictAlignments(newClass);
+  setClass = (classProps) => {
+    console.log('newClassProps: ', classProps);
+    this.restrictAlignments(classProps.class);
     this.setState({
-      class: newClass,
+      class: classProps.class,
       alignment: "",
       alignRenderKey: Math.random(),
       classProps
@@ -254,6 +252,7 @@ class CreateCharacterComponent extends React.Component {
       user: userName,
       ancestryProps: this.state.ancestryProps,
       backgroundProps: this.state.backgroundInfo,
+      classProps: this.state.classProps,
     });
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
@@ -370,6 +369,31 @@ class CreateCharacterComponent extends React.Component {
     return null;
   };
 
+  setArcaneSchool = (newSchool) => {
+    const wizardProps = this.state.classProps;
+    wizardProps.arcaneSchool = newSchool;
+    this.setState({ classProps: wizardProps });
+  }
+
+  setClassExtras = () => {
+    let renderClassExtra;
+    if (this.state.class === "Cleric") {
+      renderClassExtra = <div>Display dieties</div>
+    } else if (this.state.class === "Sorcerer") {
+      renderClassExtra = <div>Display Bloodlines</div>
+    } else if (this.state.class === "Wizard") {
+      renderClassExtra = (
+        <div>
+          <hr className={cssStyles.hr} />
+          <CreateCharacterArcaneSchool setArcaneSchool={this.setArcaneSchool}/>
+        </div>
+      );
+    } else {
+      renderClassExtra = null;
+    }
+    return renderClassExtra;
+  };
+
   InvalidFields = () => {
     return (
       <ul>
@@ -472,6 +496,7 @@ class CreateCharacterComponent extends React.Component {
             <CharacterBackgroundComponent setBackground={this.setBackground} />
             <hr className={cssStyles.hr} />
             <CreateCharacterClassComponent updateClass={this.setClass} />
+            <this.setClassExtras />
             <hr className={cssStyles.hr} />
 
             <CreateCharacterGenderComponent updateGender={this.setGender} />

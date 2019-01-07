@@ -4,15 +4,7 @@ import {
   Col,
   ControlLabel,
   FormGroup,
-  FormControl,
-  Popover,
-  Tooltip,
   Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-  OverlayTrigger,
   Button,
   ToggleButtonGroup,
   ToggleButton,
@@ -26,41 +18,32 @@ import SelectedClassModalBodyV2 from "./CreateCharacterClassModalV2";
 export default class CreateCharacterClassComponent extends React.Component {
   constructor(props) {
     super();
-    this.setClass = this.setClass.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.state = {
       show: false,
       selectedClass: "",
     };
   }
 
-  setClass(e) {
+  setClass = (e) => {
     const targetText = e.target.textContent.toString();
     if (!targetText) {
       return;
     }
     const classProps = getClassProps(targetText);
-    this.props.updateClass(targetText, classProps);
+    this.props.updateClass(classProps);
     this.handleShow();
     this.setState({ selectedClass: targetText });
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false });
   }
 
-  handleShow() {
+  handleShow = () => {
     this.setState({ show: true });
   }
 
   render() {
-    const popover = (
-      <Popover id="modal-popover" title="popover">
-        Placeholder text for popover
-      </Popover>
-    );
-    const tooltip = <Tooltip id="modal-tooltip">Tooltip text </Tooltip>;
     return (
       <FormGroup>
         <Col sm={1} />
