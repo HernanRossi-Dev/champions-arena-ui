@@ -29,6 +29,7 @@ import CreateCharacterNameComponent from "./CreateCharacterNameComponent.jsx";
 import CreateCharacter20StatsComponent from "./CreateCharacter20StatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 import CreateCharacterArcaneSchool from "./CharacterClassComponents/CreateCharacterArcaneSchool";
+import CreateCharacterDeity from "./CharacterClassComponents/CreateCharacterDeity";
 
 
 const styles = theme => ({
@@ -374,11 +375,22 @@ class CreateCharacterComponent extends React.Component {
     wizardProps.arcaneSchool = newSchool;
     this.setState({ classProps: wizardProps });
   }
+  setDeity = (newDeityProps) => {
+    console.log('diety props: ', newDeityProps);
+    const clericProps = this.state.classProps;
+    clericProps.deityProps = newDeityProps;
+    this.setState({ classProps: clericProps });
+  }
 
   setClassExtras = () => {
     let renderClassExtra;
     if (this.state.class === "Cleric") {
-      renderClassExtra = <div>Display dieties</div>
+      renderClassExtra = (
+        <div>
+          <hr className={cssStyles.hr} />
+          <CreateCharacterDeity setDeity={this.setDeity}/>
+        </div>
+      );
     } else if (this.state.class === "Sorcerer") {
       renderClassExtra = <div>Display Bloodlines</div>
     } else if (this.state.class === "Wizard") {
