@@ -5,11 +5,8 @@ export default function Bloodlines(bloodline) {
       the earth. Ancient and unknowable, this alien influence
       presses against your mind, but grants you power. Whether
       that power will come with consequences, who can say?`,
-      Spells: {
-
-      },
       'Signature Skills': ['Acrobatics', 'Intimidation', 'Occultism', 'Stealth'],
-      'Granted Spells': {
+      Spells: {
         Cantrip: 'daze',
         1: 'phantom pain',
         2: 'enlarge',
@@ -32,11 +29,8 @@ export default function Bloodlines(bloodline) {
       description: `One of your forebears was an angel from one of the
       celestial realms, or your ancestors showed such devotion
       that their lineage was blessed through divine intervention.`,
-      Spells: {
-
-      },
       'Signature Skills': ['Diplomacy', 'Intimidation', 'Medicine', 'Religion'],
-      'Granted Spells': {
+      Spells: {
         Cantrip: 'detect magic',
         1: 'bless',
         2: 'restoration',
@@ -61,11 +55,8 @@ export default function Bloodlines(bloodline) {
         You’re burdened with dark thoughts and the desire for
         destruction. This urge can be overcome if you choose to
         fight it, but the beauty of sin calls to you always.`,
-      Spells: {
-
-      },
       'Signature Skills': ['Athletics', 'Deception', 'Intimidation', 'Religion'],
-      'Granted Spells': {
+      Spells: {
         Cantrip: 'detect magic',
         1: 'fear',
         2: 'resist energy',
@@ -88,11 +79,8 @@ export default function Bloodlines(bloodline) {
       description: `The blood of dragons flows through your veins. These
         beasts are both fearsome in combat and skilled at magic,
         and you follow in their grand tradition.`,
-      Spells: {
-
-      },
       'Signature Skills': ['Acrobatics', 'Arcana', 'Athletics', 'Intimidation'],
-      'Granted Spells': {
+      Spells: {
         Cantrip: 'detect magic',
         1: 'fear',
         2: 'resist energy',
@@ -115,11 +103,8 @@ export default function Bloodlines(bloodline) {
       description: `A tryst in a moonlit grove or exposure to fey magic put
         the enchantment of the First World into your family’s
         bloodline. You can be capricious and emotional as the fey.`,
-      Spells: {
-
-      },
       'Signature Skills': ['Arcana', 'Deception', 'Diplomacy', 'Nature'],
-      'Granted Spells': {
+      Spells: {
         Cantrip: 'ghost sound',
         1: 'charm',
         2: 'hideous laughter',
@@ -143,11 +128,8 @@ export default function Bloodlines(bloodline) {
         your distant ancestors was among them. Though such
         magical blood might remain latent for generations, in you
         it manifested in full.`,
-      Spells: {
-
-      },
       'Signature Skills': ['Arcana', 'Diplomacy', 'Intimidation', 'Society'],
-      'Granted Spells': {
+      Spells: {
         Cantrip: 'detect magic',
         1: 'fear',
         2: 'invisibility',

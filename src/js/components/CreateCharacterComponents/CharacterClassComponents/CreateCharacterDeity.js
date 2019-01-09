@@ -18,7 +18,7 @@ const DeityText = styled.div`
   font-size: 16px !important;
   font-family: 'Josefin Sans', sans-serif;
   text-align: left;
-  padding-left: 35%;
+  padding-left: 45%;
   margin-bottom: -40px;
   width: 100%;
 `;
@@ -58,27 +58,10 @@ export default class CreateCharacterDeity extends React.Component {
     this.props.setDeity(deityProps);    
   };
 
-  createDeityText = (deityProps) => {
-    if (!deityProps) return;
-   
-    return (
-        <div>
-            <div><strong>Areas of Concern:</strong> <i>{deityProps.AoC.reduce(reducer)}</i></div>
-            <div><strong>Allowed Alignments:</strong> <i>{deityProps.Alignment.reduce(reducer)}</i></div>
-            <div><strong>Channel:</strong> <i>{deityProps.Channel.reduce(reducer)}</i></div>
-            <div><strong>Skill:</strong> <i>{deityProps.Skill}</i></div>
-            <div><strong>Weapon:</strong> <i>{deityProps.Weapon}</i></div>
-            <div><strong>Domains:</strong> <i>{deityProps.Domains.reduce(reducer)}</i></div>
-            <div><strong>Deity Spells:</strong></div>
-            <i>{ Object.keys(deityProps.Spells).map((level)=> {
-              <div><strong>Level</strong> ${level}: ${deityProps.Spells[level]}</div>
-            })}</i>
-        </div>
-    );
-  };
-
   render() {
     const reducer = (acc, curr) => acc + ' ' + curr;
+    const aliasReducer = (acc, curr) => acc + ' \"' + curr + '\"';
+
     return (
       <FormGroup>
         <Col sm={1} />
@@ -223,12 +206,18 @@ export default class CreateCharacterDeity extends React.Component {
         <Col sm={1} />
         <FormGroup>
           <Col sm={2} />
-          <Col sm={10}>
+          <Col sm={9}>
             <Collapse in={this.state.showDeityInfo} >
               <div>
                 <Well style={{ backgroundColor: 'transparent' }}>
                   <DeityText>
                     <div>
+                      {
+                        this.state.deityProps.Aliases ? 
+                        (
+                          <div><strong>Aliases:</strong> <i>{this.state.deityProps.Aliases.reduce(aliasReducer, '')}</i></div>
+                        ) : null
+                      }
                       <div><strong>Areas of Concern:</strong> <i>{this.state.deityProps.AoC.reduce(reducer, '')}</i></div>
                       <div><strong>Allowed Alignments:</strong> <i>{this.state.deityProps.Alignment.reduce(reducer, '')}</i></div>
                       <div><strong>Channel:</strong> <i>{this.state.deityProps.Channel.reduce(reducer, '')}</i></div>

@@ -30,6 +30,7 @@ import CreateCharacter20StatsComponent from "./CreateCharacter20StatsComponent";
 import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 import CreateCharacterArcaneSchool from "./CharacterClassComponents/CreateCharacterArcaneSchool";
 import CreateCharacterDeity from "./CharacterClassComponents/CreateCharacterDeity";
+import CreateCharacterBloodlines from "./CharacterClassComponents/CreateCharacterBloodlines";
 
 
 const styles = theme => ({
@@ -375,11 +376,19 @@ class CreateCharacterComponent extends React.Component {
     wizardProps.arcaneSchool = newSchool;
     this.setState({ classProps: wizardProps });
   }
+
   setDeity = (newDeityProps) => {
-    console.log('diety props: ', newDeityProps);
     const clericProps = this.state.classProps;
     clericProps.deityProps = newDeityProps;
-    this.setState({ classProps: clericProps });
+    const allowedAlignments = newDeityProps.Alignment;
+    this.setState({ classProps: clericProps, allowedAlignments });
+  }
+
+  setBloodline = (newBloodline) => {
+    const sorcererProps = this.state.classProps;
+    sorcererProps.bloodline = newBloodline;
+    console.log('Sorcerer props: ', sorcererProps);
+    this.setState({ classProps: sorcererProps });
   }
 
   setClassExtras = () => {
@@ -392,7 +401,12 @@ class CreateCharacterComponent extends React.Component {
         </div>
       );
     } else if (this.state.class === "Sorcerer") {
-      renderClassExtra = <div>Display Bloodlines</div>
+      renderClassExtra = (
+        <div>
+          <hr className={cssStyles.hr} />
+          <CreateCharacterBloodlines setBloodline={this.setBloodline}/>
+        </div>
+      );
     } else if (this.state.class === "Wizard") {
       renderClassExtra = (
         <div>
@@ -626,102 +640,24 @@ class CreateCharacterComponent extends React.Component {
 
   restrictAlignments(newClass) {
     switch (newClass) {
-      case "Monk":
-        this.setState({ allowedAlignments: ["LG", "LN", "LE"] });
-        break;
-      case "Wizard":
-        this.setState({
-          allowedAlignments: [
-            "LG",
-            "NG",
-            "CG",
-            "LN",
-            "N",
-            "CN",
-            "LE",
-            "NE",
-            "CE"
-          ]
-        });
-        break;
-      case "Fighter":
-        this.setState({
-          allowedAlignments: [
-            "LG",
-            "NG",
-            "CG",
-            "LN",
-            "N",
-            "CN",
-            "LE",
-            "NE",
-            "CE"
-          ]
-        });
-        break;
-      case "Druid":
-        this.setState({ allowedAlignments: ["NG", "LN", "N", "CN", "NE"] });
-        break;
-      case "Ranger":
-        this.setState({
-          allowedAlignments: [
-            "LG",
-            "NG",
-            "CG",
-            "LN",
-            "N",
-            "CN",
-            "LE",
-            "NE",
-            "CE"
-          ]
-        });
-        break;
-      case "Cleric":
-        this.setState({
-          allowedAlignments: []
-        });
-        break;
-      case "Rogue":
-        this.setState({
-          allowedAlignments: [
-            "LG",
-            "NG",
-            "CG",
-            "LN",
-            "N",
-            "CN",
-            "LE",
-            "NE",
-            "CE"
-          ]
-        });
-        break;
-      case "Sorcerer":
-        this.setState({
-          allowedAlignments: [
-            "LG",
-            "NG",
-            "CG",
-            "LN",
-            "N",
-            "CN",
-            "LE",
-            "NE",
-            "CE"
-          ]
-        });
-        break;
       case "Paladin":
         this.setState({ allowedAlignments: ["LG"] });
         break;
-      case "Barbarian":
-        this.setState({
-          allowedAlignments: ["NG", "CG", "N", "CN", "NE", "CE"]
-        });
-        break;
       default:
-        break;
+      this.setState({
+        allowedAlignments: [
+          "LG",
+          "NG",
+          "CG",
+          "LN",
+          "N",
+          "CN",
+          "LE",
+          "NE",
+          "CE"
+        ]
+      });
+      break;
     }
   }
 }

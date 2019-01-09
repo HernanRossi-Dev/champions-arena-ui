@@ -191,8 +191,9 @@ export default function ClericDieties(deity) {
     },
     Norgorber: {
       Name: "Norgorber",
-      AoC: ['Greed', 'Murder', 'Poison', 'Secrets', 'Ally of Poisoners Blackfinger',
-        'Murderous Father Skinsaw', 'The Theiving Gray Master', 'The Secretive Reaper of Reputation'],
+      Aliases: ['Ally of Poisoners Blackfinger',
+      'Murderous Father Skinsaw', 'The Theiving Gray Master', 'The Secretive Reaper of Reputation'],
+      AoC: ['Greed', 'Murder', 'Poison', 'Secrets'],
       Alignment: ["LE", 'NE', 'CE', 'N'],
       Channel: ["Negative"],
       Skill: 'Stealth',

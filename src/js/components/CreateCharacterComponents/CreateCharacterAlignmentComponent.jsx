@@ -43,7 +43,7 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
     if (props.allowedAlignments.length < 1) {
       this.setState({
         clericAlignmentPrompt:
-          "The alignment you choose as a Cleric will determine which deities are available to choose.",
+          "Alignments restricted by chosen cleric diety.",
         allowedAlignments: [
           "LG",
           "NG",
@@ -394,9 +394,8 @@ export default class CreateCharacterAlignmentComponent extends React.Component {
           </Col>
         </FormGroup>
         <FormGroup>
-          <Col sm={1} />
+          <Col sm={2} />
           <Col sm={8}>
-            {/*<AlignmentTextToggle />*/}
 	          <Collapse in={this.state.showAlignment} style={alignmentDivStyle}>
 		          <div>
 			          <Well style={{backgroundColor:'transparent'}}>
