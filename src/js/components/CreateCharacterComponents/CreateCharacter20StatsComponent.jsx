@@ -1,10 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import styled from "styled-components";
 import { ControlLabel, FormControl, Button } from "react-bootstrap";
 import { Col, FormGroup } from "reactstrap";
 import { withStyles } from "@material-ui/core/styles";
 import * as cssStyles from "../../../styles/Styles.css";
+
+const BoostText = styled.div`
+  font-size: 16px !important;
+  font-family: 'Josefin Sans', sans-serif;
+  padding-left: 25px;
+`;
 
 const styles = {
   root: {
@@ -46,207 +52,54 @@ class CreateCharacter20StatsComponent extends React.Component {
     this.setState({ characterStats: props.characterStats, freeAbilityPoints: props.freeAbilityPoints });
   }
 
-  increaseStat = (e) => {
-	  let newCharStats = this.state.characterStats;
-	  if (this.state.characterStats[e.currentTarget.name] < 30) {
-      switch (e.currentTarget.name) {
-        case "STR":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.STR += 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-	      case "DEX":
-		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.DEX += 1;
-		      this.setState({ characterStats: newCharStats });
-		      break;
-	      case "CON":
-		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.CON += 1;
-		      this.setState({ characterStats: newCharStats });
-		      break;
-	      case "INT":
-		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.INT += 1;
-		      this.setState({ characterStats: newCharStats });
-		      break;
-	      case "WIS":
-		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.WIS += 1;
-		      this.setState({ characterStats: newCharStats });
-		      break;
-	      case "CHA":
-		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.CHA += 1;
-		      this.setState({ characterStats: newCharStats });
-		      break;
-        default:
-          break;
-      }
-		  this.props.setStateStats(newCharStats);
-    }
-  }
-
-  decreaseStat = (e) => {
-    let newCharStats = this.state.characterStats;
-    if (this.state.characterStats[e.currentTarget.name] > 0) {
-
-      switch (e.currentTarget.name) {
-        case "STR":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.STR -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "DEX":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.DEX -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "CON":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.CON -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "INT":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.INT -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "WIS":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.WIS -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "CHA":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.CHA -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        default:
-          break;
-      }
-	    this.props.setStateStats(newCharStats);
-    }
-  }
-
   ShowRacialBonus = () => {
     let freeStateBonus;
     if (this.props.freeAbilityPoints) {
-      freeStateBonus = `\nFree Ability Boosts available: ${this.state.freeAbilityPoints}\n (assign next step)`;
+      freeStateBonus = `\nFree Ability Boosts available: ${this.state.freeAbilityPoints}`;
     }
-    let infoString = null;
+    let infoString;
+    let ancestryString;
+    let backgroundString;
+    let classString;
 
     if (this.props.racialBonus) {
       const rBon = this.props.racialBonus;
       Object.keys(rBon).forEach((stat) => {
         if (!infoString) {
-          infoString = "Ability Boosts applied to stats: ";
+          ancestryString = 'Ancestry Boost: ';
+          infoString = `Ability Boosts applied to stats:`;
         }
-        if (rBon[stat] > 0) {
-          infoString += `${stat}: ${rBon[stat]}, `;
-        } else {
-          infoString += `${stat}: ${rBon[stat]}, `;
-        }
+        ancestryString += `${stat}: ${rBon[stat]}, `;
       });
     }
     if (this.props.backgroundBoost) {
-      if (infoString) {
-        infoString += `${this.props.backgroundBoost}: 2, `;
-      } else {
-        infoString = `Ability Boosts applied to stats: ${this.props.backgroundBoost}: 2`;
+      if (!infoString) {
+        infoString = `Ability Boosts applied to stats:`;
+      } 
+      backgroundString = `Background Boost: ${this.props.backgroundBoost}: 2, `;
+    }
+    if (this.props.classBoost) {
+      if (!infoString) {
+        infoString = `Ability Boosts applied to stats:`;
       }
+      classString = `Class Boost: ${this.props.classBoost}: 2, `;
     }
     return (
-      <div>
+      <BoostText>
         <div style={{ wordSpacing: '3px' }}>{infoString}</div>
-        <div style={{ wordSpacing: '3px' }}>{freeStateBonus}</div>
-      </div>
+        {this.props.racialBonus ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{ancestryString}</div> : null}
+        {this.props.backgroundBoost ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{backgroundString}</div> : null}
+        {this.props.classBoost ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{classString}</div> : null}
+        <div style={{ wordSpacing: '3px' }}>{freeStateBonus} <i>assign next step</i></div>
+      </BoostText>
     );
   };
 
   render() {
-    const PlusButtonFormGroup = () => (
-      <FormGroup className={cssStyles.customStatsIcons} >
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.increaseStat} name="STR" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-plus" id="STR" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.increaseStat} name="DEX" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-plus" id="DEX" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.increaseStat} name="CON" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-plus" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.increaseStat} name="INT" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-plus" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.increaseStat} name="WIS" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-plus" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.increaseStat} name="CHA" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-plus" />
-          </Button>
-        </Col>
-      </FormGroup>
-    );
-    const MinusButtonFormGroup = () => (
-      <FormGroup className={cssStyles.customStatsIcons}>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.decreaseStat} name="STR" style={{ backgroundColor: 'transparent' }}>
-            <i className="fas fa-minus" id="STR"/>
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.decreaseStat} name="DEX" style={{ backgroundColor: 'transparent' }}>
-            <i className="fas fa-minus" id="DEX"/>
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.decreaseStat} name="CON" style={{ backgroundColor: 'transparent' }}>
-            <i className="fas fa-minus" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.decreaseStat} name="INT" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-minus" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.decreaseStat} name="WIS" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-minus" />
-          </Button>
-        </Col>
-        <Col sm={2}>
-          <Button bsSize="small" onClick={this.decreaseStat} name="CHA" style={{ backgroundColor: 'transparent' }}>
-            {" "}
-            <i className="fas fa-minus" />
-          </Button>
-        </Col>
-      </FormGroup>
-    );
 
     return (
       <div>
         <StatsHeaderFormGroup />
-        {/*  <PlusButtonFormGroup /> */}
         <FormGroup>
           <Col sm={3} />
           <Col sm={1}>
@@ -280,7 +133,6 @@ class CreateCharacter20StatsComponent extends React.Component {
             </FormControl.Static>
           </Col>
         </FormGroup>
-        {/*  <MinusButtonFormGroup /> */}
         <FormGroup>
           <Col sm={4} />
           <Col sm={6}>

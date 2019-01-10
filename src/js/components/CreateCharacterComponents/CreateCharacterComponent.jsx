@@ -89,8 +89,9 @@ class CreateCharacterComponent extends React.Component {
       chooseStatsMethod: "2.0",
       previousStatsMethod: "2.0",
       showStatsMethod: true,
-      freeAbilityPoints: 0,
-      baseFreeAbilityPoints: 0,
+      freeAbilityPoints: 4,
+      baseFreeAbilityPoints: 4,
+      classAbilityBoost: null,
       classProps: {
         hp: 0,
         class: ""
@@ -115,17 +116,6 @@ class CreateCharacterComponent extends React.Component {
 
   setAlignment = (newAlignment) => {
     this.setState({ alignment: newAlignment });
-  }
-
-  setClass = (classProps) => {
-    console.log('newClassProps: ', classProps);
-    this.restrictAlignments(classProps.class);
-    this.setState({
-      class: classProps.class,
-      alignment: "",
-      alignRenderKey: Math.random(),
-      classProps
-    });
   }
 
   setStateStats = (newStatsObject) => {
@@ -259,12 +249,35 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ numberOfCharacters: this.state.numberOfCharacters + 1 });
   }
 
+  setClass = (classProps) => {
+    const newClassBoost = classProps.keyAbility;
+    let classBoost = this.state.characterStats;
+    const prevClassBoost = this.state.classAbilityBoost;
+    if (prevClassBoost) {
+      classBoost[prevClassBoost] -= 2;
+    }
+    classBoost[newClassBoost] += 2;
+    this.restrictAlignments(classProps.class);
+    this.setState({
+      class: classProps.class,
+      alignment: "",
+      alignRenderKey: Math.random(),
+      classProps,
+      characterStats: classBoost,
+      classAbilityBoost: newClassBoost
+    });
+  }
+
   setAncestry = (newRace, ancestryProps) => {
     const bonusPoints = ancestryProps.statsBonus;
     const { freeAbilityPoints } = ancestryProps;
-    const subtractPrevPoints = this.state.characterRace === 'Human' ? 2 : 1;
-    let newBaseFreeAbilityPoints = this.state.baseFreeAbilityPoints - subtractPrevPoints;
-    newBaseFreeAbilityPoints += freeAbilityPoints;
+    let newFreeAbilityPoints = this.state.freeAbilityPoints;
+    if ( this.state.freeAbilityPoints !== 4 ){
+      const subtractPrevPoints = this.state.characterRace === 'Human' ? 2 : 1;
+      newFreeAbilityPoints -= subtractPrevPoints;
+    }
+   
+    newFreeAbilityPoints += freeAbilityPoints;
     if (newRace === this.state.characterRace) {
       return;
     }
@@ -284,8 +297,7 @@ class CreateCharacterComponent extends React.Component {
         characterStats: newStats,
         characterRace: newRace,
         racialBonus: bonusPoints,
-        freeAbilityPoints,
-        baseFreeAbilityPoints: newBaseFreeAbilityPoints,
+        freeAbilityPoints : newFreeAbilityPoints,
         ancestryProps
       });
     }
@@ -356,6 +368,7 @@ class CreateCharacterComponent extends React.Component {
         characterStats={this.state.characterStats}
         racialBonus={this.state.racialBonus}
         backgroundBoost={this.state.backgroundBoost}
+        classBoost={this.state.classAbilityBoost}
         freeAbilityPoints={this.state.freeAbilityPoints}
 
       />);
@@ -365,6 +378,7 @@ class CreateCharacterComponent extends React.Component {
         characterStats={this.state.characterStats}
         racialBonus={this.state.racialBonus}
         backgroundBoost={this.state.backgroundBoost}
+        classBoost={this.state.classAbilityBoost}
         freeAbilityPoints={this.state.freeAbilityPoints}
       />);
     }

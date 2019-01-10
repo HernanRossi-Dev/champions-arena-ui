@@ -3,8 +3,7 @@ import PropTypes, { checkPropTypes } from 'prop-types';
 import styled from "styled-components";
 
 import {
-  Button,
-  ButtonGroup,
+
   ButtonToolbar,
   Col,
   ControlLabel,

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import {
   Col,
   ControlLabel,
@@ -8,12 +9,26 @@ import {
   Button,
   ToggleButtonGroup,
   ToggleButton,
-  ButtonToolbar
+  ButtonToolbar,
+  Collapse,
+  Well
 } from "react-bootstrap";
 import getClassProps from "../create-character-utils/class-props-helper";
 import * as cssStyles from "../../../../styles/Styles.css";
 import SelectedClassModalBodyV2 from "./CreateCharacterClassModalV2";
 
+const ChooseStateTitle = styled.div`
+  font-size: 17px !important;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+`;
+
+const raceDivStyle = {
+  fontSize: "17px !important",
+  fontFamily: "'Josefin Sans', sans-serif",
+  textAlign: "left",
+  marginLeft: "35px",
+};
 
 export default class CreateCharacterClassComponent extends React.Component {
   constructor(props) {
@@ -21,6 +36,7 @@ export default class CreateCharacterClassComponent extends React.Component {
     this.state = {
       show: false,
       selectedClass: "",
+      showMonkAbilitySelect: false,
     };
   }
 
@@ -29,10 +45,25 @@ export default class CreateCharacterClassComponent extends React.Component {
     if (!targetText) {
       return;
     }
-    const classProps = getClassProps(targetText);
-    this.props.updateClass(classProps);
+   
+    if(targetText === 'Monk') {
+      this.setState({showMonkAbilitySelect: true, selectedClass: 'Monk'});
+    } else {
+      this.setState({ selectedClass: targetText, showMonkAbilitySelect: false});
+      const classProps = getClassProps(targetText);
+      this.props.updateClass(classProps);    
+    }
     this.handleShow();
-    this.setState({ selectedClass: targetText });
+  }
+
+  saveMonkAbility = (e) => {
+    if (!e || !e.target || !e.target.value) {
+      return;
+    }
+    const buttonValue = e.target.value;
+    const classProps = getClassProps('Monk');
+    classProps.keyAbility = buttonValue;
+    this.props.updateClass(classProps);
   }
 
   handleClose = () => {
@@ -45,6 +76,7 @@ export default class CreateCharacterClassComponent extends React.Component {
 
   render() {
     return (
+      <div>
       <FormGroup>
         <Col sm={1} />
         <Col
@@ -149,6 +181,41 @@ export default class CreateCharacterClassComponent extends React.Component {
           </Modal.Footer>
         </Modal>
       </FormGroup>
+      <FormGroup>
+      <Col sm={2} />
+      <Col sm={8}>
+        <Collapse in={this.state.showMonkAbilitySelect} style={raceDivStyle}>
+          <div>
+            <Well style={{ backgroundColor: 'transparent', marginBottom: '-50px' }}>
+              <div>
+                <ChooseStateTitle>Select Monk Ability Boost</ChooseStateTitle>
+                <ToggleButtonGroup
+                type="radio"
+                name="MonkBoost"
+                className={cssStyles.selectStatButtonParent}
+                onClick={this.saveMonkAbility}
+              >
+                <ToggleButton
+                  value="STR"
+                  className={cssStyles.selectStatButton}
+                >
+                  STR
+                </ToggleButton>
+                <ToggleButton
+                  value="DEX"
+                  className={cssStyles.selectStatButton}
+                >
+                  DEX
+                </ToggleButton>
+              </ToggleButtonGroup>
+              </div>
+            </Well>
+          </div>
+        </Collapse>
+      </Col>
+      <Col sm={2} />
+    </FormGroup>
+    </div>
     );
   }
 }
