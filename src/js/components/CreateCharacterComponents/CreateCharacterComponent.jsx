@@ -31,6 +31,7 @@ import CreateCharacterCustomStatsInput from "./CreateCharacterCustomStatsInput";
 import CreateCharacterArcaneSchool from "./CharacterClassComponents/CreateCharacterArcaneSchool";
 import CreateCharacterDeity from "./CharacterClassComponents/CreateCharacterDeity";
 import CreateCharacterBloodlines from "./CharacterClassComponents/CreateCharacterBloodlines";
+import CreateCharacterSetFreeBoosts from "./CreateCharacterSetFreeBoosts";
 
 
 const styles = theme => ({
@@ -50,6 +51,7 @@ class CreateCharacterComponent extends React.Component {
         selectedStat: null,
         background: "",
       },
+      showAssignAbilityBoosts: false,
       open: false,
       show: false,
       showChangeStat: false,
@@ -240,7 +242,6 @@ class CreateCharacterComponent extends React.Component {
       type: this.state.type,
       gender: this.state.gender,
       alignment: this.state.alignment,
-      racialBonus: this.state.racialBonus,
       user: userName,
       ancestryProps: this.state.ancestryProps,
       backgroundProps: this.state.backgroundInfo,
@@ -486,6 +487,12 @@ class CreateCharacterComponent extends React.Component {
     this.setState({ chooseStatsMethod: '2.0', showChangeStat: false });
   }
 
+  setFreeAbilityBoosts = () => {
+    this.setState({showAssignAbilityBoosts: true});
+  }
+  handleCloseAssignAbilityBoosts = () => {
+    this.setState({showAssignAbilityBoosts: false});
+  }
 
   render() {
     const { classes } = this.props;
@@ -551,8 +558,8 @@ class CreateCharacterComponent extends React.Component {
               <Col sm={8} />
               <Col sm={4}>
                 <ButtonToolbar>
-                  <Button bsStyle="primary" onClick={this.handleSubmit}>
-                    Create
+                  <Button bsStyle="primary" onClick={this.setFreeAbilityBoosts}>
+                    Proceed
                   </Button>
                   <LinkContainer to="/home">
                     <Button bsStyle="link">Discard</Button>
@@ -606,16 +613,26 @@ class CreateCharacterComponent extends React.Component {
                   <Button onClick={this.setStateMethodCust}>Proceed</Button>
                 </Modal.Footer>
               </Modal>
-            </FormGroup>
-            <FormGroup>
-              <Col sm={7} />
-              <Col sm={4}>
-                <ButtonToolbar>
-                  <Button bsStyle="link">
-                    Proceed to Skills (Under Construction)
-                  </Button>
-                </ButtonToolbar>
-              </Col>
+              <Modal
+                show={this.state.showAssignAbilityBoosts}
+                onHide={this.handleCloseAssignAbilityBoosts}
+                className={cssStyles.createCharacterClassModal}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Assign Free Ability Boosts</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Each free ability boosts will add +2 to the assigned stat if it is 18 or lower, otherwise add +1.
+                  <CreateCharacterSetFreeBoosts 
+                  characterStats={this.state.characterStats}
+                  freeAbilityPoints={this.state.freeAbilityPoints}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleCloseAssignAbilityBoosts}>Cancel</Button>
+                  <Button onClick={this.handleSubmit}>Save New Character</Button>
+                </Modal.Footer>
+              </Modal>
             </FormGroup>
           </Form>
         </Panel>

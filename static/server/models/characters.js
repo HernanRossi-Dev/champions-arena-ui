@@ -13,7 +13,7 @@ var characterSchema = new mongoose.Schema({
 	INT: Number,
 	WIS: Number,
 	CHA: Number,
-	attributePointsToSpend: Number,
+	freeAbilityPoints: Number,
 	items: Object,
 	abilities: Object,
 	traits: Object,
@@ -21,6 +21,9 @@ var characterSchema = new mongoose.Schema({
 	gender: String,
 	alignment: String,
 	age: Number,
+	ancestryProps: Object,
+	backgroundProps: Object,
+	classProps: Object,
 });
 
 module.exports = mongoose.model('characters', characterSchema);

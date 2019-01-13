@@ -14,10 +14,10 @@ const mongoDBUrl =
 const { ObjectID } = require("mongodb");
 
 SourceMapSupport.install();
-const app = express();
+const server = express();
 const helmet = require('helmet');
 
-app.use(helmet());
+server.use(helmet());
 
 const expressOptions = {
   dotfiles: 'ignore',
@@ -29,8 +29,8 @@ const expressOptions = {
   }
 };
 
-app.use(express.static(path.join(__dirname, '../../dist'), expressOptions));
-app.use(bodyParser.json());
+server.use(express.static(path.join(__dirname, '../../dist'), expressOptions));
+server.use(bodyParser.json());
 
 mongoose.Promise = require("bluebird");
 
@@ -38,7 +38,7 @@ let db;
 (async () => {
   try {
     await mongoose.connect(mongoDBUrl);
-    app.listen(process.env.PORT || 8080, () => {
+    server.listen(process.env.PORT || 8080, () => {
       console.log("App started on port 8080.");
     });
     db = mongoose.connection;
@@ -50,25 +50,25 @@ let db;
 })();
 
 
-app.get('/api/authenticate', authApi.authenticate);
-app.use(authApi.authError);
-app.get("/api/characters/:id", characterApi.getCharacter);
-app.get("/api/characters", characterApi.getCharacters);
-app.get("/api/users", userApi.getUsers);
-app.get("*", (req, res) => {
+server.get('/api/authenticate', authApi.authenticate);
+server.use(authApi.authError);
+server.get("/api/characters/:id", characterApi.getCharacter);
+server.get("/api/characters", characterApi.getCharacters);
+server.get("/api/users", userApi.getUsers);
+server.get("*", (req, res) => {
   res.sendFile(path.resolve("static/index.html"));
 });
 
 const jwtCheck = authApi.jwtCheck();
-app.use(jwtCheck);
+server.use(jwtCheck);
 
-app.post("/api/users", userApi.createUser);
-app.delete("/api/users", userApi.deleteUsers);
-app.delete("/api/users/:name", userApi.deleteUser);
+server.post("/api/users", userApi.createUser);
+server.delete("/api/users", userApi.deleteUsers);
+server.delete("/api/users/:name", userApi.deleteUser);
 
-app.put("/api/characters/:id", characterApi.updateCharacter);
-app.post("/api/characters", characterApi.createCharacter);
-app.delete("/api/characters/:id", characterApi.deleteCharacter);
-app.delete("/api/characters", characterApi.deleteCharacters);
+server.put("/api/characters/:id", characterApi.updateCharacter);
+server.post("/api/characters", characterApi.createCharacter);
+server.delete("/api/characters/:id", characterApi.deleteCharacter);
+server.delete("/api/characters", characterApi.deleteCharacters);
 
-module.export = app;
+module.exports = server;
