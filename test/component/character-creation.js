@@ -18,9 +18,12 @@ let app;
 
 describe('Character', () => {
     beforeEach( async () => {
-        app = await chai.request(server);
-        await mongoose.connect(mongoDBUrl);
+        app = chai.request(server);
+        return mongoose.createConnection(mongoDBUrl);
         
+    })
+    afterEach(()=>{
+        app.close();
     })
     describe('Get Characters: ', () => {
         it('Get characters should response status 200 and return array', async () => {

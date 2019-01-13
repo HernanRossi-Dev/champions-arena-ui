@@ -7,20 +7,24 @@ exports.getCharacter = async (req, res) => {
     characterID = new ObjectID(req.params.id);
   } catch (err) {
     res.status(422).json({ message: `Invalid issue ID format: ${err}` });
+    return;
   }
+  let character;
   try {
-    const character = await server.db.collection('characters')
+    character = await server.db.collection('characters')
       .find({ _id: characterID })
       .limit(1)
       .next();
-    if (!character) {
-      res.status(404).json({ message: `No character found: ${characterID}` });
-    } else {
-      res.json(character);
-    }
   } catch (err) {
     res.status(500).json({ message: `Internal Server Error: ${err}` });
+    return;
   }
+  if (!character) {
+    res.status(404).json({ message: `No character found: ${characterID}` });
+    return;
+  }
+  res.json(character);
+  return;
 };
 
 exports.getCharacters = async (req, res) => {
@@ -44,9 +48,7 @@ exports.getCharacters = async (req, res) => {
     const metadata = { total_count: characters.length };
     res.json({ metadata: metadata, characters });
   } catch (err) {
-    console.log("Error: ", err);
     res.status(500).json({ message: `Internal Server Error: ${err}` });
-    throw err;
   }
 };
 
