@@ -15,7 +15,7 @@ export const HumanData = () => {
       <strong>Ability Flaw: </strong>
       None<br />
       <strong>Note: </strong>
-      Half-Elf and Half-Orc ancestries are accessible through Human ancestry traits.
+      Half-Elf and Half-Orc ancestries are accessible through Human ancestry traits.<br />
       <strong>Properties:</strong><br />
       Hit Points: 8<br />
       Size: Medium<br />

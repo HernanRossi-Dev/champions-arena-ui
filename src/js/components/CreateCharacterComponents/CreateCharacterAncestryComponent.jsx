@@ -28,6 +28,12 @@ const raceDivStyle = {
   textAlign: "left"
 };
 
+const ChooseStateTitle = styled.div`
+  font-size: 17px !important;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+`;
+
 class CreateCharacterAncestryComponent extends React.Component {
   constructor(props, context) {
     super();
@@ -35,6 +41,7 @@ class CreateCharacterAncestryComponent extends React.Component {
       AncestryInfo: "",
       showRaceInfo: false,
       prevButtonPressed: "",
+      showHumanFeats: false,
     };
   }
 
@@ -90,10 +97,25 @@ class CreateCharacterAncestryComponent extends React.Component {
     } else {
       this.setState({ showRaceInfo: true });
     }
+    if (targetText === 'Human') {
+      this.setState({showHumanFeats: true});
+    } else {
+      this.setState({showHumanFeats: false});
+    }
     const racialBonus = this.changeAncestryInfo(targetText);
     this.setState({ prevButtonPressed: targetText });
     this.props.setAncestry(targetText, racialBonus.ancestryProps);
   };
+
+  saveHumanHalfFeat = (e) =>{
+    if (!e.target.value){
+      return;
+    }
+    const targetText = e.target.value.toString();
+    const racialBonus = this.changeAncestryInfo('Human');
+    racialBonus.ancestryProps.ancestry = targetText;
+    this.props.setAncestry(targetText, racialBonus.ancestryProps);
+  }
 
   render() {
     return (
@@ -154,6 +176,45 @@ class CreateCharacterAncestryComponent extends React.Component {
             </ButtonToolbar>
           </Col>
         </FormGroup>
+        <FormGroup>
+          <Col sm={1} />
+          <Col sm={11}>
+            <Collapse in={this.state.showHumanFeats} style={raceDivStyle}>
+              <div>
+                <Well style={{ backgroundColor: 'transparent', marginBottom: '-50px' }}>
+                  <div>
+                    <ChooseStateTitle>Human characters can select the Half-Elf or Half-Orc feat at level 1 to inherit those ancestries</ChooseStateTitle>
+                    <ToggleButtonGroup
+                    type="radio"
+                    name="humanFeat"
+                    className={cssStyles.selectHumanAncestryFeat}
+                    onClick={this.saveHumanHalfFeat}
+                  >
+                    <ToggleButton
+                      value="Half-Elf"
+                      className={cssStyles.selectHumanAncestryButton}
+                    >
+                      Half-Elf
+                    </ToggleButton>
+                    <ToggleButton
+                      value="Half-Orc"
+                      className={cssStyles.selectHumanAncestryButton}
+                    >
+                      Half-Orc
+                    </ToggleButton>
+                    <ToggleButton
+                      value="Human"
+                      className={cssStyles.selectHumanAncestryButton}
+                    >
+                      Human
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  </div>
+                </Well>
+              </div>
+            </Collapse>
+          </Col>
+        </FormGroup>
         <Col sm={1} />
         <FormGroup>
           <Col sm={1} />
@@ -168,6 +229,7 @@ class CreateCharacterAncestryComponent extends React.Component {
           </Col>
           <Col sm={2} />
         </FormGroup>
+       
       </div>
     );
   }

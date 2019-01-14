@@ -38,6 +38,13 @@ body {
   text-align: center !important;
   width: 50%;
 }
+.selectHumanAncestryButton {
+  background-color: transparent !important;
+  font-size: 20px !important;
+  font-family: "Crimson Text", serif;
+  text-align: center !important;
+  width: 30%;
+}
 .selectStatButton2 {
   background-color: transparent !important;
   font-size: 20px !important;
@@ -58,7 +65,23 @@ body {
   padding-top: 15px;
   margin-left: 25% !important;
 }
+.selectHumanAncestryFeat {
+  font-size: 20px !important;
+  font-family: "Crimson Text", serif;
+  text-align: center !important;
+  width: 80%;
+  align-content: center !important;
+  align-items: center !important;
+  align-self: center !important;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  margin-left: 10% !important;
+}
+
 .selectStatButton:global(.active){
+  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.18);
+}
+.selectHumanAncestryButton:global(.active){
   box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.18);
 }
 .selectStatButton2:global(.active){
@@ -73,6 +96,9 @@ body {
   box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.08) ;
 }
 .selectStatButton:hover{
+  box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.08) ;
+}
+.selectHumanAncestryButton:hover{
   box-shadow: inset 4px -1px 20px 10px rgba(0,0,0,0.08) ;
 }
 .alignmentButtonGroup:hover{
