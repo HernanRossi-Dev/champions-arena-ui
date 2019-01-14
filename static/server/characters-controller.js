@@ -57,9 +57,8 @@ exports.updateCharacter = async (req, res) => {
   try {
     characterId = new ObjectID(req.params.id);
   } catch (err) {
-    console.log("Error: ", err);
-    res.status(422).json({ message: `Invalid characters id format: ${err}` });
-    throw err;
+    res.status(422).json({ message: `Invalid characters id format: ${err}` }).send();
+    return;
   }
   const character = req.body;
   delete character._id;
@@ -70,11 +69,13 @@ exports.updateCharacter = async (req, res) => {
   try {
     await server.db
       .collection("characters")
-      .update({ _id: characterId }, character);
+      .updateOne(
+        { _id: characterId }, 
+        {$set: character}
+        );
   } catch (err) {
-    console.log("Error: ", err);
-    res.status(500).json({ message: `Failed to save character: ${err}` });
-    throw err;
+    res.status(500).json({ message: `Failed to save character: ${err}` }).send();
+    return;
   }
 
   const saveResult = await server.db
@@ -101,8 +102,8 @@ exports.createCharacter = async (req, res) => {
       .collection("characters")
       .insertOne(newCharacter);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: `Error creating new character: ${err}` });
+    return;
   }
 
   try {
@@ -112,6 +113,7 @@ exports.createCharacter = async (req, res) => {
       .limit(1)
       .next();
     res.status(200).json(findInsert);
+    return;
   } catch (err) {
     res.status(404).json({ message: `Could not find new character: ${err}` });
   }
@@ -132,9 +134,10 @@ exports.deleteCharacter = async (req, res) => {
       .deleteOne({ _id: characterID });
   } catch (err) {
     res.status(500).json({ message: `Internal Server Error, failed to delete character: ${err}` });
+    return;
   }
   if (deleteResult.result.n === 1) {
-    res.status(200)({ message: `Delete character success.`, status: `OK` });
+    res.status(200).json({ message: `Delete character success.`, status: `OK`, result: deleteResult });
   }
 };
 

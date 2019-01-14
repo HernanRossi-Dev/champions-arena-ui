@@ -37,7 +37,7 @@ mongoose.Promise = require("bluebird");
 let db;
 (async () => {
   try {
-    await mongoose.connect(mongoDBUrl);
+    await mongoose.connect(mongoDBUrl, { useNewUrlParser: true });
     server.listen(process.env.PORT || 8080, () => {
       console.log("App started on port 8080.");
     });
