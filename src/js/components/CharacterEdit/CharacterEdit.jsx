@@ -5,7 +5,6 @@ import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { connect } from "react-redux";
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -67,7 +66,6 @@ class CharacterEdit extends React.Component {
 
   loadCharacter = async () => {
     const characterID = this.props.match.params.id;
-    console.log(characterID);
     if (!characterID) {
       return null;
     }

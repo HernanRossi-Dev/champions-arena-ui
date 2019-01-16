@@ -180,8 +180,7 @@ class CreateCharacterComponent extends React.Component {
     return postResponse;
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = (setAbilityStats) => {
     this.setState({
       numberOfInvalidFields: 0,
       invalidFields: []
@@ -219,7 +218,7 @@ class CreateCharacterComponent extends React.Component {
     const userName = store.getState().userReducer.currentUserName;
     const ancestryHP = this.state.ancestryProps.hp;
     const classHP = this.state.classProps.hp;
-    const constModifier = calcAbilityModifierFunc(this.state.characterStats.CON);
+    const constModifier = calcAbilityModifierFunc(setAbilityStats.CON);
     const characterHP = ancestryHP + classHP + constModifier;
     this.saveNewCharacter({
       name: this.state.name,
@@ -228,12 +227,12 @@ class CreateCharacterComponent extends React.Component {
       hitPoints: characterHP,
       level: 1,
       XP: 0,
-      STR: this.state.characterStats.STR,
-      DEX: this.state.characterStats.DEX,
-      CON: this.state.characterStats.CON,
-      INT: this.state.characterStats.INT,
-      WIS: this.state.characterStats.WIS,
-      CHA: this.state.characterStats.CHA,
+      STR: setAbilityStats.STR,
+      DEX: setAbilityStats.DEX,
+      CON: setAbilityStats.CON,
+      INT: setAbilityStats.INT,
+      WIS: setAbilityStats.WIS,
+      CHA: setAbilityStats.CHA,
       freeAbilityPoints: this.state.freeAbilityPoints,
       items: {},
       abilities: {},
@@ -273,8 +272,9 @@ class CreateCharacterComponent extends React.Component {
     const bonusPoints = ancestryProps.statsBonus;
     const { freeAbilityPoints } = ancestryProps;
     let newFreeAbilityPoints = this.state.freeAbilityPoints;
+    const humanAncestries = ['Human', 'Half-Elf', 'Half-Orc'];
     if ( this.state.freeAbilityPoints !== 4 ){
-      const subtractPrevPoints = this.state.characterRace === 'Human' ? 2 : 1;
+      const subtractPrevPoints = humanAncestries.includes(this.state.characterRace) ? 2 : 1;
       newFreeAbilityPoints -= subtractPrevPoints;
     }
    
@@ -558,12 +558,12 @@ class CreateCharacterComponent extends React.Component {
               <Col sm={8} />
               <Col sm={4}>
                 <ButtonToolbar>
-                  <Button bsStyle="primary" onClick={this.setFreeAbilityBoosts}>
-                    Proceed
-                  </Button>
                   <LinkContainer to="/home">
                     <Button bsStyle="link">Discard</Button>
                   </LinkContainer>
+                  <Button bsStyle="primary" onClick={this.setFreeAbilityBoosts}>
+                    Proceed
+                  </Button>
                 </ButtonToolbar>
               </Col>
               <Modal
@@ -616,21 +616,21 @@ class CreateCharacterComponent extends React.Component {
               <Modal
                 show={this.state.showAssignAbilityBoosts}
                 onHide={this.handleCloseAssignAbilityBoosts}
-                className={cssStyles.createCharacterClassModal}
+                className={cssStyles.createCharacterBoostModal}
               >
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={{textAlign: "center"}}>
                   <Modal.Title>Assign Free Ability Boosts</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  Each free ability boosts will add +2 to the assigned stat if it is 18 or lower, otherwise add +1.
+                  
                   <CreateCharacterSetFreeBoosts 
                   characterStats={this.state.characterStats}
                   freeAbilityPoints={this.state.freeAbilityPoints}
+                  handleSubmit={this.handleSubmit}
                   />
                 </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={this.handleCloseAssignAbilityBoosts}>Cancel</Button>
-                  <Button onClick={this.handleSubmit}>Save New Character</Button>
                 </Modal.Footer>
               </Modal>
             </FormGroup>

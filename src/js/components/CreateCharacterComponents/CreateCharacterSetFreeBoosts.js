@@ -23,6 +23,8 @@ class CreateCharacterSetFreeBoosts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      freeAbilityBoosts: 0,
+      originalfreeAbilityBoosts: 0,
       characterStats: {
         STR: "",
         DEX: "",
@@ -34,104 +36,105 @@ class CreateCharacterSetFreeBoosts extends React.Component {
     };
   }
 
-
   componentDidMount() {
     this.setCharacterStats(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      characterStats: props.characterStats, freeAbilityBoosts: props.freeAbilityPoints
-    });
+  handleSubmit = () => {
+    this.props.handleSubmit(this.state.characterStats);
   }
 
   setCharacterStats = (props) => {
     if (props.characterStats) {
-      this.setState({ characterStats: props.characterStats, freeAbilityBoosts: props.freeAbilityPoints });
+      this.setState({ 
+        characterStats: props.characterStats, 
+        freeAbilityBoosts: props.freeAbilityPoints,
+        originalfreeAbilityBoosts: props.freeAbilityPoints
+       });
     }
   }
 
   increaseStat = (e) => {
-	  let newCharStats = this.state.characterStats;
-	  if (this.state.characterStats[e.currentTarget.name] < 30) {
+    let newCharStats = this.state.characterStats;
+    const currentSelection = e.currentTarget.name;
+    const currentStatValue = this.state.characterStats[currentSelection];
+    let addBoost = 2;
+    if (this.state.freeAbilityBoosts < 1){
+      return;
+    }
+    if (currentStatValue === 17 ) {
+      addBoost = 1;
+    }
+	  if (currentStatValue < 18) {
+      const points = this.state.freeAbilityBoosts -1;
+      this.setState({freeAbilityBoosts: points});
       switch (e.currentTarget.name) {
         case "STR":
           newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.STR += 1;
-          this.setState({ characterStats: newCharStats });
+          newCharStats.STR += addBoost;
           break;
 	      case "DEX":
 		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.DEX += 1;
-		      this.setState({ characterStats: newCharStats });
+		      newCharStats.DEX += addBoost;
 		      break;
 	      case "CON":
 		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.CON += 1;
-		      this.setState({ characterStats: newCharStats });
+		      newCharStats.CON += addBoost;
 		      break;
 	      case "INT":
 		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.INT += 1;
-		      this.setState({ characterStats: newCharStats });
+		      newCharStats.INT += addBoost;
 		      break;
 	      case "WIS":
 		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.WIS += 1;
-		      this.setState({ characterStats: newCharStats });
+		      newCharStats.WIS += addBoost;
 		      break;
 	      case "CHA":
 		      newCharStats = Object.assign({}, this.state.characterStats);
-		      newCharStats.CHA += 1;
-		      this.setState({ characterStats: newCharStats });
+		      newCharStats.CHA += addBoost;
 		      break;
         default:
           break;
       }
-		  this.props.setStateStats(newCharStats);
+      this.setState({ characterStats: newCharStats , freeAbilityBoosts: points});
     }
   }
 
   decreaseStat = (e) => {
     let newCharStats = this.state.characterStats;
-    if (this.state.characterStats[e.currentTarget.name] > 0) {
-
-      switch (e.currentTarget.name) {
-        case "STR":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.STR -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "DEX":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.DEX -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "CON":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.CON -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "INT":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.INT -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "WIS":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.WIS -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        case "CHA":
-          newCharStats = Object.assign({}, this.state.characterStats);
-          newCharStats.CHA -= 1;
-          this.setState({ characterStats: newCharStats });
-          break;
-        default:
-          break;
-      }
-	    this.props.setStateStats(newCharStats);
+    if (this.state.freeAbilityBoosts === this.state.originalfreeAbilityBoosts) {
+      return;
     }
+    switch (e.currentTarget.name) {
+      case "STR":
+        newCharStats = Object.assign({}, this.state.characterStats);
+        newCharStats.STR -= 2;
+        break;
+      case "DEX":
+        newCharStats = Object.assign({}, this.state.characterStats);
+        newCharStats.DEX -= 2;
+        break;
+      case "CON":
+        newCharStats = Object.assign({}, this.state.characterStats);
+        newCharStats.CON -= 2;
+        break;
+      case "INT":
+        newCharStats = Object.assign({}, this.state.characterStats);
+        newCharStats.INT -= 2;
+        break;
+      case "WIS":
+        newCharStats = Object.assign({}, this.state.characterStats);
+        newCharStats.WIS -= 2;
+        break;
+      case "CHA":
+        newCharStats = Object.assign({}, this.state.characterStats);
+        newCharStats.CHA -= 2;
+        break;
+      default:
+        break;
+    }
+    const points = this.state.freeAbilityBoosts + 1;
+    this.setState({freeAbilityBoosts: points, characterStats: newCharStats});
   }
 
   render() {
@@ -214,7 +217,7 @@ class CreateCharacterSetFreeBoosts extends React.Component {
     );
 
     return (
-      <div>
+      <div className={cssStyles.createCharacterBoostBody}>
         <GenerateStatsFormGroup abilityBoosts={this.state.freeAbilityBoosts} />
         <StatsHeaderFormGroup />
         <PlusButtonFormGroup />
@@ -251,6 +254,13 @@ class CreateCharacterSetFreeBoosts extends React.Component {
           </Col>
         </FormGroup>
         <MinusButtonFormGroup />
+        <div style={{textAlign: "center", fontSize: '14px'}}>
+          <i>*Add +2 to chosen stat.</i>
+          </div>
+          <div style={{textAlign: "center", fontSize: '14px', paddingBottom: '20px'}}>
+          <i>**At level 1 a character cannot exceed 18 on any stat.</i>
+        </div>
+        <Button bsStyle="primary"style={{width: "50%", marginLeft: "25%"}} onClick={this.handleSubmit}>Save New Character</Button>
       </div>
     );
   }
@@ -258,12 +268,9 @@ class CreateCharacterSetFreeBoosts extends React.Component {
 
 const GenerateStatsFormGroup = (props) => {
   return (
-    <FormGroup>
-      <Col sm={1} />
-      <Col sm={4} style={{ marginLeft: '20px' }} className={cssStyles.createColLabelStyle}>
+    <div className={cssStyles.assignBoostTextStyle}>
        <div>Available free ability points: {props.abilityBoosts}</div>
-      </Col>
-    </FormGroup>
+    </div>
   );
 };
 
