@@ -4,6 +4,7 @@ const { defaultCharacters } = require("./defaultCharacters");
 const nodemailer = require('nodemailer');
 const generator = require('generate-password');
 const passwordHash = require('password-hash');
+const uuid = require('uuid');
 
 exports.createUser = async (req, res) => {
   const newUser = req.body;
@@ -21,9 +22,7 @@ exports.createUser = async (req, res) => {
       .collection("users")
       .insertOne(newUser);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: `Failed to create new user: ${err}` });
-    throw err;
   }
 
   const returnNewUser = await server.db
@@ -32,6 +31,22 @@ exports.createUser = async (req, res) => {
     .limit(1)
     .next();
   res.json(returnNewUser);
+};
+
+exports.createUserBasic = async (req, res) => {
+  const newUser = req.body;
+  newUser.created = new Date();
+  newUser._id = uuid.v4();
+  try {
+    await server.db
+      .collection("users")
+      .insertOne(newUser);
+  } catch (err) {
+    res.status(500).json({ message: `Failed to create new user: ${err}` });
+    return;
+  }
+
+  res.status(200).json(newUser._id);
 };
 
 exports.getUsers = async (req, res) => {
@@ -44,8 +59,8 @@ exports.getUsers = async (req, res) => {
       .find(filter)
       .toArray();
   } catch (err) {
-    console.log("Error: ", err);
     res.status(500).json({ message: `Internal Server Error: ${err}` });
+    return;
   }
   let rest;
   if (req.query.sendEmail) {
@@ -67,7 +82,7 @@ exports.getUsers = async (req, res) => {
           { upsert: false }
         );
     } catch (err) {
-      res.json({ users });
+      res.status(500).json({ message: `Internal Server Error: ${err}` });
       return;
     }
     const transporter = nodemailer.createTransport({
@@ -92,7 +107,32 @@ exports.getUsers = async (req, res) => {
       }
     });
   }
-  res.json({ users });
+  res.status(200).json({ users });
+};
+
+exports.getUser = async (req, res) => {
+  const filter = {};
+  if (req.query.name) {
+    filter.name = req.query.name;
+  }
+  if (req.query.email) {
+    filter.email = req.query.email;
+  }
+  if (req.query._id) {
+    let id = req.query._id;
+    filter._id =  id;
+  }
+
+  let user;
+  try {
+    user = await server.db.collection('users')
+      .findOne(filter);
+  } catch (err) {
+    res.status(500).json({ message: `Internal Server Error: ${err}` });
+    return;
+  }
+   
+  res.status(200).json({ user });
 };
 
 exports.deleteUsers = async (req, res) => {

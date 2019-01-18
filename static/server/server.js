@@ -55,6 +55,7 @@ server.use(authApi.authError);
 server.get("/api/characters/:id", characterApi.getCharacter);
 server.get("/api/characters", characterApi.getCharacters);
 server.get("/api/users", userApi.getUsers);
+server.get("/api/user", userApi.getUser);
 server.get("*", (req, res) => {
   res.sendFile(path.resolve("static/index.html"));
 });
@@ -63,6 +64,7 @@ const jwtCheck = authApi.jwtCheck();
 server.use(jwtCheck);
 
 server.post("/api/users", userApi.createUser);
+server.post("/api/user/basic", userApi.createUserBasic);
 server.delete("/api/users", userApi.deleteUsers);
 server.delete("/api/users/:name", userApi.deleteUser);
 

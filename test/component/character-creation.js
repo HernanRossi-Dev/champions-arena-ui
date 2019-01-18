@@ -3,12 +3,9 @@ process.env.NODE_ENV = 'test';
 const mongoose = require('mongoose');
 const mockCharacter = require('../_mocks/create-character-mock');
 const chai = require('chai');
-const sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const server = require('../../static/server/server');
-const characters = require('../../static/server/models/characters');
 const faker = require('faker');
-var async = require("async");
 
 const mongoDBUrl =
   "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
