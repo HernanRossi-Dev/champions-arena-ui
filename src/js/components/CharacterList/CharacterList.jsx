@@ -3,30 +3,29 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import CharacterFilter from "./CharacterFilter.jsx";
+import { setNumberOfCharacters } from '../../actions/CharacterActionCreators';
 import store from "../../store/index.js";
+import axios from 'axios';
+import _ from 'lodash';
 import * as CharacterActionCreators from "../../actions/CharacterActionCreators.js";
 import CharacterTable from "./CharacterTable";
 import * as cssStyles from '../../../styles/Styles.css';
-import characterReducer from '../../reducers/CharacterReducers';
 
 class CharacterList extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
-
-    this.setFilter = this.setFilter.bind(this);
-    this.deleteCharacter = this.deleteCharacter.bind(this);
-    const { dispatch } = props;
-    this.boundActionCreators = bindActionCreators(CharacterActionCreators, dispatch);
+    this.state = {
+      characters: [],
+    }
   }
 
   componentDidMount() {
-    let { dispatch } = this.props;
-    this.loadData(dispatch);
+    axios.defaults.headers.common['authorization'] = this.props.Auth;
+    this.loadData();
   }
 
-  setFilter(query) {
+  setFilter = (query) => {
     let filter = "";
     for (let key in query) {
       filter += "&"+ key + "=" + query[key]  ;
@@ -45,33 +44,48 @@ class CharacterList extends React.Component {
     } else if (oldQuery.location.query && newQuery.location.query) {
       return;
     } else {
-      let { dispatch } = this.props;
-      this.loadData(dispatch);
+      this.loadData();
     }
   }
 
-  loadData(dispatch) {
+  loadData = async  () => {
+    const { currentUserName, location } = this.props;
     let filter = "";
 
     if (this.props.location.query !== undefined) {
-      let currentUser = store.getState().userReducer.currentUserName;
+      let currentUser = currentUserName;
 	    filter += '?user=' + currentUser;
-      for (let key in this.props.location.query) {
-        filter += "&" + key + "=" + this.props.location.query[key];
+      for (let key in location.query) {
+        filter += "&" + key + "=" + location.query[key];
       }
     } else {
-	    let currentUser = store.getState().userReducer.currentUserName;
+	    let currentUser = currentUserName;
 	    filter +=  '?user=' + currentUser;
-      filter += this.props.location.search.substring(1);
+      filter += location.search.substring(1);
     }
-    let action = CharacterActionCreators.fetchCharacters(filter);
-    dispatch(action);
+    let getResult;
+    try {
+      getResult = await axios.get(`/api/characters${filter}`);
+    } catch (err) {
+      console.log("Error fetching characters: ", err);
+    }
+   const characters = getResult.data.characters
+   const action = setNumberOfCharacters(characters.length);
+   this.props.dispatch(action);
+   this.setState({ characters });
   }
 
-  deleteCharacter(id) {
-    let { dispatch } = this.props;
-    let action = CharacterActionCreators.deleteCharacter(id);
-    dispatch(action);
+  deleteCharacter = async (id) => {
+    try {
+      let characters = _.map(this.state.characters, _.cloneDeep);
+      await axios.delete(`/api/characters/${id}`);
+      _.remove(characters, (char) => char._id === id);
+      const action = setNumberOfCharacters(characters.length);
+      this.props.dispatch(action);
+      this.setState({ characters });
+    } catch (err) {
+      console.log("Error deleting characters: ", err);
+    }
   }
 
   render() {
@@ -85,8 +99,7 @@ class CharacterList extends React.Component {
 
         <hr />
         <CharacterTable
-          characters={store.getState().characterReducer.characters}
-          isFetching={store.getState().characterReducer.isFetching}
+          characters={this.state.characters}
           deleteCharacter={this.deleteCharacter}
         />
 	      <hr className={cssStyles.hrCharacterList} />
@@ -99,12 +112,13 @@ class CharacterList extends React.Component {
 const { object } = PropTypes;
 CharacterList.prototypes = {
   location: object.isRequired,
-  fetchCharacters: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return{
-	  characters: state.characterReducer.characters
+    numberOfCharacters: state.characterReducer.numberOfCharacters,
+    currentUserName: state.userReducer.currentUserName,
+    Auth: state.userReducer.authToken,
   }
 };
 

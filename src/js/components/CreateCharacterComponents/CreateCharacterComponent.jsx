@@ -402,7 +402,6 @@ class CreateCharacterComponent extends React.Component {
   setBloodline = (newBloodline) => {
     const sorcererProps = this.state.classProps;
     sorcererProps.bloodline = newBloodline;
-    console.log('Sorcerer props: ', sorcererProps);
     this.setState({ classProps: sorcererProps });
   }
 

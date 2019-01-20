@@ -102,66 +102,9 @@ export const fetchCharacter = (characterID, callbackSetState) => {
   };
 };
 
-function deletingCharacter(characterID) {
-  return {
-    type: types.DELETING_CHARACTERS_START,
-    id: characterID
-  };
-}
-
-export const deleteCharacter = (characterID) => {
-  return (dispatch, getState) => {
-    dispatch(deletingCharacter(characterID));
-    fetch(`/api/characters/${characterID}`, {
-      method: "DELETE",
-      headers: { authorization: store.getState().userReducer.authToken }
-    }).then((response) => {
-      if (!response.ok) {
-        alert("Failed to delete character");
-        dispatch({
-          type: types.DELETING_CHARACTERS_FAIL,
-          payload: response.status,
-          error: true
-        });
-      } else {
-        dispatch({
-          type: types.DELETING_CHARACTERS_SUCCESS,
-          characterID: characterID
-        });
-      }
-    });
-  };
-};
-
-function requestCharacterList(URL) {
-  return {
-    type: types.FETCHING_CHARACTERS,
-    url: URL
-  };
-}
-
-export const fetchCharacters = (filter = "") => (dispatch) => {
-  dispatch(requestCharacterList(filter));
-  fetch(`/api/characters${filter}`, {
-    method: "GET",
-    headers: { authorization: store.getState().userReducer.authToken }
-  }).then((response) => {
-    if (response.ok) {
-      response.json().then((data) => {
-        dispatch({
-          type: types.FETCHING_CHARACTERS_SUCCESS,
-          characters: data.characters
-        });
-      });
-    } else {
-      response.json().then((error) => {
-        alert(`Failed to fetch characters: ${error.message}`);
-        dispatch({
-          type: types.FETCHING_CHARACTERS_FAIL,
-          payload: error,
-          error: true
-        });
-      });
-    }
+export const setNumberOfCharacters = (numberOfCharacters) => (dispatch) => {
+  dispatch({
+    type: types.UPDATE_NUMBER_OF_CHARACTERS,
+    numberOfCharacters
   });
 };

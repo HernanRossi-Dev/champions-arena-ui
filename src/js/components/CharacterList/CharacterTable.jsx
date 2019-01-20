@@ -8,27 +8,18 @@ import * as cssStyles from "../../../styles/Styles.css";
 
 const CharacterTable = (props) => {
   let characterRows;
-  if (props.isFetching) {
-    characterRows = (
+  if (!props.characters) {
+    return null;
+  }
+  characterRows = props
+    .characters.map(character => (
       <CharacterRow
-        key={{}}
-        character={{ name: "Loading" }}
+        key={character._id}
+        character={character}
         deleteCharacter={props.deleteCharacter}
       />
-    );
-  } else {
-    if (!props.characters) {
-      return null;
-    }
-    characterRows = props
-      .characters.map(character => (
-        <CharacterRow
-          key={character._id}
-          character={character}
-          deleteCharacter={props.deleteCharacter}
-        />
-      ));
-  }
+    ));
+  
 
   return (
     <Table bordered condensed hover responsive className={cssStyles.characterTableParent}>
@@ -55,7 +46,6 @@ const CharacterTable = (props) => {
 
 CharacterTable.propTypes = {
   characters: PropTypes.array,
-  isFetching: PropTypes.bool.isRequired,
   deleteCharacter: PropTypes.func.isRequired,
 };
 

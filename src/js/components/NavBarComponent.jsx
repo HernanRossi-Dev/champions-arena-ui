@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from "redux";
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { MenuItem, Nav, Navbar, NavDropdown, NavItem, Button } from "react-bootstrap";
@@ -11,20 +10,6 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 class NavBarComponent extends React.Component {
   constructor(props) {
     super();
-
-    this.onToggleCreate = this.onToggleCreate.bind(this);
-    this.onToggleWorld = this.onToggleWorld.bind(this);
-    this.onToggleArena = this.onToggleArena.bind(this);
-    this.onToggleOptions = this.onToggleOptions.bind(this);
-    this.handleOpenWorld = this.handleOpenWorld.bind(this);
-    this.handleOpenCreate = this.handleOpenCreate.bind(this);
-    this.handleCloseWorld = this.handleCloseWorld.bind(this);
-    this.handleOpenOptions = this.handleOpenOptions.bind(this);
-    this.handleCloseOptions = this.handleCloseOptions.bind(this);
-    this.handleCloseCreate = this.handleCloseCreate.bind(this);
-    this.handleCloseArena = this.handleCloseArena.bind(this);
-    this.handleOpenArena = this.handleOpenArena.bind(this);
-    this.logout = this.logout.bind(this);
     this.state = {
       dropdownOpen: false,
       isOpenWorld: false,
@@ -32,84 +17,78 @@ class NavBarComponent extends React.Component {
       isOpenOptions: false,
       isOpenArena: false
     };
-    const { dispatch } = props;
-    this.boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
   }
 
-  handleOpenWorld() {
+  handleOpenWorld = () => {
     this.setState({ isOpenWorld: true });
   }
 
-  handleCloseWorld() {
+  handleCloseWorld = () => {
     this.setState({ isOpenWorld: false });
   }
 
-  handleOpenCreate() {
+  handleOpenCreate = () => {
     this.setState({ isOpenCreate: true });
   }
 
-  handleCloseCreate() {
+  handleCloseCreate = () => {
     this.setState({ isOpenCreate: false });
   }
 
-  handleOpenOptions() {
+  handleOpenOptions = () => {
     this.setState({ isOpenOptions: true });
   }
 
-  handleCloseOptions() {
+  handleCloseOptions = () => {
     this.setState({ isOpenOptions: false });
   }
-  handleOpenArena() {
+  handleOpenArena = () => {
     this.setState({ isOpenArena: true });
   }
 
-  handleCloseArena() {
+  handleCloseArena = () => {
     this.setState({ isOpenArena: false });
   }
 
-  onToggleCreate() {
+  onToggleCreate = () => {
     this.setState({
       isOpenCreate: !this.state.isOpenCreate
     });
   }
-  onToggleArena() {
+
+  onToggleArena = () => {
     this.setState({
       isOpenArena: !this.state.isOpenArena
     });
   }
-  onToggleWorld() {
+
+  onToggleWorld = () => {
     this.setState({
       isOpenWorld: !this.state.isOpenWorld
     });
   }
-  onToggleOptions() {
+
+  onToggleOptions = () => {
     this.setState({
       isOpenOptions: !this.state.isOpenOptions
     });
   }
 
-  logout() {
+  logout = async () => {
     const thisInst = this;
     const { dispatch } = this.props;
     let action;
     const callbackRedirect = () => {
       thisInst.props.history.push('/login');
     };
-    const resolveLogout = () => {
-      return new Promise((resolve) => {
-        action = UserActionCreators.logoutRegisteredUser();
-        resolve(dispatch(action));
-      });
-    };
-    async function asyncLogout() {
-      const result = await resolveLogout();
-      return result;
-    }
-    if (store.getState().userReducer.currentUser.isGuest) {
-      action = UserActionCreators.logoutGuestUser(store.getState().userReducer.currentUserName, callbackRedirect);
+   
+    const user = this.props.currentUserName;
+    if (this.props.isGuest) {
+      action = UserActionCreators.logoutGuestUser(user, callbackRedirect);
       dispatch(action);
     } else {
-      asyncLogout();
+      action = UserActionCreators.logoutRegisteredUser();
+      await dispatch(action); 
     }
   }
 
@@ -236,5 +215,12 @@ class NavBarComponent extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    currentUserName: state.userReducer.currentUserName,
+    isGuest: state.userReducer.currentUser.isGuest,
+    Auth: state.userReducer.authToken,
+  }
+};
 
-export default withRouter(connect(null, null, null, { pure: false })(NavBarComponent));
+export default withRouter(connect(mapStateToProps, null, null, { pure: false })(NavBarComponent));

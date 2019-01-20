@@ -195,7 +195,7 @@ const StatsHeaderFormGroup = () => (
 CreateCharacter20StatsComponent.propTypes = {
   freeAbilityPoints: PropTypes.number,
   setStateStats: PropTypes.func.isRequired,
-  racialBonus: PropTypes.number,
+  racialBonus: PropTypes.object,
   backgroundBoost: PropTypes.string,
 };
 

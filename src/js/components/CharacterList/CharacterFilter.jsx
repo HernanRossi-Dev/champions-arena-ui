@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import * as cssStyles from "../../../styles/Styles.css";
-import store from "../../store/index.js";
 
 import {
   Button,
@@ -140,6 +139,7 @@ class CharacterFilter extends React.Component {
                     <option value="Warlock">Warlock</option>
                     <option value="Bard">Bard</option>
                     <option value="Barbarian">Barbarian</option>
+                    <option value="Alchemist">Barbarian</option>
                   </FormControl>
                 </FormGroup>
               </Col>
@@ -181,7 +181,6 @@ class CharacterFilter extends React.Component {
               </Col>
               <Col>
                 <FormGroup>
-                  <ControlLabel>&nbsp;</ControlLabel>
                   <ButtonToolbar>
                     <Button
                       bsStyle={"primary"}
