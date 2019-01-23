@@ -23,9 +23,6 @@ var passwordHash = require("password-hash");
 class ForgotPassword extends React.Component {
 	constructor(props, context) {
 		super();
-		this.handleClose = this.handleClose.bind(this);
-		this.handleShow = this.handleShow.bind(this);
-		this.sendUserInfo = this.sendUserInfo.bind(this);
 		this.state = {
 			password: "",
 			email: "",
@@ -35,30 +32,28 @@ class ForgotPassword extends React.Component {
 		this.boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
 	}
 
-	handleClose() {
+	handleClose = () => {
 		this.setState({ show: false });
 	}
 
-	handleShow() {
+	handleShow = () => {
 		this.setState({ show: true });
 	}
 
 
- sendUserInfo() {
-	 let email = this.email.value;
+	sendUserInfo = () => {
+		let email = this.email.value;
 		//query server for email info then send a email with the users info
-	 let thisInst = this;
-	 let callbackModalTrigger = () => {
-		 thisInst.setState({show: true});
-	 };
+		let thisInst = this;
+		let callbackModalTrigger = () => {
+			thisInst.setState({ show: true });
+		};
 
-	 const queryUser = `?email=${email}&sendEmail=true`;
-	 let { dispatch } = this.props;
-	 let action = UserActionCreators.fetchRegisteredUser(queryUser, callbackModalTrigger);
-	 dispatch(action);
-
+		const queryUser = `?email=${email}&sendEmail=true`;
+		let { dispatch } = this.props;
+		let action = UserActionCreators.fetchRegisteredUser(queryUser, callbackModalTrigger);
+		dispatch(action);
 	}
-
 
 	render() {
 		const divContainerStyle = {

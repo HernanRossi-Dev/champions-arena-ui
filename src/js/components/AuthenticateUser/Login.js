@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import axios from 'axios';
 import "whatwg-fetch";
 import { TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { setCurrrentUser, loginRegisteredUser } from '../../actions/UserActionCreators';
 import * as cssStyles from "../../../styles/Styles.css";
 import * as UserActionCreators from "../../actions/UserActionCreators";
 import store from "../../store";
@@ -44,14 +44,13 @@ const styles = {
     flexWrap: 'wrap',
   },
 };
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       show: false,
     };
-    const { dispatch } = props;
-    this.boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
   }
 
   handleClose = () => {
@@ -62,7 +61,7 @@ class Login extends React.Component {
     this.setState({ show: true });
   }
 
-  handleSignIn = () => {
+  handleSignIn = async () => {
     const email = this.email.value;
     const password = this.password.value;
     const hashedPassword = passwordHash.generate(password);
@@ -71,28 +70,25 @@ class Login extends React.Component {
     const callbackRedirect = () => {
       thisInst.props.history.push("/home");
     };
-
     const { dispatch } = this.props;
-    function resolveDispatch() {
-      return new Promise((resolve) => {
-        const action = UserActionCreators.fetchRegisteredUser(queryUser, () => {
-          const databaseQueryUserResult = store.getState().userReducer.currentUser;
-
-          if (databaseQueryUserResult && databaseQueryUserResult.email !== email) {
-            alert(`Password/Email combination does not match any registered user.`);
-          } else {
-            const actionLogin = UserActionCreators.loginRegisteredUser(callbackRedirect);
-            dispatch(actionLogin);
-          }
-        });
-        resolve(dispatch(action));
-      });
+    let fetchUser;
+    try {
+      fetchUser = await axios.get(`/api/users${queryUser}`);
+      if (!fetchUser.data){
+        throw new Error('No user found!');
+      }
+      fetchUser = fetchUser.data.users[0];
+    } catch (err) {
+      console.log('Fetching user error: ', err);
     }
+    const action = setCurrrentUser(fetchUser);
+    await this.props.dispatch(action);
 
-    async function asyncDispatch() {
-      const result = await resolveDispatch();
+    if (fetchUser && fetchUser.email !== email) {
+      alert(`Password/Email combination does not match any registered user.`);
+    } else {
+      await dispatch(loginRegisteredUser(callbackRedirect));
     }
-    asyncDispatch();
   }
 
   handleSignInGuest = () => {

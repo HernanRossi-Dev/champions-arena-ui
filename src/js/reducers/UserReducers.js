@@ -6,10 +6,18 @@ const initialState = {
   loggedIn: null,
   authToken: '',
   currentUserName: '',
-
 };
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.SET_CURRENT_USER:
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: false,
+        currentUser: action.user,
+        loggedIn: false,
+        currentUserName: action.user.name
+      });
     case types.CREATE_GUEST_USER_START:
       return Object.assign({}, state, {
         currentUser: {},
