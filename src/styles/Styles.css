@@ -228,6 +228,13 @@ body {
   border: none;
   background-color: transparent !important;
 }
+.editButton {
+  color: #435567;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
 
 .headingText {
   font-family: "Cinzel Decorative", cursive;

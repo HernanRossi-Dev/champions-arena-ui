@@ -838,7 +838,7 @@ export const SelectedClassModalBody = props => {
           Druids can prepare a number of orisons, or 0-level spells, each day, as noted on Table: Druid under “Spells per Day.” These spells are cast like any other spell, but they are not expended when cast and may be used again.<br /><br />
 
           <h4>Bonus Languages</h4>
-          A druid's bonus language options include Sylvan, the language of woodland creatures. This choice is in addition to the bonus languages available to the character because of her race.<br /><br />
+          A druid's bonus language options include Sylvan, the language of woodland creatures. This choice is in addition to the bonus languages available to the character because of her ancestry.<br /><br />
 
           A druid also knows Druidic, a secret language known only to druids, which she learns upon becoming a 1st-level druid. Druidic is a free language for a druid; that is, she knows it in addition to her regular allotment of languages and it doesn't take up a language slot. Druids are forbidden to teach this language to nondruids.<br /><br />
 
@@ -977,7 +977,7 @@ export const SelectedClassModalBody = props => {
           A cleric can't cast spells of an alignment opposed to her own or her deity's (if she has one). Spells associated with particular alignments are indicated by the chaotic, evil, good, and lawful descriptors in their spell descriptions. <br /><br />
 
           <h4>Bonus Languages</h4>
-          A cleric's bonus language options include Celestial, Abyssal, and Infernal (the languages of good, chaotic evil, and lawful evil outsiders, respectively). These choices are in addition to the bonus languages available to the character because of her race.<br /><br />
+          A cleric's bonus language options include Celestial, Abyssal, and Infernal (the languages of good, chaotic evil, and lawful evil outsiders, respectively). These choices are in addition to the bonus languages available to the character because of her ancestry.<br /><br />
 
           <h4>Ex-Clerics</h4>
           A cleric who grossly violates the code of conduct required by her god loses all spells and class features, except for armor and shield proficiencies and proficiency with simple weapons. She cannot thereafter gain levels as a cleric of that god until she atones for her deeds  <br /><br />
@@ -1081,7 +1081,7 @@ export const SelectedClassModalBody = props => {
           <h4>Weapon and Armor Proficiency</h4>
           A barbarian is proficient with all simple and martial weapons, light armor, medium armor, and shields (except tower shields).<br /><br />
           <h4>Fast Movement (Ex)</h4>
-          A barbarian's land speed is faster than the norm for her race by +10 feet. This benefit applies only when she is wearing no armor, light armor, or medium armor, and not carrying a heavy load. Apply this bonus before modifying the barbarian's speed because of any load carried or armor worn. This bonus stacks with any other bonuses to the barbarian's land speed.<br /><br />
+          A barbarian's land speed is faster than the norm for her ancestry by +10 feet. This benefit applies only when she is wearing no armor, light armor, or medium armor, and not carrying a heavy load. Apply this bonus before modifying the barbarian's speed because of any load carried or armor worn. This bonus stacks with any other bonuses to the barbarian's land speed.<br /><br />
 
           <h4>Rage (Ex)</h4>
           A barbarian can call upon inner reserves of strength and ferocity, granting her additional combat prowess. Starting at 1st level, a barbarian can rage for a number of rounds per day equal to 4 + her Constitution modifier. At each level after 1st, she can rage for 2 additional rounds. Temporary increases to Constitution, such as those gained from rage and spells like bear's endurance, do not increase the total number of rounds that a barbarian can rage per day. A barbarian can enter rage as a free action. The total number of rounds of rage per day is renewed after resting for 8 hours, although these hours do not need to be consecutive.<br /><br />

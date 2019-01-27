@@ -1,11 +1,8 @@
 import React from "react";
 import { Col, ControlLabel, FormGroup } from "react-bootstrap";
 import TextField from "@material-ui/core/TextField";
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';

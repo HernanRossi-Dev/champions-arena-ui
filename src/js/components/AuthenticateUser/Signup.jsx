@@ -26,13 +26,6 @@ let passwordHash = require('password-hash');
 class Signup extends React.Component {
   constructor(props, context) {
     super();
-    this.handleClose = this.handleClose.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleSignUp = this.handleSignUp.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleUserNameChange = this.handleUserNameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handlePasswordConfirmChange = this.handlePasswordConfirmChange.bind(this);
     this.state = {
       userName: "",
       password: "",
@@ -47,17 +40,15 @@ class Signup extends React.Component {
     this.boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false });
   }
 
-  handleShow() {
+  handleShow = () => {
     this.setState({ show: true });
   }
 
-  componentDidMount() {}
-
-  handleSignUp() {
+  handleSignUp = () => {
     let emailAddress = this.userEmail.value;
     //Process email
 
@@ -67,10 +58,8 @@ class Signup extends React.Component {
       alert("Oops. Somethings wrong with your email address");
       return;
     }
-
     //process userName
     let newUserName = this.userName.value;
-
     let regexName = /[a-zA-Z0-9]+/i;
     let regexNameResult = regexName.exec(newUserName);
     if (regexNameResult) {
@@ -132,17 +121,17 @@ class Signup extends React.Component {
     });
     dispatch(action);
   }
-  handleEmailChange(e){
+  handleEmailChange = (e) =>{
     this.setState({userEmail: e.target.value});
   }
 
-	handleUserNameChange(e){
+	handleUserNameChange = (e) => {
 		this.setState({userName: e.target.value});
 	}
-	handlePasswordChange(e){
+	handlePasswordChange = (e) => {
 		this.setState({password: e.target.value});
 	}
-	handlePasswordConfirmChange(e){
+	handlePasswordConfirmChange = (e) => {
 		this.setState({passwordConfirm: e.target.value});
 	}
 
@@ -174,12 +163,6 @@ class Signup extends React.Component {
       fontFamily: '"Merriweather", serif',
       marginBottom: "20px",
       borderBottom: "1px solid #df691a"
-    };
-    const Headerstyle = {
-      display: "flex",
-      justifyContent: "center",
-      flexDirection: "column",
-      alignItems: "center"
     };
 
     const ModalBodyText = () => {

@@ -38,7 +38,7 @@ class CharacterFilter extends React.Component {
 
     this.state = {
       class: newInitFilter.class,
-      race: newInitFilter.race,
+      ancestry: newInitFilter.ancestry,
       level_gte: newInitFilter.level_gte,
       level_lte: newInitFilter.level_lte,
       changed: false,
@@ -48,15 +48,15 @@ class CharacterFilter extends React.Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       class: newProps.initFilter.class,
-      race: newProps.initFilter.race,
+      ancestry: newProps.initFilter.ancestry,
       level_gte: newProps.initFilter.level_gte,
       level_lte: newProps.initFilter.level_lte,
       changed: false
     });
   }
 
-  onChangeRace = (e) => {
-    this.setState({ race: e.target.value, changed: true });
+  onChangeAncestry = (e) => {
+    this.setState({ ancestry: e.target.value, changed: true });
   }
 
   onChangeClass = (e) => {
@@ -78,7 +78,7 @@ class CharacterFilter extends React.Component {
   }
 
   resetFilter = () => {
-    const filters = ['class', 'race', 'level_gte', 'level_lte'];
+    const filters = ['class', 'ancestry', 'level_gte', 'level_lte'];
     filters.forEach((index) => {
       if (this.props.initFilter[filters[index]] === undefined) {
         this.props.initFilter[filters[index]] = '';
@@ -87,7 +87,7 @@ class CharacterFilter extends React.Component {
 
     this.setState({
       class: this.props.initFilter.class,
-      race: this.props.initFilter.race,
+      ancestry: this.props.initFilter.ancestry,
       level_gte: this.props.initFilter.level_gte,
       level_lte: this.props.initFilter.level_lte,
       changed: false
@@ -100,7 +100,7 @@ class CharacterFilter extends React.Component {
 
   applyFilter = () => {
     const newFilter = {};
-    if (this.state.race) newFilter.race = this.state.race;
+    if (this.state.ancestry) newFilter.ancestry = this.state.ancestry;
     if (this.state.class) newFilter.class = this.state.class;
     if (this.state.level_gte) newFilter.level_gte = this.state.level_gte;
     if (this.state.level_lte) newFilter.level_lte = this.state.level_lte;
@@ -148,8 +148,8 @@ class CharacterFilter extends React.Component {
                   <ControlLabel>Ancestry</ControlLabel>
                   <FormControl
                     componentClass="select"
-                    value={this.state.race}
-                    onChange={this.onChangeRace}
+                    value={this.state.ancestry}
+                    onChange={this.onChangeAncestry}
                   >
                     <option value="">Any</option>
                     <option value="Human">Human</option>

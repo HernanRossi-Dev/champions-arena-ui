@@ -22,7 +22,7 @@ import {
   GoblinData
 } from './create-character-utils/select-ancestry-info';
 
-const raceDivStyle = {
+const ancestryDivStyle = {
   fontSize: "17px !important",
   fontFamily: "'Josefin Sans', sans-serif",
   textAlign: "left"
@@ -39,7 +39,7 @@ class CreateCharacterAncestryComponent extends React.Component {
     super();
     this.state = {
       AncestryInfo: "",
-      showRaceInfo: false,
+      showAncestryInfo: false,
       prevButtonPressed: "",
       showHumanFeats: false,
     };
@@ -75,9 +75,9 @@ class CreateCharacterAncestryComponent extends React.Component {
     return { ancestryProps };
   }
 
-  RaceTextToggle = () => {
-    if (this.state.showRaceInfo) {
-      return <div style={raceDivStyle}> {this.state.AncestryInfo}</div>;
+  AncestryTextToggle = () => {
+    if (this.state.showAncestryInfo) {
+      return <div style={ancestryDivStyle}> {this.state.AncestryInfo}</div>;
     }
     return <div />;
   };
@@ -87,15 +87,15 @@ class CreateCharacterAncestryComponent extends React.Component {
     if (!targetText) {
       return;
     }
-    if (!this.state.showRaceInfo) {
-      this.setState({ showRaceInfo: true });
+    if (!this.state.showAncestryInfo) {
+      this.setState({ showAncestryInfo: true });
     }
     if (targetText === this.state.prevButtonPressed) {
-      if (this.state.showRaceInfo) {
-        this.setState({ showRaceInfo: !this.state.showRaceInfo });
+      if (this.state.showAncestryInfo) {
+        this.setState({ showAncestryInfo: !this.state.showAncestryInfo });
       }
     } else {
-      this.setState({ showRaceInfo: true });
+      this.setState({ showAncestryInfo: true });
     }
     if (targetText === 'Human') {
       this.setState({showHumanFeats: true});
@@ -132,7 +132,7 @@ class CreateCharacterAncestryComponent extends React.Component {
             <ButtonToolbar>
               <ToggleButtonGroup
                 type="radio"
-                name="raceValue"
+                name="ancestryValue"
                 onClick={this.changeAncestry}
                 className={cssStyles.alignmentButtonGroupParent}
               >
@@ -179,7 +179,7 @@ class CreateCharacterAncestryComponent extends React.Component {
         <FormGroup>
           <Col sm={1} />
           <Col sm={11}>
-            <Collapse in={this.state.showHumanFeats} style={raceDivStyle}>
+            <Collapse in={this.state.showHumanFeats} style={ancestryDivStyle}>
               <div>
                 <Well style={{ backgroundColor: 'transparent', marginBottom: '-50px' }}>
                   <div>
@@ -219,7 +219,7 @@ class CreateCharacterAncestryComponent extends React.Component {
         <FormGroup>
           <Col sm={1} />
           <Col sm={8}>
-            <Collapse in={this.state.showRaceInfo} style={raceDivStyle}>
+            <Collapse in={this.state.showAncestryInfo} style={ancestryDivStyle}>
               <div>
                 <Well style={{ backgroundColor: 'transparent' }}>
                   {this.state.AncestryInfo}

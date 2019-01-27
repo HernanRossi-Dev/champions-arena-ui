@@ -145,7 +145,7 @@ exports.deleteCharacters = async (req, res) => {
   const filter = {};
   if (req.query.user) filter.user = req.query.user;
   if (req.query.class) filter.class = req.query.class;
-  if (req.query.race) filter.race = req.query.race;
+  if (req.query.ancestry) filter.ancestry = req.query.ancestry;
   if (req.query.level_lte || req.query.level_gte) filter.level = {};
   if (req.query.level_lte) {
     filter.level.$lte = parseInt(req.query.level_lte, 10);

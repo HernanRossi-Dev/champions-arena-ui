@@ -112,6 +112,24 @@ class CharacterEdit extends React.Component {
     this.setState({ editCharacter: updateCharacter });
   }
 
+  changeAncestry = (newAncestry) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
+    updateCharacter.ancestry = newAncestry;
+    this.setState({ editCharacter: updateCharacter });
+  }
+
+  changeClass = (newClass) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
+    updateCharacter.class = newClass;
+    this.setState({ editCharacter: updateCharacter });
+  }
+
+  changeBackground = (newBackground) => {
+    const updateCharacter = Object.assign({}, this.state.editCharacter);
+    updateCharacter.background = newBackground;
+    this.setState({ editCharacter: updateCharacter });
+  }
+
   changeLevel = (newLevel) => {
     const updateCharacter = Object.assign({}, this.state.editCharacter);
     updateCharacter.level = newLevel;
@@ -232,6 +250,9 @@ class CharacterEdit extends React.Component {
             changeHomeland={this.changeHomeland}
             changeSize={this.changeSize}
             changeGender={this.changeGender}
+            changeAncestry={this.changeAncestry}
+            changeClass={this.changeClass}
+            changeBackground={this.changeBackground}
           />
 
           <hr className={cssStyles.hr} />
@@ -258,6 +279,11 @@ class CharacterEdit extends React.Component {
             <Col sm={8} />
             <Col sm={4}>
               <ButtonToolbar>
+              <LinkContainer to="/characters">
+                  <Button bsStyle="link" >
+                    Discard Changes
+                  </Button>
+                </LinkContainer>
                 <Button bsStyle="primary" onClick={this.handleShow}>
                   Save Changes
                 </Button>
@@ -279,18 +305,6 @@ class CharacterEdit extends React.Component {
                 <Button onClick={this.rejectChanges}>Cancel</Button>
               </Modal.Footer>
             </Modal>
-          </FormGroup>
-          <FormGroup>
-            <Col sm={7} />
-            <Col sm={4}>
-              <ButtonToolbar>
-                <LinkContainer to="/characters">
-                  <Button bsStyle="link">
-                    Back to Character List (discard changes)
-                  </Button>
-                </LinkContainer>
-              </ButtonToolbar>
-            </Col>
           </FormGroup>
         </Form>
       </Panel>

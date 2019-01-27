@@ -4,7 +4,7 @@ var characterSchema = new mongoose.Schema({
 	user: String,
 	name: String,
 	class: String,
-	race: String,
+	ancestry: String,
 	level: Number,
 	XP: Number,
 	STR: Number,

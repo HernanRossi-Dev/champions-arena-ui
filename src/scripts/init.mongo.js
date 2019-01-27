@@ -5,7 +5,7 @@ db.characters.remove({});
 db.characters.insert([
     {
         class: 'Rogue',
-        race: 'Dwarf',
+        ancestry: 'Dwarf',
         name: 'Ravan',
         created: new Date('2018-03-15'),
         STR: 10,
@@ -21,7 +21,7 @@ db.characters.insert([
     },
     {
         class: 'Barbarian',
-        race: 'Half-Orc',
+        ancestry: 'Half-Orc',
         name: 'Tov',
         created: new Date('2018-03-10'),
         STR: 16,
@@ -37,7 +37,7 @@ db.characters.insert([
     },
     {
         class: 'Wizard',
-        race: 'Human',
+        ancestry: 'Human',
         name: 'Thain',
         created: new Date('2018-03-10'),
         STR: 12,
@@ -55,4 +55,4 @@ db.characters.insert([
 
 db.characters.createIndex({ name: 1 });
 db.characters.createIndex({ class: 1 });
-db.characters.createIndex({ race: 1 });
+db.characters.createIndex({ ancestry: 1 });

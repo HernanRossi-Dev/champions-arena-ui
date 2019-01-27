@@ -79,7 +79,7 @@ class CreateCharacterComponent extends React.Component {
       name: "",
       class: "",
       background: "",
-      characterRace: "",
+      characterAncestry: "",
       hitPoints: 0,
       racialBonus: {},
       allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
@@ -188,7 +188,7 @@ class CreateCharacterComponent extends React.Component {
     const validationFields = [
       "name",
       "class",
-      "characterRace",
+      "characterAncestry",
       "background",
       "alignment",
       "gender",
@@ -223,8 +223,9 @@ class CreateCharacterComponent extends React.Component {
     this.saveNewCharacter({
       name: this.state.name,
       class: this.state.class,
-      race: this.state.characterRace,
+      ancestry: this.state.characterAncestry,
       hitPoints: characterHP,
+      deity:  this.state.deity,
       level: 1,
       XP: 0,
       STR: setAbilityStats.STR,
@@ -233,16 +234,18 @@ class CreateCharacterComponent extends React.Component {
       INT: setAbilityStats.INT,
       WIS: setAbilityStats.WIS,
       CHA: setAbilityStats.CHA,
-      freeAbilityPoints: this.state.freeAbilityPoints,
+      abilityBoost: 0,
       items: {},
       abilities: {},
       traits: {},
+      feats: {},
       characterNotes: [],
       type: this.state.type,
       gender: this.state.gender,
       alignment: this.state.alignment,
       user: userName,
       ancestryProps: this.state.ancestryProps,
+      background: this.state.backgroundInfo.background,
       backgroundProps: this.state.backgroundInfo,
       classProps: this.state.classProps,
     });
@@ -268,18 +271,18 @@ class CreateCharacterComponent extends React.Component {
     });
   }
 
-  setAncestry = (newRace, ancestryProps) => {
+  setAncestry = (newAncestry, ancestryProps) => {
     const bonusPoints = ancestryProps.statsBonus;
     const { freeAbilityPoints } = ancestryProps;
     let newFreeAbilityPoints = this.state.freeAbilityPoints;
     const humanAncestries = ['Human', 'Half-Elf', 'Half-Orc'];
     if ( this.state.freeAbilityPoints !== 4 ){
-      const subtractPrevPoints = humanAncestries.includes(this.state.characterRace) ? 2 : 1;
+      const subtractPrevPoints = humanAncestries.includes(this.state.characterAncestry) ? 2 : 1;
       newFreeAbilityPoints -= subtractPrevPoints;
     }
    
     newFreeAbilityPoints += freeAbilityPoints;
-    if (newRace === this.state.characterRace) {
+    if (newAncestry === this.state.characterAncestry) {
       return;
     }
     if (bonusPoints) {
@@ -296,7 +299,7 @@ class CreateCharacterComponent extends React.Component {
 
       this.setState({
         characterStats: newStats,
-        characterRace: newRace,
+        characterAncestry: newAncestry,
         racialBonus: bonusPoints,
         freeAbilityPoints : newFreeAbilityPoints,
         ancestryProps
@@ -393,10 +396,12 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setDeity = (newDeityProps) => {
+    console.log("NEW DIETY PROPS: ", newDeityProps);
+    const name = newDeityProps.Name;
     const clericProps = this.state.classProps;
     clericProps.deityProps = newDeityProps;
     const allowedAlignments = newDeityProps.Alignment;
-    this.setState({ classProps: clericProps, allowedAlignments });
+    this.setState({ classProps: clericProps, allowedAlignments, deity: name });
   }
 
   setBloodline = (newBloodline) => {

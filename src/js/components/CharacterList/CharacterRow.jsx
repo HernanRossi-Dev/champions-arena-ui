@@ -46,7 +46,7 @@ class CharacterRow extends React.Component {
         <td>{this.props.character.class}</td>
         <td>{this.props.character.level}</td>
         <td>{this.props.character.XP}</td>
-        <td>{this.props.character.race}</td>
+        <td>{this.props.character.ancestry}</td>
         <td>{this.props.character.STR}</td>
         <td>{this.props.character.DEX}</td>
         <td>{this.props.character.CON}</td>
@@ -56,6 +56,13 @@ class CharacterRow extends React.Component {
         <td>
           <Button type="button" bsClass={cssStyles.deleteButton} onClick={this.handleShow}>
             <i className="fas fa-times-circle fa-lg" />
+          </Button>
+        </td>
+        <td>
+          <Button type="button" bsClass={cssStyles.editButton}>
+          <Link to={ `/characters/${characteraID}` }>
+          <i className="far fa-edit" />
+          </Link>
           </Button>
         </td>
         <Modal

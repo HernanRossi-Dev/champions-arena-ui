@@ -8,7 +8,7 @@ exports.createCharacterMock = () => {
     
         name: faker.name.firstName(),
         class: _.sample(charProps.classes),
-        race: _.sample(charProps.ancestries),
+        ancestry: _.sample(charProps.ancestries),
         type: "Iconic",
         gender: _.sample(charProps.genders),
         alignment: _.sample(charProps.alignments),

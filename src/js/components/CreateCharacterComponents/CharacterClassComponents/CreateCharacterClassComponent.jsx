@@ -23,7 +23,7 @@ const ChooseStateTitle = styled.div`
   text-align: center;
 `;
 
-const raceDivStyle = {
+const ancestryDivStyle = {
   fontSize: "17px !important",
   fontFamily: "'Josefin Sans', sans-serif",
   textAlign: "left",
@@ -89,7 +89,7 @@ export default class CreateCharacterClassComponent extends React.Component {
           <ButtonToolbar>
             <ToggleButtonGroup
               type="radio"
-              name="raceValue"
+              name="ancestryValue"
               onClick={this.setClass}
               className={cssStyles.alignmentButtonGroupParent}
 
@@ -184,7 +184,7 @@ export default class CreateCharacterClassComponent extends React.Component {
       <FormGroup>
       <Col sm={2} />
       <Col sm={8}>
-        <Collapse in={this.state.showMonkAbilitySelect} style={raceDivStyle}>
+        <Collapse in={this.state.showMonkAbilitySelect} style={ancestryDivStyle}>
           <div>
             <Well style={{ backgroundColor: 'transparent', marginBottom: '-50px' }}>
               <div>

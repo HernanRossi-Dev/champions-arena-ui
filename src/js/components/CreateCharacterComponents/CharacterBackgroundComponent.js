@@ -21,7 +21,7 @@ const ChooseStateTitle = styled.div`
   font-family: 'Josefin Sans', sans-serif;
   text-align: center;
 `;
-const raceDivStyle = {
+const ancestryDivStyle = {
   fontSize: "17px !important",
   fontFamily: "'Josefin Sans', sans-serif",
   textAlign: "left"
@@ -61,7 +61,7 @@ class CharacterBackgroundComponent extends React.Component {
       selectedBackgroundProps,
       style: cssStyles.selectStatButton2,
       styleParent: cssStyles.selectStatButtonParent,
-      raceDivStyle,
+      ancestryDivStyle,
       selectedStat: '',
     });
     this.props.setBackground('reset');
@@ -221,7 +221,7 @@ class CharacterBackgroundComponent extends React.Component {
         <FormGroup>
           <Col sm={1} />
           <Col sm={8}>
-            <Collapse in={this.state.showBackgroundInfo} style={this.state.raceDivStyle}>
+            <Collapse in={this.state.showBackgroundInfo} style={this.state.ancestryDivStyle}>
               <div>
                 <Well style={{ backgroundColor: 'transparent' }}>
                   <div>

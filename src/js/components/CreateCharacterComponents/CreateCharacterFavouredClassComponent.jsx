@@ -78,7 +78,7 @@ export default class CreateCharacterFavouredClassComponent extends React.Compone
             <ButtonToolbar>
               <ToggleButtonGroup
                 type="radio"
-                name="raceValue"
+                name="ancestryValue"
                 onClick={this.saveFavouredClass}
                 className={cssStyles.favouredClassButtonGroup}
               >

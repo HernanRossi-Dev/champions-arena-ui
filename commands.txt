@@ -11,7 +11,7 @@ SERVER:
     {
         "id": "3",
         "class": "Cleric",
-        "race": "Human",
+        "ancestry": "Human",
         "name": "Eleni",
         "STR": "12",
         "DEX": "12",
