@@ -436,7 +436,8 @@ body {
   border-bottom-style: groove;
   border-bottom-width: thin;
   border-color: #df691a;
-
+  position: fixed;
+  top: 0;
   background: #2b3e50;
   z-index: 5001;
   width: 100%;
@@ -466,7 +467,7 @@ body {
   background-position: center;
   -ms-background-position-x: center;
   -ms-background-position-y: bottom;
-  margin-top: 42px;
+  margin-top: 44px;
   margin-bottom: 30px;
 }
 .splash_imgLogin {

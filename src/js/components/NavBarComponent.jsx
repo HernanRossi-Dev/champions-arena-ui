@@ -1,7 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MenuItem, Nav, Navbar, NavDropdown, NavItem, Button } from "react-bootstrap";
+import {  Nav, NavDropdown, Button, MenuItem } from "react-bootstrap";
+import { Navbar, NavItem, Dropdown } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import * as cssStyles from '../../styles/Styles.css';
 import store from '../store';
@@ -94,20 +95,18 @@ class NavBarComponent extends React.Component {
 
   render() {
     return (
-      <div>
         <Navbar
-          toggleable="false"
-          fluid
+          sticky='top'
+          fixed='top'
           className={cssStyles.navbarStyle}
-          fixedTop={true}
         >
           <Nav bsStyle="tabs" justified className={cssStyles.navBarFont}>
-            <LinkContainer to="/home">
-              <NavItem>Home</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/characters">
-              <NavItem>Characters</NavItem>
-            </LinkContainer>
+            <NavItem>
+              <NavLink to='/home' active='true'>Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to='/characters' active='true'>Characters</NavLink>
+            </NavItem>
             <NavDropdown
               eventKey={3}
               onMouseEnter={this.handleOpenCreate}
@@ -211,7 +210,6 @@ class NavBarComponent extends React.Component {
             </NavDropdown>
           </Nav>
         </Navbar>
-      </div>
     );
   }
 }

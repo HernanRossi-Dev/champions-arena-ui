@@ -24,9 +24,10 @@ class SiteHeaderComponent extends React.Component {
       alignItems: "center"
     };
     return (
+      
       <div >
-
-        { this.renderNavBar() }
+      { this.renderNavBar() }
+        
         <div className={cssStyles.splash_img}>
           <div className="card-header" style={style}>
             <img
