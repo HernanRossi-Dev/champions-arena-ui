@@ -14,46 +14,48 @@ function updatingCharacter() {
   };
 }
 
-export const updateCharacter = (updateCharacter, callBackSetState) => (dispatch) => {
-  const URL = `/api/characters/${updateCharacter._id}`;
-  dispatch(updatingCharacter());
-  fetch(URL, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: store.getState().userReducer.authToken
-    },
-    body: JSON.stringify(updateCharacter)
-  }).then((response) => {
-    if (!response.ok) {
-      response.json().then(error => {
-        alert(`Failed to update character: ${error}`);
-        dispatch({
-          type: types.UPDATING_CHARACTER_FAIL,
-          payload: error,
-          error: true
-        });
-      });
-    } else {
-      response.json().then((data) => {
-        function resolveDispatch() {
-          return new Promise((resolve) => {
-            resolve(
-              dispatch({
-                type: types.UPDATING_CHARACTER_SUCCESS,
-                updatedCharacter: data
-              })
-            );
+export const updateCharacter = (updateCharacter, callBackSetState) => {
+  return function (dispatch, getState) {
+    const URL = `/api/characters/${updateCharacter._id}`;
+    dispatch(updatingCharacter());
+    fetch(URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: store.getState().userReducer.authToken
+      },
+      body: JSON.stringify(updateCharacter)
+    }).then((response) => {
+      if (!response.ok) {
+        response.json().then(error => {
+          alert(`Failed to update character: ${error}`);
+          dispatch({
+            type: types.UPDATING_CHARACTER_FAIL,
+            payload: error,
+            error: true
           });
-        }
-        async function asyncDispatch() {
-          await resolveDispatch();
-	        callBackSetState();
-        }
-        asyncDispatch();
-      });
-    }
-  });
+        });
+      } else {
+        response.json().then((data) => {
+          function resolveDispatch() {
+            return new Promise((resolve) => {
+              resolve(
+                dispatch({
+                  type: types.UPDATING_CHARACTER_SUCCESS,
+                  updatedCharacter: data
+                })
+              );
+            });
+          }
+          async function asyncDispatch() {
+            await resolveDispatch();
+            callBackSetState();
+          }
+          asyncDispatch();
+        });
+      }
+    });
+  }
 };
 
 function requestCharacter(URL) {
@@ -102,9 +104,11 @@ export const fetchCharacter = (characterID, callbackSetState) => {
   };
 };
 
-export const setNumberOfCharacters = (numberOfCharacters) => (dispatch) => {
-  dispatch({
-    type: types.UPDATE_NUMBER_OF_CHARACTERS,
-    numberOfCharacters
-  });
+export const setNumberOfCharacters = (numberOfCharacters) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.UPDATE_NUMBER_OF_CHARACTERS,
+      numberOfCharacters
+    });
+  }
 };

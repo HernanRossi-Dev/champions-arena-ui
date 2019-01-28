@@ -96,11 +96,13 @@ function fetchRegisteredUserStart() {
   };
 }
 
-export const setCurrrentUser = (user) => (dispatch) => {
-  dispatch({
-    type: types.SET_CURRENT_USER,
-    user
-  });
+export const setCurrrentUser = (user) =>  {
+  return function (dispatch, getState) {
+    dispatch({
+      type: types.SET_CURRENT_USER,
+      user
+    });
+  }
 };
 
 export const fetchRegisteredUser = (filter = "", queryCallBack) => {
