@@ -18,32 +18,6 @@ const styles = {
     color: "white",
     fontSize: 18
   },
-  underline: {
-    '&:before': { // underline color when textfield is inactive
-      borderBottomColor: '#697785',
-      height: '1px',
-    },
-    '&:hover:not($disabled):before': { // underline color when hovered
-      borderBottomColor: 'white',
-      height: '1px',
-    },
-    '&:after': {
-      borderBottomColor: '#df691a',
-      height: '1px',
-    },
-  },
-  focused: {
-    '&:before': { // underline color when textfield is inactive
-      borderBottomColor: '#df691a',
-      height: '1px',
-    },
-    '&:hover:not($disabled):before': { // underline color when hovered
-      borderBottomColor: '#df691a', height: '1px',
-    },
-    '&:after': {
-      borderBottomColor: '#df691a', height: '1px',
-    },
-  },
   selectEmpty: {
     width: '125px',
     color: 'white',
@@ -100,7 +74,6 @@ class CreateCharacterNameComponent extends React.Component {
                 classes: {
                   root: classes.input,
                   input: classes.input,
-                  underline: classes.underline
                 }
               }}
             />

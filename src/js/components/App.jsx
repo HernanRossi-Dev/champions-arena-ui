@@ -38,31 +38,39 @@ const theme = createMuiTheme({
   overrides: {
     MuiInput: {
       underline: {
-        '&:before': { //underline color when textfield is inactive
+        '&:before': { // underline color when textfield is inactive
+          borderBottomColor: '#697785',
           backgroundColor: '#697785',
           height: '1px',
         },
-        '&:hover:not($disabled):before': { //underline color when hovered
-          backgroundColor: 'white',
-          height: '1px',
+        '&:hover:not($disabled):not($focused):not($error):before': {
+          borderBottom: `2px solid #FFFFFF`,
         },
-        '&:after': {
+        '&:hover:not($disabled):after': { // underline color when hovered
+          borderBottomColor: '#df691a',
           backgroundColor: '#df691a',
           height: '1px',
         },
-      },
-      focused: {
-        '&:before': { //underline color when textfield is inactive
-          color: '#df691a',
+        '&:after': {
+          borderBottomColor: '#df691a',
+          backgroundColor: '#df691a',
           height: '1px',
         },
-        '&:hover:not($disabled):before': { //underline color when hovered
-          color: '#df691a', height: '1px',
+        disabled: {
+        },
+      },
+      focused: {
+        '&:before': { // underline color when textfield is inactive
+          borderBottomColor: '#df691a',
+          height: '1px',
+        },
+        '&:hover:not($disabled):before': { // underline color when hovered
+          borderBottomColor: '#df691a', height: '1px',
         },
         '&:after': {
-          color: '#df691a', height: '1px',
+          borderBottomColor: '#df691a', height: '1px',
         },
-      }
+      },
     },
   }
 });
