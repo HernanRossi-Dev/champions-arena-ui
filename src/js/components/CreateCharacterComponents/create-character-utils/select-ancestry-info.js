@@ -252,7 +252,7 @@ export const GoblinData = () => {
     </p>
   );
   const ancestryProps = {
-    ancestry: 'Halfling',
+    ancestry: 'Goblin',
     statsBonus: {
       DEX: 2, CHA: 2, WIS: -2
     },

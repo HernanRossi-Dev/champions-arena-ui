@@ -6,16 +6,18 @@ const nodemailer = require('nodemailer');
 const generator = require('generate-password');
 const passwordHash = require('password-hash');
 const uuid = require('uuid');
+const {cloneDeep } = require('lodash');
 
 exports.createUser = async (req, res) => {
   const newUser = req.body;
-
   let i = 0;
-  for (i; i < defaultCharacters.length; i += 1) {
-    defaultCharacters[i].user = newUser.name;
-    defaultCharacters[i]._id = new ObjectID(req.params.id);
+  const insertChars = cloneDeep(defaultCharactersV2);
+  for (i; i < insertChars.length; i += 1) {
+    insertChars[i].user = newUser.name;
+    insertChars[i]._id = ObjectID();
   }
-  server.db.collection("characters").insertMany(defaultCharacters);
+
+  await server.db.collection("characters").insertMany(insertChars);
   newUser.created = new Date();
   let createUser;
   try {
