@@ -48,8 +48,6 @@ class CharacterEditBasicInfoComponent extends React.Component {
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props !== nextProps) {
-      console.log("this.props.editCharacter: ", nextProps.editCharacter);
-
       this.setState({ editCharacter: nextProps.editCharacter });
     }
   }
@@ -119,7 +117,6 @@ class CharacterEditBasicInfoComponent extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log("RENDER: ",this.state.editCharacter );
     return (
       <div >
         <Grid container spacing={16} justify="center">

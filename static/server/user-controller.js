@@ -1,6 +1,7 @@
 const server = require('./server');
 const { ObjectID } = require("mongodb");
 const { defaultCharacters } = require("./defaultCharacters");
+const { defaultCharactersV2 } = require("./defaultCharactersV2");
 const nodemailer = require('nodemailer');
 const generator = require('generate-password');
 const passwordHash = require('password-hash');

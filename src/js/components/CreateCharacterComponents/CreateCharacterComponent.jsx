@@ -396,7 +396,6 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setDeity = (newDeityProps) => {
-    console.log("NEW DIETY PROPS: ", newDeityProps);
     const name = newDeityProps.Name;
     const clericProps = this.state.classProps;
     clericProps.deityProps = newDeityProps;

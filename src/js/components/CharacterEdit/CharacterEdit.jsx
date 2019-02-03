@@ -200,7 +200,6 @@ class CharacterEdit extends React.Component {
     const updateCharacter = Object.assign({}, this.state.editCharacter);
     const characterProperties = Object.keys(updateCharacter);
     for (let prop of characterProperties) {
-      console.log('PROP:', prop, updateCharacter[prop]);
       updateCharacter[prop] = updateCharacter[prop] ? updateCharacter[prop].toString().trim() : '';
     }
     // Object.keys(updateCharacter).forEach((key) => {
