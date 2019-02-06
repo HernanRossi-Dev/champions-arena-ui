@@ -7,18 +7,18 @@ import Character from './characterModel.js';
 
 const styles = {
   root: {
-    fontColor: "white"
+    fontColor: '#E9CB9A'
   },
   input: {
-    color: "white",
+    color: '#E9CB9A',
     fontSize: 20,
-    fontColor: "white",
+    fontColor: '#E9CB9A',
     fontFamily: "'Josefin Sans', sans-serif"
   },
   helperText: {
-    color: "white",
+    color: '#DBB77D',
     fontSize: 14,
-    fontColor: "white",
+    fontColor: '#DBB77D',
     fontFamily: "'Cinzel Decorative', sans-serif"
     // textShadow: '1px 1px 0px #DFFE02',
   },

@@ -285,7 +285,7 @@ class CharacterEdit extends React.Component {
               <ButtonToolbar>
               <LinkContainer to="/characters">
                   <Button bsStyle="link" >
-                    Discard Changes
+                    Back (Discard Changes)
                   </Button>
                 </LinkContainer>
                 <Button bsStyle="primary" onClick={this.handleShow}>
