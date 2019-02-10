@@ -27,5 +27,6 @@ export default class Character {
     this.backgroundProps = {};
     this.classProps = {};
     this.characterNotes = [];
+    this.modifiers = {};
   }
 }

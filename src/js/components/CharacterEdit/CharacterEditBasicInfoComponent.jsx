@@ -4,23 +4,40 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
 import * as cssStyles from "../../../styles/Styles.css";
 import Character from './characterModel.js';
+import styled from 'styled-components';
+
+const EditTitleStyle = styled.div`
+  font-size: 25px;
+  color: #ffffff;
+  text-align: center;
+  font-family: 'ZCOOL XiaoWei', serif;
+  margin-bottom: 35px;
+  text-shadow: 1px 1px 1px #df691a;
+`;
 
 const styles = {
   root: {
     fontColor: '#E9CB9A'
   },
   input: {
-    color: '#E9CB9A',
-    fontSize: 20,
-    fontColor: '#E9CB9A',
-    fontFamily: "'Josefin Sans', sans-serif"
+    color: '#ffffff',
+    fontSize: 22,
+    fontColor: '#ffffff',
+    fontFamily: "'ZCOOL XiaoWei', serif"
+  },
+  inputName: {
+    color: '#ffffff',
+    fontSize: 35,
+    fontColor: '#ffffff',
+    fontFamily: "'ZCOOL XiaoWei', serif"
   },
   helperText: {
-    color: '#DBB77D',
-    fontSize: 14,
-    fontColor: '#DBB77D',
-    fontFamily: "'Cinzel Decorative', sans-serif"
-    // textShadow: '1px 1px 0px #DFFE02',
+    // color: '#E9CB9A',
+    color: '#ffffff',
+    fontSize: 12,
+    fontColor: '#ffffff',
+    fontFamily: "'Cinzel Decorative', sans-serif",
+    textShadow: '1px 1px 1px #E9CB9A',
   },
   selectEmpty: {
     color: "white",
@@ -42,7 +59,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount(){
     this.setState({ editCharater: this.props.editCharacter });
   }
 
@@ -119,6 +136,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
     const { classes } = this.props;
     return (
       <div >
+        {/* <EditTitleStyle>Details</EditTitleStyle> */}
         <Grid container spacing={16} justify="center">
           <Grid item xs={2}>
             <TextField
@@ -137,7 +155,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
                 InputProps={{
                   classes: {
                     root: classes.input,
-                    input: classes.input,
+                    input: classes.inputName,
                   }
                 }}
                 FormHelperTextProps={{

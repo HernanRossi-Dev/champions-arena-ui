@@ -80,6 +80,7 @@ class CharacterEdit extends React.Component {
       this.showToast('Error fetching character.');
       return null;
     }
+    console.log('CHARACTER: ', getResult.data);
     this.setState({ editCharacter: getResult.data });
   }
 
@@ -196,16 +197,17 @@ class CharacterEdit extends React.Component {
     this.setState({ editCharacter: updateCharacter });
   }
 
+  updateCharacter = (updatedChar) => {
+    console.log('UPDAATE CHARACTER: ', updatedChar);
+    // this.setState({ editCharacter: updatedChar });
+  }
+
   saveChanges = async () => {
     const updateCharacter = Object.assign({}, this.state.editCharacter);
     const characterProperties = Object.keys(updateCharacter);
     for (let prop of characterProperties) {
       updateCharacter[prop] = updateCharacter[prop] ? updateCharacter[prop].toString().trim() : '';
     }
-    // Object.keys(updateCharacter).forEach((key) => {
-    //   updateCharacter[key] = updateCharacter[key].toString().trim();
-    // });
-
     if (!this.props) {
       return null;
     }
@@ -259,17 +261,11 @@ class CharacterEdit extends React.Component {
             changeBackground={this.changeBackground}
           />
 
-          <hr className={cssStyles.hr} />
-	        <FormGroup>
-            <Col sm={1}/>
-		        <Col sm={5}>
-            <CharacterEditStatsComponent/>
-		        </Col>
-		        <Col sm={5}>
-            <CharacterEditSkillsComponent/>
-		        </Col>
-		        <Col sm={1}/>
-          </FormGroup>
+          <hr className={cssStyles.hrEdit} />
+          <CharacterEditStatsComponent
+           editCharacter={this.state.editCharacter}
+            updateCharacter={this.updateCharacter}
+           />
           <hr className={cssStyles.hr} />
 
           <hr className={cssStyles.hr} />
