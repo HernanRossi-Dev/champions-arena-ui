@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import { connect } from "react-redux";
-
+import { cloneDeep } from 'lodash';
 import CloseIcon from '@material-ui/icons/Close';
 import {
   Button,
@@ -18,6 +18,7 @@ import {
   Modal
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import Character from './characterModel.js';
 import * as cssStyles from "../../../styles/Styles.css";
 import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
 import CharacterEditStatsComponent from './CharacterEditStatsComponent.jsx';
@@ -38,9 +39,7 @@ class CharacterEdit extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      editCharacter: {
-        name: ""
-      },
+      editCharacter: new Character(),
       open: false,
       show: false,
       toastMessage: '',
@@ -198,16 +197,15 @@ class CharacterEdit extends React.Component {
   }
 
   updateCharacter = (updatedChar) => {
-    console.log('UPDAATE CHARACTER: ', updatedChar);
-    // this.setState({ editCharacter: updatedChar });
+    this.setState({editCharacter: updatedChar});
   }
 
   saveChanges = async () => {
     const updateCharacter = Object.assign({}, this.state.editCharacter);
-    const characterProperties = Object.keys(updateCharacter);
-    for (let prop of characterProperties) {
-      updateCharacter[prop] = updateCharacter[prop] ? updateCharacter[prop].toString().trim() : '';
-    }
+    // const characterProperties = Object.keys(updateCharacter);
+    // for (let prop of characterProperties) {
+    //   updateCharacter[prop] = updateCharacter[prop] ? updateCharacter[prop] : '';
+    // }
     if (!this.props) {
       return null;
     }
@@ -224,7 +222,7 @@ class CharacterEdit extends React.Component {
       return null;
     }
     this.showToast('Character saved.');
-    this.setState({ editCharacter: updateCharacter });
+    // this.setState({ editCharacter: updateCharacter });
     return null;
   }
 
@@ -263,7 +261,7 @@ class CharacterEdit extends React.Component {
 
           <hr className={cssStyles.hrEdit} />
           <CharacterEditStatsComponent
-           editCharacter={this.state.editCharacter}
+            editCharacter={this.state.editCharacter}
             updateCharacter={this.updateCharacter}
            />
           <hr className={cssStyles.hr} />

@@ -28,9 +28,10 @@ const CharacterTable = (props) => {
           <th className={cssStyles.HTRtextAt}>Type</th>
           <th className={cssStyles.HTRtextAt}>Name</th>
           <th className={cssStyles.HTRtextAt}>Class</th>
+          <th className={cssStyles.HTRtextAt}>Ancestry</th>
           <th className={cssStyles.HTRtextAt}>Level</th>
           <th className={cssStyles.HTRtextAt}>XP</th>
-          <th className={cssStyles.HTRtextAt}>Ancestry</th>
+          <th className={cssStyles.HTRtextAt}>HP</th>
           <th className={cssStyles.HTRtextAt}>STR</th>
           <th className={cssStyles.HTRtextAt}>DEX</th>
           <th className={cssStyles.HTRtextAt}>CON</th>

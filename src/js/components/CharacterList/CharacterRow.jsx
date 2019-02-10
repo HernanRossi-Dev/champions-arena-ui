@@ -44,9 +44,10 @@ class CharacterRow extends React.Component {
           </Link>
         </td>
         <td>{this.props.character.class}</td>
+        <td>{this.props.character.ancestry}</td>
         <td>{this.props.character.level}</td>
         <td>{this.props.character.XP}</td>
-        <td>{this.props.character.ancestry}</td>
+        <td>{this.props.character.hitPoints}</td>
         <td>{this.props.character.STR}</td>
         <td>{this.props.character.DEX}</td>
         <td>{this.props.character.CON}</td>

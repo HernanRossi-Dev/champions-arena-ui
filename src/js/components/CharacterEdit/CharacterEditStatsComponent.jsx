@@ -2,6 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles/index";
+import { cloneDeep, isEqual } from 'lodash';
 import * as cssStyles from "../../../styles/Styles.css";
 import styled from 'styled-components';
 import Character from './characterModel.js';
@@ -110,92 +111,88 @@ class CharacterEditStatsComponent extends React.Component {
     }
 
     componentDidMount(){
+        console.log("EDIT CHAR: ", this.props.editCharacter);
         this.setState({ editCharater: this.props.editCharacter });
     }
     
-    componentWillReceiveProps(nextProps, nextContext) {
-        if (this.props !== nextProps) {
-          this.setState({ editCharacter: nextProps.editCharacter });
+    componentDidUpdate(prevProps, prevState ) {
+        if ( !isEqual(this.props.editCharacter, prevProps.editCharacter)) {
+          this.setState({ editCharacter: this.props.editCharacter });
         }
     }
 
     changeSTR = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE STRENGTH');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.STR = this.STR.value;
+        this.props.updateCharacter(updateChar);
     }
 
     changeSTRModifier = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE STRENGTH MOd');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.STR = this.STRMod.value;
+        this.props.updateCharacter(updateChar);
     }
     changeDEX = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE changeDEX');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.DEX = this.DEX.value;
+        this.props.updateCharacter(updateChar);
     }
 
     changeDEXModifier = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE STRENGTH MOd');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.DEX = this.DEXMod.value;
+        this.props.updateCharacter(updateChar);
     }
     changeCON = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE changeDEX');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.CON = this.CON.value;
+        this.props.updateCharacter(updateChar);
     }
 
     changeCONModifier = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE STRENGTH MOd');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.CON = this.CONMod.value;
+        this.props.updateCharacter(updateChar);
     }
     changeINT = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE changeDEX');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.INT = this.INT.value;
+        this.props.updateCharacter(updateChar);
     }
 
     changeINTModifier = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE STRENGTH MOd');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.INT = this.INTMod.value;
+        this.props.updateCharacter(updateChar);
     }
+
     changeWIS = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE changeDEX');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.WIS = this.WIS.value;
+        this.props.updateCharacter(updateChar);
     }
 
     changeWISModifier = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE STRENGTH MOd');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.WIS = this.WISMod.value;
+        this.props.updateCharacter(updateChar);
     }
     changeCHA = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE changeDEX');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.CHA = this.CHA.value;
+        this.props.updateCharacter(updateChar);
     }
 
     changeCHAModifier = () => {
-        // const updateCharacter = Object.assign({}, this.state.editCharacter);
-        // updateCharacter.gender = newGender;
-        console.log('UPDATE STRENGTH MOd');
-        this.props.updateCharacter();
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.CHA = this.CHAMod.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeHP = () => {
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.hitPoints = this.HP.value;
+        this.props.updateCharacter(updateChar);
     }
 
     render() {
@@ -215,6 +212,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
+                                                type="number"
+                                                autoComplete='nope'
                                                 onChange={this.changeSTR}
                                                 id="STR"
                                                 htmlFor="custom-css-standard-input"
@@ -272,6 +271,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
+                                                type="number"
+                                                autoComplete='nope'
                                                 onChange={this.changeDEX}
                                                 id="DEX"
                                                 htmlFor="custom-css-standard-input"
@@ -326,6 +327,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
+                                                type="number"
+                                                autoComplete='nope'
                                                 onChange={this.changeCON}
                                                 id="CON"
                                                 htmlFor="custom-css-standard-input"
@@ -383,6 +386,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
+                                                type="number"
+                                                autoComplete='nope'
                                                 onChange={this.changeINT}
                                                 id="INT"
                                                 htmlFor="custom-css-standard-input"
@@ -437,6 +442,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
+                                                type="number"
+                                                autoComplete='nope'
                                                 onChange={this.changeWIS}
                                                 id="WIS"
                                                 htmlFor="custom-css-standard-input"
@@ -492,6 +499,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
+                                                type="number"
+                                                autoComplete='nope'
                                                 onChange={this.changeCHA}
                                                 id="CHA"
                                                 htmlFor="custom-css-standard-input"
@@ -540,9 +549,44 @@ class CharacterEditStatsComponent extends React.Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={16} justify="center" xs={6}>
-                            Defense
-                         </Grid>
+                        {/* <Grid container spacing={16} justify="center" xs={6}> */}
+                            <Grid container spacing={16} justify="center" xs={6}>
+                                <Grid item xs={3} style={itemStyle} >
+                                            <StatName>HitPoints</StatName>
+                                            <TextField
+                                                type="number"
+                                                autoComplete='nope'
+                                                onChange={this.changeHP}
+                                                id="HP"
+                                                htmlFor="custom-css-standard-input"
+                                                value={
+                                                    this.state.editCharacter.hitPoints
+                                                        ? this.state.editCharacter.hitPoints
+                                                        : ""
+                                                }
+                                                inputRef={ref => {
+                                                    this.HP = ref;
+                                                }}
+                                                InputProps={{
+                                                    classes: {
+                                                        root: classes.inputStatRoot,
+                                                        input: classes.inputStatMain,
+                                                    }
+                                                }}
+                                                style={{ width: '40px', paddingBottom: '0px', marginLeft: '10px' }}
+                                            />
+                                </Grid>
+                                <Grid item xs={3} style={itemStyle} >
+                                            <StatName>Fortitude</StatName>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={16} justify="center" xs={6}>
+
+                            </Grid>
+                            <Grid container spacing={16} justify="center" xs={6}>
+
+                            </Grid>
+                         {/* </Grid> */}
                     </Grid>
                 </div >
             </ContainerStyle>

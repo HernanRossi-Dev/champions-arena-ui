@@ -516,7 +516,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
           <Grid item xs={1}>
             <TextField
                 id="eyes"
-                helperText="Eyes Color"
+                helperText="Eye Color"
                 inputRef={ref => {
                   this.eyes = ref;
                 }}
