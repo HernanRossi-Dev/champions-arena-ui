@@ -49,6 +49,14 @@ const DefName = styled.div`
   margin-bottom: 5px;
   width: 160px;
 `;
+const PerName = styled.span`
+  font-size: 17px;
+  color: #ffffff;
+  text-align: center;
+  font-family: 'Cinzel Decorative', sans-serif;
+  margin-bottom: 25px;
+  width: 160px;
+`;
 
 const StatLabel = styled.div`
   font-size: 25px;
@@ -83,6 +91,12 @@ const styles = theme => ({
         fontSize: 35,
         fontColor: '#ffffff',
         fontFamily: "'ZCOOL XiaoWei', serif"
+    },
+    inputStatPER: {
+        color: '#ffffff',
+        fontSize: 18,
+        fontColor: '#ffffff',
+        fontFamily: "'ZCOOL XiaoWei', serif",
     },
     inputStatMain: {
         color: '#ffffff',
@@ -226,17 +240,35 @@ class CharacterEditStatsComponent extends React.Component {
         this.props.updateCharacter(updateChar);
     }
 
+    changeFORT = () => {
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.FORT = this.FORT.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeREFLEX = () => {
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.REFLEX = this.REFLEX.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeWILL = () => {
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.modifiers.WILL = this.WILL.value;
+        this.props.updateCharacter(updateChar);
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <ContainerStyle>
                 {/* <EditTitleStyle>Stats</EditTitleStyle> */}
                 <div style={{ marginLeft: '8%', marginRight: '8%' }}>
-                    <Grid container spacing={16} justify="center" xs={12} direction="row">
-                        <Grid container spacing={16} justify="center" xs={6}>
-                            <Grid container spacing={16} justify="center" xs={12}>
+                    <Grid container xs={12} direction="row" justify="center" spacing={24}>
+                        <Grid container xs={6}>
+                            <Grid container xs={12}>
                                 <Grid item xs={4} style={itemStyle} >
-                                    <Grid container spacing={16} justify="center" xs={12}>
+                                    <Grid container xs={12}>
                                         <Grid item xs={4} style={itemStyle} >
                                             <StatName>Strength</StatName>
                                             <StatLabel>STR</StatLabel>
@@ -295,7 +327,7 @@ class CharacterEditStatsComponent extends React.Component {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={4} style={itemStyle} >
-                                    <Grid container spacing={16} justify="center" xs={12}>
+                                    <Grid container xs={12}>
                                         <Grid item xs={4} style={itemStyle} >
                                             <StatName>Dexterity</StatName>
                                             <StatLabel>DEX</StatLabel>
@@ -351,12 +383,12 @@ class CharacterEditStatsComponent extends React.Component {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={4} style={itemStyle} >
-                                    <Grid container spacing={16} justify="center" xs={12}>
-                                        <Grid item xs={4} style={itemStyle} >
+                                    <Grid container justify="center" xs={12}>
+                                        <Grid item xs={4} >
                                             <StatName>Constitution</StatName>
                                             <StatLabel>CON</StatLabel>
                                         </Grid>
-                                        <Grid item xs={8} style={itemStyle} >
+                                        <Grid item xs={8} >
                                             <TextField
                                                 type="number"
                                                 autoComplete='nope'
@@ -408,9 +440,9 @@ class CharacterEditStatsComponent extends React.Component {
                                 </Grid>
                             </Grid>
                             <Divider className={classes.divider} />
-                            <Grid container spacing={16} justify="center" xs={12}>
+                            <Grid container justify="center" xs={12}>
                                 <Grid item xs={4} style={itemStyle} >
-                                    <Grid container spacing={16} justify="center" xs={12}>
+                                    <Grid container justify="center" xs={12}>
                                         <Grid item xs={4} style={itemStyle} >
                                             <StatName>Intelligence</StatName>
                                             <StatLabel>INT</StatLabel>
@@ -466,7 +498,7 @@ class CharacterEditStatsComponent extends React.Component {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={4} style={itemStyle} >
-                                    <Grid container spacing={16} justify="center" xs={12}>
+                                    <Grid container justify="center" xs={12}>
                                         <Grid item xs={4} style={itemStyle} >
                                             <StatName>Wisdom</StatName>
                                             <StatLabel>WIS</StatLabel>
@@ -523,7 +555,7 @@ class CharacterEditStatsComponent extends React.Component {
                                 </Grid>
                                 <Grid item xs={4} style={itemStyle} >
 
-                                    <Grid container spacing={16} justify="center" xs={12}>
+                                    <Grid container justify="center" xs={12}>
                                         <Grid item xs={4}  >
                                             <StatName>Charisma</StatName>
                                             <StatLabel>CHA</StatLabel>
@@ -582,8 +614,8 @@ class CharacterEditStatsComponent extends React.Component {
                         </Grid>
 
 
-                        <Grid container spacing={16} justify="space-evenly" direction="row" xs={6}>
-                            <Grid container spacing={16} justify="space-evenly">
+                        <Grid container justify="space-evenly" direction="row" xs={6}>
+                            <Grid container justify="space-evenly">
                                 <Grid item xs={2} >
                                     <DefName>Hit Points</DefName>
                                     <DefenseStatBack>
@@ -688,20 +720,136 @@ class CharacterEditStatsComponent extends React.Component {
                             </Grid>
 
 
-                            <Grid container spacing={16} justify="space-evenly" >
+                            <Grid container justify="space-evenly" >
                                 <Grid item xs={2} style={itemStyle} >
                                     <DefName>Fortitude</DefName>
+                                    <i class="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}> <TextField
+                                        autoComplete='nope'
+                                        onChange={this.changeFORT}
+                                        id="FORT"
+                                        htmlFor="custom-css-standard-input"
+                                        value={
+                                            this.state.editCharacter.modifiers.FORT
+                                                ?
+                                                this.state.editCharacter.modifiers.FORT
+                                                : ""
+                                        }
+                                        inputRef={ref => {
+                                            this.FORT = ref;
+                                        }}
+                                        InputProps={{
+                                            classes: {
+                                                root: classes.inputStatRoot,
+                                                input: classes.inputStatMain,
+                                            }
+                                        }}
+                                        style={{
+                                            width: '45px',
+                                            paddingBottom: '0px',
+                                            marginLeft: '40px',
+                                            marginBlockStart: '-50px',
+                                            textAlign: 'center',
+                                        }}
+                                    /></i>
                                 </Grid>
-
                                 <Grid item xs={2} style={itemStyle} >
                                     <DefName>Reflex</DefName>
+                                    <i class="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}> <TextField
+                                        autoComplete='nope'
+                                        onChange={this.changeREFLEX}
+                                        id="REFLEX"
+                                        htmlFor="custom-css-standard-input"
+                                        value={
+                                            this.state.editCharacter.modifiers.REFLEX
+                                                ?
+                                                this.state.editCharacter.modifiers.REFLEX
+                                                : ""
+                                        }
+                                        inputRef={ref => {
+                                            this.REFLEX = ref;
+                                        }}
+                                        InputProps={{
+                                            classes: {
+                                                root: classes.inputStatRoot,
+                                                input: classes.inputStatMain,
+                                            }
+                                        }}
+                                        style={{
+                                            width: '45px',
+                                            paddingBottom: '0px',
+                                            marginLeft: '40px',
+                                            marginBlockStart: '-50px',
+                                            textAlign: 'center',
+                                        }}
+                                    /></i>
                                 </Grid>
                                 <Grid item xs={2} style={itemStyle} >
                                     <DefName>Will</DefName>
+                                    <i class="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}> <TextField
+                                        autoComplete='nope'
+                                        onChange={this.changeWILL}
+                                        id="WILL"
+                                        htmlFor="custom-css-standard-input"
+                                        value={
+                                            this.state.editCharacter.modifiers.WILL
+                                                ?
+                                                this.state.editCharacter.modifiers.WILL
+                                                : ""
+                                        }
+                                        inputRef={ref => {
+                                            this.WILL = ref;
+                                        }}
+                                        InputProps={{
+                                            classes: {
+                                                root: classes.inputStatRoot,
+                                                input: classes.inputStatMain,
+                                            }
+                                        }}
+                                        style={{
+                                            width: '45px',
+                                            paddingBottom: '0px',
+                                            marginLeft: '40px',
+                                            marginBlockStart: '-50px',
+                                            textAlign: 'center',
+                                        }}
+                                    /></i>
                                 </Grid>
                             </Grid>
                         </Grid>
 
+                    </Grid>
+                    <Grid container xs={12} justify="center" spacing={24}>
+                        <Grid item xs={4} >
+                            <PerName>Perception </PerName>
+                            <i class="fas fa-dice-d20" style={{ marginLeft: '10px', marginTop: '20px' }}> <TextField
+                                autoComplete='nope'
+                                onChange={this.changePER}
+                                id="PER"
+                                htmlFor="custom-css-standard-input"
+                                value={
+                                    this.state.editCharacter.modifiers.PER
+                                        ?
+                                        this.state.editCharacter.modifiers.PER
+                                        : ""
+                                }
+                                inputRef={ref => {
+                                    this.PER = ref;
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        root: classes.inputStatRoot,
+                                        input: classes.inputStatPER,
+                                    }
+                                }}
+                                style={{
+                                    width: '220px',
+                                    paddingBottom: '25px',
+                                    marginLeft: '30px',
+                                    textAlign: 'center',
+                                    marginBlockStart: '-30px',
+                                }}
+                            /></i>
+                        </Grid>
                     </Grid>
                 </div >
             </ContainerStyle>
@@ -709,17 +857,10 @@ class CharacterEditStatsComponent extends React.Component {
     }
 }
 
-
-
 const itemStyle = {
     background: "transparent",
     fontSize: "15px",
     fontFamily: '"Crimson Text", serif'
-}
-
-
-const itemStyleDef = {
-    justifyContent: 'space-evenly',
 }
 
 

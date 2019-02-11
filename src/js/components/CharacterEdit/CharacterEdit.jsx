@@ -257,6 +257,7 @@ class CharacterEdit extends React.Component {
             changeAncestry={this.changeAncestry}
             changeClass={this.changeClass}
             changeBackground={this.changeBackground}
+            updateCharacter={this.updateCharacter}
           />
 
           <hr className={cssStyles.hrEdit} />
