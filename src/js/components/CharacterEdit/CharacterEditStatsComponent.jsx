@@ -16,6 +16,18 @@ const EditTitleStyle = styled.div`
   font-family: 'Cinzel Decorative', sans-serif;
   margin-bottom: 35px;
 `;
+
+const DefenseStatBack = styled.div`
+    position: relative;
+    left: 42px;
+    top: -3px;
+    width: 0;
+    height: 0;
+    border: 40px solid transparent;
+    border-top: 10px solid #df691a;
+    text-align: center;
+`;
+
 const StatSeparator = styled.div`
   margin-top: 30px;
   padding-bottom: 30px;
@@ -27,6 +39,15 @@ const StatName = styled.div`
   text-align: left;
   font-family: 'Cinzel Decorative', sans-serif;
   margin-bottom: 5px;
+
+`;
+const DefName = styled.div`
+  font-size: 17px;
+  color: #ffffff;
+  text-align: center;
+  font-family: 'Cinzel Decorative', sans-serif;
+  margin-bottom: 5px;
+  width: 160px;
 `;
 
 const StatLabel = styled.div`
@@ -97,7 +118,7 @@ const styles = theme => ({
     },
     divider: {
         margin: `${theme.spacing.unit * 2}px 0`,
-      },
+    },
 });
 
 
@@ -110,14 +131,14 @@ class CharacterEditStatsComponent extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log("EDIT CHAR: ", this.props.editCharacter);
         this.setState({ editCharater: this.props.editCharacter });
     }
-    
-    componentDidUpdate(prevProps, prevState ) {
-        if ( !isEqual(this.props.editCharacter, prevProps.editCharacter)) {
-          this.setState({ editCharacter: this.props.editCharacter });
+
+    componentDidUpdate(prevProps, prevState) {
+        if (!isEqual(this.props.editCharacter, prevProps.editCharacter)) {
+            this.setState({ editCharacter: this.props.editCharacter });
         }
     }
 
@@ -194,6 +215,16 @@ class CharacterEditStatsComponent extends React.Component {
         updateChar.hitPoints = this.HP.value;
         this.props.updateCharacter(updateChar);
     }
+    changeAC = () => {
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.AC = this.AC.value;
+        this.props.updateCharacter(updateChar);
+    }
+    changeTOUCHAC = () => {
+        const updateChar = cloneDeep(this.state.editCharacter);
+        updateChar.TOUCHAC = this.TOUCHAC.value;
+        this.props.updateCharacter(updateChar);
+    }
 
     render() {
         const { classes } = this.props;
@@ -201,7 +232,7 @@ class CharacterEditStatsComponent extends React.Component {
             <ContainerStyle>
                 {/* <EditTitleStyle>Stats</EditTitleStyle> */}
                 <div style={{ marginLeft: '8%', marginRight: '8%' }}>
-                    <Grid container spacing={16} justify="center" xs={12} >
+                    <Grid container spacing={16} justify="center" xs={12} direction="row">
                         <Grid container spacing={16} justify="center" xs={6}>
                             <Grid container spacing={16} justify="center" xs={12}>
                                 <Grid item xs={4} style={itemStyle} >
@@ -259,7 +290,7 @@ class CharacterEditStatsComponent extends React.Component {
                                                     className: classes.helperText
                                                 }}
                                                 style={{ width: '40px', paddingBottom: '0px', marginLeft: '15px' }}
-                                                />
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -267,7 +298,7 @@ class CharacterEditStatsComponent extends React.Component {
                                     <Grid container spacing={16} justify="center" xs={12}>
                                         <Grid item xs={4} style={itemStyle} >
                                             <StatName>Dexterity</StatName>
-                                            <StatLabel>DEX</StatLabel> 
+                                            <StatLabel>DEX</StatLabel>
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
@@ -315,7 +346,7 @@ class CharacterEditStatsComponent extends React.Component {
                                                     className: classes.helperText
                                                 }}
                                                 style={{ width: '40px', paddingBottom: '0px', marginLeft: '15px' }}
-                                                />
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -371,18 +402,18 @@ class CharacterEditStatsComponent extends React.Component {
                                                     className: classes.helperText
                                                 }}
                                                 style={{ width: '40px', paddingBottom: '0px', marginLeft: '15px' }}
-                                                />
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Divider className={classes.divider}/>
+                            <Divider className={classes.divider} />
                             <Grid container spacing={16} justify="center" xs={12}>
                                 <Grid item xs={4} style={itemStyle} >
                                     <Grid container spacing={16} justify="center" xs={12}>
                                         <Grid item xs={4} style={itemStyle} >
                                             <StatName>Intelligence</StatName>
-                                             <StatLabel>INT</StatLabel>
+                                            <StatLabel>INT</StatLabel>
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
@@ -430,7 +461,7 @@ class CharacterEditStatsComponent extends React.Component {
                                                     className: classes.helperText
                                                 }}
                                                 style={{ width: '40px', paddingBottom: '0px', marginLeft: '15px' }}
-                                                />
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -486,16 +517,16 @@ class CharacterEditStatsComponent extends React.Component {
                                                     className: classes.helperText
                                                 }}
                                                 style={{ width: '40px', paddingBottom: '0px', marginLeft: '15px' }}
-                                                />
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={4} style={itemStyle} >
-                                  
+
                                     <Grid container spacing={16} justify="center" xs={12}>
-                                        <Grid item xs={4} style={itemStyle} >
+                                        <Grid item xs={4}  >
                                             <StatName>Charisma</StatName>
-                                             <StatLabel>CHA</StatLabel>
+                                            <StatLabel>CHA</StatLabel>
                                         </Grid>
                                         <Grid item xs={8} style={itemStyle} >
                                             <TextField
@@ -543,50 +574,134 @@ class CharacterEditStatsComponent extends React.Component {
                                                     className: classes.helperText
                                                 }}
                                                 style={{ width: '40px', paddingBottom: '0px', marginLeft: '15px' }}
-                                                />
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        {/* <Grid container spacing={16} justify="center" xs={6}> */}
-                            <Grid container spacing={16} justify="center" xs={6}>
-                                <Grid item xs={3} style={itemStyle} >
-                                            <StatName>HitPoints</StatName>
-                                            <TextField
-                                                type="number"
-                                                autoComplete='nope'
-                                                onChange={this.changeHP}
-                                                id="HP"
-                                                htmlFor="custom-css-standard-input"
-                                                value={
-                                                    this.state.editCharacter.hitPoints
-                                                        ? this.state.editCharacter.hitPoints
-                                                        : ""
+
+
+                        <Grid container spacing={16} justify="space-evenly" direction="row" xs={6}>
+                            <Grid container spacing={16} justify="space-evenly">
+                                <Grid item xs={2} >
+                                    <DefName>Hit Points</DefName>
+                                    <DefenseStatBack>
+                                        <TextField
+                                            type="number"
+                                            autoComplete='nope'
+                                            onChange={this.changeHP}
+                                            id="HP"
+                                            htmlFor="custom-css-standard-input"
+                                            value={
+                                                this.state.editCharacter.hitPoints
+                                                    ? this.state.editCharacter.hitPoints
+                                                    : ""
+                                            }
+                                            inputRef={ref => {
+                                                this.HP = ref;
+                                            }}
+                                            InputProps={{
+                                                disableUnderline: true,
+                                                classes: {
+                                                    root: classes.inputStatRoot,
+                                                    input: classes.inputStatMain,
                                                 }
-                                                inputRef={ref => {
-                                                    this.HP = ref;
-                                                }}
-                                                InputProps={{
-                                                    classes: {
-                                                        root: classes.inputStatRoot,
-                                                        input: classes.inputStatMain,
-                                                    }
-                                                }}
-                                                style={{ width: '40px', paddingBottom: '0px', marginLeft: '10px' }}
-                                            />
+                                            }}
+                                            style={{
+                                                width: '55px',
+                                                paddingBottom: '0px',
+                                                marginLeft: '-12px',
+                                                marginBlockStart: '-25px'
+                                            }}
+                                        />
+                                    </DefenseStatBack>
                                 </Grid>
-                                <Grid item xs={3} style={itemStyle} >
-                                            <StatName>Fortitude</StatName>
+                                <Grid item xs={2} >
+                                    <DefName>Armor Class</DefName>
+                                    <DefenseStatBack>
+                                        <TextField
+                                            type="number"
+                                            autoComplete='nope'
+                                            onChange={this.changeAC}
+                                            id="AC"
+                                            htmlFor="custom-css-standard-input"
+                                            value={
+                                                this.state.editCharacter.AC
+                                                    ? this.state.editCharacter.AC
+                                                    : ""
+                                            }
+                                            inputRef={ref => {
+                                                this.AC = ref;
+                                            }}
+                                            InputProps={{
+                                                disableUnderline: true,
+                                                classes: {
+                                                    root: classes.inputStatRoot,
+                                                    input: classes.inputStatMain,
+                                                }
+                                            }}
+                                            style={{
+                                                width: '55px',
+                                                paddingBottom: '0px',
+                                                marginLeft: '-12px',
+                                                marginBlockStart: '-25px'
+                                            }}
+                                        />
+                                    </DefenseStatBack>
+
+                                </Grid>
+                                <Grid item xs={2} >
+                                    <DefName>Touch AC</DefName>
+                                    <DefenseStatBack>
+                                        <TextField
+                                            type="number"
+                                            autoComplete='nope'
+                                            onChange={this.changeTOUCHAC}
+                                            id="TOUCHAC"
+                                            htmlFor="custom-css-standard-input"
+                                            value={
+                                                this.state.editCharacter.TOUCHAC
+                                                    ? this.state.editCharacter.TOUCHAC
+                                                    : ""
+                                            }
+                                            inputRef={ref => {
+                                                this.TOUCHAC = ref;
+                                            }}
+                                            InputProps={{
+                                                disableUnderline: true,
+                                                classes: {
+                                                    root: classes.inputStatRoot,
+                                                    input: classes.inputStatMain,
+                                                }
+                                            }}
+                                            style={{
+                                                width: '55px',
+                                                paddingBottom: '0px',
+                                                marginLeft: '-12px',
+                                                marginBlockStart: '-25px'
+                                            }}
+                                        />
+                                    </DefenseStatBack>
+
                                 </Grid>
                             </Grid>
-                            <Grid container spacing={16} justify="center" xs={6}>
 
-                            </Grid>
-                            <Grid container spacing={16} justify="center" xs={6}>
 
+                            <Grid container spacing={16} justify="space-evenly" >
+                                <Grid item xs={2} style={itemStyle} >
+                                    <DefName>Fortitude</DefName>
+                                </Grid>
+
+                                <Grid item xs={2} style={itemStyle} >
+                                    <DefName>Reflex</DefName>
+                                </Grid>
+                                <Grid item xs={2} style={itemStyle} >
+                                    <DefName>Will</DefName>
+                                </Grid>
                             </Grid>
-                         {/* </Grid> */}
+                        </Grid>
+
                     </Grid>
                 </div >
             </ContainerStyle>
@@ -601,5 +716,11 @@ const itemStyle = {
     fontSize: "15px",
     fontFamily: '"Crimson Text", serif'
 }
+
+
+const itemStyleDef = {
+    justifyContent: 'space-evenly',
+}
+
 
 export default withStyles(styles)(CharacterEditStatsComponent);
