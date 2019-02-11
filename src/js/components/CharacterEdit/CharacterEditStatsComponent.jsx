@@ -264,7 +264,7 @@ class CharacterEditStatsComponent extends React.Component {
             <ContainerStyle>
                 {/* <EditTitleStyle>Stats</EditTitleStyle> */}
                 <div style={{ marginLeft: '8%', marginRight: '8%' }}>
-                    <Grid container xs={12} direction="row" justify="center" spacing={24}>
+                    <Grid container xs={12} direction="row" justify="center" spacing={32}>
                         <Grid container xs={6}>
                             <Grid container xs={12}>
                                 <Grid item xs={4} style={itemStyle} >
