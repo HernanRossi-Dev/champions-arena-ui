@@ -3,19 +3,9 @@ import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles/index";
 import { cloneDeep, isEqual } from 'lodash';
-import * as cssStyles from "../../../styles/Styles.css";
 import styled from 'styled-components';
 import Character from './characterModel.js';
 import Divider from '@material-ui/core/Divider';
-
-
-const EditTitleStyle = styled.div`
-  font-size: 27px;
-  color: #df691a;
-  text-align: center;
-  font-family: 'Cinzel Decorative', sans-serif;
-  margin-bottom: 35px;
-`;
 
 const DefenseStatBack = styled.div`
     position: relative;
@@ -28,11 +18,6 @@ const DefenseStatBack = styled.div`
     text-align: center;
 `;
 
-const StatSeparator = styled.div`
-  margin-top: 30px;
-  padding-bottom: 30px;
-`;
-
 const StatName = styled.div`
   font-size: 13px;
   color: #ffffff;
@@ -41,6 +26,7 @@ const StatName = styled.div`
   margin-bottom: 5px;
 
 `;
+
 const DefName = styled.div`
   font-size: 17px;
   color: #ffffff;
@@ -49,6 +35,7 @@ const DefName = styled.div`
   margin-bottom: 5px;
   width: 160px;
 `;
+
 const PerName = styled.span`
   font-size: 17px;
   color: #ffffff;
@@ -146,7 +133,6 @@ class CharacterEditStatsComponent extends React.Component {
     }
 
     componentDidMount() {
-        console.log("EDIT CHAR: ", this.props.editCharacter);
         this.setState({ editCharater: this.props.editCharacter });
     }
 

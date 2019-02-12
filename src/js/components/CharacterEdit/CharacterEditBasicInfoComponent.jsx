@@ -2,7 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
-import * as cssStyles from "../../../styles/Styles.css";
+import { cloneDeep, isEqual } from 'lodash';
 import Character from './characterModel.js';
 import styled from 'styled-components';
 
@@ -78,73 +78,105 @@ class CharacterEditBasicInfoComponent extends React.Component {
     this.setState({ editCharater: this.props.editCharacter });
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (this.props !== nextProps) {
-      this.setState({ editCharacter: nextProps.editCharacter });
+  componentDidUpdate(prevProps, prevState) {
+    if (!isEqual(this.props.editCharacter, prevProps.editCharacter)) {
+        this.setState({ editCharacter: this.props.editCharacter });
     }
-  }
+}
 
   changeName = () => {
-    this.props.changeName(this.characterName.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.characterName = this.characterName.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeAlignment = () => {
-    this.props.changeAlignment(this.alignment.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.alignment = this.alignment.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeLevel = () => {
-    this.props.changeLevel(this.level.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.level = this.level.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeAge = () => {
-    this.props.changeAge(this.age.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.age = this.age.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeHeight = () => {
-    this.props.changeHeight(this.height.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.height = this.height.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeWeight = () => {
-    this.props.changeWeight(this.weight.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.weight = this.weight.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeHair = () => {
-    this.props.changeHair(this.hair.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.hair = this.hair.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeEyes = () => {
-    this.props.changeEyes(this.eyes.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.eyes = this.eyes.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changePlayer = () => {
-    this.props.changePlayer(this.player.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.player = this.player.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeDeity = () => {
-    this.props.changeDeity(this.deity.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.deity = this.deity.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeHomeland = () => {
-    this.props.changeHomeland(this.homeland.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.homeland = this.homeland.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeSize = () => {
-    this.props.changeSize(this.size.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.size = this.size.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeGender = () => {
-    this.props.changeGender(this.gender.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.gender = this.gender.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeAncestry = () => {
-    this.props.changeAncestry(this.ancestry.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.ancestry = this.ancestry.value;
+    this.props.updateCharacter(updateChar);
   }
 
   changeClass = () => {
-    this.props.changeClass(this.class.value);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.class = this.class.value;
+    this.props.updateCharacter(updateChar);
   }
   changeBackground = () => {
-    this.props.changeBackground(this.class.background);
+    const updateChar = cloneDeep(this.state.editCharacter);
+    updateChar.background = newBackground;
+    this.props.updateCharacter(updateChar);
   }
 
   changeWILL = () => {

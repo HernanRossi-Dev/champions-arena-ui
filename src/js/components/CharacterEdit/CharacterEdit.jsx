@@ -22,7 +22,6 @@ import Character from './characterModel.js';
 import * as cssStyles from "../../../styles/Styles.css";
 import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
 import CharacterEditStatsComponent from './CharacterEditStatsComponent.jsx';
-import CharacterEditSkillsComponent from './CharacterEditSkillsComponent.jsx';
 import store from "../../store/index.js";
 
 const styles = theme => ({
@@ -100,112 +99,12 @@ class CharacterEdit extends React.Component {
     this.setState({ show: true });
   }
 
-  changeName = (newName) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.name = newName;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeAlignment = (newAlignment) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.alignment = newAlignment;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeAncestry = (newAncestry) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.ancestry = newAncestry;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeClass = (newClass) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.class = newClass;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeBackground = (newBackground) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.background = newBackground;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeLevel = (newLevel) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.level = newLevel;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeAge = (newAge) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.age = newAge;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeHeight = (newHeight) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.height = newHeight;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeWeight = (newWeight) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.weight = newWeight;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeHair = (newHair) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.hair = newHair;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeEyes = (newEyes) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.eyes = newEyes;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changePlayer = (newPlayer) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.player = newPlayer;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeDeity = (newDeity) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.deity = newDeity;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeHomeland = (newHomeland) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.homeland = newHomeland;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeSize = (newSize) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.size = newSize;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
-  changeGender = (newGender) => {
-    const updateCharacter = Object.assign({}, this.state.editCharacter);
-    updateCharacter.gender = newGender;
-    this.setState({ editCharacter: updateCharacter });
-  }
-
   updateCharacter = (updatedChar) => {
     this.setState({editCharacter: updatedChar});
   }
 
   saveChanges = async () => {
     const updateCharacter = Object.assign({}, this.state.editCharacter);
-    // const characterProperties = Object.keys(updateCharacter);
-    // for (let prop of characterProperties) {
-    //   updateCharacter[prop] = updateCharacter[prop] ? updateCharacter[prop] : '';
-    // }
     if (!this.props) {
       return null;
     }
@@ -222,7 +121,6 @@ class CharacterEdit extends React.Component {
       return null;
     }
     this.showToast('Character saved.');
-    // this.setState({ editCharacter: updateCharacter });
     return null;
   }
 
@@ -241,22 +139,6 @@ class CharacterEdit extends React.Component {
         <Form horizontal>
           <CharacterEditBasicInfoComponent
             editCharacter={this.state.editCharacter}
-            changeName={this.changeName}
-            changeAlignment={this.changeAlignment}
-            changeLevel={this.changeLevel}
-            changeAge={this.changeAge}
-            changeHeight={this.changeHeight}
-            changeWeight={this.changeWeight}
-            changeHair={this.changeHair}
-            changeEyes={this.changeEyes}
-            changePlayer={this.changePlayer}
-            changeDeity={this.changeDeity}
-            changeHomeland={this.changeHomeland}
-            changeSize={this.changeSize}
-            changeGender={this.changeGender}
-            changeAncestry={this.changeAncestry}
-            changeClass={this.changeClass}
-            changeBackground={this.changeBackground}
             updateCharacter={this.updateCharacter}
           />
 
