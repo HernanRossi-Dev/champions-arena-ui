@@ -173,6 +173,32 @@ export const Entertainer = () => {
     <p>
       <strong>
       Entertainer:
+      </strong> hrough an education in the arts or sheer, dogged practice, you
+        learned to entertain crowds. You might have been an actor, a
+        dancer, a musician, a magician, or any other sort of performer.<br />
+        Choose two ability boosts. <strong>One</strong> must be to <strong>Dexterity</strong> or
+        <strong>Charisma,</strong>, and one is a free ability boost.<br />
+        You gain the <strong>Fascinating Performance</strong>, and you’re
+      trained in the <strong>Entertainment</strong> Lore skill.
+    </p>
+  );
+  const backgroundProps = {
+    background: 'Entertainer',
+    selectBoost: ['DEX', 'CHA'],
+    freeAbilityBoost: 1,
+    skillFeat: 'Fascinating Performer',
+    loreSkill: 'Entertainment',
+    backgroundText,
+  };
+  return {
+    backgroundProps
+  };
+};
+export const Farmhand = () => {
+  const backgroundText = (
+    <p>
+      <strong>
+      Farmhand:
       </strong> With a strong back and an understanding of seasonal cycles, you
       tilled the land and tended crops. Your farm could have been razed
       by invaders, you could have lost the family tying you to the land,
@@ -185,11 +211,11 @@ export const Entertainer = () => {
     </p>
   );
   const backgroundProps = {
-    background: 'Entertainer',
-    selectBoost: ['DEX', 'CHA'],
+    background: 'Farmhand',
+    selectBoost: ['CON', 'WIS'],
     freeAbilityBoost: 1,
-    skillFeat: 'Fascinating Performer',
-    loreSkill: 'Entertainment',
+    skillFeat: 'Assurance with Athletics',
+    loreSkill: 'Farming',
     backgroundText,
   };
   return {
