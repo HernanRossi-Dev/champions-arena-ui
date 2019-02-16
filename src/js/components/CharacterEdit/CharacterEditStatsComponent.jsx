@@ -127,120 +127,148 @@ class CharacterEditStatsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editCharacter: new Character(),
             show: false
         };
     }
 
-    componentDidMount() {
-        this.setState({ editCharater: this.props.editCharacter });
-    }
+    saveCaretPosition = (event) => {
+        const caret = event.target.selectionStart
+        const element = event.target
+        window.requestAnimationFrame(() => {
+          element.selectionStart = caret
+          element.selectionEnd = caret
+        })
+      }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (!isEqual(this.props.editCharacter, prevProps.editCharacter)) {
-            this.setState({ editCharacter: this.props.editCharacter });
-        }
-    }
-
-    changeSTR = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.STR = this.STR.value;
-        this.props.updateCharacter(updateChar);
-    }
-
-    changeSTRModifier = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.STR = this.STRMod.value;
-        this.props.updateCharacter(updateChar);
-    }
-    changeDEX = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.DEX = this.DEX.value;
+    changeSTR = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.STR = event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeDEXModifier = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.DEX = this.DEXMod.value;
-        this.props.updateCharacter(updateChar);
-    }
-    changeCON = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.CON = this.CON.value;
+    changeSTRModifier = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.STR = event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeCONModifier = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.CON = this.CONMod.value;
-        this.props.updateCharacter(updateChar);
-    }
-    changeINT = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.INT = this.INT.value;
+    changeDEX = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.DEX= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeINTModifier = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.INT = this.INTMod.value;
+    changeDEXModifier = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.DEX= event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+    changeCON = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.CON= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeWIS = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.WIS = this.WIS.value;
+
+    changeCONModifier = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.CON= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeWISModifier = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.WIS = this.WISMod.value;
-        this.props.updateCharacter(updateChar);
-    }
-    changeCHA = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.CHA = this.CHA.value;
+    changeINT = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.INT= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeCHAModifier = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.CHA = this.CHAMod.value;
+    changeINTModifier = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.INT= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeHP = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.hitPoints = this.HP.value;
-        this.props.updateCharacter(updateChar);
-    }
-    changeAC = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.AC = this.AC.value;
-        this.props.updateCharacter(updateChar);
-    }
-    changeTOUCHAC = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.TOUCHAC = this.TOUCHAC.value;
+    changeWIS = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.WIS= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeFORT = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.FORT = this.FORT.value;
+    changeWISModifier = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.WIS= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeREFLEX = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.REFLEX = this.REFLEX.value;
+    changeCHA = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.CHA= event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
-    changeWILL = () => {
-        const updateChar = cloneDeep(this.state.editCharacter);
-        updateChar.modifiers.WILL = this.WILL.value;
+    changeCHAModifier = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.CHA = event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeHP = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.hitPoints = event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeAC = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.AC = event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+    changeTOUCHAC = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.TOUCHAC = event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeFORT = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.FORT = event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeREFLEX = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.REFLEX = event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changeWILL = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.WILL = event.target.value;
+        this.props.updateCharacter(updateChar);
+    }
+
+    changePER = (event) => {
+        this.saveCaretPosition(event);
+        const updateChar = this.props.editCharacter;
+        updateChar.modifiers.PER = event.target.value;
         this.props.updateCharacter(updateChar);
     }
 
@@ -266,14 +294,7 @@ class CharacterEditStatsComponent extends React.Component {
                                                 onChange={this.changeSTR}
                                                 id="STR"
                                                 htmlFor="custom-css-standard-input"
-                                                value={
-                                                    this.state.editCharacter.STR
-                                                        ? this.state.editCharacter.STR
-                                                        : ""
-                                                }
-                                                inputRef={ref => {
-                                                    this.STR = ref;
-                                                }}
+                                                value={ this.props.editCharacter.STR }
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -291,13 +312,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 helperText="Modifier"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.modifiers.STR
-                                                        ? this.state.editCharacter.modifiers.STR
-                                                        : ""
+                                                    this.props.editCharacter.modifiers.STR
                                                 }
-                                                inputRef={ref => {
-                                                    this.STRMod = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -326,13 +342,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 id="DEX"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.DEX
-                                                        ? this.state.editCharacter.DEX
-                                                        : ""
+                                                    this.props.editCharacter.DEX
                                                 }
-                                                inputRef={ref => {
-                                                    this.DEX = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -347,13 +358,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 helperText="Modifier"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.modifiers.DEX
-                                                        ? this.state.editCharacter.modifiers.DEX
-                                                        : ""
+                                                    this.props.editCharacter.modifiers.DEX
                                                 }
-                                                inputRef={ref => {
-                                                    this.DEXMod = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -382,13 +388,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 id="CON"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.CON
-                                                        ? this.state.editCharacter.CON
-                                                        : ""
+                                                    this.props.editCharacter.CON
                                                 }
-                                                inputRef={ref => {
-                                                    this.CON = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -403,13 +404,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 helperText="Modifier"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.modifiers.CON
-                                                        ? this.state.editCharacter.modifiers.CON
-                                                        : ""
+                                                    this.props.editCharacter.modifiers.CON
                                                 }
-                                                inputRef={ref => {
-                                                    this.CONMod = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -441,13 +437,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 id="INT"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.INT
-                                                        ? this.state.editCharacter.INT
-                                                        : ""
+                                                    this.props.editCharacter.INT
                                                 }
-                                                inputRef={ref => {
-                                                    this.INT = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -462,13 +453,9 @@ class CharacterEditStatsComponent extends React.Component {
                                                 helperText="Modifier"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.modifiers.INT
-                                                        ? this.state.editCharacter.modifiers.INT
-                                                        : ""
+                                                    this.props.editCharacter.modifiers.INT
                                                 }
-                                                inputRef={ref => {
-                                                    this.INTMod = ref;
-                                                }}
+
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -497,13 +484,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 id="WIS"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.WIS
-                                                        ? this.state.editCharacter.WIS
-                                                        : ""
+                                                    this.props.editCharacter.WIS
                                                 }
-                                                inputRef={ref => {
-                                                    this.WIS = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -518,13 +500,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 helperText="Modifier"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.modifiers.WIS
-                                                        ? this.state.editCharacter.modifiers.WIS
-                                                        : ""
+                                                    this.props.editCharacter.modifiers.WIS
                                                 }
-                                                inputRef={ref => {
-                                                    this.WISMod = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -554,13 +531,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 id="CHA"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.CHA
-                                                        ? this.state.editCharacter.CHA
-                                                        : ""
+                                                    this.props.editCharacter.CHA
                                                 }
-                                                inputRef={ref => {
-                                                    this.CHA = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -575,13 +547,8 @@ class CharacterEditStatsComponent extends React.Component {
                                                 helperText="Modifier"
                                                 htmlFor="custom-css-standard-input"
                                                 value={
-                                                    this.state.editCharacter.modifiers.CHA
-                                                        ? this.state.editCharacter.modifiers.CHA
-                                                        : ""
+                                                    this.props.editCharacter.modifiers.CHA
                                                 }
-                                                inputRef={ref => {
-                                                    this.CHAMod = ref;
-                                                }}
                                                 InputProps={{
                                                     classes: {
                                                         root: classes.inputStatRoot,
@@ -612,13 +579,8 @@ class CharacterEditStatsComponent extends React.Component {
                                             id="HP"
                                             htmlFor="custom-css-standard-input"
                                             value={
-                                                this.state.editCharacter.hitPoints
-                                                    ? this.state.editCharacter.hitPoints
-                                                    : ""
+                                                this.props.editCharacter.hitPoints
                                             }
-                                            inputRef={ref => {
-                                                this.HP = ref;
-                                            }}
                                             InputProps={{
                                                 disableUnderline: true,
                                                 classes: {
@@ -645,13 +607,8 @@ class CharacterEditStatsComponent extends React.Component {
                                             id="AC"
                                             htmlFor="custom-css-standard-input"
                                             value={
-                                                this.state.editCharacter.AC
-                                                    ? this.state.editCharacter.AC
-                                                    : ""
+                                                this.props.editCharacter.AC
                                             }
-                                            inputRef={ref => {
-                                                this.AC = ref;
-                                            }}
                                             InputProps={{
                                                 disableUnderline: true,
                                                 classes: {
@@ -679,13 +636,8 @@ class CharacterEditStatsComponent extends React.Component {
                                             id="TOUCHAC"
                                             htmlFor="custom-css-standard-input"
                                             value={
-                                                this.state.editCharacter.TOUCHAC
-                                                    ? this.state.editCharacter.TOUCHAC
-                                                    : ""
+                                                this.props.editCharacter.TOUCHAC
                                             }
-                                            inputRef={ref => {
-                                                this.TOUCHAC = ref;
-                                            }}
                                             InputProps={{
                                                 disableUnderline: true,
                                                 classes: {
@@ -715,14 +667,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         id="FORT"
                                         htmlFor="custom-css-standard-input"
                                         value={
-                                            this.state.editCharacter.modifiers.FORT
-                                                ?
-                                                this.state.editCharacter.modifiers.FORT
-                                                : ""
+                                            this.props.editCharacter.modifiers.FORT
                                         }
-                                        inputRef={ref => {
-                                            this.FORT = ref;
-                                        }}
                                         InputProps={{
                                             classes: {
                                                 root: classes.inputStatRoot,
@@ -746,14 +692,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         id="REFLEX"
                                         htmlFor="custom-css-standard-input"
                                         value={
-                                            this.state.editCharacter.modifiers.REFLEX
-                                                ?
-                                                this.state.editCharacter.modifiers.REFLEX
-                                                : ""
+                                            this.props.editCharacter.modifiers.REFLEX
                                         }
-                                        inputRef={ref => {
-                                            this.REFLEX = ref;
-                                        }}
                                         InputProps={{
                                             classes: {
                                                 root: classes.inputStatRoot,
@@ -777,14 +717,8 @@ class CharacterEditStatsComponent extends React.Component {
                                         id="WILL"
                                         htmlFor="custom-css-standard-input"
                                         value={
-                                            this.state.editCharacter.modifiers.WILL
-                                                ?
-                                                this.state.editCharacter.modifiers.WILL
-                                                : ""
+                                            this.props.editCharacter.modifiers.WILL
                                         }
-                                        inputRef={ref => {
-                                            this.WILL = ref;
-                                        }}
                                         InputProps={{
                                             classes: {
                                                 root: classes.inputStatRoot,
@@ -813,14 +747,8 @@ class CharacterEditStatsComponent extends React.Component {
                                 id="PER"
                                 htmlFor="custom-css-standard-input"
                                 value={
-                                    this.state.editCharacter.modifiers.PER
-                                        ?
-                                        this.state.editCharacter.modifiers.PER
-                                        : ""
+                                    this.props.editCharacter.modifiers.PER
                                 }
-                                inputRef={ref => {
-                                    this.PER = ref;
-                                }}
                                 InputProps={{
                                     classes: {
                                         root: classes.inputStatRoot,

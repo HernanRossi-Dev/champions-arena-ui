@@ -22,6 +22,7 @@ import Character from './characterModel.js';
 import * as cssStyles from "../../../styles/Styles.css";
 import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
 import CharacterEditStatsComponent from './CharacterEditStatsComponent.jsx';
+import CharacterEditActionsComponent from './CharacterEditActionsComponent';
 import store from "../../store/index.js";
 
 const styles = theme => ({
@@ -124,6 +125,9 @@ class CharacterEdit extends React.Component {
     return null;
   }
 
+  discardChanges = () => {
+    this.setState({editCharacter: new Character()});
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -148,7 +152,10 @@ class CharacterEdit extends React.Component {
             updateCharacter={this.updateCharacter}
            />
           <hr className={cssStyles.hr} />
-
+          <CharacterEditActionsComponent
+            editCharacter={this.state.editCharacter}
+            updateCharacter={this.updateCharacter}
+          />
           <hr className={cssStyles.hr} />
 
           <hr className={cssStyles.hr} />
@@ -161,8 +168,8 @@ class CharacterEdit extends React.Component {
             <Col sm={4}>
               <ButtonToolbar>
               <LinkContainer to="/characters">
-                  <Button bsStyle="link" >
-                    Back (Discard Changes)
+                  <Button bsStyle="link" onClick={this.discardChanges}>
+                    Back (Discard Unsaved Changes)
                   </Button>
                 </LinkContainer>
                 <Button bsStyle="primary" onClick={this.handleShow}>

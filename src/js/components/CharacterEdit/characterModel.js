@@ -28,5 +28,6 @@ export default class Character {
     this.classProps = {};
     this.characterNotes = [];
     this.modifiers = {};
+    this.actions = {};
   }
 }

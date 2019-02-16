@@ -6,24 +6,6 @@ import { cloneDeep, isEqual } from 'lodash';
 import Character from './characterModel.js';
 import styled from 'styled-components';
 
-const EditTitleStyle = styled.div`
-  font-size: 25px;
-  color: #ffffff;
-  text-align: center;
-  font-family: 'ZCOOL XiaoWei', serif;
-  margin-bottom: 35px;
-  text-shadow: 1px 1px 1px #df691a;
-`;
-
-const DefName = styled.div`
-  font-size: 17px;
-  color: #ffffff;
-  text-align: center;
-  font-family: 'Cinzel Decorative', sans-serif;
-  margin-bottom: 5px;
-  width: 160px;
-`;
-
 const itemStyle = {
   background: "transparent",
   fontSize: "15px",
@@ -69,121 +51,140 @@ class CharacterEditBasicInfoComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editCharacter: new Character(),
       show: false
     };
   }
 
-  componentDidMount() {
-    this.setState({ editCharater: this.props.editCharacter });
+ 
+
+  saveCaretPosition = (event) => {
+    const caret = event.target.selectionStart
+    const element = event.target
+    window.requestAnimationFrame(() => {
+      element.selectionStart = caret
+      element.selectionEnd = caret
+    })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (!isEqual(this.props.editCharacter, prevProps.editCharacter)) {
-        this.setState({ editCharacter: this.props.editCharacter });
-    }
-}
-
-  changeName = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.characterName = this.characterName.value;
+  changeName = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.name = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeAlignment = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.alignment = this.alignment.value;
+  changeAlignment = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.alignment = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeLevel = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.level = this.level.value;
+  changeLevel = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.level = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeAge = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.age = this.age.value;
+  changeAge = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.age = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeHeight = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.height = this.height.value;
+  changeHeight = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.height = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeWeight = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.weight = this.weight.value;
+  changeWeight = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.weight = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeHair = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.hair = this.hair.value;
+  changeHair = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.hair = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeEyes = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.eyes = this.eyes.value;
+  changeEyes = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.eyes = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changePlayer = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.player = this.player.value;
+  changePlayer = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.player = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeDeity = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.deity = this.deity.value;
+  changeDeity = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.deity = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeHomeland = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.homeland = this.homeland.value;
+  changeHomeland = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.homeland = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeSize = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.size = this.size.value;
+  changeSize = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.size = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeGender = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.gender = this.gender.value;
+  changeGender = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.gender = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeAncestry = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.ancestry = this.ancestry.value;
+  changeAncestry = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.ancestry = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeClass = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.class = this.class.value;
-    this.props.updateCharacter(updateChar);
-  }
-  changeBackground = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.background = newBackground;
+  changeClass = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.class = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
-  changeWILL = () => {
-    const updateChar = cloneDeep(this.state.editCharacter);
-    updateChar.modifiers.PER = this.PER.value;
+  changeBackground = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.background = event.target.value;
     this.props.updateCharacter(updateChar);
   }
+
+  changeWILL = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.modifiers.PER  = event.target.value;
+    this.props.updateCharacter(updateChar);
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -196,14 +197,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="characterName"
               helperText="Character Name"
               htmlFor="custom-css-standard-input"
-              value={
-                this.state.editCharacter.name
-                  ? this.state.editCharacter.name
-                  : ""
-              }
-              inputRef={ref => {
-                this.characterName = ref;
-              }}
+              value={ this.props.editCharacter.name }
               InputProps={{
                 classes: {
                   root: classes.input,
@@ -221,13 +215,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="ancestry"
               helperText="Ancestry"
               onChange={this.changeAncestry}
-              inputRef={ref => {
-                this.ancestry = ref;
-              }}
               value={
-                this.state.editCharacter.ancestry
-                  ? this.state.editCharacter.ancestry
-                  : ""
+                this.props.editCharacter.ancestry
               }
               InputProps={{
                 classes: {
@@ -245,13 +234,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="size"
               helperText="size"
               onChange={this.changeSize}
-              inputRef={ref => {
-                this.size = ref;
-              }}
               value={
-                this.state.editCharacter.size
-                  ? this.state.editCharacter.size
-                  : ""
+                this.props.editCharacter.size
               }
               className={classes.root}
               InputProps={{
@@ -272,13 +256,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="backgound"
               helperText="Background"
               onChange={this.changeBackground}
-              inputRef={ref => {
-                this.background = ref;
-              }}
               value={
-                this.state.editCharacter.background
-                  ? this.state.editCharacter.background
-                  : ""
+                this.props.editCharacter.background
               }
               InputProps={{
                 classes: {
@@ -296,13 +275,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="class"
               helperText="Class"
               onChange={this.changeClass}
-              inputRef={ref => {
-                this.class = ref;
-              }}
               value={
-                this.state.editCharacter.class
-                  ? this.state.editCharacter.class
-                  : ""
+                this.props.editCharacter.class
               }
               InputProps={{
                 classes: {
@@ -320,13 +294,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="level"
               helperText="Level"
               onChange={this.changeLevel}
-              inputRef={ref => {
-                this.level = ref;
-              }}
               value={
-                this.state.editCharacter.level
-                  ? this.state.editCharacter.level
-                  : ""
+                this.props.editCharacter.level
               }
               InputProps={{
                 classes: {
@@ -347,13 +316,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="deity"
               helperText="Deity"
               onChange={this.changeDeity}
-              inputRef={ref => {
-                this.deity = ref;
-              }}
               value={
-                this.state.editCharacter.deity
-                  ? this.state.editCharacter.deity
-                  : ""
+                this.props.editCharacter.deity
               }
               InputProps={{
                 classes: {
@@ -372,13 +336,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="alignment"
               helperText="Alignment"
               onChange={this.changeAlignment}
-              inputRef={ref => {
-                this.alignment = ref;
-              }}
               value={
-                this.state.editCharacter.alignment
-                  ? this.state.editCharacter.alignment
-                  : ""
+                this.props.editCharacter.alignment
               }
               InputProps={{
                 classes: {
@@ -396,13 +355,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="homeland"
               helperText="Homeland"
               onChange={this.changeHomeland}
-              inputRef={ref => {
-                this.homeland = ref;
-              }}
               value={
-                this.state.editCharacter.homeland
-                  ? this.state.editCharacter.homeland
-                  : ""
+                this.props.editCharacter.homeland
               }
               InputProps={{
                 classes: {
@@ -420,13 +374,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="player"
               helperText="Player Name"
               onChange={this.changePlayer}
-              inputRef={ref => {
-                this.player = ref;
-              }}
               value={
-                this.state.editCharacter.player
-                  ? this.state.editCharacter.player
-                  : ""
+                this.props.editCharacter.player
               }
               InputProps={{
                 classes: {
@@ -447,11 +396,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="age"
               helperText="Age"
               onChange={this.changeAge}
-              inputRef={ref => {
-                this.age = ref;
-              }}
               value={
-                this.state.editCharacter.age ? this.state.editCharacter.age : ""
+                this.props.editCharacter.age
               }
               InputProps={{
                 classes: {
@@ -470,13 +416,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="gender"
               helperText="Gender"
               onChange={this.changeGender}
-              inputRef={ref => {
-                this.gender = ref;
-              }}
               value={
-                this.state.editCharacter.gender
-                  ? this.state.editCharacter.gender
-                  : ""
+                this.props.editCharacter.gender
               }
               InputProps={{
                 classes: {
@@ -495,13 +436,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="height"
               helperText="Height"
               onChange={this.changeHeight}
-              inputRef={ref => {
-                this.height = ref;
-              }}
               value={
-                this.state.editCharacter.height
-                  ? this.state.editCharacter.height
-                  : ""
+                this.props.editCharacter.height
               }
               InputProps={{
                 classes: {
@@ -519,14 +455,9 @@ class CharacterEditBasicInfoComponent extends React.Component {
             <TextField
               id="weight"
               helperText="Weight"
-              inputRef={ref => {
-                this.weight = ref;
-              }}
               onChange={this.changeWeight}
               value={
-                this.state.editCharacter.weight
-                  ? this.state.editCharacter.weight
-                  : ""
+                this.props.editCharacter.weight
               }
               InputProps={{
                 classes: {
@@ -545,13 +476,8 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="hair"
               helperText="Hair"
               onChange={this.changeHair}
-              inputRef={ref => {
-                this.hair = ref;
-              }}
               value={
-                this.state.editCharacter.hair
-                  ? this.state.editCharacter.hair
-                  : ""
+                this.props.editCharacter.hair
               }
               InputProps={{
                 classes: {
@@ -569,14 +495,9 @@ class CharacterEditBasicInfoComponent extends React.Component {
             <TextField
               id="eyes"
               helperText="Eye Color"
-              inputRef={ref => {
-                this.eyes = ref;
-              }}
               onChange={this.changeEyes}
               value={
-                this.state.editCharacter.eyes
-                  ? this.state.editCharacter.eyes
-                  : ""
+                this.props.editCharacter.eyes
               }
               InputProps={{
                 classes: {
@@ -589,9 +510,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
               }}
             />
           </Grid>
-         
         </Grid>
-
       </div>
     );
   }
