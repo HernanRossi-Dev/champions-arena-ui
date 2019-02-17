@@ -5,10 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import CharacterFilter from "./CharacterFilter.jsx";
 import { setNumberOfCharacters } from '../../actions/CharacterActionCreators';
-import store from "../../store/index.js";
 import axios from 'axios';
 import _ from 'lodash';
-import * as CharacterActionCreators from "../../actions/CharacterActionCreators.js";
+import { Button } from 'react-bootstrap';
+import { LinkContainer } from "react-router-bootstrap";
 import CharacterTable from "./CharacterTable";
 import * as cssStyles from '../../../styles/Styles.css';
 
@@ -28,7 +28,7 @@ class CharacterList extends React.Component {
   setFilter = (query) => {
     let filter = "";
     for (let key in query) {
-      filter += "&"+ key + "=" + query[key]  ;
+      filter += "&" + key + "=" + query[key];
     }
     this.props.history.push({
       pathname: this.props.location.pathname,
@@ -48,19 +48,19 @@ class CharacterList extends React.Component {
     }
   }
 
-  loadData = async  () => {
+  loadData = async () => {
     const { currentUserName, location } = this.props;
     let filter = "";
 
     if (this.props.location.query !== undefined) {
       let currentUser = currentUserName;
-	    filter += '?user=' + currentUser;
+      filter += '?user=' + currentUser;
       for (let key in location.query) {
         filter += "&" + key + "=" + location.query[key];
       }
     } else {
-	    let currentUser = currentUserName;
-	    filter +=  '?user=' + currentUser;
+      let currentUser = currentUserName;
+      filter += '?user=' + currentUser;
       filter += location.search.substring(1);
     }
     let getResult;
@@ -69,10 +69,10 @@ class CharacterList extends React.Component {
     } catch (err) {
       console.log("Error fetching characters: ", err);
     }
-   const characters = getResult.data.characters
-   const action = setNumberOfCharacters(characters.length);
-   this.props.dispatch(action);
-   this.setState({ characters });
+    const characters = getResult.data.characters
+    const action = setNumberOfCharacters(characters.length);
+    this.props.dispatch(action);
+    this.setState({ characters });
   }
 
   deleteCharacter = async (id) => {
@@ -96,14 +96,17 @@ class CharacterList extends React.Component {
           setFilter={this.setFilter}
           initFilter={this.props.location.search}
         />
-
         <hr />
         <CharacterTable
           characters={this.state.characters}
           deleteCharacter={this.deleteCharacter}
         />
-	      <hr className={cssStyles.hrCharacterList} />
-
+        <hr className={cssStyles.hrCharacterList} />
+        <LinkContainer to="/createCharacter">
+          <Button type="button" bsClass={cssStyles.deleteButton}>
+            <i class="fas fa-plus-circle" style={{ marginRight: '10px', marginLeft: '85px' }}></i> Create Character
+        </Button>
+        </LinkContainer>
       </div>
     );
   }
@@ -115,7 +118,7 @@ CharacterList.prototypes = {
 };
 
 const mapStateToProps = state => {
-  return{
+  return {
     numberOfCharacters: state.characterReducer.numberOfCharacters,
     currentUserName: state.userReducer.currentUserName,
     Auth: state.userReducer.authToken,

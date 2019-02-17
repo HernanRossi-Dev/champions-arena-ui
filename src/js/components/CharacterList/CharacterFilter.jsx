@@ -139,7 +139,7 @@ class CharacterFilter extends React.Component {
                     <option value="Warlock">Warlock</option>
                     <option value="Bard">Bard</option>
                     <option value="Barbarian">Barbarian</option>
-                    <option value="Alchemist">Barbarian</option>
+                    <option value="Alchemist">Alchemist</option>
                   </FormControl>
                 </FormGroup>
               </Col>

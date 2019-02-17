@@ -154,6 +154,28 @@ class CreateCharacterComponent extends React.Component {
   };
 
   saveNewCharacter = async (newCharacter) => {
+    newCharacter.skillsModifiers = {
+    };
+    newCharacter.actions = {
+      stride: '',
+      melee: [],
+      ranged: []
+    },
+    newCharacter.modifiers = {
+      CHA: '+0',
+      CON: '+0',
+      DEX: '+0',
+      INT: '+0',
+      STR: '+0',
+      WIS: '+0',
+      FORT: '+0',
+      REFLEX: '+0',
+      WILL: '+0',
+      TOUCHAC: 'Enter',
+      AC: 'Enter',
+      PER: '+0',
+    };
+
     let postResult;
     const postResponse = {
       message: 'Character Created',
@@ -225,7 +247,7 @@ class CreateCharacterComponent extends React.Component {
       class: this.state.class,
       ancestry: this.state.characterAncestry,
       hitPoints: characterHP,
-      deity:  this.state.deity,
+      deity: this.state.deity,
       level: 1,
       XP: 0,
       STR: setAbilityStats.STR,
@@ -276,11 +298,11 @@ class CreateCharacterComponent extends React.Component {
     const { freeAbilityPoints } = ancestryProps;
     let newFreeAbilityPoints = this.state.freeAbilityPoints;
     const humanAncestries = ['Human', 'Half-Elf', 'Half-Orc'];
-    if ( this.state.freeAbilityPoints !== 4 ){
+    if (this.state.freeAbilityPoints !== 4) {
       const subtractPrevPoints = humanAncestries.includes(this.state.characterAncestry) ? 2 : 1;
       newFreeAbilityPoints -= subtractPrevPoints;
     }
-   
+
     newFreeAbilityPoints += freeAbilityPoints;
     if (newAncestry === this.state.characterAncestry) {
       return;
@@ -301,7 +323,7 @@ class CreateCharacterComponent extends React.Component {
         characterStats: newStats,
         characterAncestry: newAncestry,
         racialBonus: bonusPoints,
-        freeAbilityPoints : newFreeAbilityPoints,
+        freeAbilityPoints: newFreeAbilityPoints,
         ancestryProps
       });
     }
@@ -415,21 +437,21 @@ class CreateCharacterComponent extends React.Component {
       renderClassExtra = (
         <div>
           <hr className={cssStyles.hr} />
-          <CreateCharacterDeity setDeity={this.setDeity}/>
+          <CreateCharacterDeity setDeity={this.setDeity} />
         </div>
       );
     } else if (this.state.class === "Sorcerer") {
       renderClassExtra = (
         <div>
           <hr className={cssStyles.hr} />
-          <CreateCharacterBloodlines setBloodline={this.setBloodline}/>
+          <CreateCharacterBloodlines setBloodline={this.setBloodline} />
         </div>
       );
     } else if (this.state.class === "Wizard") {
       renderClassExtra = (
         <div>
           <hr className={cssStyles.hr} />
-          <CreateCharacterArcaneSchool setArcaneSchool={this.setArcaneSchool}/>
+          <CreateCharacterArcaneSchool setArcaneSchool={this.setArcaneSchool} />
         </div>
       );
     } else {
@@ -491,10 +513,10 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setFreeAbilityBoosts = () => {
-    this.setState({showAssignAbilityBoosts: true});
+    this.setState({ showAssignAbilityBoosts: true });
   }
   handleCloseAssignAbilityBoosts = () => {
-    this.setState({showAssignAbilityBoosts: false});
+    this.setState({ showAssignAbilityBoosts: false });
   }
 
   render() {
@@ -621,15 +643,15 @@ class CreateCharacterComponent extends React.Component {
                 onHide={this.handleCloseAssignAbilityBoosts}
                 className={cssStyles.createCharacterBoostModal}
               >
-                <Modal.Header closeButton style={{textAlign: "center"}}>
+                <Modal.Header closeButton style={{ textAlign: "center" }}>
                   <Modal.Title>Assign Free Ability Boosts</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  
-                  <CreateCharacterSetFreeBoosts 
-                  characterStats={this.state.characterStats}
-                  freeAbilityPoints={this.state.freeAbilityPoints}
-                  handleSubmit={this.handleSubmit}
+
+                  <CreateCharacterSetFreeBoosts
+                    characterStats={this.state.characterStats}
+                    freeAbilityPoints={this.state.freeAbilityPoints}
+                    handleSubmit={this.handleSubmit}
                   />
                 </Modal.Body>
                 <Modal.Footer>
@@ -640,7 +662,7 @@ class CreateCharacterComponent extends React.Component {
           </Form>
         </Panel>
         <Snackbar
-          style={{ zIndex: 8002  }}
+          style={{ zIndex: 8002 }}
 
           anchorOrigin={{
             vertical: 'top',
@@ -655,7 +677,7 @@ class CreateCharacterComponent extends React.Component {
               root: classes.success
             }
           }}
-          message={<span id="message-id" style={{fontSize: 14}}>{this.state.toastMessage}</span>}
+          message={<span id="message-id" style={{ fontSize: 14 }}>{this.state.toastMessage}</span>}
           action={[
             <IconButton
               key="close"
@@ -678,20 +700,20 @@ class CreateCharacterComponent extends React.Component {
         this.setState({ allowedAlignments: ["LG"] });
         break;
       default:
-      this.setState({
-        allowedAlignments: [
-          "LG",
-          "NG",
-          "CG",
-          "LN",
-          "N",
-          "CN",
-          "LE",
-          "NE",
-          "CE"
-        ]
-      });
-      break;
+        this.setState({
+          allowedAlignments: [
+            "LG",
+            "NG",
+            "CG",
+            "LN",
+            "N",
+            "CN",
+            "LE",
+            "NE",
+            "CE"
+          ]
+        });
+        break;
     }
   }
 }

@@ -79,7 +79,6 @@ class CharacterEdit extends React.Component {
       this.showToast('Error fetching character.');
       return null;
     }
-    console.log('CHARACTER: ', getResult.data);
     this.setState({ editCharacter: getResult.data });
   }
 
@@ -108,6 +107,9 @@ class CharacterEdit extends React.Component {
     const updateCharacter = Object.assign({}, this.state.editCharacter);
     if (!this.props) {
       return null;
+    }
+    if (updateCharacter.actions.melee) {
+      updateCharacter.actions.melee = updateCharacter.actions.melee.filter((entry) => entry !== '');
     }
     const characterID = this.props.match.params.id;
 

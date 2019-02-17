@@ -28,6 +28,10 @@ export default class Character {
     this.classProps = {};
     this.characterNotes = [];
     this.modifiers = {};
-    this.actions = {};
+    this.actions = {
+      melee: [],
+      stride:'',
+      ranged: [],
+    };
   }
 }

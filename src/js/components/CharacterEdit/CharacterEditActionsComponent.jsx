@@ -1,10 +1,13 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
+import { Button } from "react-bootstrap";
 import { withStyles } from '@material-ui/core/styles/index';
 import { cloneDeep, isEqual } from 'lodash';
 import Character from './characterModel.js';
 import styled from 'styled-components';
+import * as cssStyles from "../../../styles/Styles.css";
+
 
 const EditTitleStyle = styled.div`
   font-size: 38px;
@@ -30,9 +33,10 @@ const GradientHeadingUnder = styled.div`
     -webkit-border-radius: 0px 13px 200px 0px;
     border: 7px none #000000;
     width: 65%;
-    height: 18px; 
+    height: 12px; 
     margin-left: 25px;
     margin-top: -10p;
+    margin-bottom: 20px;
 `;
 
 const itemStyle = {
@@ -54,6 +58,18 @@ const styles = {
   inputName: {
     color: '#ffffff',
     fontSize: 30,
+    fontColor: '#ffffff',
+    fontFamily: "'ZCOOL XiaoWei', serif"
+  },
+  inputStride: {
+    color: '#ffffff',
+    fontSize: 35,
+    fontColor: '#ffffff',
+    fontFamily: "'ZCOOL XiaoWei', serif"
+  },
+  inputMelee: {
+    color: '#ffffff',
+    fontSize: 22,
     fontColor: '#ffffff',
     fontFamily: "'ZCOOL XiaoWei', serif"
   },
@@ -88,18 +104,15 @@ class CharacterEditActionsComponent extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { melee, ranged } = this.props.editCharacter.actions;
-    this.setState({ meleeRows: melee, rangedRows: ranged, editCharacter: this.props.editCharacter });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!isEqual(this.props.editCharacter.actions, prevState.editCharacter.actions)) {
-      const { melee, ranged } = this.props.editCharacter.actions;
-      this.setState({ meleeRows: melee, rangedRows: ranged, editCharacter: this.props.editCharacter });
+  static defaultProps = {
+    editCharacter: {
+      actions: {
+        melee: [],
+      },
     }
   }
-   
+
+
   saveCaretPosition = (event) => {
     const caret = event.target.selectionStart
     const element = event.target
@@ -111,14 +124,97 @@ class CharacterEditActionsComponent extends React.Component {
 
   changeStride = (event) => {
     this.saveCaretPosition(event);
-    const updateChar = this.state.editCharacter;
+    const updateChar = this.props.editCharacter;
     updateChar.actions.stride = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
+  addMeleeEntry = () => {
+    const meleeEntry = '';
+    const updateChar = this.props.editCharacter;
+    updateChar.actions.melee.push(meleeEntry);
+    this.props.updateCharacter(updateChar);
+  }
 
-  renderMeleeStrike = () => {
-    return;
+  addRangedEntry = () => {
+    const rangedEntry = '';
+    const updateChar = this.props.editCharacter;
+    updateChar.actions.ranged.push(rangedEntry);
+    this.props.updateCharacter(updateChar);
+  }
+
+  changeMelee = (event, index) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.actions.melee[index] = event.target.value;
+    this.props.updateCharacter(updateChar);
+  }
+
+  changeRanged = (event, index) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.actions.ranged[index] = event.target.value;
+    this.props.updateCharacter(updateChar);
+  }
+
+  deleteMelee = (index) => {
+    const updateChar = this.props.editCharacter;
+    updateChar.actions.melee.splice(index, 1);
+    this.props.updateCharacter(updateChar);
+  }
+
+  deleteRanged = (index) => {
+    const updateChar = this.props.editCharacter;
+    updateChar.actions.ranged.splice(index, 1);
+    this.props.updateCharacter(updateChar);
+  }
+
+  renderMeleeStrike = (entry, index) => {
+    const { classes } = this.props;
+    const entryRender = (
+      <TextField
+        onChange={(e) => this.changeMelee(e, index)}
+        id={`melee-${index}`}
+        helperText="Melee Strike"
+        htmlFor="custom-css-standard-input"
+        value={entry}
+        InputProps={{
+          classes: {
+            root: classes.input,
+            input: classes.inputMelee,
+          }
+        }}
+        FormHelperTextProps={{
+          className: classes.helperText
+        }}
+        style={{ paddingLeft: '25px', paddingRight: '15px', marginTop: '15px', width: '90%' }}
+      />
+    );
+    return entryRender;
+  }
+
+  renderRangedStrike = (entry, index) => {
+    const { classes } = this.props;
+    const entryRender = (
+      <TextField
+        onChange={(e) => this.changeRanged(e, index)}
+        id={`ranged-${index}`}
+        helperText="Ranged Strike"
+        htmlFor="custom-css-standard-input"
+        value={entry}
+        InputProps={{
+          classes: {
+            root: classes.input,
+            input: classes.inputMelee,
+          }
+        }}
+        FormHelperTextProps={{
+          className: classes.helperText
+        }}
+        style={{ paddingLeft: '25px', paddingRight: '15px', marginTop: '15px', width: '90%' }}
+      />
+    );
+    return entryRender;
   }
 
   render() {
@@ -126,37 +222,92 @@ class CharacterEditActionsComponent extends React.Component {
     return (
       <div >
         <Grid container spacing={16} justify="flex-start">
-          <Grid item xs={1}></Grid>
-          <Grid item xs={4} >
-            <EditTitleStyle>Actions</EditTitleStyle>
-           <GradientHeadingUnder />
+          <Grid container spacing={16} justify="flex-start">
+            <Grid item xs={1}></Grid>
+            <Grid item xs={3} >
+              <EditTitleStyle>Actions</EditTitleStyle>
+              <GradientHeadingUnder />
+            </Grid>
+            <Grid item xs={2}>
+
+              <TextField
+                onChange={this.changeStride}
+                id="Stride"
+                helperText="Stride"
+                htmlFor="custom-css-standard-input"
+                value={this.props.editCharacter.actions.stride}
+                InputProps={{
+                  classes: {
+                    root: classes.input,
+                    input: classes.inputStride,
+                  }
+                }}
+                FormHelperTextProps={{
+                  className: classes.helperText
+                }}
+                style={{marginTop: '15px', marginBottom: '20px' }}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={2}>
-           
-            <TextField
-              onChange={this.changeStride}
-              id="Stride"
-              helperText="Stride"
-              htmlFor="custom-css-standard-input"
-              value={ this.props.editCharacter.actions.stride }
-              InputProps={{
-                classes: {
-                  root: classes.input,
-                  input: classes.inputName,
-                }
-              }}
-              FormHelperTextProps={{
-                className: classes.helperText
-              }}
-              style={{ paddingLeft: '25px', paddingRight: '15px', marginTop: '15px' }}
-            />
+          {this.props.editCharacter.actions.melee.map((entry, index) => {
+            return (
+              <Grid container spacing={16} justify="flex-start" direction='row'>
+
+                <Grid item xs={1}></Grid>
+                <Grid item xs={10} >
+                  {this.renderMeleeStrike(entry, index)}
+                  <Button type="button" bsClass={cssStyles.deleteButtonActions} onClick={() => this.deleteMelee(index)}>
+                    <i className="fas fa-times-circle fa-lg" />
+                  </Button>
+                </Grid>
+              </Grid>
+            );
+          })}
+          <Grid container spacing={16} justify="center" direction='row'>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={4}>
+              <Button type="button" bsClass={cssStyles.deleteButton} onClick={this.addMeleeEntry}>
+                Add Melee entry
+                  <i class="fas fa-plus-circle" style={{ marginLeft: '25px', marginBottom: '25px' }}></i>
+              </Button>
+            </Grid>
           </Grid>
-          {this.renderMeleeStrike()}
+
+          {this.props.editCharacter.actions.ranged.map((entry, index) => {
+            return (
+              <Grid container spacing={16} justify="flex-start" direction='row'>
+
+                <Grid item xs={1}></Grid>
+                <Grid item xs={10} >
+                  {this.renderRangedStrike(entry, index)}
+                  <Button type="button" bsClass={cssStyles.deleteButtonActions} onClick={() => this.deleteRanged(index)}>
+                    <i className="fas fa-times-circle fa-lg" />
+                  </Button>
+                </Grid>
+              </Grid>
+            );
+          })}
+          <Grid container spacing={16} justify="center" direction='row'>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={4}>
+              <Button type="button" bsClass={cssStyles.deleteButton} onClick={this.addRangedEntry}>
+                Add Ranged entry
+                  <i class="fas fa-plus-circle" style={{ marginLeft: '17px' }}></i>
+              </Button>
+            </Grid>
+          </Grid>
+
         </Grid>
 
       </div>
     );
   }
 }
-
+const deleteButtonStyle = {
+  color: '#fa621f',
+  outline: 'none',
+  border: 'none',
+  backgroundColor: 'transparent !important',
+  marginTop: '35px',
+}
 export default withStyles(styles)(CharacterEditActionsComponent);
