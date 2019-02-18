@@ -63,13 +63,13 @@ const styles = {
   },
   inputStride: {
     color: '#ffffff',
-    fontSize: 35,
+    fontSize: 30,
     fontColor: '#ffffff',
     fontFamily: "'ZCOOL XiaoWei', serif"
   },
   inputMelee: {
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 18,
     fontColor: '#ffffff',
     fontFamily: "'ZCOOL XiaoWei', serif"
   },

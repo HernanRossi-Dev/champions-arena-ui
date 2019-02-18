@@ -34,7 +34,7 @@ const defaultCharactersV2 = [
       ancestry: 'Elf',
       size: 'Medium',
       speed: 30,
-      languages: ['common', 'elven'],
+      languages: 'common, elven',
       traits: ['elf', 'humanoid'],
       attributes: {
         'low-light vision': 'You can see in dim light as though it were bright light.'
@@ -180,7 +180,7 @@ const defaultCharactersV2 = [
       ancestry: 'Human',
       size: 'Medium',
       speed: 25,
-      languages: ['common', 'Draconic', 'Infernal'],
+      languages: 'common, Draconic, Infernal',
       traits: ['human', 'humanoid'],
       attributes: {
       }
@@ -322,7 +322,7 @@ const defaultCharactersV2 = [
       ancestry: 'Goblin',
       size: 'small',
       speed: 25,
-      languages: ['goblin', 'common', 'orc'],
+      languages: 'goblin, common, orc',
       traits: ['goblin', 'humanoid'],
       attributes: {
         'dark vision': 'You can see in darkness and dim light just as well as ' +
@@ -451,7 +451,7 @@ const defaultCharactersV2 = [
       ancestry: 'Human',
       size: 'medium',
       speed: 25,
-      languages: ['kelish', 'common'],
+      languages: 'kelish, common',
       traits: ['human', 'humanoid'],
       attributes: {
       }
@@ -592,7 +592,7 @@ const defaultCharactersV2 = [
       ancestry: 'Human',
       size: 'medium',
       speed: 25,
-      languages: ['goblin', 'common'],
+      languages: 'goblin, common',
       traits: ['human', 'humanoid'],
       attributes: {
       }

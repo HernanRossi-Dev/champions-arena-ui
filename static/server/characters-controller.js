@@ -89,7 +89,7 @@ exports.updateCharacter = async (req, res) => {
 exports.createCharacter = async (req, res) => {
   const newCharacter = req.body;
   if (!newCharacter.age) {
-    newCharacter.age = 34;
+    newCharacter.age = '';
   }
   if (!newCharacter.name) {
     res.status(422).json({ message: "New Character must have a name." });

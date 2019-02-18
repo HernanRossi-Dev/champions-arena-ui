@@ -79,7 +79,9 @@ class CharacterEdit extends React.Component {
       this.showToast('Error fetching character.');
       return null;
     }
-    this.setState({ editCharacter: getResult.data });
+    const { data } = getResult;
+    console.log("EditChar: ", data)
+    this.setState({ editCharacter: data });
   }
 
   handleClose = () => {
@@ -158,6 +160,8 @@ class CharacterEdit extends React.Component {
             editCharacter={this.state.editCharacter}
             updateCharacter={this.updateCharacter}
           />
+          <hr className={cssStyles.hr} />
+        
           <hr className={cssStyles.hr} />
 
           <hr className={cssStyles.hr} />

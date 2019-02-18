@@ -55,7 +55,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
     };
   }
 
- 
+
 
   saveCaretPosition = (event) => {
     const caret = event.target.selectionStart
@@ -178,10 +178,17 @@ class CharacterEditBasicInfoComponent extends React.Component {
     this.props.updateCharacter(updateChar);
   }
 
-  changeWILL = (event) => {
+  changeLanguages = (event) => {
     this.saveCaretPosition(event);
     const updateChar = this.props.editCharacter;
-    updateChar.modifiers.PER  = event.target.value;
+    updateChar.ancestryProps.languages = event.target.value;
+    this.props.updateCharacter(updateChar);
+  }
+
+  changeXP = (event) => {
+    this.saveCaretPosition(event);
+    const updateChar = this.props.editCharacter;
+    updateChar.XP = event.target.value;
     this.props.updateCharacter(updateChar);
   }
 
@@ -197,7 +204,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
               id="characterName"
               helperText="Character Name"
               htmlFor="custom-css-standard-input"
-              value={ this.props.editCharacter.name }
+              value={this.props.editCharacter.name}
               InputProps={{
                 classes: {
                   root: classes.input,
@@ -229,28 +236,7 @@ class CharacterEditBasicInfoComponent extends React.Component {
               }}
             />
           </Grid>
-          <Grid item xs={1}>
-            <TextField
-              id="size"
-              helperText="size"
-              onChange={this.changeSize}
-              value={
-                this.props.editCharacter.size
-              }
-              className={classes.root}
-              InputProps={{
-                classes: {
-                  root: classes.input,
-                  input: classes.input,
-                }
-              }}
-              FormHelperTextProps={{
-                className: classes.helperText
-              }}
-              style={{ paddingRight: '15px' }}
-
-            />
-          </Grid>
+         
           <Grid item xs={2}>
             <TextField
               id="backgound"
@@ -296,6 +282,26 @@ class CharacterEditBasicInfoComponent extends React.Component {
               onChange={this.changeLevel}
               value={
                 this.props.editCharacter.level
+              }
+              InputProps={{
+                classes: {
+                  root: classes.input,
+                  input: classes.input,
+                }
+              }}
+              FormHelperTextProps={{
+                className: classes.helperText
+              }}
+              style={{ paddingRight: '15px' }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <TextField
+              id="XP"
+              helperText="XP"
+              onChange={this.changeXP}
+              value={
+                this.props.editCharacter.XP
               }
               InputProps={{
                 classes: {
@@ -508,6 +514,50 @@ class CharacterEditBasicInfoComponent extends React.Component {
               FormHelperTextProps={{
                 className: classes.helperText
               }}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={16} style={{ marginTop: '40px' }} justify="center">
+          <Grid item xs={4}>
+          <TextField
+              id="languages"
+              helperText="Languages"
+              onChange={this.changeLanguages}
+              value={
+                this.props.editCharacter.ancestryProps.languages
+              }
+              InputProps={{
+                classes: {
+                  root: classes.input,
+                  input: classes.input,
+                }
+              }}
+              FormHelperTextProps={{
+                className: classes.helperText
+              }}
+              style={{ width: '100%' }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <TextField
+              id="size"
+              helperText="size"
+              onChange={this.changeSize}
+              value={
+                this.props.editCharacter.size
+              }
+              className={classes.root}
+              InputProps={{
+                classes: {
+                  root: classes.input,
+                  input: classes.input,
+                }
+              }}
+              FormHelperTextProps={{
+                className: classes.helperText
+              }}
+              style={{ paddingRight: '15px' }}
+
             />
           </Grid>
         </Grid>

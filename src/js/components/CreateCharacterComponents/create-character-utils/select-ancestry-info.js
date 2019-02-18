@@ -35,7 +35,7 @@ export const HumanData = () => {
     hp: 8,
     size: 'Medium',
     speed: 25,
-    languages: ['common'],
+    languages: 'common',
     traits: ['human', 'humanoid'],
     attributes: {
     }
@@ -81,7 +81,7 @@ export const DwarfData = () => {
     hp: 10,
     size: 'Medium',
     speed: 20,
-    languages: ['common', 'dwarf'],
+    languages: 'common, dwarf',
     traits: ['dwarf', 'humanoid'],
     attributes: {
       'dark vision': 'You can see in darkness and dim light just as well as ' +
@@ -130,7 +130,7 @@ export const ElfData = () => {
     hp: 6,
     size: 'Medium',
     speed: 30,
-    languages: ['common', 'elven'],
+    languages: 'common, elven',
     traits: ['elf', 'humanoid'],
     attributes: {
       'low-light vision': 'You can see in dim light as though it were bright light.'
@@ -175,7 +175,7 @@ export const GnomeData = () => {
     hp: 8,
     size: 'small',
     speed: 20,
-    languages: ['gnomish', 'sylvan', 'common'],
+    languages: 'gnomish, sylvan, common',
     traits: ['gnome', 'humanoid'],
     attributes: {
       'low-light vision': 'You can see in dim light as though it were bright light.'
@@ -218,7 +218,7 @@ export const HalflingData = () => {
     hp: 6,
     size: 'small',
     speed: 25,
-    languages: ['halfling', 'common'],
+    languages: 'halfling, common',
     traits: ['halfling', 'humanoid'],
     attributes: {
     }
@@ -260,7 +260,7 @@ export const GoblinData = () => {
     hp: 6,
     size: 'small',
     speed: 25,
-    languages: ['goblin', 'common'],
+    languages: 'goblin, common',
     traits: ['goblin', 'humanoid'],
     attributes: {
       'dark vision': 'You can see in darkness and dim light just as well as ' +
