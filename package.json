@@ -12,7 +12,7 @@
     "watch-server": "babel ./static/server/server.js --out-dir dist --source-maps --watch",
     "dev-all": "npm run watch & npm run watch-server & npm start-hook",
     "lint": "eslint --ext js,jsx src static webpack.config.js",
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js --mode production",
     "build-dev": "webpack --config webpack.dev.js --mode development",
     "component": "mocha --timeout 10000 test/component/*.js --exit"
   },

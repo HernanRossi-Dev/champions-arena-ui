@@ -80,7 +80,6 @@ class CharacterEdit extends React.Component {
       return null;
     }
     const { data } = getResult;
-    console.log("EditChar: ", data)
     this.setState({ editCharacter: data });
   }
 

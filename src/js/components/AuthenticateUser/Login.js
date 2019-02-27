@@ -91,7 +91,7 @@ class Login extends React.Component {
     }
   }
 
-  handleSignInGuest = () => {
+  handleSignInGuest = async () => {
     let guestUserName = 'guest';
     guestUserName += Math.random().toString().slice(2, 7);
     const newGuestUser = {
@@ -109,7 +109,7 @@ class Login extends React.Component {
       newGuestUser,
       callbackRedirect
     );
-    dispatch(action);
+    await dispatch(action);
   }
 
   render() {

@@ -86,7 +86,7 @@ class NavBarComponent extends React.Component {
     const user = this.props.currentUserName;
     if (this.props.isGuest) {
       action = UserActionCreators.logoutGuestUser(user, callbackRedirect);
-      dispatch(action);
+      await dispatch(action);
     } else {
       action = UserActionCreators.logoutRegisteredUser();
       await dispatch(action); 

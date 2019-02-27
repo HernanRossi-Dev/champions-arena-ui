@@ -29,13 +29,10 @@ if (process.env.NODE_ENV !== 'production') {
     applyMiddleware(thunkMiddleWare, loggerMiddleWare)
   );
 } else {
-  /* eslint-disable no-underscore-dangle */
   store = createStore(
     persistedReducer,
-    applyMiddleware(thunkMiddleWare),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(thunkMiddleWare)
   );
-  /* eslint-enable */
 }
 
 export const persistor = persistStore(store);

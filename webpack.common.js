@@ -61,8 +61,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(["dist"]),
-    // new HtmlWebpackPlugin({
-    //   title: "Production"
-    // })
+    new HtmlWebpackPlugin({
+      title: "Production"
+    })
   ]
 };
