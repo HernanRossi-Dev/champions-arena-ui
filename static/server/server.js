@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 
 // const mongoDBUrl = "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
 const mongoDBUrlOld = 
-"mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
+"mongodb://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-shard-00-00-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-01-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-02-gmjjh.mongodb.net:27017/test?ssl=true&replicaSet=PathfinderArena-shard-0&authSource=admin&retryWrites=true";
 
 SourceMapSupport.install();
 const server = express();
