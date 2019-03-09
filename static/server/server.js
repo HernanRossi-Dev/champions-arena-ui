@@ -9,9 +9,9 @@ const userApi = require('./user-controller');
 
 const mongoose = require("mongoose");
 
-const mongoDBUrl =
-  "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
-const { ObjectID } = require("mongodb");
+// const mongoDBUrl = "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
+const mongoDBUrlOld = 
+"mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
 
 SourceMapSupport.install();
 const server = express();
@@ -37,7 +37,7 @@ mongoose.Promise = require("bluebird");
 let db;
 (async () => {
   try {
-    await mongoose.connect(mongoDBUrl, { useNewUrlParser: true });
+    await mongoose.connect(mongoDBUrlOld, { useNewUrlParser: false });
     server.listen(process.env.PORT || 8080, () => {
       console.log("App started on port 8080.");
     });
