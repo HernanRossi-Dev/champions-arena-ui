@@ -1,17 +1,17 @@
 const faker = require('faker');
-const _ = require('lodash');
+const sample = require('lodash').sample;
 const {charProps} = require('../_mocks/character-properties');
 
 exports.createCharacterMock = () => {
     const newCharacter = {
-        player: _.sample(charProps.types),
+        player: sample(charProps.types),
     
         name: faker.name.firstName(),
-        class: _.sample(charProps.classes),
-        ancestry: _.sample(charProps.ancestries),
+        class: sample(charProps.classes),
+        ancestry: sample(charProps.ancestries),
         type: "Iconic",
-        gender: _.sample(charProps.genders),
-        alignment: _.sample(charProps.alignments),
+        gender: sample(charProps.genders),
+        alignment: sample(charProps.alignments),
         age: 'unknown',
         hair: 'Brown',
         eyes: 'Brown',

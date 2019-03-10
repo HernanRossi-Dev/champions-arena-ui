@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import CharacterFilter from "./CharacterFilter.jsx";
 import { setNumberOfCharacters } from '../../actions/CharacterActionCreators';
 import axios from 'axios';
-import _ from 'lodash';
+import {remove, map, cloneDeep } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import CharacterTable from "./CharacterTable";
@@ -77,9 +77,9 @@ class CharacterList extends React.Component {
 
   deleteCharacter = async (id) => {
     try {
-      let characters = _.map(this.state.characters, _.cloneDeep);
+      let characters = map(this.state.characters, cloneDeep);
       await axios.delete(`/api/characters/${id}`);
-      _.remove(characters, (char) => char._id === id);
+      remove(characters, (char) => char._id === id);
       const action = setNumberOfCharacters(characters.length);
       this.props.dispatch(action);
       this.setState({ characters });

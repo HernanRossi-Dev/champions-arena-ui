@@ -6,7 +6,7 @@ require("babel-polyfill");
 const authApi = require('./auth-controller');
 const characterApi = require('./characters-controller');
 const userApi = require('./user-controller');
-
+const compression = require('compression')
 const mongoose = require("mongoose");
 
 // const mongoDBUrl = "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
@@ -16,6 +16,19 @@ const mongoDBUrlOld =
 SourceMapSupport.install();
 const server = express();
 const helmet = require('helmet');
+// server.use(compression());
+server.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/javascript');
+  next();
+});
+server.get('*.css', function(req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/css');
+  next();
+ });
 
 server.use(helmet());
 

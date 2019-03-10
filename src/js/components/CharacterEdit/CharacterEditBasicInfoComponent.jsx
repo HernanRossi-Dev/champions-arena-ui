@@ -2,15 +2,6 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
-import { cloneDeep, isEqual } from 'lodash';
-import Character from './characterModel.js';
-import styled from 'styled-components';
-
-const itemStyle = {
-  background: "transparent",
-  fontSize: "15px",
-  fontFamily: '"Crimson Text", serif'
-}
 
 const styles = {
   root: {
