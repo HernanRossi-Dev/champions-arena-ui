@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "node ./static/server/server.js",
+    "start-dev": "NODE_ENV=development node ./static/server/server.js",
     "start-hook": "nodemon -w ./static/server/server.js ./static/server/start-hook.js",
     "watch": "webpack-dev-server --hot --inline",
     "watch-dev": "webpack-dev-server --config webpack.dev.js --mode development --hot --inline",

@@ -16,19 +16,21 @@ const mongoDBUrlOld =
 SourceMapSupport.install();
 const server = express();
 const helmet = require('helmet');
-// server.use(compression());
-server.get('*.js', function (req, res, next) {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.set('Content-Type', 'text/javascript');
-  next();
-});
-server.get('*.css', function(req, res, next) {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.set('Content-Type', 'text/css');
-  next();
- });
+if(process.env.NODE_ENV !== 'development') {
+  server.get('*.js', function (req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.set('Content-Type', 'text/javascript');
+    next();
+  });
+  server.get('*.css', function(req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.set('Content-Type', 'text/css');
+    next();
+   });
+}
+
 
 server.use(helmet());
 
