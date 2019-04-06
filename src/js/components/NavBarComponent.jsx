@@ -79,18 +79,15 @@ class NavBarComponent extends React.Component {
     const thisInst = this;
     const { dispatch } = this.props;
     let action;
-    const callbackRedirect = () => {
-      thisInst.props.history.push('/login');
-    };
-   
     const user = this.props.currentUserName;
     if (this.props.isGuest) {
-      action = UserActionCreators.logoutGuestUser(user, callbackRedirect);
+      action = UserActionCreators.logoutGuestUser(user);
       await dispatch(action);
     } else {
       action = UserActionCreators.logoutRegisteredUser();
-      await dispatch(action); 
+      await dispatch(action);
     }
+    thisInst.props.history.push('/login');
   }
 
   render() {

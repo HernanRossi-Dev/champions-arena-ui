@@ -3,7 +3,7 @@ import store from '../store/index';
 
 const initialState = {
   currentUser: {},  //Need to have unique user names {name: 'John',email: 'blah@blah.ca', password: 'alsdgqorjgpo'}
-  loggedIn: null,
+  loggedIn: false,
   authToken: '',
   currentUserName: '',
 };
@@ -98,9 +98,14 @@ const userReducer = (state = initialState, action) => {
       });
 
     case types.USER_LOGOUT_FAIL:
-      return {
-        ...state
-      };
+    return Object.assign({}, state, {
+      isFetching: false,
+      didInvalidate: false,
+      authToken: '',
+      currentUserName: '',
+      loggedIn: false
+    });
+
     case types.USER_LOGIN_START:
       return Object.assign({}, state, {
         isFetching: true,

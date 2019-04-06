@@ -20,7 +20,6 @@ import { connect } from "react-redux";
 import { setCurrrentUser, loginRegisteredUser } from '../../actions/UserActionCreators';
 import * as cssStyles from "../../../styles/Styles.css";
 import * as UserActionCreators from "../../actions/UserActionCreators";
-import store from "../../store";
 import { LoginContainer } from "./stylescss";
 
 const passwordHash = require("password-hash");

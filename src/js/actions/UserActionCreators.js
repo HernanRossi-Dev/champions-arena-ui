@@ -47,20 +47,10 @@ export const createRegisteredUser = (newRegisteredUser) => {
   };
 };
 
-function logoutRegisteredUserStart() {
-  return {
-    type: types.USER_LOGOUT_START,
-    payload: null
-  };
-}
-
 export const logoutRegisteredUser = () => {
-  return function (dispatch, getState) {
-    dispatch(logoutRegisteredUserStart());
-
-    return dispatch({
+  return async (dispatch) => {
+    await dispatch({
       type: types.USER_LOGOUT_SUCCESS,
-      payload: null,
     });
   };
 };
@@ -152,19 +142,8 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
   }
 };
 
-/**
- * Guest User actions creators
- */
-function createGuestUserStart(newUser) {
-  return {
-    type: types.CREATE_GUEST_USER_START,
-    payload: newUser
-  };
-}
-
 export const createGuestUser = (newGuestUser, callbackRedirect) => {
   return function (dispatch, getState) {
-    dispatch(createGuestUserStart(newGuestUser));
     fetch('api/authenticate').then((response) => {
       response.json().then((data) => {
         const token = JSON.parse(data.body);
@@ -199,40 +178,25 @@ export const createGuestUser = (newGuestUser, callbackRedirect) => {
   };
 };
 
-function logoutGuestUserStart() {
-  return {
-    type: types.USER_LOGOUT_START,
-    payload: null
-  };
-}
-
-export const logoutGuestUser = (userName, callbackRedirect) => {
-  return function (dispatch, getState) {
-    dispatch(logoutGuestUserStart());
-
-    fetch('api/authenticate').then(response => {
-      response.json().then(data => {
-        let token = JSON.parse(data.body);
-        fetch(`/api/users/${userName}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
-        }).then(response => {
-          if (!response.ok) {
-            alert("Failed to delete user");
-            dispatch({
-              type: types.USER_LOGOUT_FAIL,
-              payload: error,
-              error: true
-            });
-          } else {
-            dispatch({
-              type: types.USER_LOGOUT_SUCCESS,
-              loggedOut: true
-            });
-            callbackRedirect();
-          }
-        });
-      })
-    })
+export const logoutGuestUser = (userName) => {
+  return async (dispatch) => {
+    let response = await fetch('api/authenticate');
+    const data =  await response.json();
+    const token = JSON.parse(data.body);
+    const payload = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
+    };
+    response = await fetch(`/api/users/${userName}`, payload);
+    if (!response.ok) {
+      alert("Failed to delete user");
+      dispatch({
+        type: types.USER_LOGOUT_FAIL,
+      });
+    } else {
+      dispatch({
+        type: types.USER_LOGOUT_SUCCESS,
+      });
+    }
   };
 };

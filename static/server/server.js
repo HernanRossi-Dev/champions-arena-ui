@@ -6,12 +6,9 @@ require("babel-polyfill");
 const authApi = require('./auth-controller');
 const characterApi = require('./characters-controller');
 const userApi = require('./user-controller');
-const compression = require('compression')
 const mongoose = require("mongoose");
 
-// const mongoDBUrl = "mongodb+srv://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-gmjjh.mongodb.net/test";
-const mongoDBUrlOld = 
-"mongodb://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-shard-00-00-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-01-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-02-gmjjh.mongodb.net:27017/test?ssl=true&replicaSet=PathfinderArena-shard-0&authSource=admin&retryWrites=true";
+let mongoDBUrl = "mongodb://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-shard-00-00-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-01-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-02-gmjjh.mongodb.net:27017/test?ssl=true&replicaSet=PathfinderArena-shard-0&authSource=admin&retryWrites=true";
 
 SourceMapSupport.install();
 const server = express();
@@ -29,8 +26,7 @@ if(process.env.NODE_ENV !== 'development') {
     res.set('Content-Type', 'text/css');
     next();
    });
-}
-
+} 
 
 server.use(helmet());
 
@@ -52,7 +48,7 @@ mongoose.Promise = require("bluebird");
 let db;
 (async () => {
   try {
-    await mongoose.connect(mongoDBUrlOld, { useNewUrlParser: false });
+    await mongoose.connect(mongoDBUrl, { useNewUrlParser: false });
     server.listen(process.env.PORT || 8080, () => {
       console.log("App started on port 8080.");
     });
