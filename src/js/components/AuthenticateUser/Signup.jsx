@@ -12,6 +12,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
+import axios from 'axios';
 import { clone } from 'lodash';
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
@@ -52,7 +53,6 @@ const panelHeadingStyle = {
   borderBottom: "1px solid #df691a"
 };
 
-
 function Signup(props) {
   const { dispatch } = props;
   const boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
@@ -60,16 +60,17 @@ function Signup(props) {
     name: '',
     password: '',
     email: '',
-    authToken: '',
-    authenticated: false,
     passwordConfirm: '',
   });
+  
   const [show, setShow] = useState(false);
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
+    if (!state) {
+      return;
+    }
     const emailAddress = state.email;
     const regexEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]/i;
-
     const regexTestResult = regexEmail.exec(emailAddress);
     if (!regexTestResult) {
       alert('Oops. Somethings wrong with your email address');
@@ -102,29 +103,22 @@ function Signup(props) {
       isGuest: false
     };
     const queryName = `?name=${newUserName}`;
-    let action = UserActionCreators.fetchRegisteredUser(queryName, () => {
-      const databaseQueryUserResult = store.getState().userReducer.currentUser;
-	      if (databaseQueryUserResult && databaseQueryUserResult.name === newUserName) {
-		      alert('User name already exists');
-	      } else {
-		      const queryUserEmail = `?email=${emailAddress}`;
-		      action = UserActionCreators.fetchRegisteredUser(queryUserEmail, () => {
-			      const databaseQueryUserResult = store.getState().userReducer.currentUser;
-			      if (databaseQueryUserResult && databaseQueryUserResult.email === emailAddress) {
-				      alert('Email address already exists');
-			      } else {
-				      const action = UserActionCreators.createRegisteredUser(newUser);
-				      dispatch(action);
-              setShow(true);
-              const state = {...state};
-				      setState({userName: '', userEmail: '', password: '',passwordConfirm:''});
-			      }
-		      });
-		      dispatch(action);
-	      }
-    });
+    const fetchUserName = await axios.get(`/api/user${queryName}`);
+    if (fetchUserName.data.user) {
+      alert('User name already exists');
+      return;
+    }  
+		const queryUserEmail = `?email=${emailAddress}`;
+    const fetchUserEmail = await axios.get(`/api/user${queryUserEmail}`);
+    if (fetchUserEmail.data.user) {
+      alert('User email already exists');
+      return;
+    }  
+    const action = UserActionCreators.createRegisteredUser(newUser);
     dispatch(action);
-  }
+    setShow(true);
+    setState({ userName: '', userEmail: '', password: '', passwordConfirm:'' });
+  };
 
   const handleChange = (event, type) => {
     if (!event) {
@@ -133,7 +127,7 @@ function Signup(props) {
     const newState = clone(state);
     newState[type] = event.target.value;
     setState(newState);
-  }
+  };
    
   return (
     <div className={cssStyles.loginParent}>

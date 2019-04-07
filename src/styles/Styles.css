@@ -416,9 +416,9 @@ body {
   background: transparent;
   z-index: 8000;
   width: 100vw !important;
-    display: flex;
-    align-content: center;
-    -webkit-align-content: center;
+  display: flex;
+  align-content: center;
+  -webkit-align-content: center;
 }
 .loginPanelHeading {
   font-family: "Merriweather", serif;

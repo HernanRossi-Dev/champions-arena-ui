@@ -6,7 +6,7 @@ export const getAuthToken = async() => {
     const data = await response.json()
     return JSON.parse(data.body);
   } catch (err) {
-    console.err('Failed to authenticate: ', err);
+    console.error('Failed to authenticate: ', err);
     throw err;
   }
 }
@@ -26,7 +26,7 @@ export const fetchUser = async(filter, authToken) => {
     }
     return {};
   } catch (err) {
-    console.err('Failed fetch user: ', err);
+    console.error('Failed fetch user: ', err);
     throw err;
   }
 }

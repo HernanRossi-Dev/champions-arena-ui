@@ -16,8 +16,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import FormControl from "react-bootstrap/es/FormControl";
-import * as UserActionCreators from "../../actions/UserActionCreators";
-import { bindActionCreators } from "redux";
 import { getAuthToken, fetchUser } from '../../apiUtils/userApiHelpers';
 
 const divContainerStyle = {

@@ -33,7 +33,6 @@ import store, { persistor } from "../store/index";
 import * as cssStyles from "../../styles/Styles.css";
 import SiteHeaderComponent from "./SiteHeaderComponent";
 
-const NoMatch = () => <p>Page Not Found</p>;
 const theme = createMuiTheme({
   overrides: {
     MuiInput: {

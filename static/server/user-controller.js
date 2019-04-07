@@ -1,12 +1,9 @@
 const server = require('./server');
 const { ObjectID } = require("mongodb");
-const { defaultCharacters } = require("./defaultCharacters");
 const { defaultCharactersV2 } = require("./defaultCharactersV2");
-const nodemailer = require('nodemailer');
-const generator = require('generate-password');
-const passwordHash = require('password-hash');
 const uuid = require('uuid');
-const {cloneDeep } = require('lodash');
+const { cloneDeep } = require('lodash');
+const { SendTempPassword } = require('./utils/tempPasswordHelper');
 
 exports.createUser = async (req, res) => {
   const newUser = req.body;
@@ -61,54 +58,21 @@ exports.getUsers = async (req, res) => {
     users = await server.db.collection('users')
       .find(filter)
       .toArray();
+    if (users.length < 1) {
+      res.status(404).send();
+      return;
+    }
   } catch (err) {
     res.status(500).json({ message: `Internal Server Error: ${err}` });
     return;
   }
-  let rest;
   if (req.query.sendEmail) {
-    if (users.length > 0) {
-      [users, ...rest] = users;
-    }
-    const password = generator.generate({
-      length: 8,
-      numbers: true
-    });
-    const hashedTempPassword = passwordHash.generate('password');
-    const text = `Hello your Arena user name is: ${users.name}\n\n your temporary password is: ${password}`;
     try {
-      await server.db
-        .collection('users')
-        .update(
-          { name: users.name },
-          { password: hashedTempPassword, name: users.name, email: users.email },
-          { upsert: false }
-        );
-    } catch (err) {
+      await SendTempPassword(server);
+    } catch(err) {
       res.status(500).json({ message: `Internal Server Error: ${err}` });
       return;
     }
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-        user: 'thechampionsarena@gmail.com',
-        pass: 'Han4567!'
-      }
-    });
-    const mailOptions = {
-      from: 'TheChampionsArena@gmail.com',
-      to: users.email,
-      subject: 'The Arena Temporary Password',
-      text,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log('Sending password email error: ', error);
-      } else {
-        console.log(`Message sent: ${info.response}`);
-      }
-    });
   }
   res.status(200).json({ users });
 };
@@ -122,10 +86,8 @@ exports.getUser = async (req, res) => {
     filter.email = req.query.email;
   }
   if (req.query._id) {
-    let id = req.query._id;
-    filter._id =  id;
+    filter._id = req.query._id;
   }
-
   let user;
   try {
     user = await server.db.collection('users')
@@ -134,7 +96,6 @@ exports.getUser = async (req, res) => {
     res.status(500).json({ message: `Internal Server Error: ${err}` });
     return;
   }
-   
   res.status(200).json({ user });
 };
 
