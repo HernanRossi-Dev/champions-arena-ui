@@ -9,7 +9,6 @@ import {
   Col,
   Form,
   FormGroup,
-  Modal,
   NavItem,
   Panel
 } from "react-bootstrap";
@@ -21,7 +20,6 @@ import * as cssStyles from "../../../styles/Styles.css";
 import * as UserActionCreators from "../../actions/UserActionCreators";
 import { LoginContainer } from "./stylescss";
 import { clone } from 'lodash';
-import { valid } from "glamor";
 
 const passwordHash = require("password-hash");
 

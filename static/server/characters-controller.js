@@ -6,7 +6,7 @@ exports.getCharacter = async (req, res) => {
   try {
     characterID = new ObjectID(req.params.id);
   } catch (err) {
-    res.status(422).json({ message: `Invalid issue ID format: ${err}` });
+    res.status(422).json({ message: `Invalid ID format: ${err}` });
     return;
   }
   let character;
@@ -30,7 +30,7 @@ exports.getCharacter = async (req, res) => {
 exports.getCharacters = async (req, res) => {
   const filter = {};
   const levelFilter = { level_lte: '$lte', level_gte: '$gte' };
-  Object.keys(req.query).forEach((key) => {
+  for (const key of Object.keys(req.query)) {
     if (levelFilter[key]) {
       if (!filter.level) {
         filter.level = {};
@@ -39,8 +39,7 @@ exports.getCharacters = async (req, res) => {
     } else {
       filter[key] = req.query[key];
     }
-  });
-
+  }
   try {
     const characters = await server.db.collection('characters')
       .find(filter)
@@ -62,17 +61,10 @@ exports.updateCharacter = async (req, res) => {
   }
   const character = req.body;
   delete character._id;
-  if (character.created) {
-    character.created = new Date(character.created);
-  }
-
   try {
     await server.db
       .collection("characters")
-      .updateOne(
-        { _id: characterId }, 
-        {$set: character}
-        );
+      .updateOne({ _id: characterId }, {$set: character});
   } catch (err) {
     res.status(500).json({ message: `Failed to save character: ${err}` }).send();
     return;
@@ -101,21 +93,10 @@ exports.createCharacter = async (req, res) => {
     insertResult = await server.db
       .collection("characters")
       .insertOne(newCharacter);
+    res.status(200).json(insertResult);
   } catch (err) {
     res.status(500).json({ message: `Error creating new character: ${err}` });
     return;
-  }
-
-  try {
-    const findInsert = await server.db
-      .collection("characters")
-      .find({ _id: insertResult.insertedId })
-      .limit(1)
-      .next();
-    res.status(200).json(findInsert);
-    return;
-  } catch (err) {
-    res.status(404).json({ message: `Could not find new character: ${err}` });
   }
 };
 
@@ -132,21 +113,30 @@ exports.deleteCharacter = async (req, res) => {
     deleteResult = await server.db
       .collection("characters")
       .deleteOne({ _id: characterID });
+    if (deleteResult.result.n === 1) {
+      res.status(200).json({ message: `Delete character success.`, status: `OK`, result: deleteResult });
+      return;
+    }
   } catch (err) {
     res.status(500).json({ message: `Internal Server Error, failed to delete character: ${err}` });
     return;
-  }
-  if (deleteResult.result.n === 1) {
-    res.status(200).json({ message: `Delete character success.`, status: `OK`, result: deleteResult });
   }
 };
 
 exports.deleteCharacters = async (req, res) => {
   const filter = {};
-  if (req.query.user) filter.user = req.query.user;
-  if (req.query.class) filter.class = req.query.class;
-  if (req.query.ancestry) filter.ancestry = req.query.ancestry;
-  if (req.query.level_lte || req.query.level_gte) filter.level = {};
+  if (req.query.user) {
+    filter.user = req.query.user;
+  }
+  if (req.query.class) {
+    filter.class = req.query.class;
+  }
+  if (req.query.ancestry) {
+    filter.ancestry = req.query.ancestry;
+  }
+  if (req.query.level_lte || req.query.level_gte) {
+    filter.level = {};
+  }
   if (req.query.level_lte) {
     filter.level.$lte = parseInt(req.query.level_lte, 10);
   }

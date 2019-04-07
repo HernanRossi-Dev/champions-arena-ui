@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {  Nav, NavDropdown, Button, MenuItem } from "react-bootstrap";
-import { Navbar, NavItem, Dropdown } from "reactstrap";
+import { Navbar, NavItem } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import * as cssStyles from '../../styles/Styles.css';
 import store from '../store';

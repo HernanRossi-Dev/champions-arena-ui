@@ -7,11 +7,10 @@ const { SendTempPassword } = require('./utils/tempPasswordHelper');
 
 exports.createUser = async (req, res) => {
   const newUser = req.body;
-  let i = 0;
   const insertChars = cloneDeep(defaultCharactersV2);
-  for (i; i < insertChars.length; i += 1) {
-    insertChars[i].user = newUser.name;
-    insertChars[i]._id = ObjectID();
+  for (const character of insertChars) {
+    character.user = newUser.name;
+    character._id = ObjectID();
   }
 
   await server.db.collection("characters").insertMany(insertChars);
@@ -45,14 +44,17 @@ exports.createUserBasic = async (req, res) => {
     res.status(500).json({ message: `Failed to create new user: ${err}` });
     return;
   }
-
   res.status(200).json(newUser._id);
 };
 
 exports.getUsers = async (req, res) => {
   const filter = {};
-  if (req.query.name) filter.name = req.query.name;
-  if (req.query.email) filter.email = req.query.email;
+  if (req.query.name) {
+    filter.name = req.query.name;
+  }
+  if (req.query.email) {
+    filter.email = req.query.email;
+  }
   let users;
   try {
     users = await server.db.collection('users')
@@ -102,8 +104,12 @@ exports.getUser = async (req, res) => {
 exports.deleteUsers = async (req, res) => {
   const deleteUser = req.query;
   const filter = {};
-  if (deleteUser.name) filter.name = req.query.name;
-  if (deleteUser.email) filter.email = req.query.email;
+  if (deleteUser.name) {
+    filter.name = req.query.name;
+  }
+  if (deleteUser.email) {
+    filter.email = req.query.email;
+  }
   let deleteUserResult;
   try {
     deleteUserResult = await server.db
@@ -117,7 +123,6 @@ exports.deleteUsers = async (req, res) => {
     res.status(404).json({ status: "Warning: object not found" });
     return;
   }
-
   try {
     await server.db
       .collection("characters")
@@ -138,10 +143,9 @@ exports.deleteUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: `Internal Server Error: ${err}` });
   }
-  let deleteCharacters;
   if (deleteResult.result.n === 1) {
     try {
-      deleteCharacters = await server.db
+      await server.db
         .collection("characters")
         .deleteMany({ user: deleteUser });
       res.json({ status: "OK" });
