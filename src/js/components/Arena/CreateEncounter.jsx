@@ -1,12 +1,7 @@
 import React from 'react';
 
-export default class CreateEncounter extends React.Component {
-
-
-	render() {
-		return (
-			<div>Under construction</div>
-		);
-	};
-
+export default function CreateEncounter() {
+	return (
+		<div>Under construction</div>
+	);
 }

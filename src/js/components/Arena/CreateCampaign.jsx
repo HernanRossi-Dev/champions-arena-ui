@@ -1,12 +1,7 @@
 import React from 'react';
 
-export default class CreateCampaign extends React.Component {
-
-
-	render() {
-		return (
-			<div>Under construction</div>
-		);
-	};
-
+export default function CreateCampaign() {
+	return (
+		<div>Under construction</div>
+	);
 }

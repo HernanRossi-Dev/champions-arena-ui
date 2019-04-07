@@ -95,6 +95,10 @@ export const setCurrrentUser = (user) =>  {
   }
 };
 
+export const getAuth = () => {
+
+}
+
 export const fetchRegisteredUser = (filter = "", queryCallBack) => {
   return function (dispatch, getState) {
     dispatch(fetchRegisteredUserStart());
