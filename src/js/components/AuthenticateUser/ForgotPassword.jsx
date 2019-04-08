@@ -9,7 +9,6 @@ import {
 	Form,
 	FormGroup,
 	Modal,
-	NavItem,
 	Panel
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";

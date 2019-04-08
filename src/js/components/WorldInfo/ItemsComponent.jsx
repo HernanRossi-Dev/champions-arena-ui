@@ -1,12 +1,7 @@
 import React from 'react';
 
-export default class ItemsComponent extends React.Component {
-
-
-	render() {
-		return (
-			<div>Under construction.</div>
-		);
-	};
-
-}
+export default function ItemsComponent() {
+	return (
+		<div>Under construction.</div>
+	);
+};

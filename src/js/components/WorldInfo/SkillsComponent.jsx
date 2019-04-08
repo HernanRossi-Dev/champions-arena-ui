@@ -1,12 +1,7 @@
 import React from 'react';
 
-export default class SkillsComponent extends React.Component {
-
-
-	render() {
-		return (
-			<div>Under construction.</div>
-		);
-	};
-
-}
+export default function SkillsComponent() {
+	return (
+		<div>Under construction.</div>
+	);
+};
