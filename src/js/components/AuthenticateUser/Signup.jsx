@@ -115,7 +115,7 @@ function Signup(props) {
       return;
     }  
     const action = UserActionCreators.createRegisteredUser(newUser);
-    dispatch(action);
+    await dispatch(action);
     setShow(true);
     setState({ userName: '', userEmail: '', password: '', passwordConfirm:'' });
   };

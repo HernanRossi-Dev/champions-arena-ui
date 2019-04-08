@@ -11,39 +11,33 @@ function createRegisteredUserStart(newUser) {
 }
 
 export const createRegisteredUser = (newRegisteredUser) => {
-  return function (dispatch, getState) {
+  return async (dispatch) => {
     dispatch(createRegisteredUserStart(newRegisteredUser));
-    fetch('api/authenticate').then(response => {
-      response.json().then(data => {
-        let token = JSON.parse(data.body);
-        fetch("/api/users", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
-          body: JSON.stringify(newRegisteredUser)
-        }).then(response => {
-          if (response.ok) {
-            response.json().then(newUser => {
-
-              newUser.created = new Date(newUser.created);
-              dispatch({
-                type: types.CREATE_USER_SUCCESS,
-                newUser: newUser
-              });
-
-            });
-          } else {
-            response.json().then(error => {
-              alert(`Failed to create registered user: ${error.message}`);
-              dispatch({
-                type: types.CREATE_USER_FAIL,
-                payload: error,
-                error: true
-              });
-            });
-          }
-        });
-      })
-    })
+    let response = await fetch('api/authenticate');
+    const data = await response.json();
+    const token = JSON.parse(data.body);
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
+      body: JSON.stringify(newRegisteredUser)
+    };
+    response = await fetch("/api/users", options);
+    if (response.ok) {
+      const newUser = await response.json();
+      newUser.created = new Date(newUser.created);
+      await dispatch({
+        type: types.CREATE_USER_SUCCESS,
+        newUser: newUser
+      });
+    } else {
+      const error = await response.json();
+      alert(`Failed to create registered user: ${error.message}`);
+      await dispatch({
+        type: types.CREATE_USER_FAIL,
+        payload: error,
+        error: true
+      });
+    }
   };
 };
 
