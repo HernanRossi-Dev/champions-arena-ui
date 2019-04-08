@@ -20,7 +20,6 @@ const styles = {
     fontFamily: "'ZCOOL XiaoWei', serif"
   },
   helperText: {
-    // color: '#E9CB9A',
     color: '#ffffff',
     fontSize: 12,
     fontColor: '#ffffff',
@@ -45,9 +44,6 @@ class CharacterEditBasicInfoComponent extends React.Component {
       show: false
     };
   }
-
-
-
   saveCaretPosition = (event) => {
     const caret = event.target.selectionStart
     const element = event.target
@@ -187,7 +183,6 @@ class CharacterEditBasicInfoComponent extends React.Component {
     const { classes } = this.props;
     return (
       <div >
-        {/* <EditTitleStyle>Details</EditTitleStyle> */}
         <Grid container spacing={16} justify="center">
           <Grid item xs={2}>
             <TextField
@@ -548,7 +543,6 @@ class CharacterEditBasicInfoComponent extends React.Component {
                 className: classes.helperText
               }}
               style={{ paddingRight: '15px' }}
-
             />
           </Grid>
         </Grid>

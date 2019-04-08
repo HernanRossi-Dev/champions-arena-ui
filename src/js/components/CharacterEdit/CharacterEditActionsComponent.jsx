@@ -37,13 +37,6 @@ const GradientHeadingUnder = styled.div`
     margin-top: -10p;
     margin-bottom: 20px;
 `;
-
-const itemStyle = {
-  background: "transparent",
-  fontSize: "15px",
-  fontFamily: '"Crimson Text", serif'
-}
-
 const styles = {
   root: {
     fontColor: '#E9CB9A'
@@ -73,7 +66,6 @@ const styles = {
     fontFamily: "'ZCOOL XiaoWei', serif"
   },
   helperText: {
-    // color: '#E9CB9A',
     color: '#ffffff',
     fontSize: 12,
     fontColor: '#ffffff',
@@ -301,12 +293,5 @@ class CharacterEditActionsComponent extends React.Component {
       </div>
     );
   }
-}
-const deleteButtonStyle = {
-  color: '#fa621f',
-  outline: 'none',
-  border: 'none',
-  backgroundColor: 'transparent !important',
-  marginTop: '35px',
 }
 export default withStyles(styles)(CharacterEditActionsComponent);
