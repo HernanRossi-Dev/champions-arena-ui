@@ -7,7 +7,8 @@ import Character from './characterModel.js';
 import Divider from '@material-ui/core/Divider';
 import { DefName, PerName, StatLabel, ContainerStyle, DefenseStatBack,
   StatName, styles, mainStatProps, modifierStatProps, additionalTopStatProps,
-  additionalBotStatProps, itemStyle } from './styles/EditStatsStyles';
+  additionalBotStatProps, itemStyle, getAdditionalPropsMain,
+  getAdditionalPropsModifier, getAdditionalPropsModTop, getAdditionalPropsModBot } from './styles/EditStatsStyles';
 
 CharacterEditStatsComponent.defaultProps = {
   editCharacter: new Character(),
@@ -36,45 +37,11 @@ function CharacterEditStatsComponent(props) {
     updateChar.modifiers[type] = event.target.value;
     props.updateCharacter(updateChar);
   };
-  const additionalPropsMain = {
-    InputProps: {
-      classes: {
-        root: classes.inputStatRoot,
-        input: classes.inputStatMain,
-      }
-    },
-    FormHelperTextProps: {
-      className: classes.helperText
-    }
-  };
-  const additionalPropsModifier = {
-    InputProps: {
-      classes: {
-        root: classes.inputStatRoot,
-        input: classes.inputStatModifier
-      }
-    },
-    FormHelperTextProps: {
-      className: classes.helperText
-    }
-  };
-  const additionalPropsModTop = {
-    InputProps: {
-      disableUnderline: true,
-      classes: {
-        root: classes.inputStatRoot,
-        input: classes.inputStatMain,
-      }
-    },
-  };
-  const additionalPropsModBot = {
-    InputProps: {
-      classes: {
-        root: classes.inputStatRoot,
-        input: classes.inputStatMain,
-      }
-    },
-  };
+
+  const additionalPropsMain = getAdditionalPropsMain(classes);
+  const additionalPropsModifier = getAdditionalPropsModifier(classes);
+  const additionalPropsModTop = getAdditionalPropsModTop(classes);
+  const additionalPropsModBot = getAdditionalPropsModBot(classes);
   return (
     <ContainerStyle>
       <div style={{ marginLeft: '8%', marginRight: '8%' }}>

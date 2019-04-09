@@ -112,63 +112,6 @@ export const styles = theme => ({
     margin: `${theme.spacing.unit * 2}px 0`,
   },
 });
-const classes = {
-  root: {
-    fontColor: '#E9CB9A'
-  },
-  input: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
-  },
-  inputName: {
-    color: '#ffffff',
-    fontSize: 35,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
-  },
-  inputStatPER: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif",
-  },
-  inputStatMain: {
-    color: '#ffffff',
-    fontSize: 25,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif",
-  },
-  inputStatRoot: {
-    paddingTop: '20px',
-  },
-  inputStatModifier: {
-    color: '#ffffff',
-    fontSize: 20,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
-  },
-  helperText: {
-    color: '#ffffff',
-    fontSize: 12,
-    fontColor: '#ffffff',
-    fontFamily: "'Cinzel Decorative', sans-serif",
-    textShadow: '1px 1px 1px #E9CB9A',
-  },
-  selectEmpty: {
-    color: "white",
-    width: '125px',
-    paddingTop: '5px',
-    fontSize: '19px',
-  },
-  selectIcon: {
-    color: '#df691a',
-  },
-  // divider: {
-  //   margin: `${theme.spacing.unit * 2}px 0`,
-  // },
-}
 export const mainStatProps = {
   type: 'number',
   autoComplete: 'nope',
@@ -209,3 +152,53 @@ export const itemStyle = {
   fontFamily: '"Crimson Text", serif'
 }
 
+export const getAdditionalPropsMain = (classes) => {
+  return {
+    InputProps: {
+      classes: {
+        root: classes.inputStatRoot,
+        input: classes.inputStatMain,
+      }
+    },
+    FormHelperTextProps: {
+      className: classes.helperText
+    }
+  }
+};
+
+export const getAdditionalPropsModifier = (classes) => {
+  return {
+    InputProps: {
+      classes: {
+        root: classes.inputStatRoot,
+        input: classes.inputStatModifier
+      }
+    },
+    FormHelperTextProps: {
+      className: classes.helperText
+    }
+  }
+};
+
+export const getAdditionalPropsModTop = (classes) => {
+  return {
+    InputProps: {
+      disableUnderline: true,
+      classes: {
+        root: classes.inputStatRoot,
+        input: classes.inputStatMain,
+      }
+    },
+  }
+};
+
+export const getAdditionalPropsModBot = (classes) => {
+  return {
+    InputProps: {
+      classes: {
+        root: classes.inputStatRoot,
+        input: classes.inputStatMain,
+      }
+    },
+  }
+};
