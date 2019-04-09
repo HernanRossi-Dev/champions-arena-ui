@@ -7,7 +7,7 @@ import Character from './characterModel.js';
 import Divider from '@material-ui/core/Divider';
 import { DefName, PerName, StatLabel, ContainerStyle, DefenseStatBack,
   StatName, styles, mainStatProps, modifierStatProps, additionalTopStatProps,
-  additionalBotStatProps, itemStyle } from './StyledEditComponents';
+  additionalBotStatProps, itemStyle } from './styles/EditStatsStyles';
 
 CharacterEditStatsComponent.defaultProps = {
   editCharacter: new Character(),

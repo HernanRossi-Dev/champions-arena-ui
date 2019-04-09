@@ -1,110 +1,21 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { Button } from "react-bootstrap";
+import { Button } from 'react-bootstrap';
 import { withStyles } from '@material-ui/core/styles/index';
 import Character from './characterModel.js';
 import styled from 'styled-components';
-import * as cssStyles from "../../../styles/Styles.css";
+import * as cssStyles from '../../../styles/Styles.css';
+import { EditTitleStyle, GradientHeadingUnder, styles } from './/styles/EditActionsStyles';
 
-
-const EditTitleStyle = styled.div`
-  font-size: 38px;
-  color: #ffffff;
-  text-align: left;
-  font-family: 'ZCOOL XiaoWei', serif;
-  text-shadow: 1px 1px 1px #df691a;
-  margin-left: 25px;
-`;
-
-
-const GradientHeadingUnder = styled.div`
-    background: rgba(225,105,25,1);
-    background: -moz-linear-gradient(-45deg, rgba(225,105,25,1) 0%, rgba(255,185,138,0.37) 43%, rgba(255,185,138,0.24) 52%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(225,105,25,1)), color-stop(43%, rgba(255,185,138,0.37)), color-stop(52%, rgba(255,185,138,0.24)));
-    background: -webkit-linear-gradient(-45deg, rgba(225,105,25,1) 0%, rgba(255,185,138,0.37) 43%, rgba(255,185,138,0.24) 52%);
-    background: -o-linear-gradient(-45deg, rgba(225,105,25,1) 0%, rgba(255,185,138,0.37) 43%, rgba(255,185,138,0.24) 52%);
-    background: -ms-linear-gradient(-45deg, rgba(225,105,25,1) 0%, rgba(255,185,138,0.37) 43%, rgba(255,185,138,0.24) 52%);
-    background: linear-gradient(135deg, rgba(225,105,25,1) 0%, rgba(255,185,138,0.37) 43%, rgba(255,185,138,0.24) 52%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e16919', endColorstr='#ffb98a', GradientType=1 );
-    border-radius: 0px 13px 200px 0px;
-    -moz-border-radius: 0px 13px 200px 0px;
-    -webkit-border-radius: 0px 13px 200px 0px;
-    border: 7px none #000000;
-    width: 65%;
-    height: 12px; 
-    margin-left: 25px;
-    margin-top: -10p;
-    margin-bottom: 20px;
-`;
-const styles = {
-  root: {
-    fontColor: '#E9CB9A'
-  },
-  input: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
-  },
-  inputName: {
-    color: '#ffffff',
-    fontSize: 30,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
-  },
-  inputStride: {
-    color: '#ffffff',
-    fontSize: 30,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
-  },
-  inputMelee: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
-  },
-  helperText: {
-    color: '#ffffff',
-    fontSize: 12,
-    fontColor: '#ffffff',
-    fontFamily: "'Cinzel Decorative', sans-serif",
-    textShadow: '1px 1px 1px #E9CB9A',
-  },
-  selectEmpty: {
-    color: "white",
-    width: '125px',
-    paddingTop: '5px',
-    fontSize: '19px',
-  },
-  selectIcon: {
-    color: '#df691a',
-  },
+CharacterEditActionsComponent.defaultProps = {
+  editCharacter: new Character(),
 };
 
-class CharacterEditActionsComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editCharacter: new Character(),
-      show: false,
-      meleeRows: [],
-      rangedRows: [],
-      stride: '',
-    };
-  }
+function CharacterEditActionsComponent(props) {
+  const { classes } = props;
 
-  static defaultProps = {
-    editCharacter: {
-      actions: {
-        melee: [],
-      },
-    }
-  }
-
-
-  saveCaretPosition = (event) => {
+  const saveCaretPosition = (event) => {
     const caret = event.target.selectionStart
     const element = event.target
     window.requestAnimationFrame(() => {
@@ -113,185 +24,145 @@ class CharacterEditActionsComponent extends React.Component {
     })
   }
 
-  changeStride = (event) => {
-    this.saveCaretPosition(event);
-    const updateChar = this.props.editCharacter;
-    updateChar.actions.stride = event.target.value;
-    this.props.updateCharacter(updateChar);
-  }
+  const handleUpdate = (event, type, index) => {
+    saveCaretPosition(event);
+    const updateChar = props.editCharacter;
+    if (index) {
+      updateChar.actions[type][index] = event.target.value;
+    } else {
+      updateChar.actions[type] = event.target.value;
+    }
+    props.updateCharacter(updateChar);
+  };
 
-  addMeleeEntry = () => {
-    const meleeEntry = '';
-    const updateChar = this.props.editCharacter;
-    updateChar.actions.melee.push(meleeEntry);
-    this.props.updateCharacter(updateChar);
-  }
+  const addRow = (type) => {
+    const updateChar = props.editCharacter;
+    updateChar.actions[type].push('');
+    props.updateCharacter(updateChar);
+  };
 
-  addRangedEntry = () => {
-    const rangedEntry = '';
-    const updateChar = this.props.editCharacter;
-    updateChar.actions.ranged.push(rangedEntry);
-    this.props.updateCharacter(updateChar);
-  }
+  const deleteRow = (index, type) => {
+    const updateChar = props.editCharacter;
+    updateChar.actions[type].splice(index, 1);
+    props.updateCharacter(updateChar);
+  };
 
-  changeMelee = (event, index) => {
-    this.saveCaretPosition(event);
-    const updateChar = this.props.editCharacter;
-    updateChar.actions.melee[index] = event.target.value;
-    this.props.updateCharacter(updateChar);
-  }
+  const inputProps = {
+    htmlFor: 'custom-css-standard-input',
+    InputProps: {
+      classes: {
+        root: classes.input,
+        input: classes.inputMelee,
+      }
+    },
+    FormHelperTextProps: {
+      className: classes.helperText
+    },
+    style: { paddingLeft: '25px', paddingRight: '15px', marginTop: '15px', width: '90%' }
+  };
 
-  changeRanged = (event, index) => {
-    this.saveCaretPosition(event);
-    const updateChar = this.props.editCharacter;
-    updateChar.actions.ranged[index] = event.target.value;
-    this.props.updateCharacter(updateChar);
-  }
-
-  deleteMelee = (index) => {
-    const updateChar = this.props.editCharacter;
-    updateChar.actions.melee.splice(index, 1);
-    this.props.updateCharacter(updateChar);
-  }
-
-  deleteRanged = (index) => {
-    const updateChar = this.props.editCharacter;
-    updateChar.actions.ranged.splice(index, 1);
-    this.props.updateCharacter(updateChar);
-  }
-
-  renderMeleeStrike = (entry, index) => {
-    const { classes } = this.props;
+  const renderMeleeStrike = (entry, index) => {
     const entryRender = (
       <TextField
-        onChange={(e) => this.changeMelee(e, index)}
+        onChange={(e) => handleUpdate(e, 'melee', index)}
         id={`melee-${index}`}
-        helperText="Melee Strike"
-        htmlFor="custom-css-standard-input"
+        helperText='Melee Strike'
         value={entry}
-        InputProps={{
-          classes: {
-            root: classes.input,
-            input: classes.inputMelee,
-          }
-        }}
-        FormHelperTextProps={{
-          className: classes.helperText
-        }}
-        style={{ paddingLeft: '25px', paddingRight: '15px', marginTop: '15px', width: '90%' }}
+        {...inputProps}
       />
     );
     return entryRender;
   }
 
-  renderRangedStrike = (entry, index) => {
-    const { classes } = this.props;
+  const renderRangedStrike = (entry, index) => {
     const entryRender = (
       <TextField
-        onChange={(e) => this.changeRanged(e, index)}
+        onChange={(e) => handleUpdate(e, 'ranged', index)}
         id={`ranged-${index}`}
-        helperText="Ranged Strike"
-        htmlFor="custom-css-standard-input"
+        helperText='Ranged Strike'
         value={entry}
-        InputProps={{
-          classes: {
-            root: classes.input,
-            input: classes.inputMelee,
-          }
-        }}
-        FormHelperTextProps={{
-          className: classes.helperText
-        }}
-        style={{ paddingLeft: '25px', paddingRight: '15px', marginTop: '15px', width: '90%' }}
+        {...inputProps}
       />
     );
     return entryRender;
   }
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <div >
-        <Grid container spacing={16} justify="flex-start">
-          <Grid container spacing={16} justify="flex-start">
-            <Grid item xs={1}></Grid>
-            <Grid item xs={3} >
-              <EditTitleStyle>Actions</EditTitleStyle>
-              <GradientHeadingUnder />
-            </Grid>
-            <Grid item xs={2}>
-
-              <TextField
-                onChange={this.changeStride}
-                id="Stride"
-                helperText="Stride"
-                htmlFor="custom-css-standard-input"
-                value={this.props.editCharacter.actions.stride}
-                InputProps={{
-                  classes: {
-                    root: classes.input,
-                    input: classes.inputStride,
-                  }
-                }}
-                FormHelperTextProps={{
-                  className: classes.helperText
-                }}
-                style={{marginTop: '15px', marginBottom: '20px' }}
-              />
-            </Grid>
+  return (
+    <div >
+      <Grid container spacing={16} justify='flex-start'>
+        <Grid container spacing={16} justify='flex-start'>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={3} >
+            <EditTitleStyle>Actions</EditTitleStyle>
+            <GradientHeadingUnder />
           </Grid>
-          {this.props.editCharacter.actions.melee.map((entry, index) => {
-            return (
-              <Grid container spacing={16} justify="flex-start" direction='row'>
-
-                <Grid item xs={1}></Grid>
-                <Grid item xs={10} >
-                  {this.renderMeleeStrike(entry, index)}
-                  <Button type="button" bsClass={cssStyles.deleteButtonActions} onClick={() => this.deleteMelee(index)}>
-                    <i className="fas fa-times-circle fa-lg" />
-                  </Button>
-                </Grid>
-              </Grid>
-            );
-          })}
-          <Grid container spacing={16} justify="center" direction='row'>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={4}>
-              <Button type="button" bsClass={cssStyles.deleteButton} onClick={this.addMeleeEntry}>
-                Add Melee entry
-                  <i class="fas fa-plus-circle" style={{ marginLeft: '25px', marginBottom: '25px' }}></i>
-              </Button>
-            </Grid>
+          <Grid item xs={2}>
+            <TextField
+              onChange={(e) => handleUpdate(e, 'stride')}
+              id='Stride'
+              helperText='Stride'
+              htmlFor='custom-css-standard-input'
+              value={props.editCharacter.actions.stride}
+              InputProps={{
+                classes: {
+                  root: classes.input,
+                  input: classes.inputStride,
+                }
+              }}
+              FormHelperTextProps={{
+                className: classes.helperText
+              }}
+              style={{ marginTop: '15px', marginBottom: '20px' }}
+            />
           </Grid>
-
-          {this.props.editCharacter.actions.ranged.map((entry, index) => {
-            return (
-              <Grid container spacing={16} justify="flex-start" direction='row'>
-
-                <Grid item xs={1}></Grid>
-                <Grid item xs={10} >
-                  {this.renderRangedStrike(entry, index)}
-                  <Button type="button" bsClass={cssStyles.deleteButtonActions} onClick={() => this.deleteRanged(index)}>
-                    <i className="fas fa-times-circle fa-lg" />
-                  </Button>
-                </Grid>
-              </Grid>
-            );
-          })}
-          <Grid container spacing={16} justify="center" direction='row'>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={4}>
-              <Button type="button" bsClass={cssStyles.deleteButton} onClick={this.addRangedEntry}>
-                Add Ranged entry
-                  <i class="fas fa-plus-circle" style={{ marginLeft: '17px' }}></i>
-              </Button>
-            </Grid>
-          </Grid>
-
         </Grid>
-
-      </div>
-    );
-  }
+        {props.editCharacter.actions.melee.map((entry, index) => {
+          return (
+            <Grid container spacing={16} justify='flex-start' direction='row'>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={10} >
+                {renderMeleeStrike(entry, index)}
+                <Button type='button' bsClass={cssStyles.deleteButtonActions} onClick={() => deleteRow(index, 'melee')}>
+                  <i className='fas fa-times-circle fa-lg' />
+                </Button>
+              </Grid>
+            </Grid>
+          );
+        })}
+        <Grid container spacing={16} justify='center' direction='row'>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={4}>
+            <Button type='button' bsClass={cssStyles.deleteButton} onClick={() => addRow('melee')}>
+              Add Melee entry
+                  <i class='fas fa-plus-circle' style={{ marginLeft: '25px', marginBottom: '25px' }}></i>
+            </Button>
+          </Grid>
+        </Grid>
+        {props.editCharacter.actions.ranged.map((entry, index) => {
+          return (
+            <Grid container spacing={16} justify='flex-start' direction='row'>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={10} >
+                {renderRangedStrike(entry, index)}
+                <Button type='button' bsClass={cssStyles.deleteButtonActions} onClick={() => deleteRow(index, 'ranged')}>
+                  <i className='fas fa-times-circle fa-lg' />
+                </Button>
+              </Grid>
+            </Grid>
+          );
+        })}
+        <Grid container spacing={16} justify='center' direction='row'>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={4}>
+            <Button type='button' bsClass={cssStyles.deleteButton} onClick={() => addRow('ranged')}>
+              Add Ranged entry
+                  <i class='fas fa-plus-circle' style={{ marginLeft: '17px' }}></i>
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
+
 export default withStyles(styles)(CharacterEditActionsComponent);
