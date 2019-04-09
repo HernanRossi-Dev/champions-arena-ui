@@ -75,3 +75,20 @@ export const GradientHeadingUnder = styled.div`
   margin-top: -10p;
   margin-bottom: 20px;
 `;
+
+export const getInputProps = (classes) => {
+  const inputProps = {
+    htmlFor: 'custom-css-standard-input',
+    InputProps: {
+      classes: {
+        root: classes.input,
+        input: classes.inputMelee,
+      }
+    },
+    FormHelperTextProps: {
+      className: classes.helperText
+    },
+    style: { paddingLeft: '25px', paddingRight: '15px', marginTop: '15px', width: '90%' }
+  };
+  return inputProps;
+};

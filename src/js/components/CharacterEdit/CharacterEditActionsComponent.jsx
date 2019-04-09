@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import Character from './characterModel.js';
 import styled from 'styled-components';
 import * as cssStyles from '../../../styles/Styles.css';
-import { EditTitleStyle, GradientHeadingUnder, styles } from './/styles/EditActionsStyles';
+import { EditTitleStyle, GradientHeadingUnder, styles, getInputProps } from './/styles/EditActionsStyles';
 
 CharacterEditActionsComponent.defaultProps = {
   editCharacter: new Character(),
@@ -14,6 +14,7 @@ CharacterEditActionsComponent.defaultProps = {
 
 function CharacterEditActionsComponent(props) {
   const { classes } = props;
+  const inputProps = getInputProps(classes);
 
   const saveCaretPosition = (event) => {
     const caret = event.target.selectionStart
@@ -45,20 +46,6 @@ function CharacterEditActionsComponent(props) {
     const updateChar = props.editCharacter;
     updateChar.actions[type].splice(index, 1);
     props.updateCharacter(updateChar);
-  };
-
-  const inputProps = {
-    htmlFor: 'custom-css-standard-input',
-    InputProps: {
-      classes: {
-        root: classes.input,
-        input: classes.inputMelee,
-      }
-    },
-    FormHelperTextProps: {
-      className: classes.helperText
-    },
-    style: { paddingLeft: '25px', paddingRight: '15px', marginTop: '15px', width: '90%' }
   };
 
   const renderMeleeStrike = (entry, index) => {
