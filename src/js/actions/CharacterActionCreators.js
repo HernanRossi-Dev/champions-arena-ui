@@ -1,6 +1,4 @@
 import * as types from "../constants/ActionTypes";
-import "whatwg-fetch";
-import store from "../store/index";
 
 export const clearCharacterEdit = () => {
   return {
@@ -9,7 +7,7 @@ export const clearCharacterEdit = () => {
 };
 
 export const setNumberOfCharacters = (numberOfCharacters) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({
       type: types.UPDATE_NUMBER_OF_CHARACTERS,
       numberOfCharacters
