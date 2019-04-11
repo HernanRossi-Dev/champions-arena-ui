@@ -22,36 +22,7 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
 import { bindActionCreators } from "redux";
 import store from "../../store";
 import passwordHash from 'password-hash';
-
-
-const divContainerStyle = {
-  display: "flex",
-  width: "100%",
-  flexDirection: "column",
-  alignItems: "center"
-};
-const divContainerStyleChild = {
-  width: "25%",
-  alignItems: "center"
-};
-const panelBody = {
-  alignItems: "center"
-};
-const panelParentStyle = {
-  borderRadius: "5px",
-  marginTop: "25%",
-  width: "100%"
-};
-const buttonToolbarStyle = {
-  alignItems: "center"
-};
-const panelHeadingStyle = {
-  borderRadius: "5px 5px 0 0",
-  textAlign: "center",
-  fontFamily: '"Merriweather", serif',
-  marginBottom: "20px",
-  borderBottom: "1px solid #df691a"
-};
+import { divContainerStyle, divContainerStyleChild, panelBody, panelParentStyle, buttonToolbarStyle, panelHeadingStyle } from './AuthStyles'
 
 function Signup(props) {
   const { dispatch } = props;

@@ -152,7 +152,7 @@ const App = (props) => {
 
       </div>
       <div className={cssStyles.styleFooter}>
-        <div> Hernan Rossi &#169; 2018</div>
+        <div> Hernan Rossi &#169; 2019</div>
         <LinkContainer to="/legal">
           <NavItem>
             Pathfinder content used under Open Gaming License, and Community

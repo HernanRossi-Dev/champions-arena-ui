@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import Character from './characterModel.js';
 import styled from 'styled-components';
 import * as cssStyles from '../../../styles/Styles.css';
-import { EditTitleStyle, GradientHeadingUnder, styles, getInputProps } from './/styles/EditActionsStyles';
+import { EditTitleStyle, GradientHeadingUnder, styles, getInputProps } from './styles/EditActionsStyles';
 
 CharacterEditActionsComponent.defaultProps = {
   editCharacter: new Character(),

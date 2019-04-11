@@ -18,57 +18,13 @@ import { connect } from "react-redux";
 import { setCurrrentUser, loginRegisteredUser } from '../../actions/UserActionCreators';
 import * as cssStyles from "../../../styles/Styles.css";
 import * as UserActionCreators from "../../actions/UserActionCreators";
-import { LoginContainer } from "./stylescss";
 import { clone } from 'lodash';
+import { LoginContainer, panelBody, styles, panelParentStyle, panelHeadingStyle, divContainerStyle } from './AuthStyles'
 
 const passwordHash = require("password-hash");
-
-const styles = {
-  root: {
-    fontColor: 'white'
-  },
-  input: {
-    color: "white",
-    fontSize: 18,
-    fontColor: 'white'
-  },
-  labelStyle: {
-    color: '#df691a',
-    fontSize: 16,
-    fontFamily: "'Crimson Text', sans-serif",
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-};
-
-const divContainerStyle = {
-  backgroundColor: 'transparent',
-  display: "flex",
-  width: "100%",
-  flexDirection: "column",
-  alignItems: "center"
-};
-const panelBody = {
-  backgroundColor: 'transparent',
-  alignItems: "center"
-};
-const panelParentStyle = {
-  borderRadius: "5px",
-  marginTop: "25%",
-  width: "100%"
-};
 const buttonToolbarStyle = {
   alignItems: "center",
   marginLeft: '-10px'
-};
-const panelHeadingStyle = {
-  borderRadius: "5px 5px 0 0",
-  textAlign: "center",
-  fontFamily: '"Merriweather", serif',
-  marginBottom: "20px",
-  borderBottom: "1px solid #df691a"
 };
 
 function Login(props) {
