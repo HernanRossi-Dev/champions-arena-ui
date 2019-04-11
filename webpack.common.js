@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill', path.resolve(__dirname, 'src') + "/js/components/App.jsx"]
+    app: ['@babel/polyfill', path.resolve(__dirname, 'src') + "/js/components/App.jsx"]
   },
   output: {
     path: path.resolve(__dirname, "./dist/"),
@@ -20,7 +20,7 @@ module.exports = {
       exclude: /node_modules/,
       loader: "babel-loader",
       query: {
-        presets: ["es2015", "react", "stage-0"]
+        presets: ['@babel/preset-env']
       }
     },
     {

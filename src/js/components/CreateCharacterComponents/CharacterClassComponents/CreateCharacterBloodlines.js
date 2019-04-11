@@ -11,7 +11,7 @@ import {
   ToggleButton,
   ButtonToolbar
 } from "react-bootstrap";
-import Bloodlines from '../../../characterUtils/sorcererBloodlines.js/index.js';
+import Bloodlines from '../../../characterUtils/sorcererBloodlines.js';
 import * as cssStyles from "../../../../styles/Styles.css";
 
 const BloodlineText = styled.div`

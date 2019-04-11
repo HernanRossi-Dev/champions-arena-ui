@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const SourceMapSupport = require("source-map-support");
 const path = require("path");
-require("babel-polyfill");
+require("@babel/polyfill");
 const authApi = require('./authController');
 const characterApi = require('./charactersController');
 const userApi = require('./userController');
