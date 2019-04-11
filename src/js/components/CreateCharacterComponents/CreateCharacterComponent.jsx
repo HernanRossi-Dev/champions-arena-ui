@@ -19,7 +19,7 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 import store from "../../store/index.js";
-import { calcAbilityModifierFunc } from "../../CharacterUtils/ability-helpers";
+import { calcAbilityModifierFunc } from "../../characterUtils/abilityHelpers";
 import CreateCharacterAncestryComponent from "./CreateCharacterAncestryComponent.jsx";
 import CharacterBackgroundComponent from "./CharacterBackgroundComponent";
 import CreateCharacterClassComponent from "./CharacterClassComponents/CreateCharacterClassComponent.jsx";

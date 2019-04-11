@@ -11,7 +11,7 @@ import {
   ToggleButton,
   ButtonToolbar
 } from "react-bootstrap";
-import ArcaneSchools from '../../../CharacterUtils/arcane-schools';
+import ArcaneSchools from '../../../characterUtils/arcaneSchools';
 import * as cssStyles from "../../../../styles/Styles.css";
 
 const ArcaneSchoolText = styled.div`

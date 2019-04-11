@@ -11,7 +11,7 @@ import {
   ToggleButton,
   ButtonToolbar
 } from "react-bootstrap";
-import ClericDeities from '../../../CharacterUtils/cleric-dieties';
+import ClericDeities from '../../../characterUtils/clericDieties';
 import * as cssStyles from "../../../../styles/Styles.css";
 
 const DeityText = styled.div`

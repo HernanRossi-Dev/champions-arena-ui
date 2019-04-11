@@ -3,9 +3,9 @@ const bodyParser = require("body-parser");
 const SourceMapSupport = require("source-map-support");
 const path = require("path");
 require("babel-polyfill");
-const authApi = require('./auth-controller');
-const characterApi = require('./characters-controller');
-const userApi = require('./user-controller');
+const authApi = require('./authController');
+const characterApi = require('./charactersController');
+const userApi = require('./userController');
 const mongoose = require("mongoose");
 
 let mongoDBUrl = "mongodb://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-shard-00-00-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-01-gmjjh.mongodb.net:27017,pathfinderarena-shard-00-02-gmjjh.mongodb.net:27017/test?ssl=true&replicaSet=PathfinderArena-shard-0&authSource=admin&retryWrites=true";

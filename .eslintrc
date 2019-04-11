@@ -1,4 +1,7 @@
-{
+{ 
+  "env": {
+  "browser": true
+  },
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
@@ -9,6 +12,7 @@
     "no-console": ["off"],
     "import/extensions": ["off"],
     "no-param-reassign": ["error", { "props": false }],
-    "no-alert": ["off"]
+    "no-alert": ["off"],
+    "react/jsx-filename-extension": [0]
   }
 }
