@@ -13,6 +13,7 @@ let mongoDBUrl = "mongodb://HernanRossi:UMlYnuMQWVomlFYW@pathfinderarena-shard-0
 SourceMapSupport.install();
 const server = express();
 const helmet = require('helmet');
+console.log('ENV: ', process.env.NODE_ENV);
 if(process.env.NODE_ENV !== 'development') {
   server.get('*.js', function (req, res, next) {
     req.url = req.url + '.gz';

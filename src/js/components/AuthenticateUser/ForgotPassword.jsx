@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { clone } from 'lodash';
 import * as cssStyles from "../../../styles/Styles.css";
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
+import { TextField } from '@material-ui/core';
+
 import {
 	Button,
 	ButtonToolbar,
@@ -11,14 +15,16 @@ import {
 	Modal,
 	Panel
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+// import { LinkContainer } from "react-router-bootstrap";
+import { Link } from 'react-router-dom'
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import FormControl from "react-bootstrap/es/FormControl";
 import { getAuthToken, fetchUser } from '../../apiUtils/userApiHelpers';
-import { divContainerStyle, divContainerStyleChild, panelBody, panelParentStyle, buttonToolbarStyle, panelHeadingStyle } from './AuthStyles'
+import { LoginParent, styles, divContainerStyle, divContainerStyleChild, panelBody, panelParentStyle, buttonToolbarStyle, panelHeadingStyle } from './AuthStyles'
 
-function ForgotPassword () {
+export const ForgotPassword = (props) => {
+  const { classes } = props;
+
 	const [state, setState] = useState({
 		name: '',
 		password: '',
@@ -39,12 +45,12 @@ function ForgotPassword () {
       return;
     }
     const newState = clone(state);
-    newState.emai = event.target.value;
+    newState.email = event.target.value;
     setState(newState);
   };
 
   return (
-    <div className={cssStyles.loginParent}>
+    <LoginParent>
       <div style={divContainerStyle}>
         <div style={divContainerStyleChild}>
           <Panel style={panelParentStyle}>
@@ -68,12 +74,22 @@ function ForgotPassword () {
                   Email
                 </Col>{" "}
                 <Col sm={1} />
-                <Col sm={5}>
-                  <FormControl
-                    name={'email'}
-                    placeholder='Enter email'
-                    onChange={handleChange}
-                  />
+                <Col sm={6}>
+                   <TextField
+                      id="user-email"
+                      placeholder="User Email"
+                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>User Email</span>}
+                      onChange={handleChange}
+                      // className={classes.root}
+                      InputProps={{
+                        className: classes.input,
+                        root: classes.root
+                      }}
+                      InputLabelProps={{
+                        root: classes.labelStyle
+                      }}
+                      style={{width: '100%'}}
+                    />
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -81,14 +97,14 @@ function ForgotPassword () {
                 <Col sm={6} style={buttonToolbarStyle}>
                   <ButtonToolbar style={buttonToolbarStyle}>
                       <Button bsStyle="primary" onClick={sendUserInfo}>Submit</Button>
-                    <LinkContainer
+                    <Link
                       to={'/signin'}
                       style={{ margin: "0px 0px 0px 5px" }}
                     >
                       <Button >
                         Back
                       </Button>
-                    </LinkContainer>
+                    </Link>
                   </ButtonToolbar>
                 </Col>
               </FormGroup>
@@ -109,7 +125,8 @@ function ForgotPassword () {
           </Panel>
         </div>
       </div>
-    </div>
+    </LoginParent>
   );
 }
-export default withRouter(connect()(ForgotPassword));
+
+export default withRouter(connect()(withStyles(styles)(ForgotPassword)));
