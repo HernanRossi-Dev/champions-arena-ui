@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SkillsComponent() {
+export const SkillsComponent = () => {
 	return (
 		<div>Under construction.</div>
 	);

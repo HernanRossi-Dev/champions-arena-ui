@@ -1,9 +1,6 @@
 import React from 'react';
 
-export default class OGL extends React.Component {
-
-
-	render() {
+export const OGL = (props) => {
 		return (
 			<div style={{width:'70%'}}>
 			<div style={{marginLeft: '30%'}}>OPEN GAME LICENSE Version 1.0a<br/><br/>
@@ -42,6 +39,4 @@ export default class OGL extends React.Component {
 
 			</div>
 		);
-	};
-
-}
+};

@@ -35,7 +35,7 @@ const styles = theme => ({
 });
 
 
-class CharacterEdit extends React.Component {
+export class CharacterEdit extends React.Component {
   constructor(props) {
     super();
     this.state = {

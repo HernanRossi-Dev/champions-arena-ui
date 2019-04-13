@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ItemsComponent() {
+export const ItemsComponent = () => {
 	return (
 		<div>Under construction.</div>
 	);

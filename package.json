@@ -4,13 +4,13 @@
   "description": "A Pathfinder character creation and campaign companion",
   "private": true,
   "scripts": {
-    "start": "node ./static/server/server.js",
-    "start-dev": "NODE_ENV=development node ./static/server/server.js",
+    "start": "node ./lib/server/server.js",
+    "start-dev": "NODE_ENV=development node ./lib/server/server.js",
     "watch": "webpack-dev-server --hot --inline",
     "lint": "eslint --ext js,jsx src static webpack.config.js",
     "build": "webpack --config webpack.prod.js --mode production",
     "build-dev": "webpack --config webpack.dev.js --mode development",
-    "node-component": "mocha --timeout 10000 test/component/*.js --exit",
+    "node-component": "mocha --timeout 10000 __test__/component/*.js --exit",
     "react-mocha-enzyme": "NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --require ignore-styles 'src/**/*.test.js'"
   },
   "author": "Hernan Rossi",

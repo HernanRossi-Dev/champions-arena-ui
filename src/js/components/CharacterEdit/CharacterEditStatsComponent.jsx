@@ -14,7 +14,7 @@ CharacterEditStatsComponent.defaultProps = {
   editCharacter: new Character(),
 }
 
-function CharacterEditStatsComponent(props) {
+export function CharacterEditStatsComponent(props) {
   const { classes } = props;
 
   const saveCaretPosition = (event) => {

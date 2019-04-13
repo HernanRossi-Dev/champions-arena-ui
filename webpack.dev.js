@@ -5,7 +5,7 @@ const path = require("path");
 module.exports = merge(common, {
   devtool: 'cheap-module-source-map',
   devServer: {
-    contentBase: path.join(__dirname, "static"),
+    contentBase: path.join(__dirname, "lib"),
     proxy: {
       "/api/*": {
         target: "http://localhost:8080"

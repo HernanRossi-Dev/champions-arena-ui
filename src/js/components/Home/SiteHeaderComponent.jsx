@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store from "../store/index";
-import * as cssStyles from '../../styles/Styles.css';
+import store from "../../store/index";
+import * as cssStyles from "../../../styles/Styles.css";
 import NavBarComponent from './NavBarComponent';
 
-function SiteHeaderComponent(props) {
+export const SiteHeaderComponent = (props) => {
   const renderNavBar = () => {
     if (store.getState().userReducer.loggedIn) {
       return <NavBarComponent />;

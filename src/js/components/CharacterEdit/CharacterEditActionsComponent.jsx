@@ -12,7 +12,7 @@ CharacterEditActionsComponent.defaultProps = {
   editCharacter: new Character(),
 };
 
-function CharacterEditActionsComponent(props) {
+export function CharacterEditActionsComponent(props) {
   const { classes } = props;
   const inputProps = getInputProps(classes);
 

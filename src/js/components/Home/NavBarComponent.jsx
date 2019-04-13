@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import {  Nav, NavDropdown, Button, MenuItem } from "react-bootstrap";
 import { Navbar, NavItem } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import * as cssStyles from '../../styles/Styles.css';
-import store from '../store';
-import * as UserActionCreators from '../actions/UserActionCreators';
+import * as cssStyles from "../../../styles/Styles.css";
+import store from '../../store';
+import * as UserActionCreators from '../../actions/UserActionCreators';
 
 class NavBarComponent extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function CreateEncounter() {
+export const CreateEncounter = () => {
 	return (
 		<div>Under construction</div>
 	);

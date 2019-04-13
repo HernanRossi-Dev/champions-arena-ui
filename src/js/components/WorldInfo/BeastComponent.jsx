@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function BeastComponent() {
-	return (
-		<div>Under construction.</div>
-	);
+export const BeastComponent = () => {
+  return (
+    <div>Under construction.</div>
+  );
 };

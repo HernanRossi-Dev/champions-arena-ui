@@ -1,8 +1,8 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import * as cssStyles from "../../styles/Styles.css";
+import * as cssStyles from "../../../styles/Styles.css";
 
-const HomeComponent = (props) => {
+export const HomeComponent = (props) => {
   return (
     <div className={cssStyles.homeBodyText}>
       Welcome to the Arena<br />

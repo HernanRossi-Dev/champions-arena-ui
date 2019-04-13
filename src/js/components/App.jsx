@@ -14,23 +14,23 @@ import {
 import CharacterList from "./CharacterList/CharacterList.jsx";
 import CharacterEdit from "./CharacterEdit/CharacterEdit.jsx";
 import CreateCharacterComponent from "./CreateCharacterComponents/CreateCharacterComponent.jsx";
-import Beasts from "./WorldInfo/BeastComponent.jsx";
-import Skills from "./WorldInfo/SkillsComponent.jsx";
-import ItemsComponent from "./WorldInfo/ItemsComponent.jsx";
-import HomeComponent from "./HomeComponent.jsx";
-import AboutSiteComponent from "./SiteInfo/AboutSiteComponent.jsx";
-import CreateNPCComponent from "./CreateNPC/CreateNPCComponent.jsx";
-import PathfinderCommunityUse from "./SiteInfo/PathfinderCommunityUse.jsx";
-import CreateEncounter from "./Arena/CreateEncounter.jsx";
-import OGL from "./SiteInfo/OGL.jsx";
-import CreateCampaign from "./Arena/CreateCampaign.jsx";
+import { BeastComponent } from "./WorldInfo/BeastComponent.jsx";
+import { SkillsComponent } from "./WorldInfo/SkillsComponent.jsx";
+import { ItemsComponent } from "./WorldInfo/ItemsComponent.jsx";
+import HomeComponent from "./Home/HomeComponent";
+import { AboutSiteComponent } from "./SiteInfo/AboutSiteComponent.jsx";
+import { CreateNPCComponent } from "./CreateNPC/CreateNPCComponent.jsx";
+import { PathfinderCommunityUse } from "./SiteInfo/PathfinderCommunityUse.jsx";
+import { CreateEncounter } from "./Arena/CreateEncounter.jsx";
+import { OGL } from "./SiteInfo/OGL.jsx";
+import { CreateCampaign } from "./Arena/CreateCampaign.jsx";
 import Login from "./AuthenticateUser/Login.js";
 import Signup from "./AuthenticateUser/Signup.jsx";
 import ForgotPassword from "./AuthenticateUser/ForgotPassword.jsx";
 import CreateCharacterSkillsAndFeatsComponent from "./CreateCharacterComponents/SkillsAndFeats/CreateCharacterSkillsComponent.jsx";
 import store, { persistor } from "../store/index";
 import * as cssStyles from "../../styles/Styles.css";
-import SiteHeaderComponent from "./SiteHeaderComponent";
+import SiteHeaderComponent from "./Home/SiteHeaderComponent";
 
 const theme = createMuiTheme({
   overrides: {
@@ -125,8 +125,8 @@ const App = (props) => {
             (store.getState().userReducer.loggedIn) ? HomeComponent : Signup}
           />
           <PrivateRoute path="/createNPC" component={CreateNPCComponent} />
-          <PrivateRoute path="/beasts" component={Beasts} />
-          <PrivateRoute path="/skills" component={Skills} />
+          <PrivateRoute path="/beasts" component={BeastComponent} />
+          <PrivateRoute path="/skills" component={SkillsComponent} />
           <PrivateRoute path="/items" component={ItemsComponent} />
           <PrivateRoute path="/characters/:id" component={CharacterEdit} />
           <PrivateRoute path="/characters" component={CharacterList} />

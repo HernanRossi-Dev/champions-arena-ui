@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
 import { styles } from './styles/EditBasicStyles';
 
-function CharacterEditBasicInfoComponent(props) {
+export function CharacterEditBasicInfoComponent(props) {
   const { classes } = props;
   const saveCaretPosition = (event) => {
     const caret = event.target.selectionStart
