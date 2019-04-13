@@ -3,17 +3,17 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { ForgotPassword } from '../../js/components/AuthenticateUser/ForgotPassword';
+import { Signup } from '../../js/components/AuthenticateUser/Signup';
 import * as API from '../../js/apiUtils/userApiHelpers';
+import * as userActions from '../../js/actions/UserActionCreators';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Forgotpassword test suite', function () {
-  let getAuthTokenStub, fetchUserStub, wrapper, props;
+describe('Signup component test suite', function () {
+  let createRegisteredUserStub, wrapper, props;
   beforeEach(() => {
-    getAuthTokenStub = sinon.stub(API, 'getAuthToken').resolves('FakeAuthToken');
-    fetchUserStub = sinon.stub(API, 'fetchUser').resolves({});
+    createRegisteredUserStub = sinon.stub(userActions, 'createRegisteredUser').resolves({});
     props = {
       classes: {
         root: {
@@ -35,15 +35,12 @@ describe('Forgotpassword test suite', function () {
         },
       }
     }
-   
-
   });
   afterEach(() => {
-    API.getAuthToken.restore();
-    API.fetchUser.restore();
+    userActions.createRegisteredUser.restore();
   });
   it('should render without throwing an error', function () {
-    wrapper = shallow(<ForgotPassword {...props} />, { disableLifecycleMethods: true });
+    wrapper = shallow(<Signup {...props} />, { disableLifecycleMethods: true });
     expect(wrapper.length).to.equal(1);
   });
 });

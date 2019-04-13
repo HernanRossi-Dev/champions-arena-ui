@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import * as cssStyles from "../../../styles/Styles.css";
+import PropTypes from "prop-types";
+import { withStyles } from '@material-ui/core/styles';
 import {
   Button,
   ButtonToolbar,
@@ -17,16 +18,13 @@ import { clone } from 'lodash';
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import FormControl from "react-bootstrap/es/FormControl";
+import { TextField } from '@material-ui/core';
 import * as UserActionCreators from "../../actions/UserActionCreators";
-import { bindActionCreators } from "redux";
-import store from "../../store";
 import passwordHash from 'password-hash';
-import { divContainerStyle, divContainerStyleChild, panelBody, panelParentStyle, buttonToolbarStyle, panelHeadingStyle } from './AuthStyles'
+import { stylesSignup as styles, LoginParent, divContainerStyle, divContainerStyleChild, panelBody, panelParentStyle, buttonToolbarStyle, panelHeadingStyle } from './AuthStyles'
 
-function Signup(props) {
-  const { dispatch } = props;
-  const boundActionCreators = bindActionCreators(UserActionCreators, dispatch);
+export function Signup(props) {
+  const { dispatch, classes } = props;
   const [state, setState] = useState({
     name: '',
     password: '',
@@ -88,7 +86,7 @@ function Signup(props) {
     const action = UserActionCreators.createRegisteredUser(newUser);
     await dispatch(action);
     setShow(true);
-    setState({ userName: '', userEmail: '', password: '', passwordConfirm:'' });
+    setState({ name: '', email: '', password: '', passwordConfirm:'' });
   };
 
   const handleChange = (event, type) => {
@@ -101,7 +99,7 @@ function Signup(props) {
   };
    
   return (
-    <div className={cssStyles.loginParent}>
+    <LoginParent>
       <div style={divContainerStyle}>
         <div style={divContainerStyleChild}>
           <Panel style={panelParentStyle}>
@@ -115,33 +113,29 @@ function Signup(props) {
             </Panel.Heading>
             <Form horizontal style={panelBody}>
               <FormGroup>
-                <Col sm={1} />
-                <Col
-                  componentClass={ControlLabel}
-                  sm={3}
-                  className={cssStyles.createColLabelStyle}
-                >
-                  Email
-                </Col>
-                <Col sm={6}>
-                  <FormControl
-                    name={'email'}
-                    onChange={(event) => handleChange(event, 'email')}
-                    value={state.email}
-                    placeholder='Enter email'
-                  />
+                <Col sm={2} />
+                <Col sm={8} style={{textAlign: 'center'}}>
+                  <TextField
+                      id="user-email"
+                      placeholder="Email"
+                      autoComplete='nope'
+                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>Enter user email</span>}
+                      onChange={(e) => handleChange(e, 'email')}
+                      value={state.email} 
+                      InputProps={{
+                        className: classes.input,
+                        root: classes.root
+                      }}
+                      InputLabelProps={{
+                        root: classes.labelStyle
+                      }}
+                      style={{width: '100%'}}
+                    />
                 </Col>
               </FormGroup>
               <FormGroup>
-                <Col sm={1} />
-                <Col
-                  componentClass={ControlLabel}
-                  sm={3}
-                  className={cssStyles.createColLabelStyle}
-                >
-                  User Name
-                </Col>
-                <Col sm={6}>
+                <Col sm={2} />
+                <Col sm={8}>
                   <OverlayTrigger
                     placement="right"
                     overlay={
@@ -152,25 +146,28 @@ function Signup(props) {
                       </Tooltip>
                     }
                   >
-                    <FormControl
-                      name={'name'}
-                      onChange={(event) => handleChange(event, 'name')}
-                      value={state.name}
-                      placeholder='Enter User Name'
+                     <TextField
+                      id="user-name"
+                      placeholder="User Name"
+                      autoComplete='nope'
+                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>Enter user name</span>}
+                      onChange={(e) => handleChange(e, 'name')}
+                      value={state.name} 
+                      InputProps={{
+                        className: classes.input,
+                        root: classes.root
+                      }}
+                      InputLabelProps={{
+                        root: classes.labelStyle
+                      }}
+                      style={{width: '100%'}}
                     />
                   </OverlayTrigger>
                 </Col>
               </FormGroup>
               <FormGroup>
-                <Col sm={1} />
-                <Col
-                  componentClass={ControlLabel}
-                  sm={3}
-                  className={cssStyles.createColLabelStyle}
-                >
-                  Password
-                </Col>
-                <Col sm={6}>
+                <Col sm={2} />
+                <Col sm={8}>
                   <OverlayTrigger
                     placement="right"
                     overlay={
@@ -182,26 +179,29 @@ function Signup(props) {
                       </Tooltip>
                     }
                   >
-                    <FormControl
-                      name={'password'}
-                      type={'password'}
-                      onChange={(event) => handleChange(event, 'password')}
-                      value={state.password}
-                      placeholder='Enter Password'
+                     <TextField
+                      id="user-password"
+                      placeholder="Password"
+                      type="password"
+                      autoComplete='new-password'
+                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>Enter new password</span>}
+                      onChange={(e) => handleChange(e, 'password')}
+                      value={state.password} 
+                      InputProps={{
+                        className: classes.input,
+                        root: classes.root
+                      }}
+                      InputLabelProps={{
+                        root: classes.labelStyle
+                      }}
+                      style={{width: '100%'}}
                     />
                   </OverlayTrigger>
                 </Col>
               </FormGroup>
               <FormGroup>
-                <Col sm={1} />
-                <Col
-                  componentClass={ControlLabel}
-                  sm={3}
-                  className={cssStyles.createColLabelStyle}
-                >
-                  Confirm Password
-                </Col>
-                <Col sm={6}>
+                <Col sm={2} />
+                <Col sm={8}>
                   <OverlayTrigger
                     placement='right'
                     overlay={
@@ -212,12 +212,22 @@ function Signup(props) {
                       </Tooltip>
                     }
                   >
-                    <FormControl
-                      name={'passwordConfirm'}
-                      type={"password"}
-                      onChange={(event) => handleChange(event, 'passwordConfirm')}
-                      value={state.passwordConfirm}
-                      placeholder='Retype Password'
+                     <TextField
+                      id="password-confirm"
+                      placeholder="Confirm password"
+                      type="password"
+                      autoComplete='new-password'
+                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>Retype password</span>}
+                      onChange={(e) => handleChange(e, 'passwordConfirm')}
+                      value={state.passwordConfirm} 
+                      InputProps={{
+                        className: classes.input,
+                        root: classes.root
+                      }}
+                      InputLabelProps={{
+                        root: classes.labelStyle
+                      }}
+                      style={{width: '100%'}}
                     />
                   </OverlayTrigger>
                 </Col>
@@ -259,7 +269,11 @@ function Signup(props) {
           </Panel>
         </div>
       </div>
-    </div>
+    </LoginParent>
   );
-}
-export default withRouter(connect()(Signup));
+};
+
+Signup.propTypes = {
+  classes: PropTypes.object,
+};
+export default withRouter(connect()(withStyles(styles)(Signup)));

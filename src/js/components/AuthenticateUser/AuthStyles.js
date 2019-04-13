@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import { text } from 'body-parser';
 
 export const LoginContainer = styled.div`
   width: 25%;
@@ -82,6 +83,30 @@ export const styles = {
   },
   labelStyle: {
     color: '#df691a',
+    fontSize: 16,
+    fontFamily: "'Crimson Text', sans-serif",
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+};
+
+export const stylesSignup = {
+  root: {
+    fontColor: 'white !important',
+    textAlign: 'center',
+    width: "100%",
+  },
+  input: {
+    color: "white",
+    fontSize: 18,
+    fontColor: 'white !important',
+    textAlign: 'center',
+    width: '100%',
+  },
+  labelStyle: {
+    color: 'white !important',
     fontSize: 16,
     fontFamily: "'Crimson Text', sans-serif",
   },

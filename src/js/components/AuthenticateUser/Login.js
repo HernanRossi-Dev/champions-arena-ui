@@ -19,7 +19,7 @@ import { setCurrrentUser, loginRegisteredUser } from '../../actions/UserActionCr
 import * as cssStyles from "../../../styles/Styles.css";
 import * as UserActionCreators from "../../actions/UserActionCreators";
 import { clone } from 'lodash';
-import { LoginContainer, panelBody, styles, panelParentStyle, panelHeadingStyle, divContainerStyle } from './AuthStyles'
+import { LoginParent, LoginContainer, panelBody, styles, panelParentStyle, panelHeadingStyle, divContainerStyle } from './AuthStyles'
 
 const passwordHash = require("password-hash");
 const buttonToolbarStyle = {
@@ -27,7 +27,7 @@ const buttonToolbarStyle = {
   marginLeft: '-10px'
 };
 
-function Login(props) {
+export function Login(props) {
   const { dispatch, classes, history } = props;
   const [state, setState] = useState({ email: '', password: '' });
 
@@ -80,7 +80,7 @@ function Login(props) {
   };
 
   return (
-    <div className={cssStyles.loginParent}>
+    <LoginParent>
       <div style={divContainerStyle}>
         <LoginContainer>
           <Panel style={panelParentStyle}>
@@ -179,7 +179,7 @@ function Login(props) {
           </Panel>
         </LoginContainer>
       </div>
-    </div>
+    </LoginParent>
   );
 }
 

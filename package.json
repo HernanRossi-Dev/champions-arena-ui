@@ -10,9 +10,7 @@
     "lint": "eslint --ext js,jsx src static webpack.config.js",
     "build": "webpack --config webpack.prod.js --mode production",
     "build-dev": "webpack --config webpack.dev.js --mode development",
-    "component": "mocha --timeout 10000 test/component/*.js --exit",
-    "react-jest": "jest ./src/js/**/*.spec.js",
-    "react-mocha": "mocha --reporter spec testSetup.js ./src/js/**/*.spec.js",
+    "node-component": "mocha --timeout 10000 test/component/*.js --exit",
     "react-mocha-enzyme": "NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --require ignore-styles src/test/*/*.test.js"
   },
   "author": "Hernan Rossi",
