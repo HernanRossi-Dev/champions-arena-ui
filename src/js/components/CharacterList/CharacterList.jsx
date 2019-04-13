@@ -12,7 +12,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import CharacterTable from "./CharacterTable";
 import * as cssStyles from '../../../styles/Styles.css';
 
-class CharacterList extends React.Component {
+export class CharacterList extends React.Component {
   constructor() {
     super();
     this.state = {

@@ -6,7 +6,7 @@ import CharacterRow from "./CharacterRow.jsx";
 import * as cssStyles from "../../../styles/Styles.css";
 
 
-const CharacterTable = (props) => {
+export const CharacterTable = (props) => {
   let characterRows;
   if (!props.characters) {
     return null;

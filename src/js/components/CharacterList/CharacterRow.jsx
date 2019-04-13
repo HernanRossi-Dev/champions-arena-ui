@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import {Button, Modal } from "react-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 
-class CharacterRow extends React.Component {
+export class CharacterRow extends React.Component {
   constructor() {
     super();
     this.state = {
