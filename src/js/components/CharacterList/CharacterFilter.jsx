@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import * as cssStyles from "../../../styles/Styles.css";
-
 import {
   Button,
   ButtonToolbar,
@@ -15,7 +14,7 @@ import {
   Row
 } from "react-bootstrap";
 
-class CharacterFilter extends React.Component {
+export class CharacterFilter extends React.Component {
 
   static createInitFilter(oldInitFilter) {
     const queryString = oldInitFilter.split("&");
