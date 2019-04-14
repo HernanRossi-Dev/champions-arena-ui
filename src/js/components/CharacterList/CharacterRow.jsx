@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import {Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 
 export class CharacterRow extends React.Component {
@@ -39,7 +39,7 @@ export class CharacterRow extends React.Component {
       <tr>
         <td>{this.props.character.type}</td>
         <td >
-          <Link to={ `/characters/${characteraID}` }>
+          <Link to={`/characters/${characteraID}`}>
             {this.props.character.name}
           </Link>
         </td>
@@ -61,9 +61,9 @@ export class CharacterRow extends React.Component {
         </td>
         <td>
           <Button type="button" bsClass={cssStyles.editButton}>
-          <Link to={ `/characters/${characteraID}` }>
-          <i className="far fa-edit" />
-          </Link>
+            <Link to={`/characters/${characteraID}`}>
+              <i className="far fa-edit" />
+            </Link>
           </Button>
         </td>
         <Modal
@@ -89,7 +89,9 @@ export class CharacterRow extends React.Component {
 
 CharacterRow.propTypes = {
   character: PropTypes.object.isRequired,
-  deleteCharacter: PropTypes.func.isRequired
+  deleteCharacter: PropTypes.func.isRequired,
+
 };
 
 export default withRouter(CharacterRow);
+

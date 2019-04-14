@@ -1,58 +1,52 @@
-import "whatwg-fetch";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import CharacterFilter from "./CharacterFilter.jsx";
 import { setNumberOfCharacters } from '../../actions/CharacterActionCreators';
 import axios from 'axios';
-import {remove, map, cloneDeep } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import CharacterTable from "./CharacterTable";
 import * as cssStyles from '../../../styles/Styles.css';
 
-export class CharacterList extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      characters: [],
+export const CharacterList = (props) => {
+ 
+  const [characters, setCharacters] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCharacters() {
+      axios.defaults.headers.common['authorization'] = props.Auth;
+      setLoading(true);
+      await loadData();
     }
-  }
+    fetchCharacters();
+  }, []);
 
-  componentDidMount() {
-    axios.defaults.headers.common['authorization'] = this.props.Auth;
-    this.loadData();
-  }
+  useEffect(() => {
+    async function fetchCharacters() {
+      setLoading(true);
+      await loadData();
+    }
+    fetchCharacters();
+  }, [props.location.search, props.location.query]);
 
-  setFilter = (query) => {
+  const setFilter = (query) => {
     let filter = "";
     for (let key in query) {
       filter += "&" + key + "=" + query[key];
     }
-    this.props.history.push({
-      pathname: this.props.location.pathname,
+    props.history.push({
+      pathname: props.location.pathname,
       search: filter
     });
   }
 
-  componentDidUpdate(prevProps) {
-    const oldQuery = prevProps;
-    const newQuery = this.props;
-    if (oldQuery.location.search === newQuery.location.search) {
-      return;
-    } else if (oldQuery.location.query && newQuery.location.query) {
-      return;
-    } else {
-      this.loadData();
-    }
-  }
-
-  loadData = async () => {
-    const { currentUserName, location } = this.props;
+  const loadData = async () => {
+    const { currentUserName, location } = props;
     let filter = "";
-
-    if (this.props.location.query !== undefined) {
+    if (props.location.query !== undefined) {
       let currentUser = currentUserName;
       filter += '?user=' + currentUser;
       for (let key in location.query) {
@@ -71,50 +65,50 @@ export class CharacterList extends React.Component {
     }
     const characters = getResult.data.characters
     const action = setNumberOfCharacters(characters.length);
-    this.props.dispatch(action);
-    this.setState({ characters });
+    props.dispatch(action);
+    setCharacters(characters);
+    setLoading(false);
   }
 
-  deleteCharacter = async (id) => {
+  const deleteCharacter = async (id) => {
     try {
-      let characters = map(this.state.characters, cloneDeep);
+      let updateCharacters = characters.filter((character) => {
+        return character._id !== id
+      });
       await axios.delete(`/api/characters/${id}`);
-      remove(characters, (char) => char._id === id);
-      const action = setNumberOfCharacters(characters.length);
-      this.props.dispatch(action);
-      this.setState({ characters });
+      const action = setNumberOfCharacters(updateCharacters.length);
+      props.dispatch(action);
+      setCharacters(updateCharacters);
+      setLoading(false);
     } catch (err) {
       console.log("Error deleting characters: ", err);
     }
   }
 
-  render() {
-    return (
-      <div>
-
-        <CharacterFilter
-          setFilter={this.setFilter}
-          initFilter={this.props.location.search}
-        />
-        <hr />
-        <CharacterTable
-          characters={this.state.characters}
-          deleteCharacter={this.deleteCharacter}
-        />
-        <hr className={cssStyles.hrCharacterList} />
-        <LinkContainer to="/createCharacter">
-          <Button type="button" bsClass={cssStyles.deleteButton}>
-            <i class="fas fa-plus-circle" style={{ marginRight: '10px', marginLeft: '85px' }}></i> Create Character
+  return (
+    <React.Fragment>
+      <CharacterFilter
+        setFilter={setFilter}
+        initFilter={props.location.search}
+      />
+      <hr />
+      <CharacterTable
+        characters={characters}
+        deleteCharacter={deleteCharacter}
+        isLoading={isLoading}
+      />
+      <hr className={cssStyles.hrCharacterList} />
+      <LinkContainer to="/createCharacter">
+        <Button type="button" bsClass={cssStyles.deleteButton}>
+          <i class="fas fa-plus-circle" style={{ marginRight: '10px', marginLeft: '85px' }}></i> Create Character
         </Button>
-        </LinkContainer>
-      </div>
-    );
-  }
-}
+      </LinkContainer>
+    </React.Fragment>
+  );
+};
 
-const { object } = PropTypes;
 CharacterList.prototypes = {
-  location: object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {
