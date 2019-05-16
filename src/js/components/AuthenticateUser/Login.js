@@ -15,13 +15,16 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { setCurrrentUser, loginRegisteredUser } from '../../actions/UserActionCreators';
-import * as cssStyles from "../../../styles/Styles.css";
-import * as UserActionCreators from "../../actions/UserActionCreators";
 import { clone } from 'lodash';
-import { LoginParent, LoginContainer, panelBody, styles, panelParentStyle, panelHeadingStyle, divContainerStyle } from './AuthStyles'
+import { setCurrrentUser, loginRegisteredUser, createGuestUser } from '../../actions/UserActionCreators';
+import * as cssStyles from "../../../styles/Styles.css";
+import {
+  LoginParent, LoginContainer, panelBody, styles,
+  panelParentStyle, panelHeadingStyle, divContainerStyle
+} from './AuthStyles';
 
 const passwordHash = require("password-hash");
+
 const buttonToolbarStyle = {
   alignItems: "center",
   marginLeft: '-10px'
@@ -39,7 +42,7 @@ export function Login(props) {
         alert('Could not find user.');
         return;
       }
-      fetchUser = fetchUser.data.user
+      fetchUser = fetchUser.data.user;
       const savedPass = fetchUser.password;
       const validPassword = passwordHash.verify(state.password, savedPass);
       if (!validPassword) {
@@ -65,10 +68,10 @@ export function Login(props) {
       password: "12345",
       isGuest: true
     };
-    const action = UserActionCreators.createGuestUser(newGuestUser);
+    const action = createGuestUser(newGuestUser);
     await dispatch(action);
     history.push("/home");
-  }
+  };
 
   const handleChange = (event, type) => {
     if (!event) {
@@ -102,7 +105,7 @@ export function Login(props) {
                       id="user-email"
                       placeholder="User Email"
                       label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>User Email</span>}
-                      onChange={(e) => handleChange(e, 'email')}
+                      onChange={e => handleChange(e, 'email')}
                       className={classes.root}
                       InputProps={{
                         className: classes.input,
@@ -117,12 +120,12 @@ export function Login(props) {
                 <FormGroup>
                   <Col sm={3} />
                   <Col sm={6}>
-                    <div >
+                    <div>
                       <TextField
                         id="user-password"
                         placeholder="User Password"
                         type="password"
-                        onChange={(e) => handleChange(e, 'password')}
+                        onChange={e => handleChange(e, 'password')}
                         className={classes.root}
                         InputProps={{
                           className: classes.input,
@@ -139,9 +142,9 @@ export function Login(props) {
                 <FormGroup>
                   <Col sm={4} />
                   <Col sm={8}>
-                    <ButtonToolbar >
+                    <ButtonToolbar>
                       <LinkContainer to="/forgotPassword" style={{ fontColor: 'white' }}>
-                        <NavItem >
+                        <NavItem>
                           Forgot password?
                           </NavItem>
                       </LinkContainer>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import * as cssStyles from "../../../styles/Styles.css";
 import {
   Button,
   ButtonToolbar,
@@ -13,13 +12,14 @@ import {
   Panel,
   Row
 } from "react-bootstrap";
+import * as cssStyles from "../../../styles/Styles.css";
 
 export const CharacterFilter = (props) => {
-  const [classChar, setClass] = useState('');
-  const [ancestry, setAncestry] = useState('');
-  const [level_gte, setLevelGTE] = useState('');
-  const [level_lte, setLevelLTE] = useState('');
-  const [changed, setChanged] = useState('');
+  const [classChar, setClass] = useState("");
+  const [ancestry, setAncestry] = useState("");
+  const [level_gte, setLevelGTE] = useState("");
+  const [level_lte, setLevelLTE] = useState("");
+  const [changed, setChanged] = useState("");
 
   const createInitFilter = (oldInitFilter) => {
     const queryString = oldInitFilter.split("&");
@@ -33,7 +33,7 @@ export const CharacterFilter = (props) => {
       }
     }
     return newInitFilter;
-  }
+  };
 
   useEffect(() => {
     const newInitFilter = createInitFilter(props.initFilter);
@@ -42,17 +42,22 @@ export const CharacterFilter = (props) => {
     setLevelGTE(newInitFilter.levelString);
     setLevelLTE(newInitFilter.level_lte);
     setChanged(false);
-  }, [props.initFilter.class, props.initFilter.ancestry, props.initFilter.level_gte, props.initFilter.level_lte]);
+  }, [
+    props.initFilter.class,
+    props.initFilter.ancestry,
+    props.initFilter.level_gte,
+    props.initFilter.level_lte
+  ]);
 
   const onChangeAncestry = (e) => {
     setAncestry(e.target.value);
     setChanged(true);
-  }
+  };
 
   const onChangeClass = (e) => {
     setClass(e.target.value);
     setChanged(true);
-  }
+  };
 
   const onChangeLevelLte = (e) => {
     const levelString = e.target.value;
@@ -68,25 +73,26 @@ export const CharacterFilter = (props) => {
       setLevelGTE(e.target.value);
       setChanged(true);
     }
-  }
+  };
 
   const resetFilter = () => {
-    const filters = ['class', 'ancestry', 'level_gte', 'level_lte'];
-    for ( const index of filters) {
+    const filters = ["class", "ancestry", "level_gte", "level_lte"];
+    for (const index of filters) {
       if (props.initFilter[filters[index]] === undefined) {
-        props.initFilter[filters[index]] = '';
+        props.initFilter[filters[index]] = "";
       }
     }
+    const newInitFilter = createInitFilter(props.initFilter);
     setClass(newInitFilter.class);
     setAncestry(newInitFilter.ancestry);
     setLevelGTE(newInitFilter.levelString);
     setLevelLTE(newInitFilter.level_lte);
     setChanged(false);
-  }
+  };
 
   const clearFilter = () => {
     props.setFilter({});
-  }
+  };
 
   const applyFilter = () => {
     const newFilter = {};
@@ -103,14 +109,14 @@ export const CharacterFilter = (props) => {
       newFilter.level_lte = level_lte;
     }
     props.setFilter(newFilter);
-  }
+  };
 
   return (
     <Panel className={cssStyles.panelHeaderParent} defaultExpanded>
       <Panel.Heading className={cssStyles.panelHeader}>
         <Panel.Title className={cssStyles.panelHeaderText} toggle>
           Filter Characters
-          </Panel.Title>
+        </Panel.Title>
       </Panel.Heading>
       <Panel.Collapse>
         <Panel.Body>
@@ -164,33 +170,21 @@ export const CharacterFilter = (props) => {
               <FormGroup>
                 <ControlLabel>Level</ControlLabel>
                 <InputGroup>
-                  <FormControl
-                    value={level_gte}
-                    onChange={onChangeLevelGte}
-                  />
+                  <FormControl value={level_gte} onChange={onChangeLevelGte} />
                   <InputGroup.Addon>-</InputGroup.Addon>
-                  <FormControl
-                    value={level_lte}
-                    onChange={onChangeLevelLte}
-                  />
+                  <FormControl value={level_lte} onChange={onChangeLevelLte} />
                 </InputGroup>
               </FormGroup>
             </Col>
             <Col>
               <FormGroup>
                 <ButtonToolbar>
-                  <Button
-                    bsStyle={"primary"}
-                    onClick={applyFilter}
-                  >
+                  <Button bsStyle={"primary"} onClick={applyFilter}>
                     Apply
-                    </Button>
-                  <Button
-                    onClick={resetFilter}
-                    disabled={!changed}
-                  >
+                  </Button>
+                  <Button onClick={resetFilter} disabled={!changed}>
                     Reset
-                    </Button>
+                  </Button>
                   <Button onClick={clearFilter}>Clear</Button>
                 </ButtonToolbar>
               </FormGroup>

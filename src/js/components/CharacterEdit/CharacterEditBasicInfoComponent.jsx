@@ -1,32 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
+import Character from "./characterModel.js";
 import { styles } from './styles/EditBasicStyles';
 
-export function CharacterEditBasicInfoComponent(props) {
-  const { classes } = props;
+export const CharacterEditBasicInfoComponent = (props) => {
+  const { classes, editCharacter, updateCharacter } = props;
+
   const saveCaretPosition = (event) => {
-    const caret = event.target.selectionStart
-    const element = event.target
+    const caret = event.target.selectionStart;
+    const element = event.target;
     window.requestAnimationFrame(() => {
-      element.selectionStart = caret
-      element.selectionEnd = caret
-    })
-  }
+      element.selectionStart = caret;
+      element.selectionEnd = caret;
+    });
+  };
 
   const handleUpdate = (event, type) => {
     saveCaretPosition(event);
     const updateChar = props.editCharacter;
     updateChar[type] = event.target.value;
-    props.updateCharacter(updateChar);
-  }
+    updateCharacter(updateChar);
+  };
+
   const changeLanguages = (event) => {
     saveCaretPosition(event);
     const updateChar = props.editCharacter;
     updateChar.ancestryProps.languages = event.target.value;
-    props.updateCharacter(updateChar);
-  }
+    updateCharacter(updateChar);
+  };
+
   const textFieldProps = {
     InputProps: {
       classes: {
@@ -39,23 +43,24 @@ export function CharacterEditBasicInfoComponent(props) {
     },
     htmlFor: "custom-css-standard-input",
   };
+  console.log('Updated character in basic info: ', editCharacter);
   return (
-    <div >
+    <div>
       <Grid container spacing={16} justify="center">
         <Grid item xs={2}>
           <TextField
             onChange={(event) => handleUpdate(event, 'name')}
             id="characterName"
             helperText="Character"
-            value={props.editCharacter.name}
-            htmlFor= "custom-css-standard-input"
-            InputProps= {{
+            value={editCharacter.name}
+            htmlFor="custom-css-standard-input"
+            InputProps={{
               classes: {
                 root: classes.input,
                 input: classes.inputName,
               }
             }}
-            FormHelperTextProps= {{
+            FormHelperTextProps={{
               className: classes.helperText
             }}
             style={{ paddingLeft: '25px', paddingRight: '15px' }}
@@ -65,9 +70,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="ancestry"
             helperText="Ancestry"
-            onChange={(event) => handleUpdate(event, 'ancestry')}
+            onChange={event => handleUpdate(event, 'ancestry')}
             value={
-              props.editCharacter.ancestry
+              editCharacter.ancestry
             }
             {...textFieldProps}
           />
@@ -76,9 +81,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="backgound"
             helperText="Background"
-            onChange={(event) => handleUpdate(event, 'background')}            
+            onChange={event => handleUpdate(event, 'background')}
             value={
-              props.editCharacter.background
+              editCharacter.background
             }
             {...textFieldProps}
           />
@@ -87,9 +92,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="class"
             helperText="Class"
-            onChange={(event) => handleUpdate(event, 'class')}
+            onChange={event => handleUpdate(event, 'class')}
             value={
-              props.editCharacter.class
+              editCharacter.class
             }
             {...textFieldProps}
           />
@@ -98,9 +103,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="level"
             helperText="Level"
-            onChange={(event) => handleUpdate(event, 'level')}
+            onChange={event => handleUpdate(event, 'level')}
             value={
-              props.editCharacter.level
+              editCharacter.level
             }
             {...textFieldProps}
             style={{ paddingRight: '15px' }}
@@ -110,9 +115,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="XP"
             helperText="XP"
-            onChange={(event) => handleUpdate(event, 'XP')}
+            onChange={event => handleUpdate(event, 'XP')}
             value={
-              props.editCharacter.XP
+              editCharacter.XP
             }
             {...textFieldProps}
             style={{ paddingRight: '15px' }}
@@ -124,9 +129,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="deity"
             helperText="Deity"
-            onChange={(event) => handleUpdate(event, 'deity')}
+            onChange={event => handleUpdate(event, 'deity')}
             value={
-              props.editCharacter.deity
+              editCharacter.deity
             }
             {...textFieldProps}
             style={{ paddingLeft: '25px', paddingRight: '15px' }}
@@ -136,9 +141,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="alignment"
             helperText="Alignment"
-            onChange={(event) => handleUpdate(event, 'alignment')}
+            onChange={event => handleUpdate(event, 'alignment')}
             value={
-              props.editCharacter.alignment
+              editCharacter.alignment
             }
             {...textFieldProps}
           />
@@ -147,9 +152,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="homeland"
             helperText="Homeland"
-            onChange={(event) => handleUpdate(event, 'homeland')}
+            onChange={event => handleUpdate(event, 'homeland')}
             value={
-              props.editCharacter.homeland
+              editCharacter.homeland
             }
             {...textFieldProps}
           />
@@ -158,9 +163,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="player"
             helperText="Player Name"
-            onChange={(event) => handleUpdate(event, 'player')}
+            onChange={event => handleUpdate(event, 'player')}
             value={
-              props.editCharacter.player
+              editCharacter.player
             }
             {...textFieldProps}
           />
@@ -171,9 +176,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="age"
             helperText="Age"
-            onChange={(event) => handleUpdate(event, 'age')}
+            onChange={event => handleUpdate(event, 'age')}
             value={
-              props.editCharacter.age
+              editCharacter.age
             }
             {...textFieldProps}
             style={{ paddingLeft: '25px', paddingRight: '15px' }}
@@ -183,9 +188,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="gender"
             helperText="Gender"
-            onChange={(event) => handleUpdate(event, 'gender')}
+            onChange={event => handleUpdate(event, 'gender')}
             value={
-              props.editCharacter.gender
+              editCharacter.gender
             }
             {...textFieldProps}
             style={{ paddingRight: '15px' }}
@@ -195,9 +200,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="height"
             helperText="Height"
-            onChange={(event) => handleUpdate(event, 'height')}
+            onChange={event => handleUpdate(event, 'height')}
             value={
-              props.editCharacter.height
+              editCharacter.height
             }
             {...textFieldProps}
             style={{ paddingRight: '15px' }}
@@ -207,9 +212,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="weight"
             helperText="Weight"
-            onChange={(event) => handleUpdate(event, 'weight')}
+            onChange={event => handleUpdate(event, 'weight')}
             value={
-              props.editCharacter.weight
+              editCharacter.weight
             }
             {...textFieldProps}
             style={{ paddingRight: '15px' }}
@@ -219,9 +224,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="hair"
             helperText="Hair"
-            onChange={(event) => handleUpdate(event, 'hair')}
+            onChange={event => handleUpdate(event, 'hair')}
             value={
-              props.editCharacter.hair
+              editCharacter.hair
             }
             {...textFieldProps}
             style={{ paddingRight: '15px' }}
@@ -231,9 +236,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="eyes"
             helperText="Eye Color"
-            onChange={(event) => handleUpdate(event, 'eyes')}
+            onChange={event => handleUpdate(event, 'eyes')}
             value={
-              props.editCharacter.eyes
+              editCharacter.eyes
             }
             {...textFieldProps}
           />
@@ -246,7 +251,7 @@ export function CharacterEditBasicInfoComponent(props) {
             helperText="Languages"
             onChange={changeLanguages}
             value={
-              props.editCharacter.ancestryProps.languages
+              editCharacter.ancestryProps.languages
             }
             {...textFieldProps}
             style={{ width: '100%' }}
@@ -256,9 +261,9 @@ export function CharacterEditBasicInfoComponent(props) {
           <TextField
             id="size"
             helperText="size"
-            onChange={(event) => handleUpdate(event, 'size')}
+            onChange={event => handleUpdate(event, 'size')}
             value={
-              props.editCharacter.size
+              editCharacter.size
             }
             {...textFieldProps}
             style={{ paddingRight: '15px' }}

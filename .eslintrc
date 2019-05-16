@@ -13,6 +13,7 @@
     "import/extensions": ["off"],
     "no-param-reassign": ["error", { "props": false }],
     "no-alert": ["off"],
-    "react/jsx-filename-extension": [0]
+    "react/jsx-filename-extension": [0],
+    "linebreak-style": 0
   }
 }
