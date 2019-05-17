@@ -261,7 +261,6 @@ export const CharacterEditStatsComponent = (props) => {
                     {...additionalPropsModTop}
                   />
                 </DefenseStatBack>
-
               </Grid>
             </Grid>
             <Grid container justify="space-evenly">

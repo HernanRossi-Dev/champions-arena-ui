@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { withRouter, NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import { Nav, NavDropdown, Button, MenuItem } from "react-bootstrap";
 import { Navbar, NavItem } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
-import store from '../../store';
-import * as UserActionCreators from '../../actions/UserActionCreators';
+import store from "../../store";
+import * as UserActionCreators from "../../actions/UserActionCreators";
 
 export const NavBarComponent = (props) => {
-  const { dispatch } = props;
+  const {
+    dispatch, currentUserName, isGuest, history
+  } = props;
   const [showWorld, setShowWorld] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -17,41 +19,41 @@ export const NavBarComponent = (props) => {
 
   const handleOpen = (action) => {
     action(true);
-  }
+  };
 
   const handleClose = (action) => {
     action(false);
-  }
+  };
 
   const toggleSelection = (current, action) => {
     action(!current);
-  }
+  };
 
   const logout = async () => {
     let action;
-    const user = props.currentUserName;
-    if (props.isGuest) {
+    const user = currentUserName;
+    if (isGuest) {
       action = UserActionCreators.logoutGuestUser(user);
       await dispatch(action);
     } else {
       action = UserActionCreators.logoutRegisteredUser();
       await dispatch(action);
     }
-    props.history.push('/login');
-  }
+    history.push("/login");
+  };
 
   return (
     <Navbar
-      sticky='top'
-      fixed='top'
+      sticky="top"
+      fixed="top"
       className={cssStyles.navbarStyle}
     >
       <Nav bsStyle="tabs" justified className={cssStyles.navBarFont}>
         <NavItem>
-          <NavLink to='/home' active='true'>Home</NavLink>
+          <NavLink to="/home" active="true">Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to='/characters' active='true'>Characters</NavLink>
+          <NavLink to="/characters" active="true">Characters</NavLink>
         </NavItem>
         <NavDropdown
           eventKey={3}
@@ -66,12 +68,12 @@ export const NavBarComponent = (props) => {
           <LinkContainer to="/createCharacter">
             <MenuItem eventKey={3.1} className={cssStyles.navBarMenuItem}>
               New Player Character
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/createNPC">
             <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>
               New Creature
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
         </NavDropdown>
         <NavDropdown
@@ -87,12 +89,12 @@ export const NavBarComponent = (props) => {
           <LinkContainer to="/campaign">
             <MenuItem eventKey={3.1} className={cssStyles.navBarMenuItem}>
               Campaign
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/encounter">
             <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>
               Encounter
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
         </NavDropdown>
         <NavDropdown
@@ -108,20 +110,19 @@ export const NavBarComponent = (props) => {
           <LinkContainer to="/beasts">
             <MenuItem eventKey={3.1} className={cssStyles.navBarMenuItem}>
               Beasts
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/skills">
             <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>
               Skills
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/items">
             <MenuItem eventKey={3.3} className={cssStyles.navBarMenuItem}>
               Items
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
         </NavDropdown>
-
         <NavDropdown
           eventKey={3}
           onMouseEnter={() => handleOpen(setShowOptions)}
@@ -140,30 +141,30 @@ export const NavBarComponent = (props) => {
           <LinkContainer to="/about">
             <MenuItem eventKey={3.2} className={cssStyles.navBarMenuItem}>
               About Site
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/OGL">
             <MenuItem eventKey={3.3} className={cssStyles.navBarMenuItem}>
               About OGL
-                </MenuItem>
+            </MenuItem>
           </LinkContainer>
           <LinkContainer to="/logout">
             <MenuItem eventKey={3.3} className={cssStyles.navBarMenuItem}>
               {(store.getState().userReducer.loggedIn) ? <Button onClick={logout}>log out</Button> : <p>Not logged in</p>}
             </MenuItem>
           </LinkContainer>
-          {/*<MenuItem eventKey={3.3}>Profile</MenuItem>*/}
         </NavDropdown>
       </Nav>
     </Navbar>
   );
 };
-const mapStateToProps = state => {
+
+const mapStateToProps = (state) => {
   return {
     currentUserName: state.userReducer.currentUserName,
     isGuest: state.userReducer.currentUser.isGuest,
     Auth: state.userReducer.authToken,
-  }
+  };
 };
 
 export default withRouter(connect(mapStateToProps, null, null, { pure: false })(NavBarComponent));

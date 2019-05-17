@@ -15,6 +15,7 @@ import {
 import * as cssStyles from "../../../styles/Styles.css";
 
 export const CharacterFilter = (props) => {
+  const { initFilter } = props;
   const [classChar, setClass] = useState("");
   const [ancestry, setAncestry] = useState("");
   const [level_gte, setLevelGTE] = useState("");
@@ -36,17 +37,17 @@ export const CharacterFilter = (props) => {
   };
 
   useEffect(() => {
-    const newInitFilter = createInitFilter(props.initFilter);
+    const newInitFilter = createInitFilter(initFilter);
     setClass(newInitFilter.class);
     setAncestry(newInitFilter.ancestry);
     setLevelGTE(newInitFilter.levelString);
     setLevelLTE(newInitFilter.level_lte);
     setChanged(false);
   }, [
-    props.initFilter.class,
-    props.initFilter.ancestry,
-    props.initFilter.level_gte,
-    props.initFilter.level_lte
+    initFilter.class,
+    initFilter.ancestry,
+    initFilter.level_gte,
+    initFilter.level_lte
   ]);
 
   const onChangeAncestry = (e) => {
@@ -78,8 +79,8 @@ export const CharacterFilter = (props) => {
   const resetFilter = () => {
     const filters = ["class", "ancestry", "level_gte", "level_lte"];
     for (const index of filters) {
-      if (props.initFilter[filters[index]] === undefined) {
-        props.initFilter[filters[index]] = "";
+      if (initFilter[filters[index]] === undefined) {
+        initFilter[filters[index]] = "";
       }
     }
     const newInitFilter = createInitFilter(props.initFilter);
@@ -114,9 +115,7 @@ export const CharacterFilter = (props) => {
   return (
     <Panel className={cssStyles.panelHeaderParent} defaultExpanded>
       <Panel.Heading className={cssStyles.panelHeader}>
-        <Panel.Title className={cssStyles.panelHeaderText} toggle>
-          Filter Characters
-        </Panel.Title>
+        <Panel.Title className={cssStyles.panelHeaderText} toggle>Filter Characters</Panel.Title>
       </Panel.Heading>
       <Panel.Collapse>
         <Panel.Body>
@@ -179,12 +178,8 @@ export const CharacterFilter = (props) => {
             <Col>
               <FormGroup>
                 <ButtonToolbar>
-                  <Button bsStyle={"primary"} onClick={applyFilter}>
-                    Apply
-                  </Button>
-                  <Button onClick={resetFilter} disabled={!changed}>
-                    Reset
-                  </Button>
+                  <Button bsStyle="primary" onClick={applyFilter}>Apply</Button>
+                  <Button onClick={resetFilter} disabled={!changed}>Reset</Button>
                   <Button onClick={clearFilter}>Clear</Button>
                 </ButtonToolbar>
               </FormGroup>
@@ -198,7 +193,7 @@ export const CharacterFilter = (props) => {
 
 CharacterFilter.propTypes = {
   setFilter: PropTypes.func.isRequired,
-  initFilter: PropTypes.string
+  initFilter: PropTypes.string.isRequired
 };
 
 export default withRouter(CharacterFilter);

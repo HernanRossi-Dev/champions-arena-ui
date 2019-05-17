@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { Button } from 'react-bootstrap';
 import { withStyles } from '@material-ui/core/styles/index';
-import styled from 'styled-components';
 import Character from './characterModel.js';
 import * as cssStyles from '../../../styles/Styles.css';
 import {
@@ -156,7 +155,6 @@ export const CharacterEditActionsComponent = (props) => {
     </div>
   );
 };
-
 
 CharacterEditActionsComponent.defaultProps = {
   editCharacter: new Character(),

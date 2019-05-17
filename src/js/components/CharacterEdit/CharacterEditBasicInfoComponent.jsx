@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
@@ -43,13 +43,13 @@ export const CharacterEditBasicInfoComponent = (props) => {
     },
     htmlFor: "custom-css-standard-input",
   };
-  console.log('Updated character in basic info: ', editCharacter);
+
   return (
     <div>
       <Grid container spacing={16} justify="center">
         <Grid item xs={2}>
           <TextField
-            onChange={(event) => handleUpdate(event, 'name')}
+            onChange={event => handleUpdate(event, 'name')}
             id="characterName"
             helperText="Character"
             value={editCharacter.name}

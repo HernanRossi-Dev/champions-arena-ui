@@ -1,21 +1,23 @@
 import axios from 'axios';
 
-export const getAuthToken = async() => {
+export const getAuthToken = async () => {
   try {
     const response = await axios.get('api/authenticate');
-    const data = await response.json()
+    const data = await response.json();
     return JSON.parse(data.body);
   } catch (err) {
     console.error('Failed to authenticate: ', err);
     throw err;
   }
-}
+};
 
-export const fetchUser = async(filter, authToken) => {
+export const fetchUser = async (filter, authToken) => {
+  const { token_type: tType, access_token: aToken } = authToken;
+  const tokenString = `${tType} ${aToken}`;
   try {
     const options = {
       method: 'GET',
-      headers: { authorization: authToken.token_type + ' ' + authToken.access_token }
+      headers: { authorization: tokenString }
     };
     const response = await axios.get(`/api/users${filter}`, options);
     if (response.ok) {
@@ -29,4 +31,4 @@ export const fetchUser = async(filter, authToken) => {
     console.error('Failed fetch user: ', err);
     throw err;
   }
-}
+};

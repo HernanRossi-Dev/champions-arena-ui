@@ -1,8 +1,6 @@
 import * as types from "../constants/ActionTypes";
 import "whatwg-fetch";
-/**
- * Registered User Actions Creators
- */
+
 function createRegisteredUserStart(newUser) {
   return {
     type: types.CREATE_USER_START,
@@ -16,9 +14,11 @@ export const createRegisteredUser = (newRegisteredUser) => {
     let response = await fetch('api/authenticate');
     const data = await response.json();
     const token = JSON.parse(data.body);
+    const { token_type: tType, access_token: aToken } = token;
+    const tokenString = `${tType} ${aToken}`;
     const options = {
       method: "POST",
-      headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
+      headers: { "Content-Type": "application/json", authorization: tokenString },
       body: JSON.stringify(newRegisteredUser)
     };
     response = await fetch("/api/users", options);
@@ -27,7 +27,7 @@ export const createRegisteredUser = (newRegisteredUser) => {
       newUser.created = new Date(newUser.created);
       await dispatch({
         type: types.CREATE_USER_SUCCESS,
-        newUser: newUser
+        newUser
       });
     } else {
       const error = await response.json();
@@ -54,20 +54,22 @@ export const loginRegisteredUser = () => {
     const response = await fetch('api/authenticate');
     const data = await response.json();
     const token = JSON.parse(data.body);
+    const { token_type: tType, access_token: aToken } = token;
+    const tokenString = `${tType} ${aToken}`;
     await dispatch({
       type: types.USER_LOGIN_SUCCESS,
-      auth0Token: token.token_type + ' ' + token.access_token,
+      auth0Token: tokenString,
     });
   };
 };
 
-export const setCurrrentUser = (user) =>  {
-  return function (dispatch) {
+export const setCurrrentUser = (user) => {
+  return (dispatch) => {
     dispatch({
       type: types.SET_CURRENT_USER,
       user
     });
-  }
+  };
 };
 
 export const fetchRegisteredUser = (filter = "", queryCallBack) => {
@@ -75,19 +77,21 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
     let response = await fetch('api/authenticate');
     let data = await response.json();
     const token = JSON.parse(data.body);
-    const options =  {
+    const { token_type: tType, access_token: aToken } = token;
+    const tokenString = `${tType} ${aToken}`;
+    const options = {
       method: 'GET',
-      headers: { authorization: token.token_type + ' ' + token.access_token }
+      headers: { authorization: tokenString }
     };
     response = await fetch(`/api/users${filter}`,options);
     if (response.ok) {
       data = await response.json();
       if (data.users && data.users.length === 1) {
-        data = data.users[0];
+        [data] = data.users;
         dispatch({
           type: types.FETCH_USER_SUCCESS,
           registeredUser: data
-        })
+        });
       }
       queryCallBack();
     } else {
@@ -98,7 +102,7 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
         error: true
       });
     }
-  }
+  };
 };
 
 export const createGuestUser = (newGuestUser) => {
@@ -106,9 +110,11 @@ export const createGuestUser = (newGuestUser) => {
     let response = await fetch('api/authenticate');
     const data = await response.json();
     const token = JSON.parse(data.body);
+    const { token_type: tType, access_token: aToken } = token;
+    const tokenString = `${tType} ${aToken}`;
     const options = {
       method: "POST",
-      headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
+      headers: { "Content-Type": "application/json", authorization: tokenString },
       body: JSON.stringify(newGuestUser)
     };
     response = await fetch("/api/users", options);
@@ -118,7 +124,7 @@ export const createGuestUser = (newGuestUser) => {
       await dispatch({
         type: types.CREATE_GUEST_USER_SUCCESS,
         newGuest: updatedUser,
-        auth0Token: token.token_type + ' ' + token.access_token,
+        auth0Token: tokenString,
       });
     } else {
       const error = await response.json();
@@ -137,11 +143,13 @@ export const createGuestUser = (newGuestUser) => {
 export const logoutGuestUser = (userName) => {
   return async (dispatch) => {
     let response = await fetch('api/authenticate');
-    const data =  await response.json();
+    const data = await response.json();
     const token = JSON.parse(data.body);
+    const { token_type: tType, access_token: aToken } = token;
+    const tokenString = `${tType} ${aToken}`;
     const payload = {
       method: "DELETE",
-      headers: { "Content-Type": "application/json", authorization: token.token_type + ' ' + token.access_token },
+      headers: { "Content-Type": "application/json", authorization: tokenString },
     };
     response = await fetch(`/api/users/${userName}`, payload);
     if (!response.ok) {

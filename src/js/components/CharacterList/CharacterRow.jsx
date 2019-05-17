@@ -5,33 +5,34 @@ import { Button, Modal } from "react-bootstrap";
 import * as cssStyles from "../../../styles/Styles.css";
 
 export const CharacterRow = (props) => {
+  const { character } = props;
   const [show, setShow] = useState(false);
 
   const acceptChanges = () => {
     setShow(false);
     props.deleteCharacter(props.character._id);
-  }
+  };
 
-  const characteraID = props.character._id;
+  const characteraID = character._id;
   return (
     <tr>
-      <td>{props.character.type}</td>
-      <td >
+      <td>{character.type}</td>
+      <td>
         <Link to={`/characters/${characteraID}`}>
-          {props.character.name}
+          {character.name}
         </Link>
       </td>
-      <td>{props.character.class}</td>
-      <td>{props.character.ancestry}</td>
-      <td>{props.character.level}</td>
-      <td>{props.character.XP}</td>
-      <td>{props.character.hitPoints}</td>
-      <td>{props.character.STR}</td>
-      <td>{props.character.DEX}</td>
-      <td>{props.character.CON}</td>
-      <td>{props.character.INT}</td>
-      <td>{props.character.WIS}</td>
-      <td>{props.character.CHA}</td>
+      <td>{character.class}</td>
+      <td>{character.ancestry}</td>
+      <td>{character.level}</td>
+      <td>{character.XP}</td>
+      <td>{character.hitPoints}</td>
+      <td>{character.STR}</td>
+      <td>{character.DEX}</td>
+      <td>{character.CON}</td>
+      <td>{character.INT}</td>
+      <td>{character.WIS}</td>
+      <td>{character.CHA}</td>
       <td>
         <Button type="button" bsClass={cssStyles.deleteButton} onClick={() => setShow(true)}>
           <i className="fas fa-times-circle fa-lg" />
@@ -70,4 +71,3 @@ CharacterRow.propTypes = {
 };
 
 export default withRouter(CharacterRow);
-

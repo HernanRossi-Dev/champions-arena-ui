@@ -30,7 +30,7 @@ export default class Character {
     this.modifiers = {};
     this.actions = {
       melee: [],
-      stride:'',
+      stride: '',
       ranged: [],
     };
   }

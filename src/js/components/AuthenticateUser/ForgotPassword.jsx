@@ -1,44 +1,43 @@
 import React, { useState } from "react";
 import { clone } from 'lodash';
-import * as cssStyles from "../../../styles/Styles.css";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 import { TextField } from '@material-ui/core';
-
 import {
-	Button,
-	ButtonToolbar,
-	Col,
-	ControlLabel,
-	Form,
-	FormGroup,
-	Modal,
-	Panel
+  Button,
+  ButtonToolbar,
+  Col,
+  ControlLabel,
+  Form,
+  FormGroup,
+  Modal,
+  Panel
 } from "react-bootstrap";
-// import { LinkContainer } from "react-router-bootstrap";
-import { Link } from 'react-router-dom'
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from "react-redux";
+import * as cssStyles from "../../../styles/Styles.css";
 import { getAuthToken, fetchUser } from '../../apiUtils/userApiHelpers';
-import { LoginParent, styles, divContainerStyle, divContainerStyleChild, panelBody, panelParentStyle, buttonToolbarStyle, panelHeadingStyle } from './AuthStyles'
+import {
+  LoginParent, styles, divContainerStyle, divContainerStyleChild,
+  panelBody, panelParentStyle, buttonToolbarStyle, panelHeadingStyle
+} from './AuthStyles';
 
 export const ForgotPassword = (props) => {
   const { classes } = props;
-
-	const [state, setState] = useState({
-		name: '',
-		password: '',
+  const [state, setState] = useState({
+    name: '',
+    password: '',
     email: '',
     user: {}
-	  });
-	const [show, setShow] = useState(false);
+  });
+  const [show, setShow] = useState(false);
 
-	const sendUserInfo = async () => {
-		const serverAuth = await getAuthToken();
-		const userQuery = `?email=${email}&sendEmail=true`;
-	  await fetchUser(userQuery, serverAuth);
+  const sendUserInfo = async () => {
+    const serverAuth = await getAuthToken();
+    const userQuery = `?email=${state.email}&sendEmail=true`;
+    await fetchUser(userQuery, serverAuth);
     setShow(true);
-	}
+  };
 
   const handleChange = (event) => {
     if (!event) {
@@ -60,7 +59,8 @@ export const ForgotPassword = (props) => {
                 <span style={{ fontFamily: "'Cinzel Decorative', cursive" }}>
                   Arena
                 </span>
-                <br /> Input your email address and we will send you a temporary password
+                <br />
+                Input your email address and we will send you a temporary password
               </Panel.Title>
             </Panel.Heading>
             <Form horizontal style={panelBody}>
@@ -72,36 +72,36 @@ export const ForgotPassword = (props) => {
                   className={cssStyles.createColLabelStyle}
                 >
                   Email
-                </Col>{" "}
+                </Col>
+                {" "}
                 <Col sm={1} />
                 <Col sm={6}>
-                   <TextField
-                      id="user-email"
-                      placeholder="User Email"
-                      label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>User Email</span>}
-                      onChange={handleChange}
-                      // className={classes.root}
-                      InputProps={{
-                        className: classes.input,
-                        root: classes.root
-                      }}
-                      InputLabelProps={{
-                        root: classes.labelStyle
-                      }}
-                      style={{width: '100%'}}
-                    />
+                  <TextField
+                    id="user-email"
+                    placeholder="User Email"
+                    label={<span style={{ fontFamily: "'Crimson Text', sans-serif", color: '#df691a', fontSize: '16px' }}>User Email</span>}
+                    onChange={handleChange}
+                    InputProps={{
+                      className: classes.input,
+                      root: classes.root
+                    }}
+                    InputLabelProps={{
+                      root: classes.labelStyle
+                    }}
+                    style={{ width: '100%' }}
+                  />
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col sm={4} />
                 <Col sm={6} style={buttonToolbarStyle}>
                   <ButtonToolbar style={buttonToolbarStyle}>
-                      <Button bsStyle="primary" onClick={sendUserInfo}>Submit</Button>
+                    <Button bsStyle="primary" onClick={sendUserInfo}>Submit</Button>
                     <Link
-                      to={'/signin'}
+                      to="/signin"
                       style={{ margin: "0px 0px 0px 5px" }}
                     >
-                      <Button >
+                      <Button>
                         Back
                       </Button>
                     </Link>
@@ -127,6 +127,10 @@ export const ForgotPassword = (props) => {
       </div>
     </LoginParent>
   );
-}
+};
+
+ForgotPassword.propTypes = {
+  classes: PropTypes.object,
+};
 
 export default withRouter(connect()(withStyles(styles)(ForgotPassword)));

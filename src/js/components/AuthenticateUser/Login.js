@@ -30,7 +30,7 @@ const buttonToolbarStyle = {
   marginLeft: '-10px'
 };
 
-export function Login(props) {
+export const Login = (props) => {
   const { dispatch, classes, history } = props;
   const [state, setState] = useState({ email: '', password: '' });
 
@@ -144,9 +144,7 @@ export function Login(props) {
                   <Col sm={8}>
                     <ButtonToolbar>
                       <LinkContainer to="/forgotPassword" style={{ fontColor: 'white' }}>
-                        <NavItem>
-                          Forgot password?
-                          </NavItem>
+                        <NavItem>Forgot password?</NavItem>
                       </LinkContainer>
                     </ButtonToolbar>
                   </Col>
@@ -156,9 +154,7 @@ export function Login(props) {
                   <Col sm={6} style={buttonToolbarStyle}>
                     <ButtonToolbar style={buttonToolbarStyle}>
                       <LinkContainer to="/home" style={{ width: "90px" }}>
-                        <Button bsStyle="primary" onClick={handleSignIn}>
-                          Log In
-                          </Button>
+                        <Button bsStyle="primary" onClick={handleSignIn}>Log In</Button>
                       </LinkContainer>
                       <LinkContainer
                         to="/signup"
@@ -170,9 +166,7 @@ export function Login(props) {
                         to="/"
                         style={{ margin: "5px 0px 5px 20px" }}
                       >
-                        <Button onClick={handleSignInGuest}>
-                          Continue as Guest
-                          </Button>
+                        <Button onClick={handleSignInGuest}>Continue as Guest</Button>
                       </LinkContainer>
                     </ButtonToolbar>
                   </Col>
@@ -184,10 +178,11 @@ export function Login(props) {
       </div>
     </LoginParent>
   );
-}
+};
 
 Login.propTypes = {
   classes: PropTypes.object,
+  history: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

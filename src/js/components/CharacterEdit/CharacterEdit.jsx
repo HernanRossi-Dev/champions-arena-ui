@@ -40,7 +40,7 @@ const styles = theme => ({
 });
 
 export const CharacterEdit = (props) => {
-  const { classes } = props;
+  const { classes, match } = props;
   const [editCharacter, setEditCharacter] = useState(new Character());
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
@@ -60,7 +60,7 @@ export const CharacterEdit = (props) => {
   };
 
   const loadCharacter = async () => {
-    const characterID = props.match.params.id;
+    const characterID = match.params.id;
     if (!characterID) {
       return null;
     }
@@ -77,7 +77,6 @@ export const CharacterEdit = (props) => {
     const {
       data
     } = getResult;
-    console.log('loadCharacter');
     setEditCharacter(data);
   };
 
@@ -113,7 +112,7 @@ export const CharacterEdit = (props) => {
         entry => entry !== ""
       );
     }
-    const characterID = props.match.params.id;
+    const characterID = match.params.id;
 
     let getResult;
     try {
@@ -147,7 +146,8 @@ export const CharacterEdit = (props) => {
         <Panel.Heading className={cssStyles.createCharacterPanelHeaderStyle}>
           <Panel.Title
             className={cssStyles.createCharacterPanelHeaderStyleText}
-          > Character </Panel.Title>
+          > Character
+          </Panel.Title>
         </Panel.Heading>
         <Form horizontal>
           <CharacterEditBasicInfoComponent

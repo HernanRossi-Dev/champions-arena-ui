@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes, { checkPropTypes } from 'prop-types';
 import styled from "styled-components";
-
 import {
-
   ButtonToolbar,
   Col,
   ControlLabel,
