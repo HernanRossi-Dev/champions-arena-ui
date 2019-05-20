@@ -3,8 +3,8 @@ import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { Button } from "react-bootstrap";
 import { withStyles } from '@material-ui/core/styles/index';
-import Character from './characterModel.js';
 import styled from 'styled-components';
+import Character from './characterModel.js';
 import * as cssStyles from "../../../styles/Styles.css";
 
 
@@ -16,7 +16,6 @@ const EditTitleStyle = styled.div`
   text-shadow: 1px 1px 1px #df691a;
   margin-left: 25px;
 `;
-
 
 const GradientHeadingUnder = styled.div`
     background: rgba(225,105,25,1);
@@ -42,7 +41,7 @@ const itemStyle = {
   background: "transparent",
   fontSize: "15px",
   fontFamily: '"Crimson Text", serif'
-}
+};
 
 const styles = {
   root: {
