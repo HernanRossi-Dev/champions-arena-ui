@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { ControlLabel, FormControl, Button } from "react-bootstrap";
@@ -24,46 +24,31 @@ const styles = {
     fontFamily: '"Crimson Text", serif'
   }
 };
-class CreateCharacter20StatsComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      characterStats: {
-        STR: 10,
-        DEX: 10,
-        CON: 10,
-        INT: 10,
-        WIS: 10,
-        CHA: 10
-      },
-      freeAbilityPoints: 0,
-    };
-  }
 
-  componentDidMount() {
-    this.setCharacterStats(this.props);
-  }
+export const CreateCharacter20StatsComponent = (props) => {
+  const {
+    characterStats, freeAbilityPoints, racialBonus, backgroundBoost, classBoost
+  } = props;
+  const [freeAP, setFreeAP] = useState('');
+  const [charStats, setCharStats] = useState('');
 
-  componentWillReceiveProps(props) {
-    this.setCharacterStats(props);
-  }
+  useEffect(() => {
+    setCharStats(characterStats);
+    setFreeAP(freeAbilityPoints);
+  }, [characterStats, freeAbilityPoints]);
 
-  setCharacterStats = (props) => {
-    this.setState({ characterStats: props.characterStats, freeAbilityPoints: props.freeAbilityPoints });
-  }
-
-  ShowRacialBonus = () => {
+  const ShowRacialBonus = () => {
     let freeStateBonus;
-    if (this.props.freeAbilityPoints) {
-      freeStateBonus = `\nFree Ability Boosts available: ${this.state.freeAbilityPoints}`;
+    if (freeAbilityPoints) {
+      freeStateBonus = `\nFree Ability Boosts available: ${freeAP}`;
     }
     let infoString;
     let ancestryString;
     let backgroundString;
     let classString;
 
-    if (this.props.racialBonus) {
-      const rBon = this.props.racialBonus;
+    if (racialBonus) {
+      const rBon = racialBonus;
       Object.keys(rBon).forEach((stat) => {
         if (!infoString) {
           ancestryString = 'Ancestry Boost: ';
@@ -72,77 +57,74 @@ class CreateCharacter20StatsComponent extends React.Component {
         ancestryString += `${stat}: ${rBon[stat]}, `;
       });
     }
-    if (this.props.backgroundBoost) {
-      if (!infoString) {
-        infoString = `Ability Boosts applied to stats:`;
-      } 
-      backgroundString = `Background Boost: ${this.props.backgroundBoost}: 2, `;
-    }
-    if (this.props.classBoost) {
+    if (backgroundBoost) {
       if (!infoString) {
         infoString = `Ability Boosts applied to stats:`;
       }
-      classString = `Class Boost: ${this.props.classBoost}: 2, `;
+      backgroundString = `Background Boost: ${backgroundBoost}: 2, `;
+    }
+    if (classBoost) {
+      if (!infoString) {
+        infoString = `Ability Boosts applied to stats:`;
+      }
+      classString = `Class Boost: ${classBoost}: 2, `;
     }
     return (
       <BoostText>
         <div style={{ wordSpacing: '3px' }}>{infoString}</div>
-        {this.props.racialBonus ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{ancestryString}</div> : null}
-        {this.props.backgroundBoost ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{backgroundString}</div> : null}
-        {this.props.classBoost ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{classString}</div> : null}
+        {racialBonus ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{ancestryString}</div> : null}
+        {backgroundBoost ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{backgroundString}</div> : null}
+        {classBoost ? <div style={{ wordSpacing: '3px' }}>&nbsp;&nbsp;{classString}</div> : null}
         <div style={{ wordSpacing: '3px' }}>{freeStateBonus} <i>assign next step</i></div>
       </BoostText>
     );
   };
 
-  render() {
-
-    return (
-      <div>
-        <StatsHeaderFormGroup />
-        <FormGroup>
-          <Col sm={3} />
-          <Col sm={1}>
-            <FormControl.Static className={cssStyles.genStatsNumberStyle}>
-              {this.state.characterStats.STR}
-            </FormControl.Static>
-          </Col>
-          <Col sm={1}>
-            <FormControl.Static className={cssStyles.genStatsNumberStyle}>
-              {this.state.characterStats.DEX}
-            </FormControl.Static>
-          </Col>
-          <Col sm={1}>
-            <FormControl.Static className={cssStyles.genStatsNumberStyle}>
-              {this.state.characterStats.CON}
-            </FormControl.Static>
-          </Col>
-          <Col sm={1}>
-            <FormControl.Static className={cssStyles.genStatsNumberStyle}>
-              {this.state.characterStats.INT}
-            </FormControl.Static>
-          </Col>
-          <Col sm={1}>
-            <FormControl.Static className={cssStyles.genStatsNumberStyle}>
-              {this.state.characterStats.WIS}
-            </FormControl.Static>
-          </Col>
-          <Col sm={1}>
-            <FormControl.Static className={cssStyles.genStatsNumberStyle}>
-              {this.state.characterStats.CHA}
-            </FormControl.Static>
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col sm={4} />
-          <Col sm={6}>
-            <this.ShowRacialBonus />
-          </Col>
-        </FormGroup>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <StatsHeaderFormGroup />
+      <FormGroup>
+        <Col sm={3} />
+        <Col sm={1}>
+          <FormControl.Static className={cssStyles.genStatsNumberStyle}>
+            {characterStats.STR}
+          </FormControl.Static>
+        </Col>
+        <Col sm={1}>
+          <FormControl.Static className={cssStyles.genStatsNumberStyle}>
+            {characterStats.DEX}
+          </FormControl.Static>
+        </Col>
+        <Col sm={1}>
+          <FormControl.Static className={cssStyles.genStatsNumberStyle}>
+            {characterStats.CON}
+          </FormControl.Static>
+        </Col>
+        <Col sm={1}>
+          <FormControl.Static className={cssStyles.genStatsNumberStyle}>
+            {characterStats.INT}
+          </FormControl.Static>
+        </Col>
+        <Col sm={1}>
+          <FormControl.Static className={cssStyles.genStatsNumberStyle}>
+            {characterStats.WIS}
+          </FormControl.Static>
+        </Col>
+        <Col sm={1}>
+          <FormControl.Static className={cssStyles.genStatsNumberStyle}>
+            {characterStats.CHA}
+          </FormControl.Static>
+        </Col>
+      </FormGroup>
+      <FormGroup>
+        <Col sm={4} />
+        <Col sm={6}>
+          <ShowRacialBonus />
+        </Col>
+      </FormGroup>
+    </div>
+  );
+};
 
 const StatsHeaderFormGroup = () => (
   <FormGroup>
@@ -192,11 +174,26 @@ const StatsHeaderFormGroup = () => (
   </FormGroup>
 );
 
+CreateCharacter20StatsComponent.defaultProps = {
+  racialBonus: null,
+  backgroundBoost: null,
+  freeAbilityPoints: null,
+  classBoost: null,
+};
+
 CreateCharacter20StatsComponent.propTypes = {
   freeAbilityPoints: PropTypes.number,
-  setStateStats: PropTypes.func.isRequired,
-  racialBonus: PropTypes.object,
-  backgroundBoost: PropTypes.string,
+  classBoost: PropTypes.number,
+  characterStats: PropTypes.shape({
+    STR: PropTypes.number,
+    DEX: PropTypes.number,
+    CON: PropTypes.number,
+    INT: PropTypes.number,
+    WIS: PropTypes.number,
+    CHA: PropTypes.number,
+  }).isRequired,
+  racialBonus: PropTypes.number,
+  backgroundBoost: PropTypes.number,
 };
 
 export default withStyles(styles)(CreateCharacter20StatsComponent);
