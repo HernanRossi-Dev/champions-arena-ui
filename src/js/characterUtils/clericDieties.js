@@ -1,5 +1,5 @@
 export default function ClericDieties(deity) {
-  const deities =  {
+  const deities = {
     Abadar: {
       Name: "Abadar",
       AoC: ['Cities', "Law", "Merchants", "Wealth"],

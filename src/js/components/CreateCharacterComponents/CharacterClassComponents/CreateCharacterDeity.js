@@ -240,5 +240,5 @@ export default class CreateCharacterDeity extends React.Component {
 }
 
 CreateCharacterDeity.propTypes = {
-    setDeity: PropTypes.func.isRequired,
+  setDeity: PropTypes.func.isRequired,
 };

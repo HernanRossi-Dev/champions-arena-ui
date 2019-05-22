@@ -236,7 +236,8 @@ export const CharacterEdit = (props) => {
 
 CharacterEdit.propTypes = {
   params: PropTypes.object,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  match: PropTypes.object
 };
 
 export default withRouter(withStyles(styles)(CharacterEdit));

@@ -83,7 +83,6 @@ class CreateCharacterComponent extends React.Component {
       hitPoints: 0,
       racialBonus: {},
       allowedAlignments: ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"],
-      alignRenderKey: Math.random(),
       numberOfInvalidFields: 0,
       invalidFields: [""],
       showToast: false,
@@ -102,7 +101,7 @@ class CreateCharacterComponent extends React.Component {
   }
 
   componentDidMount() {
-    axios.defaults.headers.common['authorization'] = this.props.Auth;
+    axios.defaults.headers.common.authorization = this.props.Auth;
     if (store.getState().userReducer.currentUser.isGuest) {
       const characterCount = store.getState().characterReducer.numberOfCharacters;
       if (characterCount > 10) {
@@ -130,6 +129,7 @@ class CreateCharacterComponent extends React.Component {
   setName = (newName) => {
     this.setState({ name: newName });
   }
+
   setType = (newType) => {
     this.setState({ type: newType });
   }
@@ -160,7 +160,7 @@ class CreateCharacterComponent extends React.Component {
       stride: '',
       melee: [],
       ranged: []
-    },
+    };
     newCharacter.modifiers = {
       CHA: '+0',
       CON: '+0',
@@ -286,7 +286,6 @@ class CreateCharacterComponent extends React.Component {
     this.setState({
       class: classProps.class,
       alignment: "",
-      alignRenderKey: Math.random(),
       classProps,
       characterStats: classBoost,
       classAbilityBoost: newClassBoost
@@ -576,7 +575,7 @@ class CreateCharacterComponent extends React.Component {
             <CreateCharacterAlignmentComponent
               updateAlignment={this.setAlignment}
               allowedAlignments={this.state.allowedAlignments}
-              renderKey={this.state.alignRenderKey}
+              charClass={this.state.class}
             />
             <hr className={cssStyles.hr} />
             <FormGroup className={cssStyles.createColStyle}>
