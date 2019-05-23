@@ -1,9 +1,9 @@
 const merge = require("webpack-merge");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const common = require("./webpack.common.js");
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const MinifyPlugin = require("babel-minify-webpack-plugin");
+const common = require("./webpack.common.js");
 
 
 module.exports = merge(common, {
