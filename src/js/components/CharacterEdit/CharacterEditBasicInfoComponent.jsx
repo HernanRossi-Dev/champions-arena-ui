@@ -2,7 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
-import Character from "./characterModel.js";
+import PropTypes from 'prop-types';
 import { styles } from './styles/EditBasicStyles';
 
 export const CharacterEditBasicInfoComponent = (props) => {
@@ -19,14 +19,14 @@ export const CharacterEditBasicInfoComponent = (props) => {
 
   const handleUpdate = (event, type) => {
     saveCaretPosition(event);
-    const updateChar = props.editCharacter;
+    const updateChar = editCharacter;
     updateChar[type] = event.target.value;
     updateCharacter(updateChar);
   };
 
   const changeLanguages = (event) => {
     saveCaretPosition(event);
-    const updateChar = props.editCharacter;
+    const updateChar = editCharacter;
     updateChar.ancestryProps.languages = event.target.value;
     updateCharacter(updateChar);
   };
@@ -272,6 +272,12 @@ export const CharacterEditBasicInfoComponent = (props) => {
       </Grid>
     </div>
   );
+};
+
+CharacterEditBasicInfoComponent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  editCharacter: PropTypes.object.isRequired,
+  updateCharacter: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(CharacterEditBasicInfoComponent);
