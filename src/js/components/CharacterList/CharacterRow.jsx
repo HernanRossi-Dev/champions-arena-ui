@@ -6,6 +6,10 @@ import * as cssStyles from "../../../styles/Styles.css";
 
 export const CharacterRow = (props) => {
   const { character } = props;
+  if (!character) {
+    return null;
+  }
+  console.log("CHARACTER: ", character);
   const [show, setShow] = useState(false);
 
   const acceptChanges = () => {
@@ -16,23 +20,23 @@ export const CharacterRow = (props) => {
   const characteraID = character._id;
   return (
     <tr>
-      <td>{character.type}</td>
+      <td>{character.basics.type}</td>
       <td>
         <Link to={`/characters/${characteraID}`}>
-          {character.name}
+          {character.basics.name}
         </Link>
       </td>
-      <td>{character.class}</td>
-      <td>{character.ancestry}</td>
-      <td>{character.level}</td>
-      <td>{character.XP}</td>
-      <td>{character.hitPoints}</td>
-      <td>{character.STR}</td>
-      <td>{character.DEX}</td>
-      <td>{character.CON}</td>
-      <td>{character.INT}</td>
-      <td>{character.WIS}</td>
-      <td>{character.CHA}</td>
+      <td>{character.classProps.class}</td>
+      <td>{character.ancestryProps.ancestry}</td>
+      <td>{character.basics.LVL}</td>
+      <td>{character.basics.XP}</td>
+      <td>{character.mainStats.HP}</td>
+      <td>{character.mainStats.STR}</td>
+      <td>{character.mainStats.DEX}</td>
+      <td>{character.mainStats.CON}</td>
+      <td>{character.mainStats.INT}</td>
+      <td>{character.mainStats.WIS}</td>
+      <td>{character.mainStats.CHA}</td>
       <td>
         <Button type="button" bsClass={cssStyles.deleteButton} onClick={() => setShow(true)}>
           <i className="fas fa-times-circle fa-lg" />

@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from '@material-ui/core/Grid';
+import { set } from 'lodash';
 import { withStyles } from "@material-ui/core/styles/index";
 import Divider from '@material-ui/core/Divider';
 import Character from './characterModel.js';
@@ -23,17 +24,10 @@ export const CharacterEditStatsComponent = (props) => {
     });
   };
 
-  const updateBaseStat = (event, type) => {
+  const updateStat = (event, type) => {
     saveCaretPosition(event);
     const updateChar = editCharacter;
-    updateChar[type] = event.target.value;
-    updateCharacter(updateChar);
-  };
-
-  const updateModifierStat = (event, type) => {
-    saveCaretPosition(event);
-    const updateChar = editCharacter;
-    updateChar.modifiers[type] = event.target.value;
+    set(updateChar, type, event.target.value);
     updateCharacter(updateChar);
   };
 
@@ -55,14 +49,14 @@ export const CharacterEditStatsComponent = (props) => {
                   </Grid>
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
-                      onChange={e => updateBaseStat(e, 'STR')}
+                      onChange={e => updateStat(e, 'mainStats.STR')}
                       id="STR"
-                      value={editCharacter.STR}
+                      value={editCharacter.mainStats.STR}
                       {...mainStatProps}
                       {...additionalPropsMain}
                     />
                     <TextField
-                      onChange={e => updateModifierStat(e, 'STR')}
+                      onChange={e => updateStat(e, 'modifiers.STR')}
                       id="STRMod"
                       value={
                         editCharacter.modifiers.STR
@@ -81,16 +75,16 @@ export const CharacterEditStatsComponent = (props) => {
                   </Grid>
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
-                      onChange={e => updateBaseStat(e, 'DEX')}
+                      onChange={e => updateStat(e, 'mainStats.DEX')}
                       id="DEX"
                       value={
-                        editCharacter.DEX
+                        editCharacter.mainStats.DEX
                       }
                       {...mainStatProps}
                       {...additionalPropsMain}
                     />
                     <TextField
-                      onChange={e => updateModifierStat(e, 'DEX')}                        
+                      onChange={e => updateStat(e, 'modifiers.DEX')}
                       id="DEXMod"
                       value={
                         editCharacter.modifiers.DEX
@@ -109,16 +103,16 @@ export const CharacterEditStatsComponent = (props) => {
                   </Grid>
                   <Grid item xs={8}>
                     <TextField
-                      onChange={e => updateBaseStat(e, 'CON')}
+                      onChange={e => updateStat(e, 'mainStats.CON')}
                       id="CON"
                       value={
-                        editCharacter.CON
+                        editCharacter.mainStats.CON
                       }
                       {...mainStatProps}
                       {...additionalPropsMain}
                     />
                     <TextField
-                      onChange={e => updateModifierStat(e, 'CON')}                        
+                      onChange={e => updateStat(e, 'modifiers.CON')}
                       id="CONMod"
                       value={
                         editCharacter.modifiers.CON
@@ -140,16 +134,16 @@ export const CharacterEditStatsComponent = (props) => {
                   </Grid>
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
-                      onChange={e => updateBaseStat(e, 'INT')}
+                      onChange={e => updateStat(e, 'mainStats.INT')}
                       id="INT"
                       value={
-                        editCharacter.INT
+                        editCharacter.mainStats.INT
                       }
                       {...mainStatProps}
                       {...additionalPropsMain}
                     />
                     <TextField
-                      onChange={e => updateModifierStat(e, 'INT')}                        
+                      onChange={e => updateStat(e, 'modifiers.INT')}
                       id="INTMod"
                       value={
                         editCharacter.modifiers.INT
@@ -168,16 +162,16 @@ export const CharacterEditStatsComponent = (props) => {
                   </Grid>
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
-                      onChange={e => updateBaseStat(e, 'WIS')}
+                      onChange={e => updateStat(e, 'mainStats.WIS')}
                       id="WIS"
                       value={
-                        editCharacter.WIS
+                        editCharacter.mainStats.WIS
                       }
                       {...mainStatProps}
                       {...additionalPropsMain}
                     />
                     <TextField
-                      onChange={e => updateModifierStat(e, 'WIS')}                        
+                      onChange={e => updateStat(e, 'modifiers.WIS')}
                       id="WISMod"
                       value={
                         editCharacter.modifiers.WIS
@@ -196,16 +190,16 @@ export const CharacterEditStatsComponent = (props) => {
                   </Grid>
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
-                      onChange={e => updateBaseStat(e, 'CHA')}
+                      onChange={e => updateStat(e, 'mainStats.CHA')}
                       id="CHA"
                       value={
-                        editCharacter.CHA
+                        editCharacter.mainStats.CHA
                       }
                       {...mainStatProps}
                       {...additionalPropsMain}
                     />
                     <TextField
-                      onChange={e => updateModifierStat(e, 'CHA')}
+                      onChange={e => updateStat(e, 'modifiers.CHA')}
                       id="CHAMod"
                       value={
                         editCharacter.modifiers.CHA
@@ -224,10 +218,10 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefName>Hit Points</DefName>
                 <DefenseStatBack>
                   <TextField
-                    onChange={e => updateBaseStat(e, 'hitPoints')}
+                    onChange={e => updateStat(e, 'mainStats.HP')}
                     id="HP"
                     value={
-                      editCharacter.hitPoints
+                      editCharacter.mainStats.HP
                     }
                     {...additionalTopStatProps}
                     {...additionalPropsModTop}
@@ -238,10 +232,10 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefName>Armor Class</DefName>
                 <DefenseStatBack>
                   <TextField
-                    onChange={e => updateBaseStat(e, 'AC')}
+                    onChange={e => updateStat(e, 'mainStats.AC')}
                     id="AC"
                     value={
-                      editCharacter.AC
+                      editCharacter.mainStats.AC
                     }
                     {...additionalTopStatProps}
                     {...additionalPropsModTop}
@@ -252,10 +246,10 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefName>Touch AC</DefName>
                 <DefenseStatBack>
                   <TextField
-                    onChange={e => updateBaseStat(e, 'TOUCHAC')}
+                    onChange={e => updateStat(e, 'mainStats.TOUCHAC')}
                     id="TOUCHAC"
                     value={
-                      editCharacter.TOUCHAC
+                      editCharacter.mainStats.TOUCHAC
                     }
                     {...additionalTopStatProps}
                     {...additionalPropsModTop}
@@ -268,7 +262,7 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefName>Fortitude</DefName>
                 <i className="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}>
                   <TextField
-                    onChange={e => updateModifierStat(e, 'FORT')}
+                    onChange={e => updateStat(e, 'modifiers.FORT')}
                     id="FORT"
                     value={
                       editCharacter.modifiers.FORT
@@ -282,7 +276,7 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefName>Reflex</DefName>
                 <i className="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}>
                   <TextField
-                    onChange={e => updateModifierStat(e, 'REFLEX')}                    
+                    onChange={e => updateStat(e, 'modifiers.REFLEX')}
                     id="REFLEX"
                     value={
                       editCharacter.modifiers.REFLEX
@@ -296,7 +290,7 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefName>Will</DefName>
                 <i className="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}>
                   <TextField
-                    onChange={e => updateModifierStat(e, 'WILL')}
+                    onChange={e => updateStat(e, 'modifiers.WILL')}
                     id="WILL"
                     value={
                       editCharacter.modifiers.WILL
@@ -316,7 +310,7 @@ export const CharacterEditStatsComponent = (props) => {
               <TextField
                 autoComplete="nope"
                 htmlFor="custom-css-standard-input"
-                onChange={e => updateModifierStat(e, 'PER')}
+                onChange={e => updateStat(e, 'modifiers.PER')}
                 id="PER"
                 value={
                   editCharacter.modifiers.PER

@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import Character from './characterModel.js';
 import * as cssStyles from '../../../styles/Styles.css';
-import { EditTitleStyle, GradientHeadingUnder, styles, getInputProps } from './styles/EditActionsStyles';
+import {
+  EditTitleStyle, GradientHeadingUnder, styles, getInputProps
+} from './styles/EditActionsStyles';
 
 export const CharacterEditActionsComponent = (props) => {
   const { classes, editCharacter, updateCharacter } = props;
