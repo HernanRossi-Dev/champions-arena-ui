@@ -2,12 +2,11 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import Character from './characterModel.js';
 import * as cssStyles from '../../../styles/Styles.css';
-import {
-  EditTitleStyle, GradientHeadingUnder, styles, getInputProps
-} from './styles/EditActionsStyles';
+import { EditTitleStyle, GradientHeadingUnder, styles, getInputProps } from './styles/EditActionsStyles';
 
 export const CharacterEditActionsComponent = (props) => {
   const { classes, editCharacter, updateCharacter } = props;
@@ -158,6 +157,12 @@ export const CharacterEditActionsComponent = (props) => {
 
 CharacterEditActionsComponent.defaultProps = {
   editCharacter: new Character(),
+};
+
+CharacterEditActionsComponent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  editCharacter: PropTypes.object,
+  updateCharacter: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(CharacterEditActionsComponent);
