@@ -154,10 +154,9 @@ export const logoutGuestUser = (userName) => {
     response = await fetch(`/api/users/${userName}`, payload);
     if (!response.ok) {
       console.error("Failed to delete user");
-    } else {
-      dispatch({
-        type: types.USER_LOGOUT_SUCCESS,
-      });
     }
+    dispatch({
+      type: types.USER_LOGOUT_SUCCESS,
+    });
   };
 };
