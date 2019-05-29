@@ -162,7 +162,6 @@ class CreateCharacterComponent extends React.Component {
       status_code: 200,
       status: 'OK',
     };
-    console.log('Save payload: ', newCharacter);
     try {
       postResult = await axios.post(`/api/characters`, newCharacter);
       if (!postResult) {

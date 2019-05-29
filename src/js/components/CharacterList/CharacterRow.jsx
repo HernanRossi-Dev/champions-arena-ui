@@ -6,10 +6,6 @@ import * as cssStyles from "../../../styles/Styles.css";
 
 export const CharacterRow = (props) => {
   const { character } = props;
-  if (!character) {
-    return null;
-  }
-  console.log("CHARACTER: ", character);
   const [show, setShow] = useState(false);
 
   const acceptChanges = () => {
