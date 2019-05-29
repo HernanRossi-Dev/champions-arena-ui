@@ -16,7 +16,7 @@
     "react-mocha-enzyme-win10": "SET NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --require ignore-styles 'src/**/*.test.js'"
   },
   "engines": {
-    "node": "10.xx.x"
+    "node": "8.x.x"
   },
   "author": "Hernan Rossi",
   "license": "ISC",
