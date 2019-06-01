@@ -1,4 +1,4 @@
-Run locally using dev biuld without compression (Build much faster): 
+Run locally using dev build without compression (Build much faster): 
   run: npm i
     start server in a terminal: npm run start-dev
     build app in different terminal: npm run build-dev
