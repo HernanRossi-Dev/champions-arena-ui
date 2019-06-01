@@ -224,9 +224,10 @@ class CreateCharacterComponent extends React.Component {
   }
 
   setClass = (classProps) => {
+    const { characterStats, classAbilityBoost } = this.state;
     const newClassBoost = classProps.keyAbility;
-    let classBoost = this.state.characterStats;
-    const prevClassBoost = this.state.classAbilityBoost;
+    const classBoost = characterStats;
+    const prevClassBoost = classAbilityBoost;
     if (prevClassBoost) {
       classBoost[prevClassBoost] -= 2;
     }

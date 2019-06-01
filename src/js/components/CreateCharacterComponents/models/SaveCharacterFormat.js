@@ -8,7 +8,7 @@ const SaveCharacterFormat = (state, abStats, userName) => {
   const basics = {
     name: state.name,
     deity: state.deity,
-    level: 1,
+    LVL: 1,
     XP: 0,
     abilityBoost: 0,
     alignment: state.alignment,

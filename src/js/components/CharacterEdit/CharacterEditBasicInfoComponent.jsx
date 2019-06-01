@@ -20,7 +20,11 @@ export const CharacterEditBasicInfoComponent = (props) => {
   const handleUpdate = (event, type) => {
     saveCaretPosition(event);
     const updateChar = props.editCharacter;
-    set(updateChar, type, event.target.value);
+    let { value } = event.target;
+    if (type === 'basics.LVL') {
+      value = parseInt(value, 10);
+    }
+    set(updateChar, type, value);
     updateCharacter(updateChar);
   };
 

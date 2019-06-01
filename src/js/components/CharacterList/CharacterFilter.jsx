@@ -40,7 +40,7 @@ export const CharacterFilter = (props) => {
     const newInitFilter = createInitFilter(initFilter);
     setClass(newInitFilter.class);
     setAncestry(newInitFilter.ancestry);
-    setLevelGTE(newInitFilter.levelString);
+    setLevelGTE(newInitFilter.level_gte);
     setLevelLTE(newInitFilter.level_lte);
     setChanged(false);
   }, [
@@ -177,7 +177,7 @@ export const CharacterFilter = (props) => {
             </Col>
             <Col>
               <FormGroup>
-                <ButtonToolbar>
+                <ButtonToolbar style={{ marginTop: '25px' }}>
                   <Button bsStyle="primary" onClick={applyFilter}>Apply</Button>
                   <Button onClick={resetFilter} disabled={!changed}>Reset</Button>
                   <Button onClick={clearFilter}>Clear</Button>
