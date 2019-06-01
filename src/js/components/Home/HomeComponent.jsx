@@ -22,7 +22,7 @@ export const HomeComponent = (props) => {
         Click on a characters name to see more detailed attributes and edit them.<br />
         Let me know if you have any ideas how the site could be improved
          at hrossi.work@gmail.com.<br />
-         v 2.0.3
+         v 2.0.4
       </div>
       <div className={cssStyles.homeImageDiv}>
         <img
