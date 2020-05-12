@@ -20,13 +20,14 @@ export const createRegisteredUser = (newRegisteredUser) => {
     const token = JSON.parse(data.body);
     const { token_type: tType, access_token: aToken } = token;
     const tokenString = `${tType} ${aToken}`;
-    const usersUrl = `${config.apiUrl}/api/users`;
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', authorization: tokenString },
       body: JSON.stringify(newRegisteredUser)
     };
+    
+    const usersUrl = `${config.apiUrl}/api/users`;
     response = await axios(usersUrl, options);
     if (response.ok) {
       const newUser = await response.json();
@@ -92,8 +93,8 @@ export const fetchRegisteredUser = (filter = '', queryCallBack) => {
       headers: { authorization: tokenString }
     };
 
-    const usersUrl = `${config.apiUrl}/api/authenticate${filter}`;
-    response = await axios(usersUrl,options);
+    const usersUrl = `${config.apiUrl}/api/users${filter}`;
+    response = await axios(usersUrl, options);
     if (response.ok) {
       data = await response.json();
       if (data.users && data.users.length === 1) {
