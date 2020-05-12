@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   withRouter
-} from "react-router-dom";
-import PropTypes from "prop-types";
-import axios from "axios";
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import {
   withStyles
-} from "@material-ui/core/styles";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
+} from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import {
   Button,
@@ -18,24 +18,24 @@ import {
   FormGroup,
   Panel,
   Modal
-} from "react-bootstrap";
+} from 'react-bootstrap';
 import {
   LinkContainer
-} from "react-router-bootstrap";
-import { cloneDeep } from "lodash";
-import Character from "./characterModel.js";
-import * as cssStyles from "../../../styles/Styles.css";
-import CharacterEditBasicInfoComponent from "./CharacterEditBasicInfoComponent.jsx";
-import CharacterEditStatsComponent from "./CharacterEditStatsComponent.jsx";
-import CharacterEditActionsComponent from "./CharacterEditActionsComponent";
-import store from "../../store/index.js";
+} from 'react-router-bootstrap';
+import { cloneDeep } from 'lodash';
+import Character from './characterModel.js';
+import * as cssStyles from '../../../styles/Styles.css';
+import CharacterEditBasicInfoComponent from './CharacterEditBasicInfoComponent.jsx';
+import CharacterEditStatsComponent from './CharacterEditStatsComponent.jsx';
+import CharacterEditActionsComponent from './CharacterEditActionsComponent';
+import store from '../../store/index.js';
 
 const styles = theme => ({
   close: {
     padding: theme.spacing.unit / 2
   },
   success: {
-    backgroundColor: "#34AA31"
+    backgroundColor: '#34AA31'
   }
 });
 
@@ -44,7 +44,7 @@ export const CharacterEdit = (props) => {
   const [editCharacter, setEditCharacter] = useState(new Character());
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
+  const [toastMessage, setToastMessage] = useState('');
 
   const showToast = (message) => {
     setOpen(true);
@@ -52,11 +52,11 @@ export const CharacterEdit = (props) => {
   };
 
   const handleCloseToast = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
-    setToastMessage("");
+    setToastMessage('');
   };
 
   const loadCharacter = async () => {
@@ -71,7 +71,7 @@ export const CharacterEdit = (props) => {
         return null;
       }
     } catch (err) {
-      showToast("Error fetching character.");
+      showToast('Error fetching character.');
       return null;
     }
     const {
@@ -109,7 +109,7 @@ export const CharacterEdit = (props) => {
     }
     if (updatedCharacter.actions.melee) {
       updatedCharacter.actions.melee = updatedCharacter.actions.melee.filter(
-        entry => entry !== ""
+        entry => entry !== ''
       );
     }
     const characterID = match.params.id;
@@ -124,10 +124,10 @@ export const CharacterEdit = (props) => {
         return null;
       }
     } catch (err) {
-      showToast("Error updating character.");
+      showToast('Error updating character.');
       return null;
     }
-    showToast("Character saved.");
+    showToast('Character saved.');
     return null;
   };
 
@@ -173,12 +173,12 @@ export const CharacterEdit = (props) => {
             <Col sm={8} />
             <Col sm={4}>
               <ButtonToolbar>
-                <LinkContainer to="/characters">
-                  <Button bsStyle="link" onClick={discardChanges}>
+                <LinkContainer to='/characters'>
+                  <Button bsStyle='link' onClick={discardChanges}>
                     Back (Discard Unsaved Changes)
                   </Button>
                 </LinkContainer>
-                <Button bsStyle="primary" onClick={handleShow}>
+                <Button bsStyle='primary' onClick={handleShow}>
                   Save Changes
                 </Button>
               </ButtonToolbar>
@@ -217,12 +217,12 @@ export const CharacterEdit = (props) => {
             root: classes.success
           }
         }}
-        message={<span id="message-id" style={{ fontSize: 14 }}>{toastMessage}</span>}
+        message={<span id='message-id' style={{ fontSize: 14 }}>{toastMessage}</span>}
         action={[
           <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
+            key='close'
+            aria-label='Close'
+            color='inherit'
             className={classes.close}
             onClick={handleCloseToast}
           >

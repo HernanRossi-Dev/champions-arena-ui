@@ -1,12 +1,9 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { Button } from "react-bootstrap";
 import { withStyles } from '@material-ui/core/styles/index';
 import styled from 'styled-components';
 import Character from './characterModel.js';
-import * as cssStyles from "../../../styles/Styles.css";
-
 
 const EditTitleStyle = styled.div`
   font-size: 38px;
@@ -38,9 +35,9 @@ const GradientHeadingUnder = styled.div`
 `;
 
 const itemStyle = {
-  background: "transparent",
-  fontSize: "15px",
-  fontFamily: '"Crimson Text", serif'
+  background: 'transparent',
+  fontSize: '15px',
+  fontFamily: `'Crimson Text', serif`
 };
 
 const styles = {
@@ -51,36 +48,36 @@ const styles = {
     color: '#ffffff',
     fontSize: 22,
     fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
+    fontFamily: `'ZCOOL XiaoWei', serif`
   },
   inputName: {
     color: '#ffffff',
     fontSize: 30,
     fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
+    fontFamily: `'ZCOOL XiaoWei', serif`
   },
   inputStride: {
     color: '#ffffff',
     fontSize: 30,
     fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
+    fontFamily: `'ZCOOL XiaoWei', serif`
   },
   inputMelee: {
     color: '#ffffff',
     fontSize: 18,
     fontColor: '#ffffff',
-    fontFamily: "'ZCOOL XiaoWei', serif"
+    fontFamily: `'ZCOOL XiaoWei', serif`
   },
   helperText: {
     // color: '#E9CB9A',
     color: '#ffffff',
     fontSize: 12,
     fontColor: '#ffffff',
-    fontFamily: "'Cinzel Decorative', sans-serif",
+    fontFamily: `'Cinzel Decorative', sans-serif`,
     textShadow: '1px 1px 1px #E9CB9A',
   },
   selectEmpty: {
-    color: "white",
+    color: 'white',
     width: '125px',
     paddingTop: '5px',
     fontSize: '19px',
@@ -157,8 +154,8 @@ class CharacterOptions extends React.Component {
       <TextField
         onChange={(e) => this.changeMelee(e, index)}
         id={`melee-${index}`}
-        helperText="Melee Strike"
-        htmlFor="custom-css-standard-input"
+        helperText='Melee Strike'
+        htmlFor='custom-css-standard-input'
         value={entry}
         InputProps={{
           classes: {
@@ -181,8 +178,8 @@ class CharacterOptions extends React.Component {
     const { classes } = this.props;
     return (
       <div >
-        <Grid container spacing={16} justify="flex-start">
-          <Grid container spacing={16} justify="flex-start">
+        <Grid container spacing={16} justify='flex-start'>
+          <Grid container spacing={16} justify='flex-start'>
             <Grid item xs={1}></Grid>
             <Grid item xs={3} >
               <EditTitleStyle>Options</EditTitleStyle>
@@ -191,9 +188,9 @@ class CharacterOptions extends React.Component {
             <Grid item xs={2}>
               <TextField
                 onChange={this.changeStride}
-                id="Stride"
-                helperText="Stride"
-                htmlFor="custom-css-standard-input"
+                id='Stride'
+                helperText='Stride'
+                htmlFor='custom-css-standard-input'
                 value={this.props.editCharacter.actions.stride}
                 InputProps={{
                   classes: {

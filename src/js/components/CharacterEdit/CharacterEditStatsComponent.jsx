@@ -1,8 +1,8 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { set } from 'lodash';
-import { withStyles } from "@material-ui/core/styles/index";
+import { withStyles } from '@material-ui/core/styles/index';
 import Divider from '@material-ui/core/Divider';
 import Character from './characterModel.js';
 import {
@@ -38,7 +38,7 @@ export const CharacterEditStatsComponent = (props) => {
   return (
     <ContainerStyle>
       <div style={{ marginLeft: '8%', marginRight: '8%' }}>
-        <Grid container xs={12} direction="row" justify="center" spacing={32}>
+        <Grid container xs={12} direction='row' justify='center' spacing={32}>
           <Grid container xs={6}>
             <Grid container xs={12}>
               <Grid item xs={4} style={itemStyle}>
@@ -50,14 +50,14 @@ export const CharacterEditStatsComponent = (props) => {
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
                       onChange={e => updateStat(e, 'mainStats.STR')}
-                      id="STR"
+                      id='STR'
                       value={editCharacter.mainStats.STR}
                       {...mainStatProps}
                       {...additionalPropsMain}
                     />
                     <TextField
                       onChange={e => updateStat(e, 'modifiers.STR')}
-                      id="STRMod"
+                      id='STRMod'
                       value={
                         editCharacter.modifiers.STR
                       }
@@ -76,7 +76,7 @@ export const CharacterEditStatsComponent = (props) => {
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
                       onChange={e => updateStat(e, 'mainStats.DEX')}
-                      id="DEX"
+                      id='DEX'
                       value={
                         editCharacter.mainStats.DEX
                       }
@@ -85,7 +85,7 @@ export const CharacterEditStatsComponent = (props) => {
                     />
                     <TextField
                       onChange={e => updateStat(e, 'modifiers.DEX')}
-                      id="DEXMod"
+                      id='DEXMod'
                       value={
                         editCharacter.modifiers.DEX
                       }
@@ -96,7 +96,7 @@ export const CharacterEditStatsComponent = (props) => {
                 </Grid>
               </Grid>
               <Grid item xs={4} style={itemStyle}>
-                <Grid container justify="center" xs={12}>
+                <Grid container justify='center' xs={12}>
                   <Grid item xs={4}>
                     <StatName>Constitution</StatName>
                     <StatLabel>CON</StatLabel>
@@ -104,7 +104,7 @@ export const CharacterEditStatsComponent = (props) => {
                   <Grid item xs={8}>
                     <TextField
                       onChange={e => updateStat(e, 'mainStats.CON')}
-                      id="CON"
+                      id='CON'
                       value={
                         editCharacter.mainStats.CON
                       }
@@ -113,7 +113,7 @@ export const CharacterEditStatsComponent = (props) => {
                     />
                     <TextField
                       onChange={e => updateStat(e, 'modifiers.CON')}
-                      id="CONMod"
+                      id='CONMod'
                       value={
                         editCharacter.modifiers.CON
                       }
@@ -125,9 +125,9 @@ export const CharacterEditStatsComponent = (props) => {
               </Grid>
             </Grid>
             <Divider className={classes.divider} />
-            <Grid container justify="center" xs={12}>
+            <Grid container justify='center' xs={12}>
               <Grid item xs={4} style={itemStyle}>
-                <Grid container justify="center" xs={12}>
+                <Grid container justify='center' xs={12}>
                   <Grid item xs={4} style={itemStyle}>
                     <StatName>Intelligence</StatName>
                     <StatLabel>INT</StatLabel>
@@ -135,7 +135,7 @@ export const CharacterEditStatsComponent = (props) => {
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
                       onChange={e => updateStat(e, 'mainStats.INT')}
-                      id="INT"
+                      id='INT'
                       value={
                         editCharacter.mainStats.INT
                       }
@@ -144,7 +144,7 @@ export const CharacterEditStatsComponent = (props) => {
                     />
                     <TextField
                       onChange={e => updateStat(e, 'modifiers.INT')}
-                      id="INTMod"
+                      id='INTMod'
                       value={
                         editCharacter.modifiers.INT
                       }
@@ -155,7 +155,7 @@ export const CharacterEditStatsComponent = (props) => {
                 </Grid>
               </Grid>
               <Grid item xs={4} style={itemStyle}>
-                <Grid container justify="center" xs={12}>
+                <Grid container justify='center' xs={12}>
                   <Grid item xs={4} style={itemStyle}>
                     <StatName>Wisdom</StatName>
                     <StatLabel>WIS</StatLabel>
@@ -163,7 +163,7 @@ export const CharacterEditStatsComponent = (props) => {
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
                       onChange={e => updateStat(e, 'mainStats.WIS')}
-                      id="WIS"
+                      id='WIS'
                       value={
                         editCharacter.mainStats.WIS
                       }
@@ -172,7 +172,7 @@ export const CharacterEditStatsComponent = (props) => {
                     />
                     <TextField
                       onChange={e => updateStat(e, 'modifiers.WIS')}
-                      id="WISMod"
+                      id='WISMod'
                       value={
                         editCharacter.modifiers.WIS
                       }
@@ -183,7 +183,7 @@ export const CharacterEditStatsComponent = (props) => {
                 </Grid>
               </Grid>
               <Grid item xs={4} style={itemStyle}>
-                <Grid container justify="center" xs={12}>
+                <Grid container justify='center' xs={12}>
                   <Grid item xs={4}>
                     <StatName>Charisma</StatName>
                     <StatLabel>CHA</StatLabel>
@@ -191,7 +191,7 @@ export const CharacterEditStatsComponent = (props) => {
                   <Grid item xs={8} style={itemStyle}>
                     <TextField
                       onChange={e => updateStat(e, 'mainStats.CHA')}
-                      id="CHA"
+                      id='CHA'
                       value={
                         editCharacter.mainStats.CHA
                       }
@@ -200,7 +200,7 @@ export const CharacterEditStatsComponent = (props) => {
                     />
                     <TextField
                       onChange={e => updateStat(e, 'modifiers.CHA')}
-                      id="CHAMod"
+                      id='CHAMod'
                       value={
                         editCharacter.modifiers.CHA
                       }
@@ -212,14 +212,14 @@ export const CharacterEditStatsComponent = (props) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container justify="space-evenly" direction="row" xs={6}>
-            <Grid container justify="space-evenly">
+          <Grid container justify='space-evenly' direction='row' xs={6}>
+            <Grid container justify='space-evenly'>
               <Grid item xs={2}>
                 <DefName>Hit Points</DefName>
                 <DefenseStatBack>
                   <TextField
                     onChange={e => updateStat(e, 'mainStats.HP')}
-                    id="HP"
+                    id='HP'
                     value={
                       editCharacter.mainStats.HP
                     }
@@ -233,7 +233,7 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefenseStatBack>
                   <TextField
                     onChange={e => updateStat(e, 'mainStats.AC')}
-                    id="AC"
+                    id='AC'
                     value={
                       editCharacter.mainStats.AC
                     }
@@ -247,7 +247,7 @@ export const CharacterEditStatsComponent = (props) => {
                 <DefenseStatBack>
                   <TextField
                     onChange={e => updateStat(e, 'mainStats.TOUCHAC')}
-                    id="TOUCHAC"
+                    id='TOUCHAC'
                     value={
                       editCharacter.mainStats.TOUCHAC
                     }
@@ -257,13 +257,13 @@ export const CharacterEditStatsComponent = (props) => {
                 </DefenseStatBack>
               </Grid>
             </Grid>
-            <Grid container justify="space-evenly">
+            <Grid container justify='space-evenly'>
               <Grid item xs={2} style={itemStyle}>
                 <DefName>Fortitude</DefName>
-                <i className="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}>
+                <i className='fas fa-dice-d20' style={{ marginLeft: '20px', marginTop: '10px' }}>
                   <TextField
                     onChange={e => updateStat(e, 'modifiers.FORT')}
-                    id="FORT"
+                    id='FORT'
                     value={
                       editCharacter.modifiers.FORT
                     }
@@ -274,10 +274,10 @@ export const CharacterEditStatsComponent = (props) => {
               </Grid>
               <Grid item xs={2} style={itemStyle}>
                 <DefName>Reflex</DefName>
-                <i className="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}>
+                <i className='fas fa-dice-d20' style={{ marginLeft: '20px', marginTop: '10px' }}>
                   <TextField
                     onChange={e => updateStat(e, 'modifiers.REFLEX')}
-                    id="REFLEX"
+                    id='REFLEX'
                     value={
                       editCharacter.modifiers.REFLEX
                     }
@@ -288,10 +288,10 @@ export const CharacterEditStatsComponent = (props) => {
               </Grid>
               <Grid item xs={2} style={itemStyle}>
                 <DefName>Will</DefName>
-                <i className="fas fa-dice-d20" style={{ marginLeft: '20px', marginTop: '10px' }}>
+                <i className='fas fa-dice-d20' style={{ marginLeft: '20px', marginTop: '10px' }}>
                   <TextField
                     onChange={e => updateStat(e, 'modifiers.WILL')}
-                    id="WILL"
+                    id='WILL'
                     value={
                       editCharacter.modifiers.WILL
                     }
@@ -303,15 +303,15 @@ export const CharacterEditStatsComponent = (props) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container xs={12} justify="center" spacing={24}>
+        <Grid container xs={12} justify='center' spacing={24}>
           <Grid item xs={4}>
             <PerName>Perception </PerName>
-            <i className="fas fa-dice-d20" style={{ marginLeft: '10px', marginTop: '20px' }}>
+            <i className='fas fa-dice-d20' style={{ marginLeft: '10px', marginTop: '20px' }}>
               <TextField
-                autoComplete="nope"
-                htmlFor="custom-css-standard-input"
+                autoComplete='nope'
+                htmlFor='custom-css-standard-input'
                 onChange={e => updateStat(e, 'modifiers.PER')}
-                id="PER"
+                id='PER'
                 value={
                   editCharacter.modifiers.PER
                 }

@@ -51,7 +51,7 @@ export const CharacterEditActionsComponent = (props) => {
       <TextField
         onChange={e => handleUpdate(e, 'melee', index)}
         id={`melee-${index}`}
-        helperText="Melee Strike"
+        helperText='Melee Strike'
         value={entry}
         {...inputProps}
       />
@@ -64,7 +64,7 @@ export const CharacterEditActionsComponent = (props) => {
       <TextField
         onChange={e => handleUpdate(e, 'ranged', index)}
         id={`ranged-${index}`}
-        helperText="Ranged Strike"
+        helperText='Ranged Strike'
         value={entry}
         {...inputProps}
       />
@@ -74,8 +74,8 @@ export const CharacterEditActionsComponent = (props) => {
 
   return (
     <div>
-      <Grid container spacing={16} justify="flex-start">
-        <Grid container spacing={16} justify="flex-start">
+      <Grid container spacing={16} justify='flex-start'>
+        <Grid container spacing={16} justify='flex-start'>
           <Grid item xs={1} />
           <Grid item xs={3}>
             <EditTitleStyle>Actions</EditTitleStyle>
@@ -84,9 +84,9 @@ export const CharacterEditActionsComponent = (props) => {
           <Grid item xs={2}>
             <TextField
               onChange={e => handleUpdate(e, 'stride')}
-              id="Stride"
-              helperText="Stride"
-              htmlFor="custom-css-standard-input"
+              id='Stride'
+              helperText='Stride'
+              htmlFor='custom-css-standard-input'
               value={editCharacter.actions.stride}
               InputProps={{
                 classes: {
@@ -103,21 +103,21 @@ export const CharacterEditActionsComponent = (props) => {
         </Grid>
         {editCharacter.actions.melee.map((entry, index) => {
           return (
-            <Grid container spacing={16} justify="flex-start" direction="row">
+            <Grid container spacing={16} justify='flex-start' direction='row'>
               <Grid item xs={1} />
               <Grid item xs={10}>
                 {renderMeleeStrike(entry, index)}
-                <Button type="button" bsClass={cssStyles.deleteButtonActions} onClick={() => deleteRow(index, 'melee')}>
-                  <i className="fas fa-times-circle fa-lg" />
+                <Button type='button' bsClass={cssStyles.deleteButtonActions} onClick={() => deleteRow(index, 'melee')}>
+                  <i className='fas fa-times-circle fa-lg' />
                 </Button>
               </Grid>
             </Grid>
           );
         })}
-        <Grid container spacing={16} justify="center" direction="row">
+        <Grid container spacing={16} justify='center' direction='row'>
           <Grid item xs={1} />
           <Grid item xs={4}>
-            <Button type="button" bsClass={cssStyles.deleteButton} onClick={() => addRow('melee')}>
+            <Button type='button' bsClass={cssStyles.deleteButton} onClick={() => addRow('melee')}>
               Add Melee entry
               <i class='fas fa-plus-circle' style={{ marginLeft: '25px', marginBottom: '25px' }}></i>
             </Button>
@@ -125,28 +125,28 @@ export const CharacterEditActionsComponent = (props) => {
         </Grid>
         {editCharacter.actions.ranged.map((entry, index) => {
           return (
-            <Grid container spacing={16} justify="flex-start" direction="row">
+            <Grid container spacing={16} justify='flex-start' direction='row'>
               <Grid item xs={1} />
               <Grid item xs={10}>
                 {renderRangedStrike(entry, index)}
-                <Button type="button" bsClass={cssStyles.deleteButtonActions} onClick={() => deleteRow(index, 'ranged')}>
-                  <i className="fas fa-times-circle fa-lg" />
+                <Button type='button' bsClass={cssStyles.deleteButtonActions} onClick={() => deleteRow(index, 'ranged')}>
+                  <i className='fas fa-times-circle fa-lg' />
                 </Button>
               </Grid>
             </Grid>
           );
         })}
-        <Grid container spacing={16} justify="center" direction="row">
+        <Grid container spacing={16} justify='center' direction='row'>
           <Grid item xs={1} />
           <Grid item xs={4}>
             <Button
-              type="button"
+              type='button'
               bsClass={cssStyles.deleteButton}
               onClick={() => addRow('ranged')}
             >
               Add Ranged entry
               <i
-                className="fas fa-plus-circle"
+                className='fas fa-plus-circle'
                 style={{ marginLeft: '17px' }}
               />
             </Button>
