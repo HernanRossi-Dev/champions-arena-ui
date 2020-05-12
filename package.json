@@ -1,18 +1,13 @@
 {
-  "name": "ChampionsArena",
-  "version": "2.0.2",
+  "name": "champions-arena",
+  "version": "3.0.0",
   "description": "A Pathfinder character creation and campaign companion",
   "private": true,
   "scripts": {
-    "docker-deploy": "docker-compose up",
-    "start": "NODE_ENV=production node ./lib/server/server.js",
-    "start-dev": "NODE_ENV=development node ./lib/server/server.js",
-    "start-dev-win": " SET NODE_ENV=development & node ./lib/server/server.js",
     "watch": "webpack-dev-server --hot --inline",
     "lint": "eslint --ext js,jsx src static webpack.config.js",
     "build": "webpack --config webpack.prod.js --mode production",
     "build-dev": "webpack --config webpack.dev.js --mode development",
-    "node-component": "mocha --timeout 10000 __test__/component/*.js --exit",
     "react-mocha-enzyme": "NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --require ignore-styles 'src/**/*.test.js'",
     "react-mocha-enzyme-win10": "SET NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --require ignore-styles 'src/**/*.test.js'"
   },
@@ -49,7 +44,6 @@
     "@babel/register": "^7.0.0",
     "@material-ui/core": "^3.1.0",
     "@material-ui/icons": "^3.0.1",
-    "auth0-api-jwt-rsa-validation": "0.0.3",
     "axios": "^0.18.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
