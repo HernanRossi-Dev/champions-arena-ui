@@ -1,4 +1,8 @@
-This application is undergoing extensive refactoring: The Express.js server code base can now be found at https://github.com/HernanRossi/ChampionsArenaAPI
+#API code repo here: 
+  https://github.com/HernanRossi/ChampionsArenaAPI
+
+
+This application is undergoing extensive refactoring*
 
 --Dependencies-- 
     yarn
