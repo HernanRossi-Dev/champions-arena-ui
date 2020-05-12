@@ -59,6 +59,13 @@ module.exports = {
     }
     ]
   },
+  externals: {
+    'config': JSON.stringify(process.env.NODE_ENV === 'production' ? {
+      serverUrl: "http://localhost:8080"
+    } : {
+      serverUrl: "http://localhost:8080"
+    })
+  },
   plugins: [
     new CleanWebpackPlugin(["dist"]),
     // new HtmlWebpackPlugin({

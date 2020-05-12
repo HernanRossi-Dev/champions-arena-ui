@@ -1,8 +1,10 @@
 import axios from 'axios';
+import config from 'config';
 
 export const getAuthToken = async () => {
   try {
-    const response = await axios.get('api/authenticate');
+    const url = `${config.apiUrl}/api/authenticate`;
+    const response = await axios.get(url);
     const data = await response.json();
     return JSON.parse(data.body);
   } catch (err) {

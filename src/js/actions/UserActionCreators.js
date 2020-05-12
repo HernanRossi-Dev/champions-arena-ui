@@ -1,5 +1,6 @@
-import * as types from "../constants/ActionTypes";
-import "whatwg-fetch";
+import * as types from '../constants/ActionTypes';
+import axios from 'axios'
+import config from 'config';
 
 function createRegisteredUserStart(newUser) {
   return {
@@ -11,17 +12,22 @@ function createRegisteredUserStart(newUser) {
 export const createRegisteredUser = (newRegisteredUser) => {
   return async (dispatch) => {
     dispatch(createRegisteredUserStart(newRegisteredUser));
-    let response = await fetch('api/authenticate');
+
+    const authUrl = `${config.apiUrl}/api/authenticate`;
+    let response = await axios.get(authUrl);
+    
     const data = await response.json();
     const token = JSON.parse(data.body);
     const { token_type: tType, access_token: aToken } = token;
     const tokenString = `${tType} ${aToken}`;
+    const usersUrl = `${config.apiUrl}/api/users`;
+
     const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json", authorization: tokenString },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', authorization: tokenString },
       body: JSON.stringify(newRegisteredUser)
     };
-    response = await fetch("/api/users", options);
+    response = await axios(usersUrl, options);
     if (response.ok) {
       const newUser = await response.json();
       newUser.created = new Date(newUser.created);
@@ -51,7 +57,8 @@ export const logoutRegisteredUser = () => {
 
 export const loginRegisteredUser = () => {
   return async (dispatch) => {
-    const response = await fetch('api/authenticate');
+    const authUrl = `${config.apiUrl}/api/authenticate`;
+    const response = await axios.get(authUrl);
     const data = await response.json();
     const token = JSON.parse(data.body);
     const { token_type: tType, access_token: aToken } = token;
@@ -72,9 +79,10 @@ export const setCurrrentUser = (user) => {
   };
 };
 
-export const fetchRegisteredUser = (filter = "", queryCallBack) => {
+export const fetchRegisteredUser = (filter = '', queryCallBack) => {
   return async (dispatch) => {
-    let response = await fetch('api/authenticate');
+    const authUrl = `${config.apiUrl}/api/authenticate`;
+    let response = await axios.get(authUrl);
     let data = await response.json();
     const token = JSON.parse(data.body);
     const { token_type: tType, access_token: aToken } = token;
@@ -83,7 +91,9 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
       method: 'GET',
       headers: { authorization: tokenString }
     };
-    response = await fetch(`/api/users${filter}`,options);
+
+    const usersUrl = `${config.apiUrl}/api/authenticate${filter}`;
+    response = await axios(usersUrl,options);
     if (response.ok) {
       data = await response.json();
       if (data.users && data.users.length === 1) {
@@ -107,17 +117,20 @@ export const fetchRegisteredUser = (filter = "", queryCallBack) => {
 
 export const createGuestUser = (newGuestUser) => {
   return async (dispatch) => {
-    let response = await fetch('api/authenticate');
+    const authUrl = `${config.apiUrl}/api/authenticate`;
+    let response = await axios.get(authUrl);
     const data = await response.json();
     const token = JSON.parse(data.body);
     const { token_type: tType, access_token: aToken } = token;
     const tokenString = `${tType} ${aToken}`;
     const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json", authorization: tokenString },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', authorization: tokenString },
       body: JSON.stringify(newGuestUser)
     };
-    response = await fetch("/api/users", options);
+
+    const usersUrl = `${config.apiUrl}/api/users`;
+    response = await axios(usersUrl, options);
     if (response.ok) {
       const updatedUser = await response.json();
       updatedUser.created = new Date(updatedUser.created);
@@ -142,18 +155,22 @@ export const createGuestUser = (newGuestUser) => {
 
 export const logoutGuestUser = (userName) => {
   return async (dispatch) => {
-    let response = await fetch('api/authenticate');
+    const authUrl = `${config.apiUrl}/api/authenticate`;
+    let response = await axios.get(authUrl);
+
     const data = await response.json();
     const token = JSON.parse(data.body);
     const { token_type: tType, access_token: aToken } = token;
     const tokenString = `${tType} ${aToken}`;
     const payload = {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json", authorization: tokenString },
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', authorization: tokenString },
     };
-    response = await fetch(`/api/users/${userName}`, payload);
+
+    const usersUrl = `${config.apiUrl}/api/users${userName}`;
+    response = await axios(usersUrl, payload);
     if (!response.ok) {
-      console.error("Failed to delete user");
+      console.error('Failed to delete user');
     }
     dispatch({
       type: types.USER_LOGOUT_SUCCESS,
